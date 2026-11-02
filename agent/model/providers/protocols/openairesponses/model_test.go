@@ -440,6 +440,7 @@ func TestStreamMapsReasoningTextToolCallsAndUsage(t *testing.T) {
 		flusher := writer.(http.Flusher)
 		frames := []string{
 			`{"type":"response.created","sequence_number":0,"response":{"id":"resp_stream","object":"response","created_at":2,"status":"in_progress","model":"stream-model","output":[]}}`,
+			`{"type":"response.metadata","sequence_number":1,"metadata":{"openai_chatgpt_moderation_metadata":{}}}`,
 			`{"type":"response.reasoning_summary_text.delta","sequence_number":1,"item_id":"reason_1","output_index":0,"summary_index":0,"delta":"think "}`,
 			`{"type":"response.output_item.added","sequence_number":2,"output_index":1,"item":{"id":"function_item","type":"function_call","call_id":"call_1","name":"lookup","arguments":"","status":"in_progress"}}`,
 			`{"type":"response.function_call_arguments.delta","sequence_number":3,"item_id":"function_item","output_index":1,"delta":"{\"q\":\""}`,

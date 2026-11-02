@@ -170,18 +170,17 @@ func responseRequestID(response *http.Response) string {
 }
 
 type streamState struct {
-	rawResponse   *http.Response
-	config        providers.ModelConfig
-	pendingExtra  map[string]any
-	toolIndices   map[string]int
-	nextToolIndex int
+	rawResponse  *http.Response
+	config       providers.ModelConfig
+	pendingExtra map[string]any
+	toolCalls    *streamToolCalls
 }
 
 func newStreamState(rawResponse *http.Response, config providers.ModelConfig) *streamState {
 	return &streamState{
 		rawResponse: rawResponse,
 		config:      config,
-		toolIndices: make(map[string]int),
+		toolCalls:   newStreamToolCalls(),
 	}
 }
 
@@ -201,35 +200,37 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 		case "message", "reasoning":
 			return nil, nil
 		case "function_call":
-			index := state.nextToolIndex
-			state.nextToolIndex++
-			state.toolIndices[added.Item.ID] = index
-			call := added.Item.AsFunctionCall()
-			return state.attachPending(&agentschema.Message{
-				Role: agentschema.Assistant,
-				ToolCalls: []agentschema.ToolCall{{
-					Index:    &index,
-					ID:       call.CallID,
-					Type:     "function",
-					Function: agentschema.FunctionCall{Name: call.Name},
-				}},
-			}), nil
+			call, err := state.toolCalls.register(added.Item.AsFunctionCall())
+			if err != nil {
+				return nil, err
+			}
+			return state.toolCallMessage([]agentschema.ToolCall{call}), nil
 		default:
 			return nil, fmt.Errorf("openai responses stream: unsupported output item type %q", added.Item.Type)
 		}
 	case "response.function_call_arguments.delta":
-		index, ok := state.toolIndices[event.ItemID]
-		if !ok {
-			return nil, fmt.Errorf("openai responses stream: arguments arrived before function call item %q", event.ItemID)
+		call, err := state.toolCalls.appendDelta(event.ItemID, event.Delta)
+		if err != nil {
+			return nil, err
 		}
-		return state.attachPending(&agentschema.Message{
-			Role: agentschema.Assistant,
-			ToolCalls: []agentschema.ToolCall{{
-				Index:    &index,
-				Type:     "function",
-				Function: agentschema.FunctionCall{Arguments: event.Delta},
-			}},
-		}), nil
+		return state.toolCallMessage([]agentschema.ToolCall{call}), nil
+	case "response.function_call_arguments.done":
+		done := event.AsResponseFunctionCallArgumentsDone()
+		calls, err := state.toolCalls.completeArguments(done.ItemID, done.Arguments, toolArgumentsFromArgumentsDone)
+		if err != nil {
+			return nil, err
+		}
+		return state.toolCallMessage(calls), nil
+	case "response.output_item.done":
+		done := event.AsResponseOutputItemDone()
+		if done.Item.Type != "function_call" {
+			return nil, nil
+		}
+		calls, err := state.toolCalls.completeItem(done.Item.AsFunctionCall(), toolArgumentsFromOutputDone)
+		if err != nil {
+			return nil, err
+		}
+		return state.toolCallMessage(calls), nil
 	case "response.completed", "response.incomplete":
 		response := event.Response
 		message := &agentschema.Message{
@@ -238,6 +239,16 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 				FinishReason: responseFinishReason(&response),
 			},
 			Extra: map[string]any{},
+		}
+		for _, item := range response.Output {
+			if item.Type != "function_call" {
+				continue
+			}
+			calls, err := state.toolCalls.completeItem(item.AsFunctionCall(), toolArgumentsFromCompleted)
+			if err != nil {
+				return nil, err
+			}
+			message.ToolCalls = append(message.ToolCalls, calls...)
 		}
 		if response.JSON.Usage.Valid() {
 			message.ResponseMeta.Usage = responseUsage(response.Usage)
@@ -266,16 +277,24 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 			RequestID: responseRequestID(state.rawResponse),
 			Message:   strings.TrimSpace(message),
 		}
-	case "response.in_progress", "response.queued",
+	// response.metadata carries provider-side annotations (for example moderation
+	// metadata) that do not affect content, tool calls, or continuation replay.
+	case "response.in_progress", "response.queued", "response.metadata",
 		"response.content_part.added", "response.content_part.done",
-		"response.output_item.done", "response.output_text.done",
-		"response.refusal.done", "response.function_call_arguments.done",
+		"response.output_text.done", "response.refusal.done",
 		"response.reasoning_summary_part.added", "response.reasoning_summary_part.done",
 		"response.reasoning_summary_text.done", "response.reasoning_text.done":
 		return nil, nil
 	default:
 		return nil, fmt.Errorf("openai responses stream: unsupported event type %q", event.Type)
 	}
+}
+
+func (state *streamState) toolCallMessage(calls []agentschema.ToolCall) *agentschema.Message {
+	if len(calls) == 0 {
+		return nil
+	}
+	return state.attachPending(&agentschema.Message{Role: agentschema.Assistant, ToolCalls: calls})
 }
 
 func (state *streamState) attachPending(message *agentschema.Message) *agentschema.Message {
