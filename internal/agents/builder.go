@@ -190,9 +190,19 @@ func buildAgentDefinitionWithComposition(ctx context.Context, cfg *config.Config
 	if err != nil {
 		return agentDefinitionAssembly{}, err
 	}
-	projectContext, err := agentlifecycle.NewProjectInstructionsContextSource(cfg, spec.Kind, spec.ProjectState)
+	instructionsContext, err := agentlifecycle.NewProjectInstructionsContextSource(cfg, spec.Kind, spec.ProjectState)
 	if err != nil {
 		return agentDefinitionAssembly{}, fmt.Errorf("create project instructions context for Agent %s: %w", spec.Kind, err)
+	}
+	bookProfileContext, err := agentlifecycle.NewBookProfileContextSource(cfg, spec.Kind, spec.ProjectState)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("create Book profile context for Agent %s: %w", spec.Kind, err)
+	}
+	// projectContext is shared with delegated children, which write the same
+	// Book and must observe the same instructions and premise.
+	projectContext, err := agentcontext.CombineContextSources(instructionsContext, bookProfileContext)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("compose project context for Agent %s: %w", spec.Kind, err)
 	}
 	definitionContext, err := agentcontext.CombineContextSources(
 		projectContext,

@@ -10,9 +10,27 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"denova/internal/portablepath"
 )
+
+// MaxDescriptionRunes caps the Book synopsis. The synopsis is injected into
+// every writing turn as the author's premise, so it must stay a short blurb;
+// typical synopses are a few hundred characters.
+const MaxDescriptionRunes = 1000
+
+// ErrDescriptionTooLong reports a synopsis above MaxDescriptionRunes.
+var ErrDescriptionTooLong = errors.New("book description exceeds the character limit")
+
+// ValidateDescription checks the trimmed synopsis length in Unicode characters.
+// Callers validate before any filesystem side effect.
+func ValidateDescription(description string) error {
+	if utf8.RuneCountInString(strings.TrimSpace(description)) > MaxDescriptionRunes {
+		return ErrDescriptionTooLong
+	}
+	return nil
+}
 
 // StoredMeta is the v0.3.3 Book metadata representation. New metadata is a
 // plain BookMeta at <Project StoreRoot>/meta.json; this type exists only for
@@ -38,7 +56,14 @@ func (store *MetaStore) Read(contentRoot, stateRoot string) (BookMeta, error) {
 	if err := store.MigrateLegacy(contentRoot, stateRoot); err != nil {
 		return BookMeta{}, err
 	}
-	data, err := os.ReadFile(store.metaPath(stateRoot))
+	return ReadStoredMeta(contentRoot, stateRoot)
+}
+
+// ReadStoredMeta reads current Book metadata without running the legacy
+// migration, so read-only consumers such as Agent context never write to the
+// Project Store. A missing meta.json falls back to the content-root book.json.
+func ReadStoredMeta(contentRoot, stateRoot string) (BookMeta, error) {
+	data, err := os.ReadFile(storedMetaPath(stateRoot))
 	if err == nil {
 		var meta BookMeta
 		if err := json.Unmarshal(data, &meta); err != nil {
@@ -221,6 +246,10 @@ func (store *MetaStore) write(stateRoot string, meta BookMeta) error {
 }
 
 func (store *MetaStore) metaPath(stateRoot string) string {
+	return storedMetaPath(stateRoot)
+}
+
+func storedMetaPath(stateRoot string) string {
 	return filepath.Join(stateRoot, "meta.json")
 }
 

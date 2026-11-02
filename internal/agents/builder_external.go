@@ -114,7 +114,11 @@ func buildExternalAssembly(ctx context.Context, cfg *config.Config, state *book.
 	if err != nil {
 		return ExternalAssembly{}, err
 	}
-	source, err := agentcontext.CombineContextSources(project, agentprofile.ContextSource(cfg, kind))
+	bookProfile, err := lifecycle.NewBookProfileContextSource(cfg, kind, state)
+	if err != nil {
+		return ExternalAssembly{}, err
+	}
+	source, err := agentcontext.CombineContextSources(project, bookProfile, agentprofile.ContextSource(cfg, kind))
 	if err != nil {
 		return ExternalAssembly{}, fmt.Errorf("compose external product context: %w", err)
 	}
