@@ -71,7 +71,7 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 case "${url}" in
-  */releases/latest) printf '%s' 'https://github.com/alfredxw/denova/releases/tag/v0.4.0' ;;
+  */releases/latest) printf '%s' 'https://github.com/vevila2020/writing_platform_ai/releases/tag/v0.4.0' ;;
   */checksums.txt) cp "${DENOVA_INSTALL_TEST_RELEASE_DIR}/checksums.txt" "${output}" ;;
   */denova-v0.4.0-*.tar.gz) cp "${DENOVA_INSTALL_TEST_RELEASE_DIR}/${url##*/}" "${output}" ;;
   *) printf 'Unexpected installer URL: %s\n' "${url}" >&2; exit 1 ;;

@@ -345,7 +345,7 @@ export function UpdatePanel({
             <p className="text-xs text-[var(--nova-text-faint)]">{t('settings.updates.manualHint')}</p>
             <div className="flex flex-wrap items-center gap-2">
               <Button variant="link" size="sm" asChild>
-                <a href="https://github.com/alfredxw/denova/releases/latest" target="_blank" rel="noreferrer">
+                <a href="https://github.com/vevila2020/writing_platform_ai/releases/latest" target="_blank" rel="noreferrer">
                   <ExternalLink data-icon="inline-start" />
                   {t('settings.updates.openRelease')}
                 </a>

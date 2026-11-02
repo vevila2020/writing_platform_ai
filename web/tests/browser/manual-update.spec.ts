@@ -70,7 +70,7 @@ test('manual update stays tucked away and stages an upload before explicit resta
 
   const releaseFile = { name: 'denova-v0.5.0-windows-x64.zip', mimeType: 'application/zip', buffer: Buffer.from('browser upload fixture') }
   await page.getByRole('button', { name: '手动更新', exact: true }).click()
-  await expect(page.getByRole('link', { name: '打开 Release', exact: true })).toHaveAttribute('href', 'https://github.com/alfredxw/denova/releases/latest')
+  await expect(page.getByRole('link', { name: '打开 Release', exact: true })).toHaveAttribute('href', 'https://github.com/vevila2020/writing_platform_ai/releases/latest')
   await page.getByLabel('选择安装包', { exact: true }).setInputFiles(releaseFile)
   const diagnostic = page.getByRole('alert')
   await expect(diagnostic).toContainText('安装包与当前电脑的操作系统或处理器架构不匹配。')

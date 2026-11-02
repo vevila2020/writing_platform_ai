@@ -2,7 +2,8 @@
 
 set -eu
 
-REPOSITORY="alfredxw/denova"
+# Modified by Elias for InkDock: release downloads come from this fork.
+REPOSITORY="vevila2020/writing_platform_ai"
 RELEASES_URL="https://github.com/${REPOSITORY}/releases"
 MANAGED_MARKER=".installed-by-denova-install-sh"
 LAUNCHER_MARKER="# Managed by Denova install.sh"
@@ -78,7 +79,7 @@ choose_data_dir() {
 
   selected_data_dir="${DENOVA_DIR:-}"
   if [ -z "${selected_data_dir}" ] && [ -t 1 ]; then
-    printf 'Denova user data directory [%s]: ' "${default_data_dir}" > /dev/tty
+    printf 'InkDock user data directory [%s]: ' "${default_data_dir}" > /dev/tty
     IFS= read -r selected_data_dir < /dev/tty || fail "could not read the user data directory"
   fi
   [ -n "${selected_data_dir}" ] || selected_data_dir="${default_data_dir}"
@@ -110,8 +111,8 @@ resolve_platform() {
 resolve_version() {
   VERSION="${DENOVA_VERSION:-}"
   if [ -z "${VERSION}" ] || [ "${VERSION}" = "latest" ]; then
-    log "Resolving the latest Denova release..."
-    latest_url="$(curl -fsSL -o /dev/null -w '%{url_effective}' "${RELEASES_URL}/latest")" || fail "could not resolve the latest Denova release"
+    log "Resolving the latest InkDock release..."
+    latest_url="$(curl -fsSL -o /dev/null -w '%{url_effective}' "${RELEASES_URL}/latest")" || fail "could not resolve the latest InkDock release"
     latest_url="${latest_url%/}"
     VERSION="${latest_url##*/}"
   fi
@@ -122,7 +123,7 @@ resolve_version() {
   esac
 
   if ! printf '%s\n' "${VERSION}" | grep -Eq '^v[0-9A-Za-z][0-9A-Za-z._-]*$'; then
-    fail "invalid Denova version: ${VERSION}"
+    fail "invalid InkDock version: ${VERSION}"
   fi
 }
 
@@ -213,7 +214,7 @@ CHECKSUMS_PATH="${TEMP_DIR}/checksums.txt"
 EXTRACT_DIR="${TEMP_DIR}/extract"
 mkdir -p "${EXTRACT_DIR}"
 
-log "Downloading Denova ${VERSION} for ${PLATFORM}..."
+log "Downloading InkDock ${VERSION} for ${PLATFORM}..."
 curl -fsSL --retry 3 --retry-delay 1 -o "${ARCHIVE_PATH}" "${DOWNLOAD_BASE}/${ARCHIVE_NAME}" || fail "could not download ${ARCHIVE_NAME}"
 curl -fsSL --retry 3 --retry-delay 1 -o "${CHECKSUMS_PATH}" "${DOWNLOAD_BASE}/checksums.txt" || fail "could not download checksums.txt"
 
@@ -243,7 +244,7 @@ for required_path in denova denova-updater web skills; do
 done
 chmod 0755 "${PACKAGE_DIR}/denova" "${PACKAGE_DIR}/denova-updater"
 
-installed_version="$("${PACKAGE_DIR}/denova" --version)" || fail "downloaded Denova binary cannot run on this system"
+installed_version="$("${PACKAGE_DIR}/denova" --version)" || fail "downloaded InkDock binary cannot run on this system"
 [ "${installed_version}" = "${VERSION#v}" ] || fail "downloaded binary reports version ${installed_version}, expected ${VERSION#v}"
 
 INSTALL_PARENT="${INSTALL_DIR%/*}"
@@ -267,7 +268,7 @@ fi
 
 if ! mv "${STAGE_DIR}" "${INSTALL_DIR}"; then
   restore_previous_install
-  fail "could not move Denova into ${INSTALL_DIR}"
+  fail "could not move InkDock into ${INSTALL_DIR}"
 fi
 STAGE_DIR=""
 NEW_INSTALL_ACTIVE=1
@@ -285,7 +286,7 @@ if [ -n "${BACKUP_ROOT}" ] && [ -d "${BACKUP_ROOT}" ]; then
 fi
 
 log ""
-log "Denova ${VERSION} installed successfully."
+log "InkDock ${VERSION} installed successfully."
 log "  Command:     ${LAUNCHER_PATH}"
 log "  Application: ${INSTALL_DIR}"
 log "  User data:   ${DATA_DIR}"

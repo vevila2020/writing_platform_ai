@@ -14,7 +14,7 @@ const messages = {
   'messages.markAllRead': 'Mark all read',
   'messages.noSummary': 'No summary',
   'messages.unreleased': 'Unreleased',
-  'messages.changelogTitle': 'Denova {{version}}',
+  'messages.changelogTitle': 'InkDock {{version}}',
   'messages.type.changelog': 'Update',
   'messages.type.automation': 'Automation',
   'messages.type.automationAction': 'Automation · Action required',
@@ -24,10 +24,8 @@ const messages = {
   'messages.filter.product': 'Product',
   'messages.openAutomation': 'Open automation',
   'messages.openAutomationAction': 'Review action',
-  'messages.support.title': 'Support Denova',
-  'messages.support.description': 'If Denova has helped you, consider starring it on GitHub or topping it up with a few tokens to help keep Denova open source and improving; you can also leave a note with your donation to share your thoughts. Thank you! 🥰',
-  'messages.donation.alt': 'Denova donation QR code',
-  'messages.donation.openPreview': 'Enlarge QR code',
+  'messages.support.title': 'Support InkDock',
+  'messages.support.description': 'If InkDock is useful to you, please star the project on GitHub to support future improvements.',
   'messages.github.star': 'Star on GitHub',
 } as const
 

@@ -1,7 +1,7 @@
 {
-  "name": "Denova",
-  "short_name": "Denova",
-  "description": "Denova — AI-native creative workbench · 面向创作者的 AI-native 创作工作台",
+  "name": "InkDock · 墨栈 AI",
+  "short_name": "墨栈 AI",
+  "description": "Write stories, build worlds, and use AI from your own creative workspace. · 写故事、建世界、接入 AI，都在自己的工作台完成。",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -14,25 +14,25 @@
   "categories": ["productivity", "books"],
   "icons": [
     {
-      "src": "/pwa-192.png",
+      "src": "/pwa-192.png?v=2",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa-512.png",
+      "src": "/pwa-512.png?v=2",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa-maskable-512.png",
+      "src": "/pwa-maskable-512.png?v=2",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/favicon.svg",
+      "src": "/favicon.svg?v=2",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

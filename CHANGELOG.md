@@ -1,8 +1,8 @@
 # Changelog
 
-Denova 仅在此记录用户可感知的重大功能、重要不兼容或数据变更、安全更新，以及影响核心流程的关键修复。完整记录可查看 [Git history](https://github.com/alfredxw/denova/commits/master)。
+InkDock 仅在此记录用户可感知的重大功能、重要不兼容或数据变更、安全更新，以及影响核心流程的关键修复。完整记录可查看 [Git history](https://github.com/vevila2020/writing_platform_ai/commits/master)。
 
-Denova records major user-visible features, important compatibility or data changes, security updates, and fixes affecting core workflows. See [Git history](https://github.com/alfredxw/denova/commits/master) for the full history.
+InkDock records major user-visible features, important compatibility or data changes, security updates, and fixes affecting core workflows. See [Git history](https://github.com/vevila2020/writing_platform_ai/commits/master) for the full history.
 
 `Unreleased` 以最近一个已发布版本为基线，只描述升级用户最终可感知的净变化，不记录内部重构或未发布中间格式。
 

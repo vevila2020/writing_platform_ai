@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowLeft, ArrowUpRight, Bell, CheckCheck, CircleAlert, Clock3, Loader2, Sparkles, Star, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { MarkdownRenderer } from '@/components/common/MarkdownRenderer'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Sheet, SheetClose, SheetTrigger, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -12,7 +11,7 @@ import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empt
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { formatDateTime } from '@/i18n'
-import { DENOVA_GITHUB_URL } from '@/lib/product-links'
+import { INKDOCK_GITHUB_URL } from '@/lib/product-links'
 import { cn } from '@/lib/utils'
 import { getMessages, markAllMessagesRead, markMessageRead } from './api'
 import type { AutomationMessageNavigation, ProductMessage } from './types'
@@ -272,37 +271,12 @@ function SupportPrompt() {
           <p className="m-0 mt-1">{t('messages.support.description')}</p>
         </div>
         <Button asChild variant="outline" size="sm" className="self-start">
-          <a href={DENOVA_GITHUB_URL} target="_blank" rel="noopener noreferrer">
+          <a href={INKDOCK_GITHUB_URL} target="_blank" rel="noopener noreferrer">
             <Star data-icon="inline-start" />
             {t('messages.github.star')}
           </a>
         </Button>
       </div>
-      <Dialog>
-        <DialogTrigger asChild><button
-          type="button"
-          aria-label={t('messages.donation.openPreview')}
-          className="shrink-0 cursor-pointer self-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-        >
-          <img
-            src="/donate.png"
-            alt={t('messages.donation.alt')}
-            loading="lazy"
-            className="h-auto max-h-32 w-auto max-w-40 rounded-md border border-[var(--nova-border-soft)] bg-white p-1 sm:max-h-40"
-          />
-        </button></DialogTrigger>
-        <DialogContent className="max-h-[calc(100dvh-2rem)] max-w-[min(calc(100vw-2rem),28rem)] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="pr-6">{t('messages.support.title')}</DialogTitle>
-            <DialogDescription>{t('messages.support.description')}</DialogDescription>
-          </DialogHeader>
-          <img
-            src="/donate.png"
-            alt={t('messages.donation.alt')}
-            className="mx-auto h-auto max-h-[50dvh] max-w-full rounded-md object-contain"
-          />
-        </DialogContent>
-      </Dialog>
     </section>
   )
 }

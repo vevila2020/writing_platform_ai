@@ -10,7 +10,7 @@ import { Empty, EmptyHeader, EmptyTitle } from '@/components/ui/empty'
 import { getUpdateNotes } from '@/features/settings/api'
 import type { UpdateNotesRange } from '@/features/settings/types'
 import { errorMessage } from '@/lib/error-diagnostics'
-import { DENOVA_GITHUB_URL } from '@/lib/product-links'
+import { INKDOCK_GITHUB_URL } from '@/lib/product-links'
 
 export function displayVersion(version: string) {
   return version.startsWith('v') ? version : `v${version}`
@@ -46,7 +46,7 @@ export function UpdateNotesView(props: UpdateNotesProps) {
     {notes.isPending ? <div role="status" className="flex items-center gap-2 py-4 text-sm text-muted-foreground"><Loader2 className="size-4 animate-spin" />{t('settings.updates.notes.loading')}</div>
       : notes.isError ? <div className="flex flex-col items-start gap-2">
         <InlineErrorNotice message={errorMessage(notes.error, t('settings.updates.notes.loadFailed'))} />
-        <div className="flex flex-wrap gap-2"><Button variant="outline" size="sm" onClick={() => void notes.refetch()}>{t('common.retry')}</Button><Button variant="ghost" size="sm" asChild><a href={`${DENOVA_GITHUB_URL}/releases`} target="_blank" rel="noreferrer">{t('settings.updates.notes.releaseHistory')}<ExternalLink data-icon="inline-end" /></a></Button></div>
+        <div className="flex flex-wrap gap-2"><Button variant="outline" size="sm" onClick={() => void notes.refetch()}>{t('common.retry')}</Button><Button variant="ghost" size="sm" asChild><a href={`${INKDOCK_GITHUB_URL}/releases`} target="_blank" rel="noreferrer">{t('settings.updates.notes.releaseHistory')}<ExternalLink data-icon="inline-end" /></a></Button></div>
       </div> : notes.data && <>
         {!notes.data.complete && <p role="status" className="text-sm text-muted-foreground">{t('settings.updates.notes.incomplete')}</p>}
         {notes.data.releases.length === 0 ? <Empty><EmptyHeader><EmptyTitle>{t('settings.updates.notes.empty')}</EmptyTitle></EmptyHeader></Empty>

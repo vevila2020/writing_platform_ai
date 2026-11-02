@@ -2,7 +2,7 @@ import { Star, X } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import type { WorkbenchNotice } from '@/features/notices/use-workbench-notice'
-import { DENOVA_GITHUB_URL } from '@/lib/product-links'
+import { INKDOCK_GITHUB_URL } from '@/lib/product-links'
 
 interface WorkbenchNoticePillProps {
   notice: WorkbenchNotice
@@ -43,7 +43,7 @@ export function WorkbenchNoticePill({
         </button>
       ) : (
         <a
-          href={DENOVA_GITHUB_URL}
+          href={INKDOCK_GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="flex min-w-0 flex-1 items-center gap-2 px-2 py-1.5 text-left hover:bg-[var(--nova-hover)]"

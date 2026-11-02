@@ -80,10 +80,10 @@ func TestPlatformKeyNormalizesAMD64(t *testing.T) {
 	}
 }
 
-func TestDefaultServiceUsesDenovaReleaseRepository(t *testing.T) {
+func TestDefaultServiceUsesInkDockReleaseRepository(t *testing.T) {
 	service := NewService()
 	service.githubAPIBase = "https://api.example.test/repos"
-	if got, want := service.githubLatestReleaseURL(), "https://api.example.test/repos/alfredxw/denova/releases/latest"; got != want {
+	if got, want := service.githubLatestReleaseURL(), "https://api.example.test/repos/vevila2020/writing_platform_ai/releases/latest"; got != want {
 		t.Fatalf("githubLatestReleaseURL = %s, want %s", got, want)
 	}
 }

@@ -1,9 +1,11 @@
 <p align="center">
-  <img src="./web/public/favicon.svg" alt="Denova 图标" width="76" height="76">
+  <img src="./web/public/pwa-512.png" alt="墨栈 AI 图标" width="76" height="76">
+  <br>
+  <strong>墨栈 AI（InkDock）</strong>
 </p>
 
 <p align="center">
-  <strong>Denova 是一个面向小说写作与 AI 角色扮演游戏的一体化 AI 创作平台，内置 AI Agents、Skills、SubAgent 协作、自动化、图像生成与项目版本管理</strong>
+  <strong>写故事、建世界、接入 AI，都在自己的工作台完成。</strong>
 </p>
 
 <p align="center">
@@ -11,51 +13,56 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/BM6dRmyvvZ"><img src="https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white" alt="加入 Denova Discord" /></a>
-  <a href="https://github.com/alfredxw/denova/releases"><img alt="Release" src="https://img.shields.io/github/v/release/alfredxw/denova?style=flat-square"></a>
-  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/alfredxw/denova?style=flat-square"></a>
+  <a href="https://github.com/vevila2020/writing_platform_ai/releases"><img alt="Release" src="https://img.shields.io/github/v/release/vevila2020/writing_platform_ai?style=flat-square"></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/vevila2020/writing_platform_ai?style=flat-square"></a>
   <img alt="Go" src="https://img.shields.io/badge/Go-1.26.9%2B-00ADD8?style=flat-square&logo=go&logoColor=white">
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-22.13%2B-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white">
 </p>
 
 <p align="center">
-  当前版本：<strong>v0.6.3</strong>（2026-10-20） · Beta · <a href="https://github.com/alfredxw/denova/releases">下载最新版本</a>
+  沿用上游版本号：<strong>v0.6.3</strong>（上游 Release 于 2026-10-20 发布） · Beta · <a href="https://github.com/vevila2020/writing_platform_ai/releases">本项目尚未发布自己的 Release</a>
 </p>
 
-![Denova 写作](./img/ide.png)
+墨栈 AI 基于 [Denova](https://github.com/alfredxw/denova) 开源项目进行二次开发，保留小说写作、互动故事、资料库、AI Agent、图像创作与项目版本管理等能力。
+
+项目规划对接自部署的 Sub2API，并提供用户注册和模型服务使用入口，减少对第三方 API 站点的依赖。**Sub2API 注册集成尚未包含在当前代码中。**
+
+> 当前截图展示的是继承的界面，产品名称和视觉素材会随着后续开发逐步替换。
+
+![墨栈 AI 写作界面预览](./img/ide.png)
 
 <details>
 <summary>查看更多界面截图</summary>
 
 ### 游戏
 
-![Denova 游戏](./img/interactive.png)
+![互动游戏界面预览](./img/interactive.png)
 
 ### 资料库
 
-![Denova 资料库](./img/setting.png)
+![资料库界面预览](./img/setting.png)
 
 ### 创作方案
 
-![Denova 创作方案](./img/story-teller.png)
+![创作方案界面预览](./img/story-teller.png)
 
 ### 修改审阅
 
-![Denova 修改审阅](./img/review.png)
+![修改审阅界面预览](./img/review.png)
 
 ### 工作台
 
-![Denova 工作台](./img/workspace.png)
+![工作台界面预览](./img/workspace.png)
 
 支持局域网连接、手机自适应布局和 PWA 应用。
 
-<img src="./img/mobile.png" alt="Denova 手机布局" width="360">
+<img src="./img/mobile.png" alt="移动端界面预览" width="360">
 
 </details>
 
-## 为什么选择 Denova
+## 为什么选择墨栈 AI
 
-Denova 把小说写作、互动故事、结构化资料库、AI Agent、图像生成、自动化和本地版本管理放进同一个工作区，适合需要长期维护设定、反复修改并持续积累内容的创作项目。
+墨栈 AI 将小说写作、互动故事、结构化资料库、AI Agent、图像生成、自动化和本地版本管理放进同一个工作区，适合需要长期维护设定、反复修改并持续积累内容的创作项目。
 
 你可以从一个灵感开始新书，导入已有小说继续创作，也可以使用角色卡和资料库搭建可分支的文字冒险。Agent 能读取项目内容、调用工具并修改文件，所有重要变更仍可检查、撤销和恢复。
 
@@ -86,10 +93,10 @@ Denova 把小说写作、互动故事、结构化资料库、AI Agent、图像�
 macOS / Linux 可以使用一键安装脚本：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/alfredxw/denova/master/scripts/install.sh | sh
+curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-安装完成后运行 `denova`。Windows 用户以及希望手动安装的用户，可以从 [GitHub Releases](https://github.com/alfredxw/denova/releases) 下载对应平台的压缩包；Windows 运行 `denova.exe`。
+本项目尚未发布自己的 Release；发布首个版本后，上述安装命令和 [墨栈 AI Releases](https://github.com/vevila2020/writing_platform_ai/releases) 页面会提供安装包。安装完成后运行 `denova`，Windows 运行 `denova.exe`。
 
 稳定使用建议选择 Release；`master` 分支可能包含尚未发布的改动。
 
@@ -104,8 +111,8 @@ curl -fsSL https://raw.githubusercontent.com/alfredxw/denova/master/scripts/inst
 需要 Go 1.26.9+、Node.js 22.13+、pnpm、ripgrep 和 Bash。Windows 请在 Git Bash 或 WSL 中运行以下命令。
 
 ```bash
-git clone https://github.com/alfredxw/denova.git
-cd denova
+git clone https://github.com/vevila2020/writing_platform_ai.git
+cd writing_platform_ai
 corepack enable
 ./scripts/bootstrap.sh
 ```
@@ -125,7 +132,7 @@ Google Gemini 文本模型可在连接的协议选项中选择「Gemini 原生�
 
 ## 远程访问与手机使用
 
-在 **设置 → 访问** 中开启局域网访问、设置用户名和密码并重启后，其他设备可以使用页面显示的地址登录 Denova。本机还可生成 5 分钟有效的一次性登录二维码及链接，同一局域网内的手机扫码即可登录，也可复制链接到其他设备打开。浏览器会保持登录 30 天，刷新或服务重启无需重新输入密码；可在设置中退出登录。手机浏览器可以将页面添加到主屏幕。
+在 **设置 → 访问** 中开启局域网访问、设置用户名和密码并重启后，其他设备可以使用页面显示的地址登录墨栈 AI。本机还可生成 5 分钟有效的一次性登录二维码及链接，同一局域网内的手机扫码即可登录，也可复制链接到其他设备打开。浏览器会保持登录 30 天，刷新或服务重启无需重新输入密码；可在设置中退出登录。手机浏览器可以将页面添加到主屏幕。
 
 从源码运行时，二维码和连接链接使用后端端口提供的 `web/dist` 构建产物。首次使用或更新前端后，执行 `pnpm --dir web build` 并重启后端；本机 Vite 热更新入口可继续用于开发。
 
@@ -147,22 +154,8 @@ Google Gemini 文本模型可在连接的协议选项中选择「Gemini 原生�
 
 ## 欢迎交流
 
-Denova 仍在快速迭代中，欢迎反馈问题、分享用法或讨论创作工作流。
-
-[Discord 社区](https://discord.gg/BM6dRmyvvZ)
-
-<p align="center">
-  <img src="./img/wechat.jpeg" alt="微信交流" width="240">
-</p>
-
-## 赞助项目
-
-> 给项目冲点 token，帮助 Denova 持续迭代和开源。感谢你的支持！
-
-<p align="center">
-  <img src="./img/donate.png" alt="捐赠" width="240">
-</p>
+墨栈 AI 由 Elias 维护。公开反馈和社区渠道上线后会在此补充。
 
 ## License
 
-[Apache-2.0](./LICENSE)
+本项目基于 [Denova](https://github.com/alfredxw/denova) 修改，并按 Apache-2.0 许可发布。原项目的许可证和版权声明保留在 [LICENSE](./LICENSE) 及相应源文件中。本 README 已由 Elias 为墨栈 AI 重新编写；本项目不代表上游作者背书。

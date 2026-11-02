@@ -7,4 +7,4 @@ var Version = "dev"
 // DevelopmentVersion is the public capability target of this source tree.
 const DevelopmentVersion = "0.6.1"
 
-const Repository = "alfredxw/denova"
+const Repository = "vevila2020/writing_platform_ai"

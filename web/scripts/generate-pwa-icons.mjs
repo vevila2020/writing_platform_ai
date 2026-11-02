@@ -1,12 +1,10 @@
 // Regenerates PWA / app icons from public/favicon.svg into public/.
 // Run with: pnpm generate-icons
 //
-// Nova ships a single 1024x1024 favicon.svg. Browsers and iOS need raster
-// PNGs for the installable manifest and the Apple touch icon, so we render
-// the SVG onto an opaque Nova background (#1a1a1a = --nova-bg) for the
-// standard icons, and add an 80% safe-zone for the maskable variant.
-// The Apple touch icon uses a full-bleed light shell with system-owned corners.
-import { readFile } from 'node:fs/promises'
+// InkDock ships a 1024x1024 vector favicon.svg with a warm tile behind the mark.
+// Standard PWA icons composite it onto an opaque dark tile, and the maskable
+// variant adds an 80% safe zone. iOS supplies the Apple icon's outer corners.
+import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import sharp from 'sharp'
@@ -15,18 +13,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const publicDir = path.resolve(__dirname, '..', 'public')
 const svgPath = path.join(publicDir, 'favicon.svg')
 
-// --nova-bg from src/index.css (dark theme). Kept opaque so home-screen
-// tiles never show a transparent fringe.
+// Keep generated install icons opaque so home-screen tiles never show fringes.
 const BACKGROUND = { r: 26, g: 26, b: 26 }
 
 async function renderAppleTouchIcon() {
-  // iOS supplies the outer mask. Expand the favicon's inset shell to the
-  // canvas and omit its decorative rim/shadow so no dark frame is baked in.
+  // iOS supplies the outer mask, so extend the warm inset tile to the canvas.
   const svg = (await readFile(svgPath, 'utf8'))
     .replaceAll('x="80" y="80" width="864" height="864" rx="188"',
       'x="0" y="0" width="1024" height="1024"')
-    .replace(' filter="url(#iconShadow)"', '')
-    .replace(/\s*<rect[^>]*fill="none"[^>]*\/>/g, '')
   await sharp(Buffer.from(svg))
     .resize(180, 180)
     .removeAlpha()
@@ -57,6 +51,14 @@ async function renderMaskable(size, file) {
   console.log(`  ✓ ${file} (${size}x${size}, maskable safe-zone)`)
 }
 
+async function renderMaskIcon() {
+  const svg = (await readFile(svgPath, 'utf8'))
+    .replace(/\s*<rect x="80" y="80" width="864" height="864" rx="188" fill="#[0-9a-fA-F]{6}"\/>/, '')
+    .replace(/fill="#[0-9a-fA-F]{6}"/g, 'fill="black"')
+  await writeFile(path.join(publicDir, 'mask-icon.svg'), svg, 'utf8')
+  console.log('  ✓ mask-icon.svg (monochrome pinned-tab icon)')
+}
+
 async function main() {
   try {
     await readFile(svgPath)
@@ -64,11 +66,12 @@ async function main() {
     console.error(`favicon.svg not found at ${svgPath}`)
     process.exit(1)
   }
-  console.log('Generating PWA icons from favicon.svg…')
+  console.log('Generating InkDock PWA icons from favicon.svg…')
   await renderAppleTouchIcon()
   await renderIcon(192, 'pwa-192.png')
   await renderIcon(512, 'pwa-512.png')
   await renderMaskable(512, 'pwa-maskable-512.png')
+  await renderMaskIcon()
   console.log('Done.')
 }
 

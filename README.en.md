@@ -1,9 +1,11 @@
 <p align="center">
-  <img src="./web/public/favicon.svg" alt="Denova icon" width="76" height="76">
+  <img src="./web/public/pwa-512.png" alt="InkDock icon" width="76" height="76">
+  <br>
+  <strong>InkDock · 墨栈 AI</strong>
 </p>
 
 <p align="center">
-  <strong>Denova is an integrated AI creative platform for novel writing and AI role-playing games, with built-in AI Agents, Skills, SubAgent collaboration, automation, image generation, and project version management</strong>
+  <strong>Write stories, build worlds, and use AI from your own creative workspace.</strong>
 </p>
 
 <p align="center">
@@ -11,51 +13,56 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/BM6dRmyvvZ"><img src="https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white" alt="Join the Denova Discord" /></a>
-  <a href="https://github.com/alfredxw/denova/releases"><img alt="Release" src="https://img.shields.io/github/v/release/alfredxw/denova?style=flat-square"></a>
-  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/alfredxw/denova?style=flat-square"></a>
+  <a href="https://github.com/vevila2020/writing_platform_ai/releases"><img alt="Release" src="https://img.shields.io/github/v/release/vevila2020/writing_platform_ai?style=flat-square"></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/vevila2020/writing_platform_ai?style=flat-square"></a>
   <img alt="Go" src="https://img.shields.io/badge/Go-1.26.9%2B-00ADD8?style=flat-square&logo=go&logoColor=white">
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-22.13%2B-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white">
 </p>
 
 <p align="center">
-  Current version: <strong>v0.6.3</strong> (2026-10-20) · Beta · <a href="https://github.com/alfredxw/denova/releases">Download the latest release</a>
+  Upstream version: <strong>v0.6.3</strong> (released on 2026-10-20) · Beta · <a href="https://github.com/vevila2020/writing_platform_ai/releases">No InkDock release published yet</a>
 </p>
 
-![Denova Writing](./img/ide.png)
+InkDock is a modified, self-hosted creative workspace based on [Denova](https://github.com/alfredxw/denova). It retains novel writing, interactive stories, structured lore, AI Agents, image creation, and project version management.
+
+The project plans to connect to a self-hosted Sub2API service and provide user registration and model access, reducing reliance on third-party API sites. **Sub2API registration is not included in the current code.**
+
+> The screenshots below show the inherited interface. Product branding and visual assets will be updated as development continues.
+
+![InkDock writing interface preview](./img/ide.png)
 
 <details>
 <summary>View more screenshots</summary>
 
 ### Game
 
-![Denova Game](./img/interactive.png)
+![Interactive game interface preview](./img/interactive.png)
 
 ### Lore Library
 
-![Denova Lore Library](./img/setting.png)
+![Lore library interface preview](./img/setting.png)
 
 ### Creative Setups
 
-![Denova Creative Setups](./img/story-teller.png)
+![Creative setup interface preview](./img/story-teller.png)
 
 ### Change review
 
-![Denova change review](./img/review.png)
+![Change review interface preview](./img/review.png)
 
 ### Workspace
 
-![Denova workspace](./img/workspace.png)
+![Workspace interface preview](./img/workspace.png)
 
 Supports LAN access, responsive mobile layouts, and PWA apps.
 
-<img src="./img/mobile.png" alt="Denova mobile layout" width="360">
+<img src="./img/mobile.png" alt="Mobile interface preview" width="360">
 
 </details>
 
-## Why Denova
+## Why InkDock
 
-Denova brings novel writing, interactive stories, structured lore, AI Agents, image generation, automation, and local version management into one workspace. It is designed for creative projects whose settings and content need to evolve over time.
+InkDock brings novel writing, interactive stories, structured lore, AI Agents, image generation, automation, and local version management into one workspace. It is designed for creative projects whose settings and content need to evolve over time.
 
 Start a new book from an idea, import an existing novel to continue writing, or use character cards and lore to build a branching text adventure. Agents can read project content, use tools, and edit files while important changes remain reviewable, undoable, and recoverable.
 
@@ -86,10 +93,10 @@ Lore, Creative Setups, Skills, and version management are shared between the two
 macOS / Linux users can run the installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/alfredxw/denova/master/scripts/install.sh | sh
+curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-Run `denova` after installation. Windows users and anyone who prefers manual installation can download the archive for their platform from [GitHub Releases](https://github.com/alfredxw/denova/releases); on Windows, run `denova.exe`.
+This project has not published its first release yet. Once it does, the command above and [InkDock Releases](https://github.com/vevila2020/writing_platform_ai/releases) will provide the installer and platform archives. Run `denova` after installation; on Windows, run `denova.exe`.
 
 For stable use, choose a Release. The `master` branch may contain unreleased changes.
 
@@ -104,8 +111,8 @@ For stable use, choose a Release. The `master` branch may contain unreleased cha
 You need Go 1.26.9+, Node.js 22.13+, pnpm, ripgrep, and Bash. On Windows, run these commands from Git Bash or WSL.
 
 ```bash
-git clone https://github.com/alfredxw/denova.git
-cd denova
+git clone https://github.com/vevila2020/writing_platform_ai.git
+cd writing_platform_ai
 corepack enable
 ./scripts/bootstrap.sh
 ```
@@ -125,11 +132,11 @@ Optional decision models can be configured in Settings for Game stage media, Lor
 
 ## Remote Access and Phone Usage
 
-Enable LAN access under **Settings → Access**, set a username and password, and restart. Other devices can sign in at the displayed address. The host can also create a one-use sign-in QR code and link that expire after 5 minutes. Scan with a phone on the same LAN, or copy the link to another device. The browser stays signed in for 30 days across refreshes and server restarts; sign out from Settings. Phone browsers can add Denova to the home screen.
+Enable LAN access under **Settings → Access**, set a username and password, and restart. Other devices can sign in at the displayed address. The host can also create a one-use sign-in QR code and link that expire after 5 minutes. Scan with a phone on the same LAN, or copy the link to another device. The browser stays signed in for 30 days across refreshes and server restarts; sign out from Settings. Phone browsers can add InkDock to the home screen.
 
 When running from source, QR codes and connection links use the backend port to serve the `web/dist` build. Run `pnpm --dir web build` and restart the backend before first use or after frontend changes. The local Vite entry point remains available for development with hot reload.
 
-For public or domain-based deployments, put Denova behind an HTTPS reverse proxy such as Caddy or Nginx so login credentials are not transmitted in cleartext.
+For public or domain-based deployments, put InkDock behind an HTTPS reverse proxy such as Caddy or Nginx so login credentials are not transmitted in cleartext.
 
 ## Usage statistics
 
@@ -147,22 +154,8 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) before contributing. Common commands:
 
 ## Community
 
-Denova is evolving quickly. Bug reports, workflow ideas, usage notes, and creative discussions are welcome.
-
-[Discord community](https://discord.gg/BM6dRmyvvZ)
-
-<p align="center">
-  <img src="./img/wechat.jpeg" alt="WeChat community" width="240">
-</p>
-
-## Support Denova
-
-> Help Denova keep improving and remain open source. Thank you for your support!
-
-<p align="center">
-  <img src="./img/donate.png" alt="Donate" width="240">
-</p>
+InkDock is maintained by Elias. Public feedback and community links will be added when available.
 
 ## License
 
-[Apache-2.0](./LICENSE)
+This project is a modified fork of [Denova](https://github.com/alfredxw/denova) and is distributed under Apache-2.0. The upstream license and copyright notices remain in [LICENSE](./LICENSE) and the relevant source files. Elias rewrote this README for InkDock; this project is not endorsed by the upstream author.

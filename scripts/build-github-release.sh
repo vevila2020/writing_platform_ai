@@ -107,7 +107,7 @@ validate_release_metadata() {
 write_release_notes() {
   if [[ "${VERSION}" == "dev" ]]; then
     cat > "${DIST_DIR}/RELEASE_NOTES.md" <<'EOF'
-# Denova development build
+# InkDock development build
 
 Built from the current working tree for local validation. See the Unreleased section of CHANGELOG.md for changes. This archive has not been published as a release.
 EOF
@@ -116,7 +116,7 @@ EOF
   local release_tag
   release_tag="v$(release_version_without_prefix)"
   {
-    echo "# Denova ${release_tag}"
+    echo "# InkDock ${release_tag}"
     echo
     echo "## Release highlights / 发布内容"
     echo
@@ -136,12 +136,12 @@ EOF
 macOS / Linux one-command install / 一键安装：
 
 ```bash
-curl -fsSL https://github.com/alfredxw/denova/releases/latest/download/install.sh | sh
+curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-Or download the archive for your platform, verify it against `checksums.txt`, extract it, and run Denova from the extracted `denova` directory.
+Or download the archive for your platform, verify it against `checksums.txt`, extract it, and run the `denova` executable from the extracted archive.
 
-也可以下载对应平台压缩包，使用 `checksums.txt` 校验后解压，并在解压后的 `denova` 目录运行：
+也可以下载对应平台压缩包，使用 `checksums.txt` 校验后解压，并运行其中的 `denova` 程序：
 
 ```bash
 ./denova

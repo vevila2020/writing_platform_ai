@@ -14,7 +14,7 @@ const messages = {
   'messages.markAllRead': '全部已读',
   'messages.noSummary': '暂无摘要',
   'messages.unreleased': '未发布更新',
-  'messages.changelogTitle': 'Denova {{version}}',
+  'messages.changelogTitle': '墨栈 AI {{version}}',
   'messages.type.changelog': '更新',
   'messages.type.automation': '自动化',
   'messages.type.automationAction': '自动化 · 待处理',
@@ -24,10 +24,8 @@ const messages = {
   'messages.filter.product': '产品',
   'messages.openAutomation': '打开自动化任务',
   'messages.openAutomationAction': '前往处理',
-  'messages.support.title': '支持 Denova',
-  'messages.support.description': '如果 Denova 项目有帮到你，可以去 GitHub 点个 Star，或给它也充点 token，支持 Denova 持续开源、持续迭代；赞助时也可以添加备注，传达你的想法，非常感谢！🥰',
-  'messages.donation.alt': 'Denova 赞助二维码',
-  'messages.donation.openPreview': '放大查看二维码',
+  'messages.support.title': '支持墨栈 AI',
+  'messages.support.description': '如果墨栈 AI 对你有帮助，欢迎在 GitHub 仓库点个 Star，支持项目继续迭代。',
   'messages.github.star': '去 GitHub 点 Star',
 } as const
 
