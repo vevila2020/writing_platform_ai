@@ -62,6 +62,10 @@ func (h *Handlers) HandleCreateBook(ctx context.Context, c *app.RequestContext) 
 		return
 	}
 	created, err := h.app.CreateBook(ctx, layered.Paths.DenovaDir, req.Title, req.Author, req.Description, req.Structure)
+	if errors.Is(err, book.ErrDescriptionTooLong) {
+		writeErrorKey(c, consts.StatusBadRequest, "api.books.descriptionTooLong", "limit", book.MaxDescriptionRunes)
+		return
+	}
 	if err != nil {
 		status := consts.StatusInternalServerError
 		if strings.Contains(err.Error(), "已存在") {
@@ -360,6 +364,10 @@ func (h *Handlers) HandleUpdateBookInfo(ctx context.Context, c *app.RequestConte
 		return
 	}
 	meta, err := h.app.BookAssets().UpdateInfo(req.Path, req.Title, req.Author, req.Description)
+	if errors.Is(err, book.ErrDescriptionTooLong) {
+		writeErrorKey(c, consts.StatusBadRequest, "api.books.descriptionTooLong", "limit", book.MaxDescriptionRunes)
+		return
+	}
 	if err != nil {
 		writeError(c, consts.StatusInternalServerError, err.Error())
 		return

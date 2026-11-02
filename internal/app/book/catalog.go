@@ -73,6 +73,9 @@ func (service *Service) Info(path string) (bookdomain.BookMeta, error) {
 }
 
 func (service *Service) UpdateInfo(path, title, author, description string) (bookdomain.BookMeta, error) {
+	if err := bookdomain.ValidateDescription(description); err != nil {
+		return bookdomain.BookMeta{}, err
+	}
 	metadata, err := service.Info(path)
 	if err != nil {
 		return bookdomain.BookMeta{}, err

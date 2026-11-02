@@ -26,6 +26,7 @@ const home = {
   'home.deleteBookDescription': '"{{name}}" will be removed from the bookshelf, but its directory and files will stay on disk.',
   'home.dragToSort': 'Drag to sort',
   'home.descriptionPlaceholder': 'Description (optional)',
+  'home.descriptionTooLong': 'Synopsis must be {{limit}} characters or fewer',
   'home.editInfo': 'Edit Info',
   'home.empty': 'No books found in the current Denova data directory',
   'home.emptyDescription': 'Create a book first, or import an existing novel or character card. Writing, Interactive, Agent, and Automation workflows become available after a book is open.',

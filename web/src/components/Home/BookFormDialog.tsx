@@ -29,6 +29,12 @@ import { BookCoverThumbnail } from './BookCoverThumbnail'
 
 type BookFormMode = 'create' | 'edit'
 
+// Mirrors book.MaxDescriptionRunes on the backend. The synopsis is injected into
+// every writing turn, so it stays a short blurb. Count code points to match Go runes.
+const MAX_DESCRIPTION_CHARS = 1000
+const DESCRIPTION_COUNTER_THRESHOLD = 900
+const descriptionLength = (value: string) => Array.from(value.trim()).length
+
 interface BookFormDialogProps {
   open: boolean
   mode: BookFormMode
@@ -90,6 +96,9 @@ export function BookFormDialog({
       cover_updated_at: book?.cover_updated_at,
     }
   }, [activePath, book?.cover_updated_at, book?.name, title, t])
+  const descriptionChars = descriptionLength(description)
+  const descriptionTooLong = descriptionChars > MAX_DESCRIPTION_CHARS
+  const descriptionTooLongMessage = t('home.descriptionTooLong', { limit: MAX_DESCRIPTION_CHARS })
   const busy = saving || Boolean(coverBusy)
   const footerPrimaryLabel = mode === 'create' && !createdPath ? t('common.create') : t('common.save')
   const footerBusyLabel = mode === 'create' && !createdPath ? t('common.creating') : t('common.saving')
@@ -147,6 +156,7 @@ export function BookFormDialog({
   const handleSubmit = async () => {
     const validTitle = title.trim()
     if (!validTitle) { setFormError(t('home.titleRequired')); return }
+    if (descriptionTooLong) { setFormError(descriptionTooLongMessage); return }
     if (mode === 'create' && !createdPath && !novaDir.trim()) { setFormError(t('home.waitNovaDir')); return }
     setSaving(true)
     setFormError('')
@@ -223,6 +233,7 @@ export function BookFormDialog({
 
   const createWorkspace = async () => {
     if (!title.trim()) throw new Error(t('home.titleRequired'))
+    if (descriptionTooLong) throw new Error(descriptionTooLongMessage)
     if (!novaDir.trim()) throw new Error(t('home.waitNovaDir'))
     const data = await createBook(title.trim(), author.trim() || undefined, description.trim() || undefined, structure)
     setCreatedPath(data.workspace)
@@ -291,8 +302,14 @@ export function BookFormDialog({
                   onChange={(event) => setDescription(event.target.value)}
                   placeholder={t('home.descriptionPlaceholder')}
                   rows={7}
+                  aria-invalid={descriptionTooLong || undefined}
                   className={inputCls + ' min-h-36 resize-none'}
                 />
+                {descriptionChars > DESCRIPTION_COUNTER_THRESHOLD && (
+                  <div className={`text-right text-xs tabular-nums ${descriptionTooLong ? 'text-[var(--nova-danger)]' : 'text-[var(--nova-text-faint)]'}`}>
+                    {descriptionChars} / {MAX_DESCRIPTION_CHARS}
+                  </div>
+                )}
                 {formError && <div className="text-xs text-[var(--nova-danger)]">{formError}</div>}
               </div>
               <div className="min-w-0 space-y-3 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface-2)] p-3">

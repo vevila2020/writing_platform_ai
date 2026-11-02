@@ -302,6 +302,9 @@ func (s *workspaceService) CreateBook(ctx context.Context, parentDir, title, aut
 	if !structure.Valid() {
 		return BookCreationResult{}, book.ErrInvalidStructure
 	}
+	if err := book.ValidateDescription(description); err != nil {
+		return BookCreationResult{}, err
+	}
 	novaDir := ""
 	if a.cfg != nil {
 		novaDir = strings.TrimSpace(a.cfg.DataDir())
