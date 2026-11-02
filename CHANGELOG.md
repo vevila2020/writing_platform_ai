@@ -21,6 +21,7 @@ InkDock records major user-visible features, important compatibility or data cha
 - 新增图表统计，可按项目和日期查看稿量变化、章节进度、游戏活动与模型用量。
 - 新增内置互动游戏创作 Skill，并支持按「游戏」分类管理 Skills。
 - 更新前后可查看本次升级跨越的全部版本变化。
+- 修复写作 Agent 忽略书籍简介，以及部分兼容服务下并行工具调用参数为空的问题。
 
 #### English
 
@@ -29,6 +30,7 @@ InkDock records major user-visible features, important compatibility or data cha
 - Adds chart-based statistics for manuscript changes, chapter progress, Game activity, and model usage by project and date.
 - Adds a built-in interactive-game design Skill and a Game category for Skills.
 - Shows changes across every version included in an upgrade, before and after installation.
+- Fixes writing Agents ignoring the book synopsis, and empty parallel tool-call arguments with some compatible services.
 
 ### Added / 新增
 
@@ -49,6 +51,13 @@ InkDock records major user-visible features, important compatibility or data cha
 
 - 软件更新展示当前版本到目标版本的变化，按版本阅读简要说明和详情；更新完成后保留本次升级范围，并提供完整历史入口。
 - Software updates show changes from the current version to the target, with per-version summaries and details. Completed upgrades retain their comparison range and link to the full history.
+
+### Fixed / 修复
+
+- 写作 Agent 每轮读取书名、作者与简介，生成内容遵循简介中的人物与设定；游戏不受影响。
+- Writing Agents now read the book title, author, and synopsis each turn, so generated text follows the characters and premise in the synopsis. Game is unaffected.
+- 使用 OpenAI Responses 兼容服务时，若服务未逐段返回工具参数，会从完成事件补回完整参数，不再因参数为空导致并行读取等工具调用失败。
+- With OpenAI Responses-compatible services that omit streamed tool-argument deltas, complete arguments are recovered from completion events, so parallel reads and other tool calls no longer fail on empty arguments.
 
 ## [v0.6.3] - 2026-10-20
 
