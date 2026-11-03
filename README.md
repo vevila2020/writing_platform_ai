@@ -25,7 +25,7 @@
 
 墨栈 AI 基于 [Denova](https://github.com/alfredxw/denova) 开源项目进行二次开发，保留小说写作、互动故事、资料库、AI Agent、图像创作与项目版本管理等能力。
 
-项目规划对接自部署的 Sub2API，并提供用户注册和模型服务使用入口，减少对第三方 API 站点的依赖。**Sub2API 注册集成尚未包含在当前代码中。**
+已内置 EliasApi 中转站推荐连接：在 **设置 → 语言模型** 中点击「使用 EliasApi」，粘贴 API Key 后会实时读取可用模型，并推荐最新的对话模型。账号注册仍在 [EliasApi](https://subapi.elias.kdns.fr/register) 站点完成。
 
 ![墨栈 AI 写作界面预览](./img/ide.png)
 
@@ -100,7 +100,7 @@ curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/dow
 
 ### 第一次使用
 
-1. 按启动引导添加语言模型的 API Key 和模型名。
+1. 在「设置 → 语言模型」中点击「使用 EliasApi」并粘贴 API Key，选择推荐模型；也可以添加其他服务商或自定义连接。
 2. 创建或导入一本书，也可以直接打开已有项目目录。
 3. 从「写作」开始创作，或从「游戏」创建一条互动故事线；需要生成图片时再配置图像模型。
 
@@ -123,6 +123,8 @@ corepack enable
 ## 模型与配置
 
 推荐在设置页完成模型配置：先添加服务商连接，再选择或填写模型并测试连接。同一连接可以复用于多个模型。语言模型支持内置服务商和自定义兼容端点；图像模型支持 OpenAI、xAI/Grok、火山引擎 Seedream、Google Gemini Image、ComfyUI Workflow 和自定义端点。
+
+首次配置语言模型时，设置页会显示 EliasApi 推荐连接。点击「使用 EliasApi」会预填中转站地址和 Responses 协议；粘贴 API Key 后会实时读取中转站的 `/v1/models`，将最新的对话模型排在前面并标记为「最新」。模型更新后无需升级墨栈 AI，重新打开模型列表即可看到。EliasApi 只是推荐连接，不影响继续使用其他服务商或自定义端点。
 
 Google Gemini 文本模型可在连接的协议选项中选择「Gemini 原生协议」，使用原生工具调用、图片输入与推理续接；已有 OpenAI 兼容连接保持原协议。
 
