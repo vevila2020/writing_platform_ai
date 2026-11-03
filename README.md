@@ -94,7 +94,7 @@ macOS / Linux 可以使用一键安装脚本：
 curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-本项目尚未发布自己的 Release；发布首个版本后，上述安装命令和 [墨栈 AI Releases](https://github.com/vevila2020/writing_platform_ai/releases) 页面会提供安装包。安装完成后运行 `inkdock`，Windows 运行 `inkdock.exe`。
+上述命令和 [墨栈 AI Releases](https://github.com/vevila2020/writing_platform_ai/releases) 页面提供 v1.0.0 的各平台安装包；安装完成后运行 `inkdock`，Windows 运行 `inkdock.exe`。
 
 稳定使用建议选择 Release；`master` 分支可能包含尚未发布的改动。
 

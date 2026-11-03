@@ -94,7 +94,7 @@ macOS / Linux users can run the installer:
 curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-This project has not published its first release yet. Once it does, the command above and [InkDock Releases](https://github.com/vevila2020/writing_platform_ai/releases) will provide the installer and platform archives. Run `inkdock` after installation; on Windows, run `inkdock.exe`.
+The command above and [InkDock Releases](https://github.com/vevila2020/writing_platform_ai/releases) provide the v1.0.0 installer and platform archives. Run `inkdock` after installation; on Windows, run `inkdock.exe`.
 
 For stable use, choose a Release. The `master` branch may contain unreleased changes.
 
