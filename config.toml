@@ -1,6 +1,6 @@
-# Denova startup configuration template.
+# InkDock startup configuration template.
 # Settings precedence (lowest to highest): built-in defaults, startup config,
-# user config (<denova_dir>/config.toml), then Project settings.
+# user config (<inkdock_dir>/config.toml), then Project settings.
 # Environment overrides, such as OPENAI_API_KEY and OPENAI_MODEL, take precedence
 # at runtime and are not written back to configuration files.
 #
@@ -15,10 +15,10 @@
 
 # Bundled, read-only Skills directory loaded at startup.
 skills_dir = "./skills"
-# Leave unset to keep existing .nova data when .denova does not exist.
-# Fresh installations use .denova; set this only to choose a different data root.
-# Only startup config and DENOVA_DIR select the data root; user/Project settings do not.
-# denova_dir = "./.denova"
+# Leave unset to keep existing .denova data when .inkdock does not exist.
+# Fresh installations use .inkdock; set this only to choose a different data root.
+# Only startup config and INKDOCK_DIR select the data root; user/Project settings do not.
+# inkdock_dir = "./.inkdock"
 
 # Optional port overrides. Defaults are backend 7789 and frontend 7788;
 # user settings and environment overrides can select other ports.
@@ -83,7 +83,7 @@ default_output_format = "png"
 # workflow_mode = "remote"
 #
 # 可选：为不同 Agent 叠加自定义 system prompt。
-# 自定义提示在行为、创作偏好、策略和风格上优先于 Denova 内置提示，
+# 自定义提示在行为、创作偏好、策略和风格上优先于 InkDock 内置提示，
 # 但不会覆盖工具权限、输出协议、互动禁写文件、结构化 JSON 要求和后端校验边界。
 #
 # [agent_prompts.ide]

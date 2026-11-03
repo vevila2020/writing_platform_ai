@@ -9,20 +9,20 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	"github.com/alfredxw/denova/agent"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type gameAdapterFunc func(context.Context, external.Input, external.Host) (external.Result, error)

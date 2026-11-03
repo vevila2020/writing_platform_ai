@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // AcquireTriggerEvaluationLease serializes one task/state-key coordinator

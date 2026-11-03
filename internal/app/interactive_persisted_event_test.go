@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive"
-	interactivestate "denova/internal/interactive/state"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
 )
 
 func TestEmitInteractiveTurnPersistedUsesCurrentSnapshot(t *testing.T) {

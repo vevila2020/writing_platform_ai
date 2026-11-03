@@ -15,12 +15,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/book/lore"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/project"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func TestPresetExportIncludesTypedDependenciesAndRewritesLocalIdentities(t *testing.T) {

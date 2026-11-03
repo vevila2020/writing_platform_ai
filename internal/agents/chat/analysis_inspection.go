@@ -4,19 +4,19 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 
-	"github.com/alfredxw/denova/agent"
-	sdkcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	sdkcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // BuildInspectedContextAnalysis projects the public Agent Session's exact,
-// middleware-final provider request into Denova's read-only diagnostics DTO.
+// middleware-final provider request into InkDock's read-only diagnostics DTO.
 // It never reconstructs history or maintenance state from product journals.
 func BuildInspectedContextAnalysis(
 	cfg *config.Config,

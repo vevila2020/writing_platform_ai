@@ -3,13 +3,13 @@ package prompts
 import (
 	"strings"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 )
 
 func ChapterSplitRegexSystemInstruction() string {
 	return strings.Join([]string{
-		"Identify chapter and volume heading lines for Denova novel import.",
+		"Identify chapter and volume heading lines for InkDock novel import.",
 		"Output only a JSON object with schema {\"split_regex\":\"...\",\"reason\":\"...\"}.",
 		"split_regex must be a Go regexp that matches chapter and volume heading lines independently. Do not use multiline matching.",
 		"When a heading contains both a numbering prefix and a prose title, prefer capture group 1 for the complete chapter title. A pattern without capture groups is also valid.",

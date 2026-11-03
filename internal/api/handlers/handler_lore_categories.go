@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"context"
-	"denova/internal/book/lore"
 	"errors"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"log/slog"
 )
 

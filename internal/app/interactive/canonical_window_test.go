@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func assertGameCanonicalWindow(t *testing.T, conversation *Conversation) {

@@ -13,14 +13,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/app/resourcecatalog"
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 const openingPath = "setting/interactive-openings.json"
@@ -40,7 +40,7 @@ type openings struct {
 // libraries. Only their created document is returned; builtin initialization in
 // the scratch directory never becomes part of the installation.
 func stageDefinition(resource PreviewResource, id string, raw []byte, refs map[string]string) (string, []byte, error) {
-	dir, err := os.MkdirTemp("", "denova-definition-")
+	dir, err := os.MkdirTemp("", "inkdock-definition-")
 	if err != nil {
 		return "", nil, err
 	}

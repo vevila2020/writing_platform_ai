@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/presetlayout"
-	"denova/internal/revisionfile"
-	"denova/internal/revisionjson"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionjson"
 )
 
 func attachBuiltinActorStateLegacyPaths(id string, system StoryDirectorActorStateSystem) StoryDirectorActorStateSystem {

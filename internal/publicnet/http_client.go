@@ -1,4 +1,4 @@
-// Package publicnet owns Denova's public-Internet destination policy.
+// Package publicnet owns InkDock's public-Internet destination policy.
 // Direct clients use the same validation and dial-time enforcement so redirects,
 // DNS rebinding, and IPv4 addresses embedded in IPv6 transports cannot bypass
 // the private-network boundary.

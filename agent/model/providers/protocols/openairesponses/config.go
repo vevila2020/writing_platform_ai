@@ -1,4 +1,4 @@
-// Package openairesponses adapts OpenAI Responses endpoints to Denova's
+// Package openairesponses adapts OpenAI Responses endpoints to InkDock's
 // provider-neutral agent model contract.
 package openairesponses
 
@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/internal/openaiclient"
 	sdk "github.com/openai/openai-go/v3"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/internal/openaiclient"
 )
 
 // Adapter constructs models that speak the OpenAI Responses protocol.

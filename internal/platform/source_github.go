@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 // GitHubSource describes a public source checkout. Ref tracks upstream; Commit
@@ -131,7 +131,7 @@ func (m *Manager) githubGet(ctx context.Context, address, mediaType string, limi
 		return nil, failure("GITHUB_URL_INVALID", "Unsupported GitHub download origin")
 	}
 	request.Header.Set("Accept", mediaType)
-	request.Header.Set("User-Agent", "Denova")
+	request.Header.Set("User-Agent", "InkDock")
 	var cached githubCachedResponse
 	cacheKey := address + "\n" + mediaType
 	if request.URL.Hostname() == "api.github.com" {

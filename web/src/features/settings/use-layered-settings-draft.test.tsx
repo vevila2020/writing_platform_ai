@@ -21,7 +21,7 @@ const edited: Settings = {
 function snapshot(user: Settings, revision: string): LayeredSettings {
   return {
     default: {}, global: {}, user, workspace: {}, effective: user, revisions: { user: revision },
-    paths: { denova_dir: '', nova_dir: '', user_config: '', workspace_config: '' },
+    paths: { inkdock_dir: '', denova_dir: '', user_config: '', workspace_config: '' },
     resolved_agent_tool_manifests: {}, resolved_agent_contexts: {},
   }
 }

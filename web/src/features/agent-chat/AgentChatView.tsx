@@ -79,7 +79,7 @@ interface AgentChatViewProps {
   composerSettings: WritingComposerSettingsController
   tellers: Teller[]
   imagePresets: ImagePreset[]
-  novaDir?: string
+  dataDir?: string
   autoSaveEnabled?: boolean
   autoSaveDelayMs?: number
   /** Project pages receive their tab's project, never the foreground Writing book. */
@@ -107,7 +107,7 @@ export function AgentChatView({
   composerSettings,
   tellers,
   imagePresets,
-  novaDir = '',
+  dataDir = '',
   autoSaveEnabled = true,
   autoSaveDelayMs = 1200,
   renderPage,
@@ -1010,7 +1010,7 @@ export function AgentChatView({
       </AgentChatTabDragContext>
       <AgentChatAddProjectDialog
         open={addProjectOpen}
-        novaDir={novaDir}
+        dataDir={dataDir}
         imagePresets={imagePresets}
         defaultImagePresetId={composerSettings.values?.ide_image_preset_id || 'game-cg'}
         onOpenChange={setAddProjectOpen}

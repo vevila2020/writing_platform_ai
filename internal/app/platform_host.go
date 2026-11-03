@@ -3,13 +3,13 @@ package app
 import (
 	"context"
 
-	"denova/config"
-	agentexecution "denova/internal/agents/execution"
-	platformapp "denova/internal/app/platform"
-	booklore "denova/internal/book/lore"
-	"denova/internal/interactive"
-	"denova/internal/platform"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	platformapp "github.com/vevila2020/writing_platform_ai/internal/app/platform"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // platformHost keeps App locks, leases and native Story admission in App.

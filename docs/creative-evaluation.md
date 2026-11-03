@@ -1,6 +1,6 @@
 # Creative evaluation
 
-This optional developer tool runs real Writing and Game tasks against synthetic projects. It produces promptfoo comparisons and keeps product evidence for investigating failures. Denova's UI and Agent tool set are unchanged. Evaluation is **manual or separately scheduled**: it is not included in CI, commits, merges, or release gates.
+This optional developer tool runs real Writing and Game tasks against synthetic projects. It produces promptfoo comparisons and keeps product evidence for investigating failures. InkDock's UI and Agent tool set are unchanged. Evaluation is **manual or separately scheduled**: it is not included in CI, commits, merges, or release gates.
 
 ## Setup and manual use
 
@@ -20,7 +20,7 @@ cp tools/creative-eval/run.example.json tools/creative-eval/run.local.json
 
 Edit `run.local.json`:
 
-- `settings_file`: an existing Denova **user** `config.toml` containing model connections/profiles. Paths resolve relative to this JSON file. Set the correct path for your installation, including `.nova` if that is your existing data root. The source file is read only.
+- `settings_file`: an existing InkDock **user** `config.toml` containing model connections/profiles. Paths resolve relative to this JSON file. Set the correct path for your installation, including `.denova` if that is your existing data root. The source file is read only.
 - `variants`: uniquely named configurations. `profile_id` optionally selects a model profile from that settings file; otherwise its model defaults apply. `writing_skill` defaults to `novel-lite`. To compare Skill versions, `skills_directory` can select another checkout's `skills` directory. A variant can specify its own `settings_file` for model/context/prompt comparisons.
 - `grader.profile_id`: an existing enabled model profile in the first variant's settings file. Its endpoint and key are reused for grading, so no extra API key needs exporting. The example uses the same profile for generation and grading; selecting a different grading profile is supported. Profile grading supports OpenAI Chat Completions and Responses endpoints without custom headers or protocol options. For other routes, replace `grader` with an explicit [promptfoo grading provider](https://www.promptfoo.dev/docs/configuration/expected-outputs/) and reference its key through `apiKeyEnvar`.
 
@@ -35,7 +35,7 @@ Flags are optional overrides. The script preserves the caller's working director
 
 `--case` matches a case ID substring. `--repeat` generates fresh independent runs; promptfoo response caching is disabled. `run view` starts promptfoo's report viewer (default port 15500; `--port` selects another). Use the evaluation command for reruns: the viewer cannot rebuild the backend or recreate isolated Projects from a saved report alone. Every evaluation also exports standalone `report.html`, `report.json`, and a `run.json` manifest under `tools/creative-eval/results/`.
 
-Generation **and semantic grading** make paid requests when using paid model services. Start with one variant and one repetition. Token usage is reported when Denova provides it. Monetary cost is not calculated by the Denova adapter: any zero-dollar value shown by promptfoo is not a billing total. Provider latency includes backend startup, setup, and shutdown; `execution_duration_ms` in case metadata measures execution and result collection after fixture setup. There is no fixed total Agent runtime limit; Ctrl+C cancels the evaluation and stops its owned backend.
+Generation **and semantic grading** make paid requests when using paid model services. Start with one variant and one repetition. Token usage is reported when InkDock provides it. Monetary cost is not calculated by the InkDock adapter: any zero-dollar value shown by promptfoo is not a billing total. Provider latency includes backend startup, setup, and shutdown; `execution_duration_ms` in case metadata measures execution and result collection after fixture setup. There is no fixed total Agent runtime limit; Ctrl+C cancels the evaluation and stops its owned backend.
 
 ## Scenarios and interpretation
 
@@ -58,7 +58,7 @@ The runner builds the current backend once. Each case, variant, and repetition o
 
 Per-case logs, product journals, snapshots, and evidence are retained under the ignored results directory for diagnosis. The temporary `config.toml` containing model credentials, its initialization backups, and the per-run compiled binary are removed after use. Reports and promptfoo's local history stay on disk; automatic sharing and promptfoo telemetry are disabled. Profile grading passes its key through a temporary process environment variable and clears it after the run. Explicit promptfoo graders should also reference credentials through environment variables, because promptfoo persists grading configuration in reports/history.
 
-Results contain synthetic story content and can be removed when no longer needed. Their paths are developer artifacts, not an alternative Denova recovery ledger or user-data format. Existing Release user directories require no migration.
+Results contain synthetic story content and can be removed when no longer needed. Their paths are developer artifacts, not an alternative InkDock recovery ledger or user-data format. Existing Release user directories require no migration.
 
 ## Verify the integration without paid calls
 

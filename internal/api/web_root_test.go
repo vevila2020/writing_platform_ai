@@ -38,8 +38,8 @@ func TestResolveWebRoot(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Chdir(t.TempDir())
-			t.Setenv("DENOVA_WEB_DIR", tc.override)
-			t.Setenv("NOVA_WEB_DIR", "")
+			t.Setenv("INKDOCK_WEB_DIR", tc.override)
+			t.Setenv("DENOVA_WEB_DIR", "")
 			for _, name := range tc.files {
 				if err := os.MkdirAll(filepath.Dir(name), 0o755); err != nil {
 					t.Fatal(err)
@@ -57,8 +57,8 @@ func TestResolveWebRoot(t *testing.T) {
 
 func TestResolveWebRootNeverServesUnbuiltSource(t *testing.T) {
 	t.Chdir(t.TempDir())
+	t.Setenv("INKDOCK_WEB_DIR", "")
 	t.Setenv("DENOVA_WEB_DIR", "")
-	t.Setenv("NOVA_WEB_DIR", "")
 	if err := os.MkdirAll("web/src", 0o755); err != nil {
 		t.Fatal(err)
 	}

@@ -9,11 +9,11 @@ import (
 	"strings"
 	"sync"
 
-	"denova/internal/agents/conversation"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 var (

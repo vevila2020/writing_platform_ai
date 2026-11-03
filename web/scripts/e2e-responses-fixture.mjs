@@ -107,7 +107,7 @@ export function writeCompletionFrame(response, frame) {
   for (const call of delta?.tool_calls ?? []) {
     // Report a full context only at this deterministic tool boundary. The
     // installed runtime, not the test backend, decides to compact and emits
-    // the actual protocol event consumed by Denova.
+    // the actual protocol event consumed by InkDock.
     if (call.id === 'call-auto-compact-read') stream.inputTokens = 90000
     const item = { type: 'function_call', id: `fc_${randomUUID()}`, call_id: call.id, name: call.function.name, arguments: call.function.arguments, status: 'completed' }
     stream.output.push(item)

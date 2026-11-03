@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Registry owns a stable, insertion-ordered set of complete tool definitions.

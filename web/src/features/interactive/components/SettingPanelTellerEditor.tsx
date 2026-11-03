@@ -935,7 +935,7 @@ function normalizeStyleUploadDraft(draft: StyleUploadDraft): StyleUploadDraft {
 }
 
 function styleReferenceTargetPath(draft: StyleUploadDraft) {
-  return `.denova/styles/${draft.filename}`
+  return `.inkdock/styles/${draft.filename}`
 }
 
 function filenameFromStyleReferencePath(path: string) {

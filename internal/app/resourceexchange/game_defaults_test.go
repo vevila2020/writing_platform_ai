@@ -13,10 +13,10 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/book/lore"
-	"denova/internal/project"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func gameDefaultsFixture(t *testing.T, service *Service) (Preview, string, string) {

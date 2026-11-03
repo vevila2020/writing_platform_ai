@@ -1,9 +1,9 @@
 package app
 
 import (
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"sync"
 )
 

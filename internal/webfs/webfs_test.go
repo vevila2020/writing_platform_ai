@@ -14,7 +14,7 @@ func TestEmbeddedFrontendRoutesAndAssets(t *testing.T) {
 	})
 	for _, tc := range []struct{ method, path, body, contentType string }{
 		{"GET", "/", "<html>current build</html>", "text/html"},
-		{"GET", "/writing/book?denova_reload=next", "<html>current build</html>", "text/html"},
+		{"GET", "/writing/book?inkdock_reload=next", "<html>current build</html>", "text/html"},
 		{"GET", "/game/story", "<html>current build</html>", "text/html"},
 		{"GET", "/assets/", "<html>current build</html>", "text/html"},
 		{"GET", "/assets/app.js", "console.log('current build')", "javascript"},

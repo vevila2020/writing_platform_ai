@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type CommitStage string

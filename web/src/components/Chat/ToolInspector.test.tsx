@@ -4,8 +4,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MessageItem } from './MessageItem'
 import type { ToolCallChatMessage } from '@/lib/api'
 
-vi.mock('@/components/monaco/DenovaMonaco', () => ({
-  DenovaMonacoEditor: ({ value, options }: { value: string; options: { ariaLabel: string; readOnly: boolean } }) => <textarea aria-label={options.ariaLabel} value={value} readOnly={options.readOnly} />,
+vi.mock('@/components/monaco/InkDockMonaco', () => ({
+  InkDockMonacoEditor: ({ value, options }: { value: string; options: { ariaLabel: string; readOnly: boolean } }) => <textarea aria-label={options.ariaLabel} value={value} readOnly={options.readOnly} />,
 }))
 
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals() })

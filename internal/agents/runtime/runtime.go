@@ -6,8 +6,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"denova/config"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 // ExternalRuntime captures the selected application's engine connection.

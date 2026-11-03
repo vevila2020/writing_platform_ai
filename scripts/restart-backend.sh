@@ -32,13 +32,13 @@ is_repository_backend() {
     process_name="${process_name%"${process_name##*[![:space:]]}"}"
 
     case "${process_name##*/}" in
-      denova|denova.exe)
+      inkdock|inkdock.exe)
         return 0
         ;;
       go|go.exe)
         command_line="$(ps -p "${pid}" -o command= 2>/dev/null)" || return 1
         case "${command_line}" in
-          *"go run ./cmd/denova"*)
+          *"go run ./cmd/inkdock"*)
             return 0
             ;;
         esac
@@ -49,7 +49,7 @@ is_repository_backend() {
 }
 
 if ! command -v pgrep >/dev/null 2>&1; then
-    echo "Error: pgrep is required to identify the Denova backend safely." >&2
+    echo "Error: pgrep is required to identify the InkDock backend safely." >&2
     exit 1
 fi
 if [ ! -e "/proc/$$/cwd" ] && ! command -v lsof >/dev/null 2>&1; then
@@ -64,22 +64,22 @@ while IFS= read -r pid; do
     fi
 done < <(
     {
-        pgrep -x denova || true
-        pgrep -x denova.exe || true
-        pgrep -f 'go run ./cmd/denova([[:space:]]|$)' || true
+        pgrep -x inkdock || true
+        pgrep -x inkdock.exe || true
+        pgrep -f 'go run ./cmd/inkdock([[:space:]]|$)' || true
     } | sort -u
 )
 
 if [ "${#backend_pids[@]}" -eq 0 ]; then
-    echo "==> No running Denova backend found for this repository"
+    echo "==> No running InkDock backend found for this repository"
 else
-    echo "==> Stopping the Denova backend (PID: ${backend_pids[*]})"
+    echo "==> Stopping the InkDock backend (PID: ${backend_pids[*]})"
     for pid in "${backend_pids[@]}"; do
         if kill -0 "${pid}" 2>/dev/null; then
             # Resume suspended processes before requesting graceful shutdown.
             kill -CONT "${pid}" 2>/dev/null || true
             if ! kill -TERM "${pid}" 2>/dev/null && kill -0 "${pid}" 2>/dev/null; then
-                echo "Error: failed to stop Denova backend process ${pid}." >&2
+                echo "Error: failed to stop InkDock backend process ${pid}." >&2
                 exit 1
             fi
         fi
@@ -100,5 +100,5 @@ else
     done
 fi
 
-echo "==> Restarting the Denova backend"
+echo "==> Restarting the InkDock backend"
 exec "${SCRIPT_DIR}/bootstrap.sh" be

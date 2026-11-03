@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	appsvc "denova/internal/app"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"

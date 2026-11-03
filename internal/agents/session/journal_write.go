@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 func createSession(id, filePath, title string) (*Session, error) {

@@ -3,15 +3,15 @@ package conversationapp
 import (
 	"context"
 
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Compact dispatches maintenance to the selected peer runtime. Product history

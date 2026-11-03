@@ -10,20 +10,20 @@ import (
 	"strings"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentdelegation "denova/internal/agents/delegation"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	"github.com/alfredxw/denova/agent"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 type publicBackend struct {
@@ -75,7 +75,7 @@ type publicRunHandle struct {
 	completedRegistrations []publicCycleRegistrationAt
 }
 
-// NewAgentRuntime constructs the Denova host on the public Agent -> Session ->
+// NewAgentRuntime constructs the InkDock host on the public Agent -> Session ->
 // Run lifecycle.
 func NewAgentRuntime(ctx context.Context, dataDir string, options ...Option) (*Runtime, error) {
 	root := strings.TrimSpace(dataDir)
@@ -207,7 +207,7 @@ func (backend *publicBackend) resolveDefinition(
 	if request.Agent.Reason == agent.TurnReasonGoalMutation {
 		// Goal mutations are Session capability operations, not product turns.
 		// They deliberately carry no opaque turn HostData and need only the
-		// stable Denova Goal adapter to apply their durable CAS transition.
+		// stable InkDock Goal adapter to apply their durable CAS transition.
 		return agent.Definition{Goal: agentlifecycle.NewGoalManager()}, nil
 	}
 	data, err := agentlifecycle.DecodeTurnHostDataFromPrepare(request.Agent)
@@ -216,7 +216,7 @@ func (backend *publicBackend) resolveDefinition(
 	}
 	// Run.CommandID identifies the operation's initial admission. Every later
 	// cycle carries its own caller command in host data and must bind that exact
-	// Denova request (references, Skills, Plan mode, and delivery metadata).
+	// InkDock request (references, Skills, Plan mode, and delivery metadata).
 	commandID := strings.TrimSpace(data.Caller.CommandID)
 	if commandID == "" {
 		commandID = strings.TrimSpace(request.Agent.Run.CommandID)
@@ -270,7 +270,7 @@ func (backend *publicBackend) resolveDefinition(
 		registration.mu.Unlock()
 	}
 	if cycle.Definition.Model == nil {
-		return agent.Definition{}, errors.New("Denova public Agent cycle has no Definition")
+		return agent.Definition{}, errors.New("InkDock public Agent cycle has no Definition")
 	}
 	if !inspection {
 		backend.bindSharedRunTrace(request.Agent.Run.ID, registration)
@@ -354,10 +354,10 @@ func (backend *publicBackend) ResolveCanonicalInput(
 	chatRequest.CommandID = commandID
 	kind := commandKindFromPublicTurn(data.Kind)
 	if kind == "" {
-		return nil, fmt.Errorf("resolve Denova Agent canonical input: invalid turn kind %q", data.Kind)
+		return nil, fmt.Errorf("resolve InkDock Agent canonical input: invalid turn kind %q", data.Kind)
 	}
 	if request.Agent.Input.Text != agentchat.CallerView(chatRequest).Message {
-		return nil, errors.New("Denova Agent canonical input does not match its durable caller payload")
+		return nil, errors.New("InkDock Agent canonical input does not match its durable caller payload")
 	}
 	adapter, err := inputProfile.CanonicalInput(ctx, CanonicalInputRequest{
 		Session: request.Agent.Session.Key, Identity: denovaCanonicalIdentity(request.Agent.Session.Key),
@@ -401,7 +401,7 @@ func (backend *publicBackend) preparedCycleCanonicalInput(
 	case agentlifecycle.ConversationCommitterProvider:
 		committer, err = conversation.NewAgentConversationCommitter(options)
 	default:
-		err = fmt.Errorf("Denova conversation %T has no public canonical committer", cycle.Conversation)
+		err = fmt.Errorf("InkDock conversation %T has no public canonical committer", cycle.Conversation)
 	}
 	if err != nil {
 		return nil, err
@@ -466,7 +466,7 @@ func (backend *publicBackend) restoreCycle(
 	chatRequest.CommandID = commandID
 	kind := commandKindFromPublicTurn(data.Kind)
 	if kind == "" {
-		return Cycle{}, fmt.Errorf("restore Denova Agent cycle: invalid turn kind %q", data.Kind)
+		return Cycle{}, fmt.Errorf("restore InkDock Agent cycle: invalid turn kind %q", data.Kind)
 	}
 	return queued.PrepareCycle(ctx, CycleRestoreRequest{
 		Binding: binding, Kind: kind, CommandID: agentrun.CommandID(commandID),
@@ -534,7 +534,7 @@ func publicTurnKind(kind CommandKind) (agentlifecycle.TurnKind, error) {
 	case CommandNextTurn:
 		return agentlifecycle.TurnNext, nil
 	default:
-		return "", fmt.Errorf("command %q does not carry a Denova Agent turn", kind)
+		return "", fmt.Errorf("command %q does not carry an InkDock Agent turn", kind)
 	}
 }
 

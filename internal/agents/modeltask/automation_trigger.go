@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // GenerateAutomationTriggerEvaluation uses the owning Project Agent model to
@@ -38,7 +38,7 @@ func GenerateAutomationTriggerEvaluation(ctx context.Context, cfg *config.Config
 		runErr = err
 		return "", fmt.Errorf("create automation trigger evaluation model: %w", err)
 	}
-	system := "You are Denova's automation-trigger evaluator. Your only task is to decide whether a semantic trigger condition is satisfied from bounded creative context supplied by the user. Do not use tools, assume unprovided story facts, or output anything except JSON."
+	system := "You are InkDock's automation-trigger evaluator. Your only task is to decide whether a semantic trigger condition is satisfied from bounded creative context supplied by the user. Do not use tools, assume unprovided story facts, or output anything except JSON."
 	slog.InfoContext(ctx, fmt.Sprintf("[automation-trigger-agent] evaluate begin instruction=%s", prompts.PartSummary(instruction)))
 	composition, err := prompts.ComposeBuiltinSystemInstruction(cfg, agentKind, "automation_trigger", cfg.Workspace, "builtin_base", "Automation Trigger Evaluation Rules", "define the bounded semantic trigger evaluation task", system)
 	if err != nil {

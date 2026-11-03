@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sort"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // CapabilityReader reads one state from the transaction's canonical snapshot.

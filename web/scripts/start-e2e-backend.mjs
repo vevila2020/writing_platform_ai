@@ -7,29 +7,29 @@ import { runtimeRoot, webRoot } from './e2e-paths.mjs'
 const repositoryRoot = path.resolve(webRoot, '..')
 
 if (existsSync(runtimeRoot)) rmSync(runtimeRoot, { recursive: true, force: true })
-const denovaDir = path.join(runtimeRoot, 'denova')
+const inkdockDir = path.join(runtimeRoot, 'denova')
 const binaryDir = path.join(runtimeRoot, 'bin')
-mkdirSync(denovaDir, { recursive: true })
+mkdirSync(inkdockDir, { recursive: true })
 mkdirSync(binaryDir, { recursive: true })
 
-const backendPort = process.env.DENOVA_E2E_BACKEND_PORT || '18080'
-const modelPort = process.env.DENOVA_E2E_MODEL_PORT || '18081'
+const backendPort = process.env.INKDOCK_E2E_BACKEND_PORT || '18080'
+const modelPort = process.env.INKDOCK_E2E_MODEL_PORT || '18081'
 // Opt-in product acceptance uses an installed CLI and an isolated home. Native
 // remains the default, and no test reads or changes the user's CLI credentials.
-const codexExecutable = process.env.DENOVA_TEST_CODEX_EXE
+const codexExecutable = process.env.INKDOCK_TEST_CODEX_EXE
 const codexHome = path.join(runtimeRoot, 'codex')
 if (codexExecutable) {
-  if (!path.isAbsolute(codexExecutable) || !existsSync(codexExecutable)) throw new Error('DENOVA_TEST_CODEX_EXE must name an installed executable')
+  if (!path.isAbsolute(codexExecutable) || !existsSync(codexExecutable)) throw new Error('INKDOCK_TEST_CODEX_EXE must name an installed executable')
   mkdirSync(codexHome, { recursive: true })
   writeFileSync(path.join(codexHome, 'config.toml'), 'model_context_window = 100000\nmodel_auto_compact_token_limit = 80000\n[features]\nenable_request_compression = false\n', 'utf8')
 }
 // Release smoke tests use the extracted distribution, including its own assets.
-const packageDir = process.env.DENOVA_E2E_PACKAGE_DIR
-  ? path.resolve(process.env.DENOVA_E2E_PACKAGE_DIR)
+const packageDir = process.env.INKDOCK_E2E_PACKAGE_DIR
+  ? path.resolve(process.env.INKDOCK_E2E_PACKAGE_DIR)
   : undefined
 const binaryPath = packageDir
-  ? path.join(packageDir, process.platform === 'win32' ? 'denova.exe' : 'denova')
-  : path.join(binaryDir, process.platform === 'win32' ? 'denova-e2e.exe' : 'denova-e2e')
+  ? path.join(packageDir, process.platform === 'win32' ? 'inkdock.exe' : 'inkdock')
+  : path.join(binaryDir, process.platform === 'win32' ? 'inkdock-e2e.exe' : 'inkdock-e2e')
 let config = `language = "zh-CN"
 update_check_enabled = false
 model_max_retries = 1
@@ -47,7 +47,7 @@ base_url = "http://127.0.0.1:${modelPort}/v1"
 id = "e2e"
 name = "E2E deterministic model"
 endpoint_id = "e2e"
-model = "denova-e2e"
+model = "inkdock-e2e"
 context_window_tokens = 100000
 
 [agent_models.default]
@@ -74,7 +74,7 @@ base_url = "http://127.0.0.1:${modelPort}/v1"
 id = "e2e-image"
 name = "E2E image model"
 endpoint_id = "e2e-image"
-model = "denova-e2e-image"
+model = "inkdock-e2e-image"
 `
 if (codexExecutable) config += `
 [[model_endpoints]]
@@ -97,11 +97,11 @@ selected = "codex"
 [agent_runtimes.${kind}.codex]
 profile_id = "e2e-codex"
 `).join('\n')}`
-writeFileSync(path.join(denovaDir, 'config.toml'), config, 'utf8')
+writeFileSync(path.join(inkdockDir, 'config.toml'), config, 'utf8')
 
-const legacyWorkspace = path.join(denovaDir, 'projects', 'Legacy E2E Book')
-const legacyLorePath = path.join(legacyWorkspace, '.nova', 'lore', 'items.json')
-const legacySessionsDir = path.join(legacyWorkspace, '.nova', 'sessions')
+const legacyWorkspace = path.join(inkdockDir, 'projects', 'Legacy E2E Book')
+const legacyLorePath = path.join(legacyWorkspace, '.denova', 'lore', 'items.json')
+const legacySessionsDir = path.join(legacyWorkspace, '.denova', 'sessions')
 const legacyWritingSessionID = 'v033-writing-main-e2e'
 const legacyStoryDir = path.join(legacyWorkspace, 'interactive', 'story')
 const legacyStoryID = 'st_legacy_v033_e2e'
@@ -112,7 +112,7 @@ mkdirSync(legacySessionsDir, { recursive: true })
 mkdirSync(legacyStoryDir, { recursive: true })
 writeFileSync(path.join(legacyWorkspace, 'book.json'), JSON.stringify({
   title: 'Legacy E2E Book',
-  author: 'Denova v0.3.3',
+  author: 'InkDock v0.3.3',
   description: 'Seeded released-version compatibility fixture.',
   created_at: '2026-01-01T00:00:00Z',
   updated_at: '2026-01-01T00:00:00Z',
@@ -226,7 +226,7 @@ writeFileSync(
   `${legacyStoryRows.map((row) => JSON.stringify(row)).join('\n')}\n`,
   'utf8',
 )
-writeFileSync(path.join(denovaDir, 'books.json'), JSON.stringify({
+writeFileSync(path.join(inkdockDir, 'books.json'), JSON.stringify({
   current: legacyWorkspace,
   books: [{
     name: 'Legacy E2E Book',
@@ -239,7 +239,7 @@ writeFileSync(path.join(denovaDir, 'books.json'), JSON.stringify({
 }, null, 2), 'utf8')
 
 if (!packageDir) {
-  const build = spawnSync('go', ['build', '-o', binaryPath, './cmd/denova'], {
+  const build = spawnSync('go', ['build', '-o', binaryPath, './cmd/inkdock'], {
     cwd: repositoryRoot,
     env: process.env,
     stdio: 'inherit',
@@ -254,10 +254,10 @@ const backend = spawn(binaryPath, ['--dev-mode', '--no-open', `--port=${backendP
   cwd: runtimeRoot,
   env: {
     ...process.env,
-    DENOVA_DIR: denovaDir,
-    DENOVA_SKILLS_DIR: path.join(packageDir || repositoryRoot, 'skills'),
+    INKDOCK_DIR: inkdockDir,
+    INKDOCK_SKILLS_DIR: path.join(packageDir || repositoryRoot, 'skills'),
     ...(codexExecutable ? { CODEX_HOME: codexHome, PATH: `${path.dirname(codexExecutable)}${path.delimiter}${process.env.PATH ?? ''}` } : {}),
-    ...(packageDir ? { DENOVA_WEB_DIR: path.join(packageDir, 'web') } : {}),
+    ...(packageDir ? { INKDOCK_WEB_DIR: path.join(packageDir, 'web') } : {}),
   },
   stdio: 'inherit',
 })

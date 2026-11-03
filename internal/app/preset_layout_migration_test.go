@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 )
 
 func TestAppStartupMigratesPresetLayout(t *testing.T) {
@@ -19,7 +19,7 @@ func TestAppStartupMigratesPresetLayout(t *testing.T) {
 	writePresetLayoutTestFile(t, filepath.Join(dataRoot, "story-tellers", "custom.json"), "startup")
 
 	application, err := New(context.Background(), &config.Config{
-		OpenAIModel: "test-model", DenovaDir: dataRoot, ResumeLastWorkspace: false,
+		OpenAIModel: "test-model", InkDockDir: dataRoot, ResumeLastWorkspace: false,
 	})
 	if err != nil {
 		t.Fatal(err)

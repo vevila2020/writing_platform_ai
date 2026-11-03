@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"denova/internal/interactive"
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func (h Stories) Scene(ctx context.Context, scope platform.Scope, turnID, sourceRevision string) (platform.StoryScene, error) {

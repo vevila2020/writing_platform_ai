@@ -5,7 +5,7 @@ package compactionapp
 import (
 	"strings"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // ResolveCommandID normalizes a caller-provided idempotency key and validates

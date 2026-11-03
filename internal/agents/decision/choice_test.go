@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestEvaluateUsesSelectedModelConnectionAndCredential(t *testing.T) {

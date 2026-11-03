@@ -10,16 +10,16 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // Exercise both real product index codecs, historical range reads, cold Agent

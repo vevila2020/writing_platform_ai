@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/config"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/config"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
 )
 
 func TestBookGameDefaultsSeedOnlyNewStories(t *testing.T) {

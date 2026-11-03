@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 type agentRunInput struct {

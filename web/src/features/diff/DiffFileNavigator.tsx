@@ -1,7 +1,7 @@
 import type { FileTreeRowDecoration } from '@pierre/trees'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NovaFileTree } from '@/components/file-tree/NovaFileTree'
+import { InkDockFileTree } from '@/components/file-tree/InkDockFileTree'
 import { applicationFileTreePath } from '@/components/file-tree/paths'
 import type { DiffFileNavigationItem } from './types'
 
@@ -21,7 +21,7 @@ export function DiffFileNavigator({ files, selectedPath, onSelect }: DiffFileNav
 
   return (
     <aside data-review-file-navigator role="complementary" aria-label={t('changes.fileNavigator')} className="nova-review-file-navigator">
-      <NovaFileTree
+      <InkDockFileTree
         paths={paths}
         ariaLabel={t('changes.fileNavigator')}
         searchLabel={t('changes.filterFiles')}

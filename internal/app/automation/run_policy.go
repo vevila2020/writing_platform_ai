@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/automation"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // runtimeConfigForTask applies the optional model override for semantic

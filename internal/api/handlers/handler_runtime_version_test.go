@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/runtime/external/claude"
-	"denova/internal/agents/runtime/external/codex"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/claude"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/codex"
 )
 
 func TestRuntimeVersionErrorsIdentifyProviderAndUpgrade(t *testing.T) {
@@ -24,7 +24,7 @@ func TestRuntimeVersionErrorsIdentifyProviderAndUpgrade(t *testing.T) {
 			for _, endpoint := range []string{"engine", "conversation"} {
 				t.Run(provider.name+"/"+locale+"/"+endpoint, func(t *testing.T) {
 					c := app.NewContext(0)
-					c.Request.Header.Set("X-Denova-Locale", locale)
+					c.Request.Header.Set("X-InkDock-Locale", locale)
 					err := fmt.Errorf("connect runtime: %w", provider.err)
 					if endpoint == "engine" {
 						writeEngineError(context.Background(), c, err)

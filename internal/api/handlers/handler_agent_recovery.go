@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	novaApp "denova/internal/app"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 type agentRecoveryActionRequest struct {

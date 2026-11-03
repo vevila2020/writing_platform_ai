@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"sync"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // LoadSessionState reads one Agent-owned durable capability slot from the

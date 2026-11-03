@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 func TestImageSummaryUsesNativeProtocolAndReadOnlyMaintenance(t *testing.T) {

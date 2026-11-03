@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // HasCapabilityRecord reports whether this embedded stream already has a

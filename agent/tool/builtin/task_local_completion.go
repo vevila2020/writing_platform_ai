@@ -10,11 +10,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const taskCompletionTruncatedMarker = "\n[Task result truncated. Use await with timeout_ms=0 and the Run ref for bounded output.]"

@@ -9,11 +9,12 @@ log/
 .gocache-pr/
 .gomodcache/
 .npm-cache/
+inkdock-windows-test/
+inkdock.exe
+inkdock-test.exe
 denova-windows-test/
 denova.exe
 denova-test.exe
-nova-windows-test/
-nova-test.exe
 data/
 web/node_modules/
 web/dist/
@@ -40,8 +41,8 @@ docs/tests/*
 .worktrees/
 .pnpm-store/
 .DS_Store
+.inkdock
 .denova
-.nova
 prd
 .playwright-cli/
 tmp/

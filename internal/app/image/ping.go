@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"denova/config"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 type PingResult struct {

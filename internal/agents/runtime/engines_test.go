@@ -6,9 +6,9 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 type testConnection struct {

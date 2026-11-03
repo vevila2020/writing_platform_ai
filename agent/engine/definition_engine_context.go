@@ -8,16 +8,16 @@ import (
 	"io"
 	"strings"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agenttrace "github.com/alfredxw/denova/agent/lifecycle/trace"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agenttrace "github.com/vevila2020/writing_platform_ai/agent/lifecycle/trace"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 func (engine *Engine) applyGoalPreparation(

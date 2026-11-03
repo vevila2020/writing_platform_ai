@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/runtime/external"
-	"denova/internal/statistics"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/statistics"
 )
 
 type statisticsTestAdapter struct{ calls int }

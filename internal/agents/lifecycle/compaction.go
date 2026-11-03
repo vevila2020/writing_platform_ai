@@ -1,7 +1,7 @@
 package lifecycle
 
 import (
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
 )
 
 // AgentCompactionBinder lets a conversation project the current Agent-owned

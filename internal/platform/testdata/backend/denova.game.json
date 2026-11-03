@@ -43,7 +43,7 @@
   },
   "runtime": {
     "backend": {
-      "protocol": "denova-runtime-v1",
+      "protocol": "inkdock-runtime-v1",
       "launch": {
         "kind": "runtime",
         "runtime": "node",

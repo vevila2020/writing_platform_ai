@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent"
-	"github.com/alfredxw/denova/agent/context/compaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	"github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
 )
 
 // Report exact local usage so a different calibration ratio can only come

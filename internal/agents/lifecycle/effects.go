@@ -8,19 +8,19 @@ import (
 	"log/slog"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // ToolEffectObserver receives only effects accepted by the product. It is
 // process-local accounting and never effect authority.
 type ToolEffectObserver func(agentcanonical.EffectRequest, agenttool.Mutation)
 
-// NewToolEffectApplier adapts Denova's product mutation host to Agent's direct
+// NewToolEffectApplier adapts InkDock's product mutation host to Agent's direct
 // canonical effect API. One invalid item does not discard successful siblings;
 // every request receives an explicit result.
 func NewToolEffectApplier(
@@ -29,12 +29,12 @@ func NewToolEffectApplier(
 	observe ToolEffectObserver,
 ) (agentcanonical.EffectApplier, error) {
 	if applier == nil {
-		return nil, errors.New("Denova Tool mutation applier is required")
+		return nil, errors.New("InkDock Tool mutation applier is required")
 	}
 	options = options.Normalize(options.Workspace)
 	binding, err := agentrun.RuntimeBindingForOptions(options)
 	if err != nil {
-		return nil, fmt.Errorf("resolve Denova Tool effect binding: %w", err)
+		return nil, fmt.Errorf("resolve InkDock Tool effect binding: %w", err)
 	}
 	key, err := binding.AgentSessionKey()
 	if err != nil {
@@ -80,7 +80,7 @@ func NewToolEffectApplier(
 				ToolCallID: toolCallID, Origin: origin, Mutation: mutation,
 			})
 			if err != nil {
-				result.Error = fmt.Sprintf("apply Denova Tool mutation: %v", err)
+				result.Error = fmt.Sprintf("apply InkDock Tool mutation: %v", err)
 				slog.ErrorContext(ctx, "failed to admit committed Agent Tool mutation",
 					"project_id", options.ProjectID, "run_id", request.Identity.RunID,
 					"tool_call_id", toolCallID, "effect_id", request.ID, "target", mutation.Target, "error", err)

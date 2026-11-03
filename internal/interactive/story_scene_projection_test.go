@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 func TestReadSceneAtTurnPreservesDiscardedVersionAndBranchAncestry(t *testing.T) {

@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 func TestGenerateSavesLoreImageAndMetadata(t *testing.T) {

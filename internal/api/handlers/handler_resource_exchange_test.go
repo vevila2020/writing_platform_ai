@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/app/resourceexchange"
-	"denova/internal/platform"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func TestExchangeErrorIncludesSafeDiagnostics(t *testing.T) {
@@ -54,7 +54,7 @@ func TestExchangeErrorIncludesSafeDiagnostics(t *testing.T) {
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			c := app.NewContext(0)
-			c.Request.Header.Set("X-Denova-Locale", "zh-CN")
+			c.Request.Header.Set("X-InkDock-Locale", "zh-CN")
 			exchangeError(context.Background(), c, tt.err)
 			var body agentRuntimeErrorResponse
 			if err := json.Unmarshal(c.Response.Body(), &body); err != nil {

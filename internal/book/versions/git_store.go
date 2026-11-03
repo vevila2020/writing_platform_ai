@@ -19,7 +19,7 @@ import (
 	"github.com/go-git/go-git/v5/storage/filesystem"
 )
 
-// GitStore owns the go-git repository operations used by Denova versions.
+// GitStore owns the go-git repository operations used by InkDock versions.
 type GitStore struct {
 	workspace  string
 	repository string
@@ -33,7 +33,7 @@ func (g GitStore) OpenExisting() (*git.Repository, error) {
 	repo, err := openStateRepository(g.workspace, g.repository)
 	if errors.Is(err, git.ErrRepositoryNotExists) {
 		// Registry.EnsureStore owns the released Book migration. A general
-		// Project's source repository must never become Denova version history.
+		// Project's source repository must never become InkDock version history.
 		return nil, nil
 	}
 	if err != nil {
@@ -232,7 +232,7 @@ func (s *Service) commitWorkspaceSnapshot(repo *git.Repository, snapshot workspa
 	options := &git.CommitOptions{
 		AllowEmptyCommits: true,
 		Author: &object.Signature{
-			Name:  "Denova",
+			Name:  "InkDock",
 			Email: "denova@local",
 			When:  now,
 		},

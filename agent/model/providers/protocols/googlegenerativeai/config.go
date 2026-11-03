@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/internal/llmhttp"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/internal/llmhttp"
 	"google.golang.org/genai"
 )
 

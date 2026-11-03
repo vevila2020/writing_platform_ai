@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
 )
 
 func TestLocalTasksColdResumeKeepsOriginalHostAndFollowUpUsesCurrentHost(t *testing.T) {

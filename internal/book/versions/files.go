@@ -11,7 +11,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/filemode"
@@ -178,7 +178,7 @@ func isTextBytes(data []byte) bool {
 }
 
 // Journal leases coordinate live processes and cannot be read while held on
-// Windows. Exclude only Denova's lease names, preserving user files such as Cargo.lock.
+// Windows. Exclude only InkDock's lease names, preserving user files such as Cargo.lock.
 var journalLeaseName = regexp.MustCompile(`\.jsonl\.(?:domain|mutation|agent-[0-9a-f]{32})\.lock$`)
 
 func isVersionExcludedRelPath(relPath string) bool {

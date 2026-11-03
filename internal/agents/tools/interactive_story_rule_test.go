@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestPrepareInteractiveTurnHidesAuthoritativeModifiersFromAgent(t *testing.T) {

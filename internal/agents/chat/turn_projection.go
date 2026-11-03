@@ -5,13 +5,13 @@ import (
 	"strings"
 	"time"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/prompts"
-	agentreview "denova/internal/agents/review"
-	"denova/internal/agents/session"
-	novaskills "denova/internal/agents/skills"
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 type turnInputProjection struct {

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 type Store struct {
@@ -28,7 +28,7 @@ type Store struct {
 
 // ProjectLocation separates an automation's execution target from its
 // user-owned persistence root. Workspace files remain the target of work;
-// definitions, inbox items, and run obligations live under Denova's data dir.
+// definitions, inbox items, and run obligations live under InkDock's data dir.
 type ProjectLocation struct {
 	ProjectID string
 	Workspace string
@@ -106,9 +106,9 @@ type storeFile struct {
 	Tasks       []Task `json:"tasks"`
 }
 
-func NewStore(userNovaDir, workspace string) *Store {
+func NewStore(userDenovaDir, workspace string) *Store {
 	return &Store{
-		userDir:   strings.TrimSpace(userNovaDir),
+		userDir:   strings.TrimSpace(userDenovaDir),
 		workspace: strings.TrimSpace(workspace),
 	}
 }
@@ -116,9 +116,9 @@ func NewStore(userNovaDir, workspace string) *Store {
 // NewProjectStore binds one content directory to its central Project Store.
 // NewStore remains the legacy path-based constructor for imports and callers
 // that do not yet have a registered Project identity.
-func NewProjectStore(userNovaDir, projectID, workspace, stateRoot string) *Store {
+func NewProjectStore(userDenovaDir, projectID, workspace, stateRoot string) *Store {
 	return &Store{
-		userDir:            strings.TrimSpace(userNovaDir),
+		userDir:            strings.TrimSpace(userDenovaDir),
 		projectID:          strings.TrimSpace(projectID),
 		workspace:          canonicalStoreRoot(workspace),
 		workspaceStateRoot: strings.TrimSpace(stateRoot),

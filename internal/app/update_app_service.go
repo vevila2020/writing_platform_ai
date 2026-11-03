@@ -5,11 +5,11 @@ import (
 	"io"
 	"log/slog"
 
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
-	"denova/internal/i18n"
-	"denova/internal/observability"
-	"denova/internal/update"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func (a *App) CheckUpdate(ctx context.Context) (update.CheckResult, error) {

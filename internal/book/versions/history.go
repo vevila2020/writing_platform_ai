@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	versionSourceTrailer        = "Denova-Source:"
+	versionSourceTrailer        = "InkDock-Source:"
 	legacyVersionSourceTrailer  = "Nova-Source:"
-	versionMetadataTrailer      = "Denova-Metadata:"
+	versionMetadataTrailer      = "InkDock-Metadata:"
 	versionCommitMetadataSchema = 1
 )
 

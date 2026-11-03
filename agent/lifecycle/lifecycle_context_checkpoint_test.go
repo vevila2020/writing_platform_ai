@@ -8,12 +8,12 @@ import (
 	"strings"
 	"testing"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 type contextCheckpointLog struct {

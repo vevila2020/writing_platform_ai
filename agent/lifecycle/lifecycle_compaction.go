@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"strings"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func (session *Session) Compact(ctx context.Context, request agentcompaction.CompactionRequest) (agentcompaction.CompactionResult, error) {

@@ -14,7 +14,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // Error contains only a safe localization key. Upstream bodies and URLs may

@@ -25,10 +25,10 @@
 
 # Agent 与模型上下文
 
-- `agent/` 是独立的 Native Agent Runtime，不感知外部 runtime、产品运行时选择或多 runtime 调度。Native、Codex、Claude 等运行时的选择、适配、能力差异和共通产品控制由 Denova 应用层承担；不得通过给 `agent.Definition`、Session 或其执行循环注入外部 runtime 来实现切换。共通 UI 和产品 journal 可以复用，但不能因此把应用层编排职责下沉到 `agent/`。
+- `agent/` 是独立的 Native Agent Runtime，不感知外部 runtime、产品运行时选择或多 runtime 调度。Native、Codex、Claude 等运行时的选择、适配、能力差异和共通产品控制由 InkDock 应用层承担；不得通过给 `agent.Definition`、Session 或其执行循环注入外部 runtime 来实现切换。共通 UI 和产品 journal 可以复用，但不能因此把应用层编排职责下沉到 `agent/`。
 - 应用层的多 runtime 能力聚合在 `internal/agents/runtime` 独立 package 中，不新增 Go module，也不以搬进 `internal/app` 代替抽象分层。产品层通过绑定会话的统一接口使用控制和状态；Native 执行与外部协议适配保持隔离，产品上下文准备和领域提交仍由产品层负责。运行时已有的 Plan/Todo 由运行时执行，应用只保存已确认的快照并复用展示组件，不提供第二套可写 Todo 工具。原生能力优先，但应权衡协议适配成本，不能为了统一表面行为扩大实现范围。
 - 游戏不支持 Goal，UI、API 与执行层均不得开启 Goal。写作和通用对话可统一 Goal 的产品入口与状态展示，但 Native Goal 的执行和验收由独立 Native runtime 负责，不能与外部 runtime 的执行实现混合。
-- Denova 内置的提示词、上下文片段、工具与 schema 描述、模型可见工具反馈统一使用英文，不重复注入双语；保持产品中立，不提及或类比其他 Agent 产品、CLI 或品牌。对照研究仅放在审计文档中。
+- InkDock 内置的提示词、上下文片段、工具与 schema 描述、模型可见工具反馈统一使用英文，不重复注入双语；保持产品中立，不提及或类比其他 Agent 产品、CLI 或品牌。对照研究仅放在审计文档中。
 - Skill 文档及其参考资料允许使用中文，不受内置提示词的英文限制。
 - 上下文改动优先保护缓存前缀匹配；每个注入片段必须有明确来源、用途和容量上限，上限应覆盖合理使用规模，并明确超限处理，避免随意截断。
 - 模型输出与工具输入 schema 应容忍可修正的错误；列表操作尽量支持逐项成功或失败，避免局部错误导致整批昂贵重试。
@@ -38,19 +38,19 @@
 
 - 受管素材目录按使用场景和归属组织，一个目录不混放不同场景：书籍封面、资料库、写作素材分别维护，游戏素材按稳定故事线 ID 再分一层。文件名只负责文件存储，不编码业务关系，也不用于推导素材身份；属性和关联优先沿用业务记录，仅缺少承载位置的额外信息按需保存目录元数据。
 
-- Beta 只保护最近一个 Release 的用户数据，必要时做小而明确的前向迁移；不支持程序降级，不保留降级转换、双写、内部 API、代码契约或未发布中间格式的兼容性。迁移备份用于失败恢复。
+- 只保护最近一个 Release 的用户数据，必要时做小而明确的前向迁移；不支持程序降级，不保留降级转换、双写、内部 API、代码契约或未发布中间格式的兼容性。迁移备份用于失败恢复。
 - 新功能或较大变更需评估用户是否需要配置；仅在有实际控制需求时增加，并明确默认值、作用域和持久化位置，区分用户配置、工作区配置和运行时状态。
 - 修改 API、配置加载、工作区结构、会话或版本恢复、文件命名时，检查前后端调用点与数据迁移风险。API 边界结构保持稳定、字段一致，重命名同步修改调用方，不暴露后端内部结构。
 - 用户内容的自动迁移、重命名、删除和覆盖必须有可回滚路径或明确备份。
 
-## `.denova` 数据可移动性不变量
+## `.inkdock` 数据可移动性不变量
 
-- `.denova` 内的受管 Project 必须以稳定 `ProjectID` 作为身份；显示名、DataRoot 和运行时绝对路径不得参与持久化 identity、key 或恢复定位。
-- 受管 Project 的 location 及 `.denova` 内文件引用必须持久化为使用 `/` 的规范相对路径；宿主绝对路径只能在运行时投影，不得写入 Registry、Session、metadata、automation、receipt 或其他恢复事实源。External Project 路径保持不透明，不承诺跨系统可用。
+- `.inkdock` 内的受管 Project 必须以稳定 `ProjectID` 作为身份；显示名、DataRoot 和运行时绝对路径不得参与持久化 identity、key 或恢复定位。
+- 受管 Project 的 location 及 `.inkdock` 内文件引用必须持久化为使用 `/` 的规范相对路径；宿主绝对路径只能在运行时投影，不得写入 Registry、Session、metadata、automation、receipt 或其他恢复事实源。External Project 路径保持不透明，不承诺跨系统可用。
 - `stores/<store_dir>` 中的 `store_dir` 创建后不可变；Project 改名、DataRoot 搬迁或 External Project relink 不得移动或重新分配已有 Project Store。
-- Denova 创建的 `.denova` 内文件名必须符合 Windows、WSL、Linux、macOS 的共同规则；业务数据不得包含符号链接、特殊文件或大小写折叠后冲突的路径。
+- InkDock 创建的 `.inkdock` 内文件名必须符合 Windows、WSL、Linux、macOS 的共同规则；业务数据不得包含符号链接、特殊文件或大小写折叠后冲突的路径。
 - 宿主专属 shell 或工具路径在当前系统不可用时，应回退到当前宿主默认值，不能阻止数据目录加载。
-- `.denova` 格式变更只为最近一个 Release 提供小而明确、可重试且先备份的迁移；不要为此增加 dual-write、旧根目录 rebasing 或通用 VFS / StorageRef 抽象。
+- `.inkdock` 格式变更只为最近一个 Release 提供小而明确、可重试且先备份的迁移；不要为此增加 dual-write、旧根目录 rebasing 或通用 VFS / StorageRef 抽象。
 - 一个逻辑 Agent Session 只能有一份 canonical journal：Writing/Chat/Image/Automation 使用其 Product Session JSONL，Game 使用其 Story JSONL，持久子 Agent 在同一 Project Store 下各自使用一份自包含 journal。Goal、Todo、Clear、Cleanup、Compaction 等恢复状态必须以版本化记录写入该 journal；`.idx.json` 和 `runs` 只能是可重建索引与诊断数据，不能成为恢复事实源。
 
 # 开发环境与进程
@@ -62,10 +62,10 @@
 | --- | --- | --- |
 | macOS | `./scripts/bootstrap.sh fe` / `be`；后端重启用 `./scripts/restart-backend.sh` | `./scripts/build.sh` |
 | WSL | 同上，在 WSL 内执行并确认 Go、Node、pnpm 来自 Linux 环境 | `./scripts/build.sh`，默认生成 Linux 产物 |
-| Windows PowerShell | 前端 `pnpm --dir web dev`；后端 `go run ./cmd/denova --dev-mode --no-open`；整体重启用 `.\scripts\restart-dev.ps1` | 暂无 PowerShell 打包入口；通过 Bash 发布脚本 `scripts/build-github-release.sh` 或发布 CI 生成 Windows 包 |
+| Windows PowerShell | 前端 `pnpm --dir web dev`；后端 `go run ./cmd/inkdock --dev-mode --no-open`；整体重启用 `.\scripts\restart-dev.ps1` | 暂无 PowerShell 打包入口；通过 Bash 发布脚本 `scripts/build-github-release.sh` 或发布 CI 生成 Windows 包 |
 
 - `restart-dev.ps1` 会停止前后端进程树，仅在确需整体重启时使用，不作为仅重启后端的替代。操作进程前确认其归属，不干扰其他仓库或环境的实例。
-- 仓库自动化测试入口可管理隔离测试服务：使用独立数据与端口，负责退出清理，不复用开发后端或真实 `DENOVA_DIR`。人工验证允许使用用户默认模型配置。
+- 仓库自动化测试入口可管理隔离测试服务：使用独立数据与端口，负责退出清理，不复用开发后端或真实 `INKDOCK_DIR`。人工验证允许使用用户默认模型配置。
 
 # 测试与构建
 

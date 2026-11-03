@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestSessionConversationRejectsCanonicalWritesWithoutDurableCycleIdentity(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 	"gopkg.in/yaml.v3"
 )
 
@@ -182,7 +182,7 @@ func parseRecord(ctx context.Context, dir Directory, path, data string) (record,
 	fm.Capabilities = normalizeCapabilities(fm.Capabilities)
 	if dir.Scope == ScopeShared {
 		// In shared Skills, `agent` names another tool's execution target; it is
-		// not Denova's per-Agent availability allowlist.
+		// not InkDock's per-Agent availability allowlist.
 		fm.Agent = ""
 	}
 	if err := ValidateName(fm.Name); err != nil {

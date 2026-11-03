@@ -7,8 +7,8 @@ import (
 	"path"
 	"strings"
 
-	"denova/internal/agents/skills"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Shared resources keep a single update owner. New installations may reference
@@ -77,7 +77,7 @@ func (s *Service) sharedImport(ctx context.Context, local LocalRef, resource Pre
 		}
 		baseline := map[string]string{}
 		for name, raw := range files {
-			if strings.HasPrefix(name, ".denova-locks/") {
+			if strings.HasPrefix(name, ".inkdock-locks/") {
 				continue
 			}
 			baseline[path.Join("skills", existing, name)] = revisionfile.Revision(raw)

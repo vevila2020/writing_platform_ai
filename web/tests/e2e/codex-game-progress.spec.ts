@@ -2,7 +2,7 @@ import { expect, test } from '../support/fixtures'
 import { createAndOpenBook, createStartedStory, getStorySnapshot } from '../support/api'
 import { getModelStatus, modelControlURL, releaseDelayedRequest } from '../support/model'
 
-test.skip(!process.env.DENOVA_TEST_CODEX_EXE, 'Installed Codex acceptance is opt-in')
+test.skip(!process.env.INKDOCK_TEST_CODEX_EXE, 'Installed Codex acceptance is opt-in')
 
 for (const theme of ['dark', 'light'] as const) {
   test(`Codex Game shows waiting progress and accepts prose before submission in ${theme}`, async ({ page, request }) => {

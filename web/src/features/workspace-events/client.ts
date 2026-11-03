@@ -10,7 +10,7 @@ import {
   type WorkspaceEventWorkerMessage,
 } from './protocol'
 
-const SHARED_WORKER_NAME = 'denova-project-events-v3'
+const SHARED_WORKER_NAME = 'inkdock-project-events-v3'
 
 /** Subscribes one page to the origin-wide SharedWorker-owned event stream. */
 export function subscribeProjectFileEvents(

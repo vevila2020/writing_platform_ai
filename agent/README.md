@@ -1,4 +1,4 @@
-# Denova Agent
+# InkDock Agent
 
 [English](README.en.md) | 简体中文
 
@@ -9,7 +9,7 @@
 需要 Go 1.26.9 或更新版本。在自己的 Go module 中安装：
 
 ```sh
-go get github.com/alfredxw/denova/agent
+go get github.com/vevila2020/writing_platform_ai/agent
 ```
 
 保存为 `main.go`，设置 `OPENAI_API_KEY`，运行 `go run .`：
@@ -23,11 +23,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/alfredxw/denova/agent"
-	"github.com/alfredxw/denova/agent/lifecycle/event"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/builtin"
-	"github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	"github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func main() {
@@ -74,7 +74,7 @@ func main() {
 
 用户先让助手写一段文字，再要求缩短。把两次任务放在同一个 Session，第二轮就能接着第一轮的内容工作。
 
-额外导入 `github.com/alfredxw/denova/agent/session`、别名为 `tools` 的 `github.com/alfredxw/denova/agent/tool/builtin`，以及别名为 `sessionfile` 的 `github.com/alfredxw/denova/agent/session/file`：
+额外导入 `github.com/vevila2020/writing_platform_ai/agent/session`、别名为 `tools` 的 `github.com/vevila2020/writing_platform_ai/agent/tool/builtin`，以及别名为 `sessionfile` 的 `github.com/vevila2020/writing_platform_ai/agent/session/file`：
 
 ```go
 store, err := sessionfile.New("./data/sessions")
@@ -135,7 +135,7 @@ if err != nil {
 }
 ```
 
-响应类型需导入 `github.com/alfredxw/denova/agent/lifecycle/interaction`。`response` 是 [`interaction.InteractionResponse`](lifecycle/interaction/interaction.go)：普通问题填写 `Answers`（使用请求中的 QuestionID 和选项 Value，或填写 Text）；权限问题填写 `Permission`；取消填写 `Cancelled: true`。问题没回答时，Run 会继续等待，不能只调用 `Wait`。
+响应类型需导入 `github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction`。`response` 是 [`interaction.InteractionResponse`](lifecycle/interaction/interaction.go)：普通问题填写 `Answers`（使用请求中的 QuestionID 和选项 Value，或填写 Text）；权限问题填写 `Permission`；取消填写 `Cancelled: true`。问题没回答时，Run 会继续等待，不能只调用 `Wait`。
 
 同一 Session 一次执行一个 Run；上一轮结束后再开始下一轮。文件 Store 会保留会话，程序重启后用相同目录和 `session.Named("draft-42")` 再次打开即可。默认不配置 Store 时只保存在内存中。
 
@@ -320,7 +320,7 @@ Agent 统一保护当前用户要求、最近完整工具组及未完成步骤�
 
 清理优先选择较新的合格组以保留更长缓存前缀；每项至少节省 256 token，每批至少节省 `max(256, 窗口的 1%)`，且须通过实际模型请求的收益及稳定前缀检查。原始历史不变，`agent.elision` v1 仅在同一 canonical journal 记录消息坐标和来源 hash（最多 4096 项，已被 Compaction 覆盖的坐标会被忽略）；不复制正文或保存宿主绝对路径。暂停、冷启动、手动压缩和 `Inspect()` 复用同一投影，`Clear` 或历史改写使旧投影失效。`Inspect().ElisionMetrics` 提供上次提交的收益与缓存前缀估计。
 
-Denova 原生 Agent（包括写作、游戏及持久子 Agent）沿用现有的自动压缩开关；软阈值按摘要阈值同比缩放，默认先 60% 清理、再 85% 摘要。SDK 的 `Elision: nil` 不再创建新清理；已提交投影仍保留。最近 Release 的原始用户数据无需迁移，旧 Cleanup 记录仍仅作为历史诊断读取。
+InkDock 原生 Agent（包括写作、游戏及持久子 Agent）沿用现有的自动压缩开关；软阈值按摘要阈值同比缩放，默认先 60% 清理、再 85% 摘要。SDK 的 `Elision: nil` 不再创建新清理；已提交投影仍保留。最近 Release 的原始用户数据无需迁移，旧 Cleanup 记录仍仅作为历史诊断读取。
 
 ### 原生图片输入
 

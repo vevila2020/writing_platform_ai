@@ -14,7 +14,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/websocket"
 
-	"denova/internal/terminal"
+	"github.com/vevila2020/writing_platform_ai/internal/terminal"
 )
 
 // terminalUpgrader upgrades an HTTP connection to a WebSocket. Same-origin checking is handled

@@ -3,8 +3,8 @@ package agents
 import (
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 )
 
 func mustTestPromptComposition(t *testing.T, agentKind, instruction string) prompts.SystemPromptComposition {

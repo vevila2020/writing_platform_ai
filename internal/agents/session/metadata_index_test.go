@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestMetadataIndexReopensRefreshesAndRebuildsWithoutChangingHistory(t *testing.T) {

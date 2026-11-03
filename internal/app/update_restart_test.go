@@ -4,15 +4,15 @@ import (
 	"context"
 	"testing"
 
-	"denova/config"
-	apptask "denova/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/config"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 // Background scheduler leases must not prevent an idle restart. Project and
 // workspace operations must: images and version writes do not always own Tasks.
 func TestUpdateRestartWaitsForWorkAndFencesAdmission(t *testing.T) {
 	ctx := context.Background()
-	a := &App{cfg: &config.Config{NovaDir: t.TempDir()}, workspace: t.TempDir()}
+	a := &App{cfg: &config.Config{DenovaDir: t.TempDir()}, workspace: t.TempDir()}
 	a.ensureServices()
 	background, err := a.acquireRootOperation(ctx)
 	if err != nil {

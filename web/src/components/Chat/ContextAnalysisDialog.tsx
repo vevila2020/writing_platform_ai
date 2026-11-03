@@ -7,7 +7,7 @@ import { focusDialogContentOnOpen } from './dialog-focus'
 import { ContextAnalysisDisclosure } from './ContextAnalysisDisclosure'
 import { ContextCopyButton } from './ContextCopyButton'
 
-export const CONTEXT_ANALYSIS_SIMULATED_MESSAGE = '[Denova context analysis probe]'
+export const CONTEXT_ANALYSIS_SIMULATED_MESSAGE = '[InkDock context analysis probe]'
 
 export function ContextAnalysisDialog({ open, loading, error, analysis, onOpenChange, onRemoveCompaction, title, description }: {
   open: boolean
@@ -459,7 +459,7 @@ function CompactionRemoveButton({ removing, onClick }: { removing: boolean; onCl
 }
 
 function isCompactionPart(part: ContextAnalysisPart) {
-  return part.source === '上下文压缩' || part.content.includes('[Denova Context Compaction]') || part.content.includes('[Nova Context Compaction]')
+  return part.source === '上下文压缩' || part.content.includes('[InkDock Context Compaction]') || part.content.includes('[Nova Context Compaction]')
 }
 
 function buildCompactionMeta(t: ReturnType<typeof useTranslation>['t'], compaction: ContextAnalysisCompaction) {

@@ -340,7 +340,7 @@ function formatTaskDelegationArgs(args: string) {
 }
 
 export function stripToolResultMetadata(result: string) {
-  for (const separator of ['\n\n[Denova tool result metadata]', '\n[Denova tool result metadata]']) {
+  for (const separator of ['\n\n[InkDock tool result metadata]', '\n[InkDock tool result metadata]']) {
     const markerIndex = result.lastIndexOf(separator)
     if (markerIndex >= 0) return result.slice(0, markerIndex).trimEnd()
   }

@@ -4,10 +4,10 @@ import { expect, test } from '../support/fixtures'
 import { createAndOpenBook, createAgentChatSession, enablePlugin, setAgentChatApprovalMode, readProjectFile, saveProjectFile } from '../support/api'
 import { modelControlURL, type E2EModelRequest } from '../support/model'
 
-const source = process.env.DENOVA_TEST_COMIC_PLUGIN
+const source = process.env.INKDOCK_TEST_COMIC_PLUGIN
 
 test('a generic Agent saves unified references, resumes an interrupted episode and adopts it in bulk', async ({ page, request, browserDiagnostics }, testInfo) => {
-  test.skip(!source, 'Set DENOVA_TEST_COMIC_PLUGIN to the index comic plugin directory')
+  test.skip(!source, 'Set INKDOCK_TEST_COMIC_PLUGIN to the index comic plugin directory')
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fcomic.json/)
   const book = await createAndOpenBook(request, 'Comic episode acceptance')
   const initialSettings = await (await request.get('/api/settings')).json()
@@ -80,7 +80,7 @@ test('a generic Agent saves unified references, resumes an interrupted episode a
   const changedLore = await request.put(`${loreURL}/hero`, { data: { enabled: true, type: 'character', name: '固定主角', importance: 'major', tags: [], brief_description: '', keywords: [], load_mode: 'auto', content: 'COMIC_CHANGED_CHARACTER now wears a blue coat.' } })
   expect(changedLore.ok(), await changedLore.text()).toBe(true)
   const settings = await (await request.get('/api/settings')).json()
-  const newModel = await request.patch('/api/settings', { data: { layer: 'user', base_revision: settings.revisions.user, changes: { image_api_profiles: [...settings.user.image_api_profiles, { id: 'episode-alternate', name: 'Episode alternate', endpoint_id: 'e2e-image', model: 'denova-e2e-image' }] } } })
+  const newModel = await request.patch('/api/settings', { data: { layer: 'user', base_revision: settings.revisions.user, changes: { image_api_profiles: [...settings.user.image_api_profiles, { id: 'episode-alternate', name: 'Episode alternate', endpoint_id: 'e2e-image', model: 'inkdock-e2e-image' }] } } })
   expect(newModel.ok(), await newModel.text()).toBe(true)
   await studio.getByRole('button', { name: '图像模型', exact: true }).click()
   await studio.getByRole('menuitemradio', { name: 'Episode alternate', exact: true }).click()

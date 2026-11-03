@@ -20,7 +20,7 @@ describe('subscribeProjectFileEvents', () => {
 
     expect(constructorCalls).toEqual([{
       url: expect.stringContaining('/workspace-events/shared-worker.ts'),
-      options: expect.objectContaining({ name: 'denova-project-events-v3', type: 'module' }),
+      options: expect.objectContaining({ name: 'inkdock-project-events-v3', type: 'module' }),
     }])
     expect(port.sent).toEqual([{
       type: 'subscribe',

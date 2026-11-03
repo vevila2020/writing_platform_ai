@@ -12,12 +12,12 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/toolapproval"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolapproval"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type PermissionConfig struct {
@@ -46,7 +46,7 @@ type permissionRuleState struct {
 	rules []config.AgentApprovalRule
 }
 
-// NewPermissionPolicy adapts Denova's mature shell/network classifier to the
+// NewPermissionPolicy adapts InkDock's mature shell/network classifier to the
 // public durable PermissionPolicy. Persisted rules are dynamic policy data,
 // not Definition behavior identity: a remembered rule becomes visible without
 // rebuilding tool definitions.
@@ -57,7 +57,7 @@ func NewPermissionPolicy(configValue PermissionConfig) (agentpermission.Permissi
 	configValue.Workspace = strings.TrimSpace(configValue.Workspace)
 	configValue.Rules = config.NormalizeAgentApprovalRules(configValue.Rules)
 	if err := config.ValidateAgentApprovalRules(configValue.Rules); err != nil {
-		return nil, fmt.Errorf("validate Denova Agent approval rules: %w", err)
+		return nil, fmt.Errorf("validate InkDock Agent approval rules: %w", err)
 	}
 	if configValue.GOOS == "" {
 		configValue.GOOS = runtime.GOOS
@@ -135,7 +135,7 @@ func (policy *denovaPermissionPolicy) Evaluate(ctx context.Context, request agen
 	case toolapproval.ActionDeny:
 		kind = agentpermission.PermissionBlock
 	default:
-		return agentpermission.PermissionDecision{}, fmt.Errorf("unsupported Denova approval action %q", decision.Action)
+		return agentpermission.PermissionDecision{}, fmt.Errorf("unsupported InkDock approval action %q", decision.Action)
 	}
 	details := agentpermission.PermissionDetails{
 		Mode: string(policy.config.Mode), Command: decision.Command, Cwd: decision.Cwd,
@@ -181,10 +181,10 @@ func (policy *denovaPermissionPolicy) Resolve(ctx context.Context, request agent
 			return agentpermission.PermissionResolvedDecision{Allowed: true, Remembered: true}, nil
 		}
 		if decision.Action != toolapproval.ActionPrompt || decision.Remember == nil {
-			return agentpermission.PermissionResolvedDecision{}, errors.New("Denova approval does not permit a remembered workspace rule")
+			return agentpermission.PermissionResolvedDecision{}, errors.New("InkDock approval does not permit a remembered workspace rule")
 		}
 		if policy.config.PersistRule == nil {
-			return agentpermission.PermissionResolvedDecision{}, errors.New("Denova Permission remember requires a rule store")
+			return agentpermission.PermissionResolvedDecision{}, errors.New("InkDock Permission remember requires a rule store")
 		}
 		approvedInput := strings.TrimSpace(decision.Command)
 		if approvedInput == "" {
@@ -210,14 +210,14 @@ func (policy *denovaPermissionPolicy) Resolve(ctx context.Context, request agent
 			return agentpermission.PermissionResolvedDecision{}, err
 		}
 		if err := policy.config.PersistRule(ctx, rule); err != nil {
-			return agentpermission.PermissionResolvedDecision{}, fmt.Errorf("persist Denova Agent approval rule: %w", err)
+			return agentpermission.PermissionResolvedDecision{}, fmt.Errorf("persist InkDock Agent approval rule: %w", err)
 		}
 		if err := policy.rules.remember(rule); err != nil {
 			return agentpermission.PermissionResolvedDecision{}, err
 		}
 		return agentpermission.PermissionResolvedDecision{Allowed: true, Remembered: true}, nil
 	default:
-		return agentpermission.PermissionResolvedDecision{}, errors.New("invalid Denova Permission resolution")
+		return agentpermission.PermissionResolvedDecision{}, errors.New("invalid InkDock Permission resolution")
 	}
 }
 
@@ -227,11 +227,11 @@ func (policy *denovaPermissionPolicy) rulesForEvaluation(ctx context.Context) ([
 	}
 	rules, err := policy.config.LoadRules(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("load Denova Agent approval rules: %w", err)
+		return nil, fmt.Errorf("load InkDock Agent approval rules: %w", err)
 	}
 	rules = config.NormalizeAgentApprovalRules(rules)
 	if err := config.ValidateAgentApprovalRules(rules); err != nil {
-		return nil, fmt.Errorf("validate loaded Denova Agent approval rules: %w", err)
+		return nil, fmt.Errorf("validate loaded InkDock Agent approval rules: %w", err)
 	}
 	policy.rules.replace(rules)
 	return clonePermissionRules(rules), nil

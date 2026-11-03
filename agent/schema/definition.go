@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // CapabilityIdentity is stable across process restarts. ConfigHash contains

@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"log/slog"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	publicgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	publicgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func (run *ExternalRun) afterCommit(ctx context.Context, runtime *external.RuntimeSession) error {

@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Descriptor exposes a persisted attachment's preview identity without its

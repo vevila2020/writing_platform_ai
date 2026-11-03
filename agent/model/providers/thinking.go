@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// ThinkingLevel is Denova's provider-neutral reasoning control. Default asks
+// ThinkingLevel is InkDock's provider-neutral reasoning control. Default asks
 // the adapter to omit provider thinking fields; all other values are explicit.
 // Adapters own the wire-level mapping for their protocol and provider.
 type ThinkingLevel string
@@ -36,7 +36,7 @@ func ThinkingLevels() []ThinkingLevel {
 }
 
 // NormalizeThinkingLevel accepts common human/provider spellings while keeping
-// Denova's persisted and adapter-facing vocabulary stable.
+// InkDock's persisted and adapter-facing vocabulary stable.
 func NormalizeThinkingLevel(value string) ThinkingLevel {
 	normalized := strings.ToLower(strings.TrimSpace(value))
 	normalized = strings.NewReplacer("_", "-", " ", "-").Replace(normalized)

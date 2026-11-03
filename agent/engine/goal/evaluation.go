@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const (

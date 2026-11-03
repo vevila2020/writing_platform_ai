@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	appsettings "denova/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
 )
 
 // ErrConversationDefaultsNotSaved distinguishes a failed preference write

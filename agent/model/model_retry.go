@@ -7,10 +7,10 @@ import (
 	"io"
 	"log/slog"
 
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelOutput is a detached response and request snapshot for business review.

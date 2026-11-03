@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 func TestCapabilityRecoveryAndUpdate(t *testing.T) {

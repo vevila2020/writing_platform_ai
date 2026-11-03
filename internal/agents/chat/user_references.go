@@ -3,7 +3,7 @@ package chat
 import (
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 )
 
 func userMessageReferencesForRequest(req ChatRequest) []agentcontext.UserReference {

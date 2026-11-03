@@ -8,7 +8,7 @@ import (
 	"path"
 	"strings"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func digestMap(value map[string]string) string {
@@ -59,7 +59,7 @@ func (s *Service) reviewFiles(ctx context.Context, old Binding, next *Binding, i
 			return err
 		}
 		for name, content := range files {
-			if strings.HasPrefix(name, ".denova-locks/") {
+			if strings.HasPrefix(name, ".inkdock-locks/") {
 				continue
 			}
 			name = path.Join(prefix, name)

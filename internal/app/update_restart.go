@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"time"
 
-	"denova/config"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 // Update scheduling belongs to the App, never to a browser or Agent runtime.
@@ -94,7 +94,7 @@ func (a *App) updateWorkActiveLocked(ctx context.Context) (bool, error) {
 }
 
 // ScheduleUpdateRestart pins a user's restart request to one staged transaction.
-// Waiting is process-local intent; restarting Denova normally cancels the wait.
+// Waiting is process-local intent; restarting InkDock normally cancels the wait.
 func (a *App) ScheduleUpdateRestart(ctx context.Context, when string) (update.ApplyResult, error) {
 	if a == nil {
 		return a.updateService().Apply(ctx, nil, 0, "")

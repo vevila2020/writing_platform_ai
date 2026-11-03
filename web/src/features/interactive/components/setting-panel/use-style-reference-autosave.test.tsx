@@ -43,7 +43,7 @@ describe('useStyleReferenceAutosave', () => {
     expect(preserveAutosaveConflict).toHaveBeenCalledWith(expect.objectContaining({
       resource: 'style_reference',
       scope: 'user',
-      id: '.denova/styles/style.md',
+      id: '.inkdock/styles/style.md',
       base: { revision: 'r1', value: 'Original style\n' },
       local: { revision: 'r1', value: 'Local style\n' },
       external: { revision: 'r2', value: 'External style\n' },
@@ -51,7 +51,7 @@ describe('useStyleReferenceAutosave', () => {
       conflict_paths: [[]],
     }))
     expect(updateStyleReferenceFile).toHaveBeenNthCalledWith(2, {
-      path: '.denova/styles/style.md',
+      path: '.inkdock/styles/style.md',
       content: 'Local style\n',
       base_revision: 'r2',
     })
@@ -76,8 +76,8 @@ function styleDocument(content: string, revision: string): StyleReferenceFileDoc
     reference: {
       name: 'Style',
       description: '',
-      path: '/tmp/.denova/styles/style.md',
-      display_path: '.denova/styles/style.md',
+      path: '/tmp/.inkdock/styles/style.md',
+      display_path: '.inkdock/styles/style.md',
     },
     content,
     revision,

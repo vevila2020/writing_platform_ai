@@ -3,8 +3,8 @@ package resourceexchange
 import (
 	"bytes"
 	"context"
-	"denova/internal/book/lore"
 	"encoding/json"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"image"
 	"image/png"
 	"os"
@@ -13,12 +13,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/skills"
-	"denova/internal/app/resourcecatalog"
-	"denova/internal/platform"
-	"denova/internal/project"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 type skillSource struct{ root string }

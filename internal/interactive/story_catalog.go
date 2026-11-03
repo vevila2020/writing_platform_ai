@@ -2,18 +2,18 @@ package interactive
 
 import (
 	"context"
-	interactivestate "denova/internal/interactive/state"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func (s *Store) Index() (Index, error) {

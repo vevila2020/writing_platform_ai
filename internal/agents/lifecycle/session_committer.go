@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // SessionOutputCommit is the product-approved session projection of one raw
@@ -52,7 +52,7 @@ type sessionConversationCommitter struct {
 
 func NewSessionConversationCommitter(config SessionCommitterConfig) (ConversationCommitter, error) {
 	if config.Conversation == nil || config.Session == nil {
-		return nil, errors.New("Denova Session committer requires conversation and session")
+		return nil, errors.New("InkDock Session committer requires conversation and session")
 	}
 	config.Options = config.Options.Normalize(config.Options.Workspace)
 	return &sessionConversationCommitter{config: config, inputCallbacks: make(map[string]struct{})}, nil
@@ -79,7 +79,7 @@ func (committer *sessionConversationCommitter) MaterializeInput(
 		committer.mu.Unlock()
 		if !called {
 			if err := committer.config.InputEffect.Apply(ctx, effectRequest); err != nil {
-				return agentcanonical.CommitReceipt{}, fmt.Errorf("run Denova input-commit callback: %w", err)
+				return agentcanonical.CommitReceipt{}, fmt.Errorf("run InkDock input-commit callback: %w", err)
 			}
 			committer.mu.Lock()
 			committer.inputCallbacks[request.Hash] = struct{}{}
@@ -132,7 +132,7 @@ func (committer *sessionConversationCommitter) CommitOutput(
 		}
 	}
 	if projection.Message == nil {
-		return agentcanonical.OutputCommitReceipt{}, errors.New("Denova Session output projector returned no canonical message")
+		return agentcanonical.OutputCommitReceipt{}, errors.New("InkDock Session output projector returned no canonical message")
 	}
 	receipt, err := committer.config.Conversation.CommitAgentCanonicalOutput(
 		ctx, projection.Message, projection.Metadata, request.Checkpoint,

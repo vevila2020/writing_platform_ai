@@ -9,18 +9,18 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	"github.com/alfredxw/denova/agent"
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestWritingApprovalSurvivesContextFileChanges(t *testing.T) {

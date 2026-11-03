@@ -5,11 +5,11 @@ import (
 	"errors"
 	"log/slog"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 func (h *Handlers) HandleLoreIndex(ctx context.Context, c *app.RequestContext) {

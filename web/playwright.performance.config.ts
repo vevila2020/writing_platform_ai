@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test'
 import production from './playwright.production.config'
 
 const servers = Array.isArray(production.webServer) ? production.webServer : []
-const bundle = process.env.DENOVA_PERFORMANCE_DIST_DIR
+const bundle = process.env.INKDOCK_PERFORMANCE_DIST_DIR
 
 // Measure the shipped bundle against an isolated backend and data directory.
 export default defineConfig({

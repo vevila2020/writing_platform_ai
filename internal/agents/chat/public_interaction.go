@@ -3,10 +3,10 @@ package chat
 import (
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 // ProjectPendingInteraction is a read-only UI projection. The product

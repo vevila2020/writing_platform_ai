@@ -6,9 +6,9 @@ import (
 	"sync"
 	"testing"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type toolNameMiddleware struct {

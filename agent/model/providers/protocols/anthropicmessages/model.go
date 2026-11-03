@@ -6,15 +6,15 @@ import (
 	"net/http"
 	"runtime/debug"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Generate deliberately consumes the streaming endpoint. The Anthropic SDK's
-// non-streaming helper injects a model-dependent timeout; Denova leaves model
+// non-streaming helper injects a model-dependent timeout; InkDock leaves model
 // execution unbounded except for caller context cancellation.
 func (model *ChatModel) Generate(ctx context.Context, input []*agentschema.Message, opts ...agentmodel.ModelOption) (*agentschema.Message, error) {
 	opts = agentmodel.BindContextSessionKey(ctx, model.options, opts...)

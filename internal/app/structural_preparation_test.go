@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestManualContextRemovalPreparesFreshWritingAndGameSessions(t *testing.T) {

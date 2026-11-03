@@ -10,7 +10,7 @@ import (
 )
 
 // prepareCommandForPTY gives the shell its own session and makes the PTY its controlling
-// terminal. Merely wiring stdin/stdout to the slave leaves the child attached to Denova's host
+// terminal. Merely wiring stdin/stdout to the slave leaves the child attached to InkDock's host
 // terminal; an interactive program can then stop the shell with SIGTTOU when it hands foreground
 // control back on exit, leaving the browser tab connected to a permanently paused process group.
 func prepareCommandForPTY(cmd *exec.Cmd) {

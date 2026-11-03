@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/publicnet"
+	"github.com/vevila2020/writing_platform_ai/internal/publicnet"
 )
 
 var (

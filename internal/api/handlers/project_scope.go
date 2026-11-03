@@ -9,9 +9,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsvc "denova/internal/app"
-	"denova/internal/concurrency"
-	projectdomain "denova/internal/project"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 const projectScopeContextKey = "denova.project.scope"

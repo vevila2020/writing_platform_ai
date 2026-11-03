@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // AgentSessionID resolves the fixed journal session for a built-in background Agent.

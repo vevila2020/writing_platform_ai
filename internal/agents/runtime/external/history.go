@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"sort"
 
-	"denova/config"
-	"denova/internal/agents/conversationjournal"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // History captures admission facts and a canonical source interval, without

@@ -9,14 +9,14 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agenttoolresult "github.com/alfredxw/denova/agent/tool/result"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agenttoolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 const toolProgressTruncatedMarker = "\n[tool progress truncated]"

@@ -9,10 +9,10 @@ import (
 	"slices"
 	"strings"
 
-	booklore "denova/internal/book/lore"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func (host Resources) LibraryCategories(ctx context.Context, projectID string) ([]platform.LibraryCategory, error) {

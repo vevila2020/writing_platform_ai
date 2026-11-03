@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 // ProjectCatalog is a read-only projection of one registered Project. Failures

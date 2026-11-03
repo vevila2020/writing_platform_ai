@@ -9,9 +9,9 @@ import (
 	"sync"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
-	"denova/internal/automation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 // Service owns trigger scheduling and durable delivery. The Project Agent

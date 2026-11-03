@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/concurrency"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // storePathLocks coordinates all Store instances in this process. Stores are

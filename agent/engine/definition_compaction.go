@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type compactionCommandEnvelope struct {

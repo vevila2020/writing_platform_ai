@@ -2,12 +2,12 @@ package interactive
 
 import (
 	"crypto/sha256"
-	interactivestate "denova/internal/interactive/state"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"sort"
 	"strings"
 	"unicode"

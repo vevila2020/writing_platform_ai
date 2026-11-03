@@ -1,4 +1,4 @@
-// Package portablepath defines the filename subset Denova may create inside a
+// Package portablepath defines the filename subset InkDock may create inside a
 // movable data directory. The rules intentionally use the strictest common
 // behavior of Windows, WSL, Linux, and macOS.
 package portablepath

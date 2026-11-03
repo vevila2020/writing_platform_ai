@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // IDEStoryTeller describes the resolved writing-director rules used by one
@@ -24,7 +24,7 @@ type IDEStoryTeller struct {
 }
 
 // ComposeGeneralInstruction assembles the project-scoped contract for the
-// General Agent. The project directory is its working root; Denova's user data
+// General Agent. The project directory is its working root; InkDock's user data
 // directory receives no implicit privilege or restriction when explicitly
 // added as a project.
 func ComposeGeneralInstruction(cfg *config.Config) (SystemPromptComposition, error) {
@@ -51,7 +51,7 @@ func ComposeInstruction(cfg *config.Config, state *book.State, teller IDEStoryTe
 	builtIn = append(builtIn, tellerSystemPromptFragment("ide_teller", "Default Writing Director Rules", teller.ID, teller.Name, teller.Description, teller.Prompt))
 	builtIn = append(builtIn, styleRuleSystemPromptFragments(teller.StyleRules)...)
 	builtIn = append(builtIn, SystemPromptFragment{
-		ID: "builtin_base", Source: "Denova built-in", Title: "Writing workflow",
+		ID: "builtin_base", Source: "InkDock built-in", Title: "Writing workflow",
 		Purpose: "define the built-in writing workflow and workspace rules",
 		Content: ideFlowInstruction(cfg, workspace), Required: true, Overflow: SystemPromptOverflowReject,
 	})
@@ -119,7 +119,7 @@ func ComposeInteractiveStoryInstruction(cfg *config.Config, state *book.State, t
 		baseInput.ReplyTargetChars = cfg.InteractiveReplyTargetChars
 	}
 	builtIn = append(builtIn, SystemPromptFragment{
-		ID: "builtin_base", Source: "Denova built-in", Title: "Interactive story workflow",
+		ID: "builtin_base", Source: "InkDock built-in", Title: "Interactive story workflow",
 		Purpose: "define the built-in game narration workflow and output behavior",
 		Content: BuildInteractiveStoryFlowInstruction(baseInput), Required: true, Overflow: SystemPromptOverflowReject,
 	})
@@ -144,7 +144,7 @@ func BuildInteractiveStoryInstructionComposition(cfg *config.Config, state *book
 func ComposeImageInstruction(cfg *config.Config, state *book.State, systemPrompt string) (SystemPromptComposition, error) {
 	base, workspace := buildImageBuiltinInstruction(cfg, state, "")
 	builtIn := []SystemPromptFragment{{
-		ID: "builtin_base", Source: "Denova built-in", Title: "Image Agent base rules",
+		ID: "builtin_base", Source: "InkDock built-in", Title: "Image Agent base rules",
 		Purpose: "define the built-in image generation workflow", Content: base,
 		Required: true, Overflow: SystemPromptOverflowReject,
 	}, {
@@ -234,13 +234,13 @@ func styleRuleSystemPromptFragments(rules []StyleRule) []SystemPromptFragment {
 	}
 	fragments := make([]SystemPromptFragment, 0, len(entries)+2)
 	fragments = append(fragments, SystemPromptFragment{
-		ID: "style_protocol_header", Source: "Denova built-in", Title: "Prose style reference protocol",
+		ID: "style_protocol_header", Source: "InkDock built-in", Title: "Prose style reference protocol",
 		Purpose: "describe the provenance and shape of the following style entries",
 		Content: StyleRulesProtocolHeader(), Required: true, Overflow: SystemPromptOverflowReject,
 	})
 	fragments = append(fragments, entries...)
 	fragments = append(fragments, SystemPromptFragment{
-		ID: "style_protocol_footer", Source: "Denova built-in", Title: "Prose style reference trigger rules",
+		ID: "style_protocol_footer", Source: "InkDock built-in", Title: "Prose style reference trigger rules",
 		Purpose: "define when and how style references may influence generated prose",
 		Content: StyleRulesProtocolFooter(), Suffix: "\n\n---\n\n", Required: true, Overflow: SystemPromptOverflowReject,
 	})

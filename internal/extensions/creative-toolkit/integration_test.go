@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/platform"
-	"denova/internal/platform/assets"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/platform/assets"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // The extension is tested as a consumer of the public host API, without

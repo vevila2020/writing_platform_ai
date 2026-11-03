@@ -3,7 +3,7 @@ package tools
 import (
 	"context"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // InteractiveContext is the concrete tools' story-scoped dependency set.

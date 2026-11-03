@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/concurrency"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
 )
 
 // automationTriggerCoordinator owns mutation-trigger evaluation for the process

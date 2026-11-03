@@ -2,14 +2,14 @@ package app
 
 import (
 	"context"
-	apptask "denova/internal/app/task"
 	"errors"
 	"fmt"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 
-	"denova/internal/concurrency"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // projectTaskRegistration keeps a background Project task inside both the

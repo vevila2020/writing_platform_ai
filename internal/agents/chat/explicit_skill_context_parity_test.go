@@ -5,15 +5,15 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/session"
-	novaskills "denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type explicitSkillParityConversation struct {

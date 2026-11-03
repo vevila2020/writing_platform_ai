@@ -1,6 +1,6 @@
 package interactiveapp
 
-import "denova/internal/interactive"
+import "github.com/vevila2020/writing_platform_ai/internal/interactive"
 
 type interactiveTurnPhase uint8
 

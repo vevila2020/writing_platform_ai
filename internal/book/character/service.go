@@ -1,4 +1,4 @@
-// Package character imports third-party character cards into Denova's native
+// Package character imports third-party character cards into InkDock's native
 // lore and interactive-opening formats.
 package character
 

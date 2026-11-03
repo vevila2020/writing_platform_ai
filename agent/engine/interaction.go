@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"sync"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type engineInteractionClient struct {

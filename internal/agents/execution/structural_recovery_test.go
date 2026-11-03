@@ -6,20 +6,20 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/canonicalstore"
-	agentstructural "denova/internal/agents/context/structural"
-	agentconversation "denova/internal/agents/conversation"
-	agentdelegation "denova/internal/agents/delegation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type structuralTestCompaction struct{ t *testing.T }

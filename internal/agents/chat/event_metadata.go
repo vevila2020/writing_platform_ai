@@ -1,11 +1,11 @@
 package chat
 
 import (
-	"denova/internal/agents/run"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"strings"
 
-	agentplan "denova/internal/agents/plan"
+	agentplan "github.com/vevila2020/writing_platform_ai/internal/agents/plan"
 )
 
 type agentEventMetadata struct {

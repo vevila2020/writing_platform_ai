@@ -96,7 +96,7 @@ test('creator package round trip preserves consent, conflicts, backups and local
 
   await saveProjectFile(request, source.projectId, 'CREATOR.md', 'x'.repeat(256 * 1024))
   const oversized = await previewRules(request, await exportRules(request, source.projectId))
-  const rejected = await request.post('/api/resource-exchange/plans', { headers: { 'X-Denova-Locale': 'en-US' }, data: {
+  const rejected = await request.post('/api/resource-exchange/plans', { headers: { 'X-InkDock-Locale': 'en-US' }, data: {
     preview_id: oversized.preview_id, candidate_id: oversized.candidates[0].candidate_id,
     project_id: target.projectId, resources: oversized.candidates[0].resources.map((r: { id: string }) => r.id), replace_modified: true,
   } })

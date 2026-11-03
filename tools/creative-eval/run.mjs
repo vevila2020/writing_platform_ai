@@ -5,7 +5,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { parse } from 'smol-toml'
-import DenovaProvider from './provider.mjs'
+import InkDockProvider from './provider.mjs'
 import { structuralChecks } from './checks.mjs'
 import { profileGrader } from './profile-grader.mjs'
 
@@ -25,7 +25,7 @@ export async function evaluateCreative({ configPath, cases, repeat = 1, filter, 
   }
   const outputDirectory = path.join(toolDirectory, 'results', `${new Date().toISOString().replaceAll(':', '-')}-${process.pid}`)
   await mkdir(outputDirectory, { recursive: true, mode: 0o700 })
-  const executable = binary || path.join(outputDirectory, process.platform === 'win32' ? 'denova.exe' : 'denova')
+  const executable = binary || path.join(outputDirectory, process.platform === 'win32' ? 'inkdock.exe' : 'inkdock')
   let gradingProfile
   try {
     const providers = []
@@ -42,12 +42,12 @@ export async function evaluateCreative({ configPath, cases, repeat = 1, filter, 
       const keys = ['model_endpoints', 'model_profiles', 'agent_models', 'agent_context', 'agent_prompts',
         'model_max_retries', 'openai_api_key', 'openai_base_url', 'openai_model', 'openai_context_window_tokens']
       const settings = Object.fromEntries(keys.filter(key => source[key] !== undefined).map(key => [key, source[key]]))
-      providers.push(new DenovaProvider({ label: variant.label, variant, settings, binary: executable,
+      providers.push(new InkDockProvider({ label: variant.label, variant, settings, binary: executable,
         skillsDirectory: variant.skills_directory ? resolveConfig(variant.skills_directory) : path.join(repositoryRoot, 'skills'), outputDirectory }))
     }
     if (!binary) {
       console.log('[creative-eval] Building the current checkout')
-      const build = spawn('go', ['build', '-o', executable, './cmd/denova'], { cwd: repositoryRoot, stdio: 'inherit', signal })
+      const build = spawn('go', ['build', '-o', executable, './cmd/inkdock'], { cwd: repositoryRoot, stdio: 'inherit', signal })
       const [code] = await once(build, 'exit')
       if (code !== 0) throw new Error(`Backend build failed: ${code}`)
     }
@@ -68,7 +68,7 @@ export async function evaluateCreative({ configPath, cases, repeat = 1, filter, 
     const { default: promptfoo } = await import('promptfoo')
     console.log(`[creative-eval] Running ${selected.length} scenarios, ${variants.length} variants, ${repeat} repetitions`)
     const evaluation = await promptfoo.evaluate({
-      description: `Denova creative evaluation ${metadata.started_at}`,
+      description: `InkDock creative evaluation ${metadata.started_at}`,
       prompts: ['{{request}}'], providers,
       tests: selected.map(scenario => ({
         description: scenario.id, vars: { request: scenario.prompt, scenario },

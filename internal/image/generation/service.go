@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 var (

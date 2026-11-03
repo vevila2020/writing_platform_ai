@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 
-	producttools "denova/internal/agents/tools"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 )
 
 type hostToolIdentityKey struct{}

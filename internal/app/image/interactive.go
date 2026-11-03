@@ -9,12 +9,12 @@ import (
 	"log/slog"
 	"strings"
 
-	apptask "denova/internal/app/task"
-	imageasset "denova/internal/image/asset"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const (

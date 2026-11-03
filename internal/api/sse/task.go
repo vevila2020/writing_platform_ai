@@ -13,10 +13,10 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 
-	"denova/internal/api/agentui"
-	novaApp "denova/internal/app"
-	apptask "denova/internal/app/task"
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/api/agentui"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 const (

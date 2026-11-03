@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"sync"
 
-	"denova/internal/localfs"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 var workspaceSkillMigrationLocks sync.Map

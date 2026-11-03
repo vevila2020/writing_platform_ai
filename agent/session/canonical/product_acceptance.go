@@ -3,7 +3,7 @@ package canonical
 import (
 	"context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // productAcceptor joins a host transaction to the current execution checkpoint.

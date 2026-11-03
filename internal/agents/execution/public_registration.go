@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // registerInput publishes routing before Agent admission can start preparation.

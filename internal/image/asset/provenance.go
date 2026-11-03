@@ -3,7 +3,7 @@ package asset
 import (
 	"fmt"
 
-	"denova/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
 )
 
 // ProvenanceStorage identifies the existing owner of generation details.

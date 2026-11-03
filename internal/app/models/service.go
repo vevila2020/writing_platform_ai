@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"denova/config"
-	"denova/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
 )
 
 // Host provides an immutable configuration snapshot for one validation call.

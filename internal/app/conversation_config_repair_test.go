@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/session"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestConversationDraftCanRepairUnavailableRuntimeDefault(t *testing.T) {

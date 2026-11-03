@@ -38,10 +38,10 @@ for (const language of ['zh-CN', 'en-US']) {
     const messages = language === 'zh-CN' ? zhRuntime : enRuntime
     await expect(runtime.getByText(messages['agentRuntime.defaultsOnly'], { exact: true })).toBeVisible()
     const hint = engine === 'claude'
-      ? (language === 'zh-CN' ? '请在运行 Denova 的电脑上执行 claude auth login，然后重新检查连接。' : 'Run claude auth login on the computer running Denova, then check the connection again.')
+      ? (language === 'zh-CN' ? '请在运行墨栈 AI 的电脑上执行 claude auth login，然后重新检查连接。' : 'Run claude auth login on the computer running InkDock, then check the connection again.')
       : language === 'zh-CN'
-      ? '请在运行 Denova 的电脑上打开终端，执行 codex login，然后重新检查连接。'
-      : 'Run codex login in a terminal on the computer running Denova, then check the connection again.'
+      ? '请在运行墨栈 AI 的电脑上打开终端，执行 codex login，然后重新检查连接。'
+      : 'Run codex login in a terminal on the computer running InkDock, then check the connection again.'
     const model = runtime.getByRole('combobox', { name: language === 'zh-CN' ? '引擎模型' : 'Engine model', exact: true })
     await expect(runtime.getByText(hint, { exact: true })).toBeVisible()
     await expect(model).toBeDisabled()
@@ -240,7 +240,7 @@ test(`${engine} runtime settings show version and upgrade guidance while unavail
   await page.reload()
   await page.getByRole('button', { name: 'Agents', exact: true }).click()
   await page.getByRole('tab', { name: /^(运行时|Runtime)$/ }).click()
-  await expect(page.getByText(engine === 'codex' ? 'The Codex CLI version is too old or unrecognized. Minimum supported version: 0.130.0. Run codex update on the computer running Denova (for npm installations, use npm install -g @openai/codex@latest), then click Check connection.' : 'The Claude Code version is too old or unrecognized. Minimum supported version: 2.1.259. Run claude update on the computer running Denova (for Homebrew installations, use brew upgrade claude-code), then click Check connection.', { exact: true })).toBeVisible()
+  await expect(page.getByText(engine === 'codex' ? 'The Codex CLI version is too old or unrecognized. Minimum supported version: 0.130.0. Run codex update on the computer running InkDock (for npm installations, use npm install -g @openai/codex@latest), then click Check connection.' : 'The Claude Code version is too old or unrecognized. Minimum supported version: 2.1.259. Run claude update on the computer running InkDock (for Homebrew installations, use brew upgrade claude-code), then click Check connection.', { exact: true })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 900 })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   await page.screenshot({ path: test.info().outputPath('runtime-minimum-version-en.png'), animations: 'disabled' })
@@ -251,7 +251,7 @@ test(`${engine} runtime settings show version and upgrade guidance while unavail
   await page.reload()
   await page.getByRole('button', { name: 'Agents', exact: true }).click()
   await page.getByRole('tab', { name: /^(运行时|Runtime)$/ }).click()
-  await expect(page.getByText(engine === 'codex' ? 'Codex CLI 版本过旧或无法识别，最低支持版本为 0.130.0。请在运行 Denova 的电脑上执行 codex update（npm 安装可执行 npm install -g @openai/codex@latest），更新后点击「检查连接」。' : 'Claude Code 版本过旧或无法识别，最低支持版本为 2.1.259。请在运行 Denova 的电脑上执行 claude update（Homebrew 安装使用 brew upgrade claude-code），更新后点击「检查连接」。', { exact: true })).toBeVisible()
+  await expect(page.getByText(engine === 'codex' ? 'Codex CLI 版本过旧或无法识别，最低支持版本为 0.130.0。请在运行墨栈 AI 的电脑上执行 codex update（npm 安装可执行 npm install -g @openai/codex@latest），更新后点击「检查连接」。' : 'Claude Code 版本过旧或无法识别，最低支持版本为 2.1.259。请在运行墨栈 AI 的电脑上执行 claude update（Homebrew 安装使用 brew upgrade claude-code），更新后点击「检查连接」。', { exact: true })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 900 })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   await page.screenshot({ path: test.info().outputPath('runtime-minimum-version-zh.png'), animations: 'disabled' })

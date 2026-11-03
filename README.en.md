@@ -20,14 +20,12 @@
 </p>
 
 <p align="center">
-  Upstream version: <strong>v0.6.3</strong> (released on 2026-10-20) · Beta · <a href="https://github.com/vevila2020/writing_platform_ai/releases">No InkDock release published yet</a>
+  Current version: <strong>v1.0.0</strong> (released on 2026-11-03) · <a href="https://github.com/vevila2020/writing_platform_ai/releases">Releases</a>
 </p>
 
 InkDock is a modified, self-hosted creative workspace based on [Denova](https://github.com/alfredxw/denova). It retains novel writing, interactive stories, structured lore, AI Agents, image creation, and project version management.
 
 The project plans to connect to a self-hosted Sub2API service and provide user registration and model access, reducing reliance on third-party API sites. **Sub2API registration is not included in the current code.**
-
-> The screenshots below show the inherited interface. Product branding and visual assets will be updated as development continues.
 
 ![InkDock writing interface preview](./img/ide.png)
 
@@ -96,7 +94,7 @@ macOS / Linux users can run the installer:
 curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-This project has not published its first release yet. Once it does, the command above and [InkDock Releases](https://github.com/vevila2020/writing_platform_ai/releases) will provide the installer and platform archives. Run `denova` after installation; on Windows, run `denova.exe`.
+This project has not published its first release yet. Once it does, the command above and [InkDock Releases](https://github.com/vevila2020/writing_platform_ai/releases) will provide the installer and platform archives. Run `inkdock` after installation; on Windows, run `inkdock.exe`.
 
 For stable use, choose a Release. The `master` branch may contain unreleased changes.
 

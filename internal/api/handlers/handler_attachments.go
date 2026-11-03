@@ -9,7 +9,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	agentattachment "denova/internal/agents/attachment"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
 )
 
 // HandleAttachmentImage serves one project- and conversation-scoped native

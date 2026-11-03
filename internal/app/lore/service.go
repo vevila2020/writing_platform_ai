@@ -7,12 +7,12 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	imageapp "denova/internal/app/image"
-	appsettings "denova/internal/app/settings"
-	booklore "denova/internal/book/lore"
-	imageasset "denova/internal/image/asset"
-	imagepreset "denova/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/config"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
 )
 
 func (service *Service) Items(ctx context.Context, projectID string) ([]booklore.Item, error) {

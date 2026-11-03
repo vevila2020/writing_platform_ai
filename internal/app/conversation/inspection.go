@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	appagentruntime "denova/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
 
-	"github.com/alfredxw/denova/agent"
+	"github.com/vevila2020/writing_platform_ai/agent"
 )
 
 // InspectedTurn is the product projection input returned by the same

@@ -12,8 +12,8 @@ import (
 	"net/url"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/disintegration/imaging"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ImageInput is an ephemeral native image part. It never replaces the durable

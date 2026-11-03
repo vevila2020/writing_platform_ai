@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 type searchTestTransport func(*http.Request) (*http.Response, error)

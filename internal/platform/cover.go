@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // Covers are optional game presentation assets. They are distributed relative

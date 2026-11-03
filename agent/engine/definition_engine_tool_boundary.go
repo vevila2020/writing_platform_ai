@@ -3,8 +3,8 @@ package engine
 import (
 	"errors"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // canonicalToolBatchAssistant accepts the finalized Agent-owned response while

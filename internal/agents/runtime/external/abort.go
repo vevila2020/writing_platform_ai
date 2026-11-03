@@ -2,8 +2,8 @@ package external
 
 import (
 	"context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // AbortQuestions closes known read-only waits after an explicit task abort.

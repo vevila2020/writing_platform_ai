@@ -3,7 +3,7 @@ package tool
 import (
 	"context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Toolset materializes the immutable tool registry for one model cycle.

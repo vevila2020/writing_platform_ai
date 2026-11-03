@@ -3,8 +3,8 @@ package chat
 import (
 	"context"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 type defaultMaxTokensMiddleware struct {

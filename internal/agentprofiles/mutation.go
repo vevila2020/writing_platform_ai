@@ -9,9 +9,9 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // FileResult reports one independent commit. Paths are relative to the data

@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // Pause after receiving the tool result, before the model can finish the task.

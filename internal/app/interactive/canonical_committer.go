@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 
-	agentchat "denova/internal/agents/chat"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 type CanonicalCommitterConfig struct {
@@ -21,7 +21,7 @@ type canonicalConversationCommitter struct{ config CanonicalCommitterConfig }
 
 func NewCanonicalCommitter(config CanonicalCommitterConfig) (agentlifecycle.ConversationCommitter, error) {
 	if config.Conversation == nil {
-		return nil, errors.New("Denova Game committer requires a conversation")
+		return nil, errors.New("InkDock Game committer requires a conversation")
 	}
 	config.Options = config.Options.Normalize(config.Options.Workspace)
 	return &canonicalConversationCommitter{config: config}, nil

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/context/compaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestCompactionSummarizerLayersOversizedSourceWithoutDroppingBytes(t *testing.T) {

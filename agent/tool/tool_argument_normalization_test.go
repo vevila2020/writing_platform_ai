@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/invopop/jsonschema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type constrainedToolArguments struct {

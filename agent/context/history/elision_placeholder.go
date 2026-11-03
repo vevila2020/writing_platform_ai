@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // A placeholder keeps the exact recovery reference and outcome receipt. If

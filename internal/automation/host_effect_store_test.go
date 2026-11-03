@@ -57,9 +57,9 @@ func TestHostEffectAdmissionSerializesConflictingProcesses(t *testing.T) {
 	for _, target := range []string{"chapters/one.md", "chapters/two.md"} {
 		command := exec.Command(os.Args[0], "-test.run=^TestHostEffectAdmissionSubprocess$")
 		command.Env = append(os.Environ(),
-			"DENOVA_HOST_EFFECT_ADMISSION_HELPER=1",
-			"DENOVA_HOST_EFFECT_ADMISSION_ROOT="+root,
-			"DENOVA_HOST_EFFECT_ADMISSION_TARGET="+target,
+			"INKDOCK_HOST_EFFECT_ADMISSION_HELPER=1",
+			"INKDOCK_HOST_EFFECT_ADMISSION_ROOT="+root,
+			"INKDOCK_HOST_EFFECT_ADMISSION_TARGET="+target,
 		)
 		processes = append(processes, process{command: command})
 		current := &processes[len(processes)-1]
@@ -93,11 +93,11 @@ func TestHostEffectAdmissionSerializesConflictingProcesses(t *testing.T) {
 }
 
 func TestHostEffectAdmissionSubprocess(t *testing.T) {
-	if os.Getenv("DENOVA_HOST_EFFECT_ADMISSION_HELPER") != "1" {
+	if os.Getenv("INKDOCK_HOST_EFFECT_ADMISSION_HELPER") != "1" {
 		return
 	}
-	root := os.Getenv("DENOVA_HOST_EFFECT_ADMISSION_ROOT")
-	target := os.Getenv("DENOVA_HOST_EFFECT_ADMISSION_TARGET")
+	root := os.Getenv("INKDOCK_HOST_EFFECT_ADMISSION_ROOT")
+	target := os.Getenv("INKDOCK_HOST_EFFECT_ADMISSION_TARGET")
 	payload, err := json.Marshal(map[string]any{"version": 1, "target": target})
 	if err != nil {
 		t.Fatal(err)

@@ -5,9 +5,9 @@ import (
 	"log/slog"
 	"time"
 
-	"denova/config"
-	"denova/internal/webaccess"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/webaccess"
 )
 
 // HandleWebSearchTest tests the current draft without saving or falling back.

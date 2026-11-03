@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"strings"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelSummarizerConfig optionally replaces the active model or adds domain

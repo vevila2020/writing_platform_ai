@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // CommandID is the caller-owned idempotency identity of one Agent command.
@@ -33,7 +33,7 @@ type CommandReceipt struct {
 }
 
 // Receipt and StatusSnapshot keep the control vocabulary compact for callers.
-// Both names refer to Denova-owned projections, never private runtime types.
+// Both names refer to InkDock-owned projections, never private runtime types.
 type Receipt = CommandReceipt
 
 // RunPhase is the closed product projection of durable Agent execution.
@@ -143,7 +143,7 @@ type DomainCommitIdentity struct {
 	Stage       DomainCommitStage
 }
 
-// RuntimeStatus is Denova's bounded, process-local Agent control projection.
+// RuntimeStatus is InkDock's bounded, process-local Agent control projection.
 // It deliberately omits tool arguments, raw results, prompts, and internal
 // engine state so app callers cannot depend on execution details.
 type RuntimeStatus struct {
@@ -192,9 +192,9 @@ type InputMaterializationReceipt struct {
 
 var (
 	ErrInvalidCommand       = agentschema.ErrInvalidInput
-	ErrInvalidBinding       = errors.New("invalid Denova Agent binding")
+	ErrInvalidBinding       = errors.New("invalid InkDock Agent binding")
 	ErrStaleOperation       = agentschema.ErrRunSettled
-	ErrQueueConflict        = errors.New("Denova Agent queue conflict")
+	ErrQueueConflict        = errors.New("InkDock Agent queue conflict")
 	ErrBusy                 = agentschema.ErrSessionBusy
 	ErrDomainCommitRejected = agentschema.ErrCanonicalCommitRejected
 )

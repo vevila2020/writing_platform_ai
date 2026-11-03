@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // Exercises the shared request boundary, including portable path checks and

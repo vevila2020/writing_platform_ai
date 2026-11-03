@@ -9,16 +9,16 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	booklore "denova/internal/book/lore"
-	imageasset "denova/internal/image/asset"
-	imagegen "denova/internal/image/generation"
-	imageprompting "denova/internal/image/prompting"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
+	imageprompting "github.com/vevila2020/writing_platform_ai/internal/image/prompting"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const (
@@ -129,7 +129,7 @@ func newIllustrationTools(cfg *config.Config) ([]agenttool.ToolDefinition, error
 	}
 	workspace := strings.TrimSpace(cfg.Workspace)
 	description := imageprompting.Append(
-		"Generate images with the selected image-provider profile and save them to the workspace. Ordinary images go to assets/writing/. With purpose=chapter_illustration, generate one spoiler-free illustration from the chapter at target_path and save it under assets/writing/. With purpose=interactive_image, story_id, branch_id, and turn_id are required. With purpose=book_cover, replace the canonical book cover. With purpose=lore_item, lore_item_id is required and the generated asset is attached to that exact item. Provider-specific options are validated by the configured adapter. The `prompt` argument must be the complete final prompt for the image model. Denova forwards it unchanged and does not add a negative prompt. Generate each requested lore item with a separate tool call so failures remain independent.",
+		"Generate images with the selected image-provider profile and save them to the workspace. Ordinary images go to assets/writing/. With purpose=chapter_illustration, generate one spoiler-free illustration from the chapter at target_path and save it under assets/writing/. With purpose=interactive_image, story_id, branch_id, and turn_id are required. With purpose=book_cover, replace the canonical book cover. With purpose=lore_item, lore_item_id is required and the generated asset is attached to that exact item. Provider-specific options are validated by the configured adapter. The `prompt` argument must be the complete final prompt for the image model. InkDock forwards it unchanged and does not add a negative prompt. Generate each requested lore item with a separate tool call so failures remain independent.",
 		imageprompting.ToolPromptContext(cfg),
 		imageprompting.SelectedGuide(cfg),
 	)
@@ -439,7 +439,7 @@ func parseChapterIllustrationToolResult(toolName, content string) (*imageasset.I
 		return nil, nil
 	}
 	body := strings.TrimSpace(content)
-	if before, _, ok := strings.Cut(body, "\n\n[Denova tool result metadata]"); ok {
+	if before, _, ok := strings.Cut(body, "\n\n[InkDock tool result metadata]"); ok {
 		body = strings.TrimSpace(before)
 	}
 	if body == "" {
@@ -490,7 +490,7 @@ func parseGeneratedImageToolTarget(toolName, content string) string {
 		return ""
 	}
 	body := strings.TrimSpace(content)
-	if before, _, ok := strings.Cut(body, "\n\n[Denova tool result metadata]"); ok {
+	if before, _, ok := strings.Cut(body, "\n\n[InkDock tool result metadata]"); ok {
 		body = strings.TrimSpace(before)
 	}
 	if body == "" {
@@ -526,7 +526,7 @@ func parseInteractiveImageToolResult(toolName, content string) (*imageasset.Inte
 		return nil, nil
 	}
 	body := strings.TrimSpace(content)
-	if before, _, ok := strings.Cut(body, "\n\n[Denova tool result metadata]"); ok {
+	if before, _, ok := strings.Cut(body, "\n\n[InkDock tool result metadata]"); ok {
 		body = strings.TrimSpace(before)
 	}
 	if body == "" {
@@ -577,7 +577,7 @@ func ParseBookCoverResult(toolName, content string) (*imageasset.CoverResult, er
 		return nil, nil
 	}
 	body := strings.TrimSpace(content)
-	if before, _, ok := strings.Cut(body, "\n\n[Denova tool result metadata]"); ok {
+	if before, _, ok := strings.Cut(body, "\n\n[InkDock tool result metadata]"); ok {
 		body = strings.TrimSpace(before)
 	}
 	if body == "" {

@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 // ConfigForAgent resolves the provider-neutral model configuration for one

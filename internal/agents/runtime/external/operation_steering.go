@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 func (operation *Operation) PrepareSteer(ctx context.Context, guidance Guidance) (PreparedSteer, error) {

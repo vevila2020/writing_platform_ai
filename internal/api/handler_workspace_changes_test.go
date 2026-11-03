@@ -2,8 +2,8 @@ package api
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
 	"encoding/json"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
 	"net/http"
 	"net/url"
 	"os"
@@ -14,8 +14,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/ut"
 
-	agentreview "denova/internal/agents/review"
-	workspacechange "denova/internal/workspace/change"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func TestWorkspaceChangeReviewCommentUndoRedoAPI(t *testing.T) {

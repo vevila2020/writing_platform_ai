@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ResolvedPlayerInputContext is the durable model-history record for an older

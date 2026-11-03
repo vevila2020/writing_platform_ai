@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	agentstructural "denova/internal/agents/context/structural"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestStructuralOperationRejectsInvalidPublicRequestBeforeOpeningSession(t *testing.T) {

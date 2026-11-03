@@ -4,14 +4,14 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
-	"denova/config"
-	apptask "denova/internal/app/task"
-	"denova/internal/interactive"
-	"denova/internal/platform"
-	"denova/internal/project"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/config"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 	"io"
 	"os"
 	"path/filepath"
@@ -46,7 +46,7 @@ func TestPlatformStoryBindingUsesCanonicalJournalAndRetainsFallback(t *testing.T
 	if err != nil {
 		t.Fatal(err)
 	}
-	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: record.ID, NovaDir: root}, interactive: store}
+	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: record.ID, DenovaDir: root}, interactive: store}
 	host := newPlatformTestStoryHost(app)
 	instance, err := host.Bind(ctx, platform.Instance{GameID: "test.renderer", ReleaseID: "release-1", StoryID: story.ID, ProjectID: record.ID, Title: "Journey", Setup: map[string]any{}, Models: map[string]string{}, CreatedAt: time.Now().UTC()}, platform.StoryBindingOptions{})
 	if err != nil {
@@ -148,7 +148,7 @@ func TestPlatformStoryCommandsReplayResumeAndRegenerateWithoutRepeatingInput(t *
 	if err != nil {
 		t.Fatal(err)
 	}
-	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: projectRecord.ID, NovaDir: root}, interactive: store}
+	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: projectRecord.ID, DenovaDir: root}, interactive: store}
 	host := newPlatformTestStoryHost(app)
 	scope := platform.Scope{ProjectID: projectRecord.ID, StoryID: story.ID, InstanceID: "instance-test"}
 	service := app.interactiveService()
@@ -225,7 +225,7 @@ func TestPlatformManagedStoryUpgradeExportAndReattachPreserveResources(t *testin
 	if _, err := store.AppendTurn(story.ID, interactive.AppendTurnRequest{BranchID: "main", Narrative: "Original narrative"}); err != nil {
 		t.Fatal(err)
 	}
-	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: projectRecord.ID, NovaDir: root}, interactive: store}
+	app := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: projectRecord.ID, DenovaDir: root}, interactive: store}
 	manager := platform.New(root, registry)
 	manager.ConfigureStories(newPlatformTestStoryHost(app))
 	defer manager.Close(ctx)

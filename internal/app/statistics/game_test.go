@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/app/projectbook"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/app/projectbook"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestGameStatisticsProjectScopePreviewAndPartialSources(t *testing.T) {

@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 type protocolFixture struct {

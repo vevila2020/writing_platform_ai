@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Tool is the single provider-neutral execution interface. Long-running tools

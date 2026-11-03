@@ -11,8 +11,8 @@ import (
 	"sort"
 	"strings"
 
-	"denova/internal/revisionfile"
 	"github.com/gofrs/flock"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 var ErrInvalidAgentProfile = errors.New("invalid Agent Profile")

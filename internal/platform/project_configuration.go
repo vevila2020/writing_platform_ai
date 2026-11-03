@@ -7,9 +7,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/config"
-	"denova/internal/revisionfile"
 	toml "github.com/pelletier/go-toml/v2"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // ProjectConfiguration projects the existing settings file's revision, rather

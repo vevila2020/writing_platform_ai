@@ -3,7 +3,7 @@ package engine
 import (
 	"encoding/json"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
 )
 
 func applyClearToTranscript(transcript *engineTranscript, capabilities map[string]json.RawMessage) (agenthistory.ClearState, bool, error) {

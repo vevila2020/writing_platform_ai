@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/app/projectbook"
-	"denova/internal/project"
-	stats "denova/internal/statistics"
+	"github.com/vevila2020/writing_platform_ai/internal/app/projectbook"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	stats "github.com/vevila2020/writing_platform_ai/internal/statistics"
 )
 
 func TestObservedSavedChangesDoNotInventRestartOrResyncOutput(t *testing.T) {

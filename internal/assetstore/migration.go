@@ -15,9 +15,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 type migrationFile struct {
@@ -185,7 +185,7 @@ func migrate(workspace string, locations migrationLocations) error {
 				return walkErr
 			}
 			if entry.IsDir() {
-				if entry.Name() == ".git" || entry.Name() == ".denova" || entry.Name() == ".nova" {
+				if entry.Name() == ".git" || entry.Name() == ".inkdock" || entry.Name() == ".denova" {
 					return filepath.SkipDir
 				}
 				return nil

@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const generalPurposeAgentID = "general-purpose"

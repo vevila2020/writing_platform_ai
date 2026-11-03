@@ -10,16 +10,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent"
-	"github.com/alfredxw/denova/agent/context/compaction"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	"github.com/alfredxw/denova/agent/tool/permission"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	"github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type incrementalModel struct {

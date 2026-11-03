@@ -6,20 +6,20 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolruntime"
-	appagentruntime "denova/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
 
-	publiccontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	publiccontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func prepareExternal(ctx context.Context, runtime Runtime, request agentchat.ChatRequest, conversation *agentconversation.SessionConversation, assembly agents.ExternalAssembly, options agentrun.Options, emit func(agentrun.Event)) (external.StartRequest, error) {

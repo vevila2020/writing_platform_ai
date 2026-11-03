@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 // QuestionRequest interprets the persisted host Ask arguments with the public

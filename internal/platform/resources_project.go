@@ -11,9 +11,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // ProjectContentHost uses application-owned file mutation and version services.

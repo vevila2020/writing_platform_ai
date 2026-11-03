@@ -39,7 +39,7 @@ interface BookFormDialogProps {
   open: boolean
   mode: BookFormMode
   book: BookRecord | null
-  novaDir: string
+  dataDir: string
   imagePresetOptions: ImagePreset[]
   defaultImagePresetId: string
   coverVersion: (book: Pick<BookRecord, 'path' | 'cover_updated_at'>) => string
@@ -59,7 +59,7 @@ export function BookFormDialog({
   open,
   mode,
   book,
-  novaDir,
+  dataDir,
   imagePresetOptions,
   defaultImagePresetId,
   coverVersion,
@@ -146,7 +146,7 @@ export function BookFormDialog({
   const dialogTitle = mode === 'create' && !createdPath ? t('home.createBook') : t('home.editInfo')
   const dialogDescription = activePath
     ? activePath
-    : `${t('home.createIn')} ${novaDir || t('home.novaDirLoading')}`
+    : `${t('home.createIn')} ${dataDir || t('home.dataDirLoading')}`
 
   const closeDialog = (nextOpen: boolean) => {
     if (!nextOpen && busy) return
@@ -157,7 +157,7 @@ export function BookFormDialog({
     const validTitle = title.trim()
     if (!validTitle) { setFormError(t('home.titleRequired')); return }
     if (descriptionTooLong) { setFormError(descriptionTooLongMessage); return }
-    if (mode === 'create' && !createdPath && !novaDir.trim()) { setFormError(t('home.waitNovaDir')); return }
+    if (mode === 'create' && !createdPath && !dataDir.trim()) { setFormError(t('home.waitDataDir')); return }
     setSaving(true)
     setFormError('')
     try {
@@ -234,7 +234,7 @@ export function BookFormDialog({
   const createWorkspace = async () => {
     if (!title.trim()) throw new Error(t('home.titleRequired'))
     if (descriptionTooLong) throw new Error(descriptionTooLongMessage)
-    if (!novaDir.trim()) throw new Error(t('home.waitNovaDir'))
+    if (!dataDir.trim()) throw new Error(t('home.waitDataDir'))
     const data = await createBook(title.trim(), author.trim() || undefined, description.trim() || undefined, structure)
     setCreatedPath(data.workspace)
     await Promise.resolve(onCreated?.(data))
@@ -292,7 +292,7 @@ export function BookFormDialog({
                   <div className="flex min-w-0 items-center gap-2 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-2.5 py-1.5 text-xs text-[var(--nova-text-faint)]">
                     <Folder className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-muted)]" />
                     <span className="shrink-0">{t('home.createIn')}</span>
-                    <span className="truncate text-[var(--nova-text-muted)]">{novaDir || t('home.novaDirLoading')}</span>
+                    <span className="truncate text-[var(--nova-text-muted)]">{dataDir || t('home.dataDirLoading')}</span>
                   </div>
                 )}
                 {mode === 'create' && <ChapterStructureSelector value={structure} onChange={setStructure} disabled={busy || Boolean(createdPath)} />}
@@ -385,7 +385,7 @@ export function BookFormDialog({
                   type="button"
                   size="xs"
                   className={primaryButtonCls + ' w-full max-w-full justify-center'}
-                  disabled={busy || loading || (mode === 'create' && !novaDir.trim()) || (coverGenerationMode === 'custom' && !coverInstruction.trim())}
+                  disabled={busy || loading || (mode === 'create' && !dataDir.trim()) || (coverGenerationMode === 'custom' && !coverInstruction.trim())}
                   onClick={() => void handleGenerateCover()}
                 >
                   {coverBusy === 'generate' ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
@@ -414,7 +414,7 @@ export function BookFormDialog({
             type="button"
             size="xs"
             className={primaryButtonCls}
-            disabled={busy || loading || (mode === 'create' && !createdPath && !novaDir.trim())}
+            disabled={busy || loading || (mode === 'create' && !createdPath && !dataDir.trim())}
             onClick={() => void handleSubmit()}
           >
             {saving ? footerBusyLabel : footerPrimaryLabel}

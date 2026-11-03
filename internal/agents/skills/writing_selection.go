@@ -3,7 +3,7 @@ package skills
 import (
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // ResolveWritingSkillName selects the effective Writing Skill name for this

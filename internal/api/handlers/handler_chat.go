@@ -7,14 +7,14 @@ import (
 	"log/slog"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/api/sse"
-	novaApp "denova/internal/app"
-	workspacechange "denova/internal/workspace/change"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // handleChat 处理聊天请求：启动后台 Task，然后以 AI SDK UIMessage stream 订阅事件。

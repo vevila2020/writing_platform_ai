@@ -1,4 +1,4 @@
-module denova
+module github.com/vevila2020/writing_platform_ai
 
 go 1.26.9
 
@@ -7,7 +7,7 @@ require (
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/Masterminds/semver/v3 v3.5.0
 	github.com/PuerkitoBio/goquery v1.12.0
-	github.com/alfredxw/denova/agent v0.0.0
+	github.com/vevila2020/writing_platform_ai/agent v0.0.0
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be
 	github.com/cavaliergopher/grab/v3 v3.0.1
 	github.com/charmbracelet/x/xpty v0.1.3
@@ -41,7 +41,7 @@ require (
 	mvdan.cc/sh/v3 v3.13.1
 )
 
-replace github.com/alfredxw/denova/agent => ./agent
+replace github.com/vevila2020/writing_platform_ai/agent => ./agent
 
 require (
 	cloud.google.com/go v0.116.0 // indirect

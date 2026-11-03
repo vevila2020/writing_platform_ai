@@ -14,8 +14,8 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // ContentDocument is an extension-owned authoring artifact. It is shared only

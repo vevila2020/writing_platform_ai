@@ -14,8 +14,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 const (
@@ -294,7 +294,7 @@ func reconnectReleasedStoryBranches(meta map[string]any, removed, resolved map[s
 func (s *Store) backupReleasedStoryCompactionJournal(sourcePath string) (string, error) {
 	dataRoot := strings.TrimSpace(s.novaDir)
 	if dataRoot == "" {
-		dataRoot = filepath.Join(s.root, ".denova")
+		dataRoot = filepath.Join(s.root, ".inkdock")
 	}
 	backupRoot := filepath.Join(dataRoot, "backups", legacyStoryCompactionMigrationName)
 	if err := os.MkdirAll(backupRoot, 0o700); err != nil {

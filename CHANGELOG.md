@@ -10,12 +10,13 @@ InkDock records major user-visible features, important compatibility or data cha
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)。
 
-## [Unreleased]
+## [v1.0.0] - 2026-11-03
 
 ### Brief / 简要说明
 
 #### 中文
 
+- 更名为 InkDock（墨栈 AI）：应用、命令行与开发脚本统一使用 InkDock 命名；已有 `.denova` 数据继续可用，新安装使用 `.inkdock`。
 - 游戏控制台可就地调整本故事的叙事规则；叙事风格目录支持兼容导入 SillyTavern 预设。
 - 章节结构支持章、卷—章、卷—章—节；已有作品可在书籍管理中预览调整并备份恢复。
 - 新增图表统计，可按项目和日期查看稿量变化、章节进度、游戏活动与模型用量。
@@ -25,6 +26,7 @@ InkDock records major user-visible features, important compatibility or data cha
 
 #### English
 
+- Renamed to InkDock: the app, CLI, and development scripts share the InkDock naming; existing `.denova` data keeps working and new installs use `.inkdock`.
 - Tune story-specific narrative rules in the Game console, and import SillyTavern presets from the narrative style directory.
 - Choose chapters, volumes and chapters, or volumes, chapters and sections; preview and back up structure changes in Book Management.
 - Adds chart-based statistics for manuscript changes, chapter progress, Game activity, and model usage by project and date.
@@ -49,6 +51,8 @@ InkDock records major user-visible features, important compatibility or data cha
 
 ### Changed / 变更
 
+- 应用、命令行、开发脚本与配置键统一使用 InkDock 命名；升级后仍会读取已有的 `.denova` 数据目录、`denova_dir` 与 `DENOVA_*` 配置，新安装使用 `.inkdock`。
+- The app, CLI, development scripts, and configuration keys now use InkDock naming. Upgrades still read existing `.denova` data directories, `denova_dir`, and `DENOVA_*` settings; new installs use `.inkdock`.
 - 软件更新展示当前版本到目标版本的变化，按版本阅读简要说明和详情；更新完成后保留本次升级范围，并提供完整历史入口。
 - Software updates show changes from the current version to the target, with per-version summaries and details. Completed upgrades retain their comparison range and link to the full history.
 

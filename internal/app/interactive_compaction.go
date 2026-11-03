@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"log/slog"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	compactionapp "denova/internal/app/compaction"
-	interactiveapp "denova/internal/app/interactive"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	compactionapp "github.com/vevila2020/writing_platform_ai/internal/app/compaction"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
 )
 
 func (s *InteractiveAppService) executeInteractiveContextCompaction(

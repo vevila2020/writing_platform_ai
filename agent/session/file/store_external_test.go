@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
-	"github.com/alfredxw/denova/agent/session/sessiontest"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent/session/sessiontest"
 )
 
 func TestPublicStoreContract(t *testing.T) {

@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"slices"
 
-	"denova/internal/assetstore"
-	"denova/internal/book/lore"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // A lore-only restore must also restore the files its target collection uses.
@@ -59,7 +59,7 @@ func (s *Service) preservingNewerLoreMedia(id string, restore func() error) (res
 	if err != nil {
 		return err
 	}
-	saved, err := os.MkdirTemp(filepath.Dir(s.workspace), ".denova-media-restore-")
+	saved, err := os.MkdirTemp(filepath.Dir(s.workspace), ".inkdock-media-restore-")
 	if err != nil {
 		return err
 	}

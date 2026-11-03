@@ -4,7 +4,7 @@ import (
 	"math"
 	"slices"
 
-	stats "denova/internal/statistics"
+	stats "github.com/vevila2020/writing_platform_ai/internal/statistics"
 )
 
 // UsageSummary describes the selected interval. Latencies measure Native model

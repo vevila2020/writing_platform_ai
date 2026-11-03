@@ -7,10 +7,10 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/automation"
-	"denova/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 )
 
 // EvaluateSemanticTrigger leaves durable claiming, evidence validation, dedupe,

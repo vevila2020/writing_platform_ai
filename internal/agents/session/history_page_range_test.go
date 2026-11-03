@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Exercise the product journal adapter, including cold reopen and every page.

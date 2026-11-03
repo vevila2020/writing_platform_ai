@@ -1,9 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 import workbenchConfig from './playwright.config'
 
-const frontendPort = process.env.DENOVA_PRODUCTION_FRONTEND_PORT || '14173'
+const frontendPort = process.env.INKDOCK_PRODUCTION_FRONTEND_PORT || '14173'
 const baseURL = `http://127.0.0.1:${frontendPort}`
-const backendPort = process.env.DENOVA_E2E_BACKEND_PORT || '18080'
+const backendPort = process.env.INKDOCK_E2E_BACKEND_PORT || '18080'
 const workbenchServers = Array.isArray(workbenchConfig.webServer) ? workbenchConfig.webServer : []
 
 export default defineConfig({
@@ -27,6 +27,6 @@ export default defineConfig({
     command: `pnpm preview --host 127.0.0.1 --port ${frontendPort} --strictPort`,
     url: baseURL,
     reuseExistingServer: false,
-    env: { DENOVA_BACKEND_PORT: backendPort },
+    env: { INKDOCK_BACKEND_PORT: backendPort },
   }],
 })

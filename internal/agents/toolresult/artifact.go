@@ -5,7 +5,7 @@ package toolresult
 import (
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // RecoverableArtifactPurpose reports whether an artifact contains complete
@@ -27,7 +27,7 @@ func CanonicalArtifact(artifact agentschema.ToolArtifactRef) agentschema.ToolArt
 }
 
 // recoverableToolResultArtifact selects a complete, addressable artifact for
-// Denova's read-only receipt projection. Artifact creation and verification are
+// InkDock's read-only receipt projection. Artifact creation and verification are
 // owned by the public Agent ResultProcessor.
 func recoverableToolResultArtifact(artifacts []agentschema.ToolArtifactRef) *agentschema.ToolArtifactRef {
 	for index := range artifacts {

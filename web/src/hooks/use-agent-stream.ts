@@ -128,7 +128,7 @@ export function useAgentStream(options: StreamOptions) {
     setMessages(current => [...current, user])
     return connect('submit', active => options.transport.sendMessages({
       ...request, trigger: 'submit-message', chatId: chatID.current, messageId: user.id,
-      // Denova submits just the new input; history is owned by the server.
+      // InkDock submits just the new input; history is owned by the server.
       messages: [user], abortSignal: active.controller.signal,
     }))
   }, [connect, options.transport, setMessages])

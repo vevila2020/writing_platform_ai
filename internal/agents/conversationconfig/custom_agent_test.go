@@ -3,7 +3,7 @@ package conversationconfig
 import (
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestDefaultWithCustomAgentPersistsIdentityAndDefaults(t *testing.T) {

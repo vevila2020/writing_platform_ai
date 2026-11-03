@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/packages/param"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 // ListModels implements Anthropic's optional paginated model discovery API.

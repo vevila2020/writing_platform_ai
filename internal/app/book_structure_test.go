@@ -7,14 +7,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 func TestBookStructureRejectsStalePreviewAndRestoresWholeBook(t *testing.T) {
 	ctx := context.Background()
 	root := t.TempDir()
-	application, err := New(ctx, &config.Config{OpenAIModel: "test-model", DenovaDir: root})
+	application, err := New(ctx, &config.Config{OpenAIModel: "test-model", InkDockDir: root})
 	if err != nil {
 		t.Fatal(err)
 	}

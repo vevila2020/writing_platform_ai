@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	logFileName          = "denova.log"
+	logFileName          = "inkdock.log"
 	logFileMaxMB         = 16
 	logFileMaxBackups    = 4
 	logFileMaxAgeDays    = 14
@@ -71,7 +71,7 @@ type retainedLogFile struct {
 	modTime time.Time
 }
 
-// pruneLogDirectory bounds logs left by any Denova version. Lumberjack owns
+// pruneLogDirectory bounds logs left by any InkDock version. Lumberjack owns
 // ongoing rotation; this startup pass also keeps pre-rotation daily logs from
 // consuming disk forever.
 func pruneLogDirectory(dir string, maxBytes int64, maxFiles int, currentPath string) error {

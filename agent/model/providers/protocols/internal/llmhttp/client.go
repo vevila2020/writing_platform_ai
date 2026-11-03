@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 // Client preserves caller transport settings without mutating its client.
@@ -17,7 +17,7 @@ import (
 // including native media and protocol overrides. Custom endpoints own theirs.
 // The fallback has no
 // overall or response-header timeout; model execution is bounded only by the
-// caller context, as required by Denova's long-running Agent contract.
+// caller context, as required by InkDock's long-running Agent contract.
 func Client(configured *http.Client) *http.Client {
 	client := &http.Client{}
 	if configured != nil {

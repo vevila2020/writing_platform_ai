@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/attachment"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestWritingImageCheckpointSurvivesMovedStoreAndColdReopen(t *testing.T) {

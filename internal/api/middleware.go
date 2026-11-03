@@ -8,8 +8,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/i18n"
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 // corsMiddleware 处理 CORS 跨域请求。
@@ -33,8 +33,8 @@ func corsMiddleware(ctx context.Context, c *app.RequestContext) {
 		c.Response.Header.Set("Access-Control-Allow-Origin", origin)
 	}
 	c.Response.Header.Set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, PUT, OPTIONS")
-	c.Response.Header.Set("Access-Control-Allow-Headers", "Content-Type, X-Denova-Locale, X-Nova-Locale, Authorization")
-	c.Response.Header.Set("Access-Control-Expose-Headers", observability.RequestIDHeader+", X-Denova-Auth")
+	c.Response.Header.Set("Access-Control-Allow-Headers", "Content-Type, X-InkDock-Locale, X-Nova-Locale, Authorization")
+	c.Response.Header.Set("Access-Control-Expose-Headers", observability.RequestIDHeader+", X-InkDock-Auth")
 
 	if string(c.Request.Method()) == "OPTIONS" {
 		c.AbortWithStatus(consts.StatusNoContent)
@@ -45,7 +45,7 @@ func corsMiddleware(ctx context.Context, c *app.RequestContext) {
 }
 
 // localHostEffectMiddleware prevents authenticated LAN clients from opening
-// windows on the machine that runs Denova. Remote browsers cannot usefully
+// windows on the machine that runs InkDock. Remote browsers cannot usefully
 // select a server-local absolute path in any case.
 func localHostEffectMiddleware(ctx context.Context, c *app.RequestContext) {
 	if !isLocalClientIP(requestClientIP(c)) {
@@ -61,7 +61,7 @@ func abortWithLocalizedError(c *app.RequestContext, status int, key string) {
 }
 
 func localeHeader(c *app.RequestContext) string {
-	if header := strings.TrimSpace(string(c.Request.Header.Peek("X-Denova-Locale"))); header != "" {
+	if header := strings.TrimSpace(string(c.Request.Header.Peek("X-InkDock-Locale"))); header != "" {
 		return header
 	}
 	return strings.TrimSpace(string(c.Request.Header.Peek("X-Nova-Locale")))

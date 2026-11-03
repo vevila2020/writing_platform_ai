@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	agentchat "denova/internal/agents/chat"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // resume prepares the accepted product cycle and imports its canonical lane

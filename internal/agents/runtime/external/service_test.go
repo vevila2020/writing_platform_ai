@@ -12,18 +12,18 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolruntime"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 type adapterFunc func(context.Context, Input, Host) (Result, error)

@@ -84,7 +84,7 @@ const storyPicker = {
   'storyPicker.setup.stateSchema.generate.description': 'Skip presets. The Game Agent builds only the fields this story actually needs from a minimal core.',
   'storyPicker.setup.stateSchema.template': 'Base state template',
   'storyPicker.setup.stateSchema.templatePlaceholder': 'Select a state template',
-  'storyPicker.setup.stateSchema.generateCore': 'Denova still keeps a non-removable minimal core: protagonist, story context, current detailed location, and current event, so turns remain continuous.',
+  'storyPicker.setup.stateSchema.generateCore': 'InkDock still keeps a non-removable minimal core: protagonist, story context, current detailed location, and current event, so turns remain continuous.',
   'storyPicker.setup.planning.title': 'Game Agent planning',
   'storyPicker.setup.planning.description': 'When enabled, the Game Agent maintains a branch plan while writing each turn. You can change this later in the Console.',
   'storyPicker.label': 'Story',

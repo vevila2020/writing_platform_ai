@@ -8,9 +8,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	denovaapp "denova/internal/app"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	denovaapp "github.com/vevila2020/writing_platform_ai/internal/app"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // HandleWorkspaceChangeGroups lists durable workspace changes without loading

@@ -16,10 +16,10 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/hostruntime"
 	"github.com/Masterminds/semver/v3"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 // MinimumVersion includes restricted execution and the recorded stream format.

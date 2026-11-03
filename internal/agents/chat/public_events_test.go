@@ -5,20 +5,20 @@ import (
 	"testing"
 	"time"
 
-	agentattachment "denova/internal/agents/attachment"
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent"
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestPublicEventProjectorRecordsUserAbortAsResumableInterruption(t *testing.T) {
@@ -622,7 +622,7 @@ func TestPublicEventProjectorUsesAccumulatedInteractiveNarrativeAsCanonicalOutpu
 	}
 }
 
-func TestPublicEventProjectorUsesDenovaAskSchemaForPublicInteractions(t *testing.T) {
+func TestPublicEventProjectorUsesInkDockAskSchemaForPublicInteractions(t *testing.T) {
 	var events []agentrun.Event
 	projector := NewPublicEventProjector(nil, ChatRequest{}, agentrun.Options{
 		AgentKind: "ide", TaskID: "task", RootAgentName: "root",

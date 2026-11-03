@@ -7,13 +7,13 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type chapterSplitRegexPayload struct {

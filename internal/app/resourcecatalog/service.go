@@ -1,5 +1,5 @@
 // Package resourcecatalog manages the reusable creator resources stored in the
-// Denova data directory. Resources are global catalogs consumed by both writing
+// InkDock data directory. Resources are global catalogs consumed by both writing
 // and game modes; they are deliberately independent from the active workspace.
 package resourcecatalog
 
@@ -7,15 +7,15 @@ import (
 	"errors"
 	"strings"
 
-	novaskills "denova/internal/agents/skills"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 // ErrDataDirRequired means a catalog service was created without a durable
-// Denova data directory.
+// InkDock data directory.
 var ErrDataDirRequired = errors.New("resource catalog data directory is required")
 
 // SkillTarget identifies which layers participate in one Skill catalog

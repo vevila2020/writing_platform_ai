@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"testing"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/cloudwego/hertz/pkg/app"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestAskResolutionDiagnosticsDistinguishInternalFailure(t *testing.T) {
@@ -24,7 +24,7 @@ func TestAskResolutionDiagnosticsDistinguishInternalFailure(t *testing.T) {
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			c := app.NewContext(0)
-			c.Request.Header.Set("X-Denova-Locale", "zh-CN")
+			c.Request.Header.Set("X-InkDock-Locale", "zh-CN")
 			writeAskResolutionError(context.Background(), c, tt.err)
 			var body agentRuntimeErrorResponse
 			if err := json.Unmarshal(c.Response.Body(), &body); err != nil {

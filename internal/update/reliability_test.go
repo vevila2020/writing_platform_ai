@@ -20,13 +20,13 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func TestInstallPinsReleaseChecksum(t *testing.T) {
-	assetName := "denova-v0.2.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + ".tar.gz"
-	archive := testReleaseArchive(t, "denova.exe", map[string]string{
-		"denova.exe": "new executable", updaterExecutableName(): "new updater",
+	assetName := "inkdock-v0.2.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + ".tar.gz"
+	archive := testReleaseArchive(t, "inkdock.exe", map[string]string{
+		"inkdock.exe": "new executable", updaterExecutableName(): "new updater",
 		"web/index.html": "new web", "skills/demo/SKILL.md": "new skill",
 		"tools/" + hostruntime.RipgrepExecutableName(): "ripgrep",
 		"licenses/ripgrep/LICENSE-MIT":                 "MIT", "licenses/ripgrep/UNLICENSE": "Unlicense",
@@ -61,7 +61,7 @@ func TestInstallPinsReleaseChecksum(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	service := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "denova.exe"), githubAPIBase: server.URL + "/repos"}
+	service := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "inkdock.exe"), githubAPIBase: server.URL + "/repos"}
 	result, err := service.Install(context.Background())
 	if err != nil || result.Status != "staged" {
 		t.Fatalf("release changed during download: result=%+v err=%v", result, err)
@@ -73,7 +73,7 @@ func TestInstallPinsReleaseChecksum(t *testing.T) {
 
 func TestRunUpdaterRollsBackLaunchFailure(t *testing.T) {
 	installDir := t.TempDir()
-	sourceDir := filepath.Join(updateDataDir(installDir), "pending-test", "denova")
+	sourceDir := filepath.Join(updateDataDir(installDir), "pending-test", "inkdock")
 	backupDir := filepath.Join(filepath.Dir(sourceDir), "backup")
 	writeUpdateTestPackage(t, installDir, updateTestPackageContents{Executable: "old executable", Updater: "old updater", Web: "old web", Skill: "old skill", Ripgrep: "old ripgrep", License: "old license"})
 	writeUpdateTestPackage(t, sourceDir, updateTestPackageContents{Executable: "new executable", Updater: "new updater", Web: "new web", Skill: "new skill", Ripgrep: "new ripgrep", License: "new license"})
@@ -132,7 +132,7 @@ func TestInterruptedUpdateRecoveryIsRepeatable(t *testing.T) {
 	for _, phase := range []Phase{PhaseApplying, PhaseRollingBack} {
 		t.Run(string(phase), func(t *testing.T) {
 			install := t.TempDir()
-			source := filepath.Join(updateDataDir(install), "pending-test", "denova")
+			source := filepath.Join(updateDataDir(install), "pending-test", "inkdock")
 			old := updateTestPackageContents{Executable: "old", Updater: "old updater", Web: "old web", Skill: "old skill", Ripgrep: "old tool", License: "old license"}
 			writeUpdateTestPackage(t, install, old)
 			writeUpdateTestPackage(t, source, updateTestPackageContents{Executable: "new"})
@@ -150,10 +150,10 @@ func TestInterruptedUpdateRecoveryIsRepeatable(t *testing.T) {
 			if err := os.WriteFile(filepath.Join(install, "README.md"), []byte("new only"), 0o600); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.MkdirAll(filepath.Join(install, ".denova"), 0o755); err != nil {
+			if err := os.MkdirAll(filepath.Join(install, ".inkdock"), 0o755); err != nil {
 				t.Fatal(err)
 			}
-			sentinel := filepath.Join(install, ".denova", "user-content")
+			sentinel := filepath.Join(install, ".inkdock", "user-content")
 			if err := os.WriteFile(sentinel, []byte("protected"), 0o600); err != nil {
 				t.Fatal(err)
 			}
@@ -187,7 +187,7 @@ func TestInterruptedUpdateRecoveryIsRepeatable(t *testing.T) {
 
 func TestReadinessFailureKeepsNewProgramAndUserData(t *testing.T) {
 	install := t.TempDir()
-	source := filepath.Join(updateDataDir(install), "pending-test", "denova")
+	source := filepath.Join(updateDataDir(install), "pending-test", "inkdock")
 	writeUpdateTestPackage(t, install, updateTestPackageContents{Executable: "old"})
 	writeUpdateTestPackage(t, source, updateTestPackageContents{Executable: "new"})
 	path := filepath.Join(filepath.Dir(source), manifestFileName)
@@ -226,8 +226,8 @@ func TestConfirmReadyRequiresTargetVersion(t *testing.T) {
 	for _, version := range []string{"0.1.0", "0.2.0"} {
 		t.Run(version, func(t *testing.T) {
 			path := filepath.Join(t.TempDir(), manifestFileName)
-			t.Setenv("DENOVA_UPDATE_MANIFEST", path)
-			t.Setenv("DENOVA_UPDATE_ID", "readiness-test")
+			t.Setenv("INKDOCK_UPDATE_MANIFEST", path)
+			t.Setenv("INKDOCK_UPDATE_ID", "readiness-test")
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				_ = json.NewEncoder(w).Encode(Status{ID: "readiness-test", Phase: PhaseStarting, CurrentVersion: version, Version: "0.2.0"})
 			}))
@@ -260,7 +260,7 @@ func TestStatusRestoresStagedUpdateWithUsableLogPath(t *testing.T) {
 		t.Fatal(err)
 	}
 	actual, err := (&Service{currentVersion: "0.1.0", executablePath: filepath.Join(install, "nova")}).Status()
-	want := Status{ID: "staged", Phase: PhaseStaged, Version: "0.2.0", CurrentVersion: "0.1.0", LogPath: ".denova-updates/pending-test/apply.log"}
+	want := Status{ID: "staged", Phase: PhaseStaged, Version: "0.2.0", CurrentVersion: "0.1.0", LogPath: ".inkdock-updates/pending-test/apply.log"}
 	if err != nil || actual != want {
 		t.Fatalf("status=%+v want=%+v err=%v", actual, want, err)
 	}

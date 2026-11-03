@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type Factory func(testing.TB) agentpermission.PermissionPolicy

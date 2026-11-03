@@ -4,15 +4,15 @@ import (
 	"context"
 	"log/slog"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	agentexecution "denova/internal/agents/execution"
-	agentruntime "denova/internal/agents/runtime"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/analytics"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // agentChatHost is the narrow composition adapter between the project-scoped

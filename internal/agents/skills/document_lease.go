@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 type skillLeaseTarget struct {
@@ -26,7 +26,7 @@ func withSkillLeases[T any](ctx context.Context, targets []skillLeaseTarget, ope
 		if err := ValidateName(target.name); err != nil {
 			return result, err
 		}
-		lockPath := filepath.Join(target.dir.Path, ".denova-locks", "skill-mutations", target.name+".lock")
+		lockPath := filepath.Join(target.dir.Path, ".inkdock-locks", "skill-mutations", target.name+".lock")
 		if !seen[lockPath] {
 			seen[lockPath] = true
 			paths = append(paths, lockPath)

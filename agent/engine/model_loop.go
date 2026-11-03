@@ -8,15 +8,15 @@ import (
 	"strconv"
 	"strings"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func (agent *modelToolLoop) modelForCall(ctx context.Context, modelContext *modelStepContext) (agentmodel.BaseChatModel, error) {

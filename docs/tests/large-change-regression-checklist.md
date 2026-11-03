@@ -1,8 +1,8 @@
-# Denova 大范围变更回归清单
+# InkDock 大范围变更回归清单
 
 ## 1. 文档定位
 
-本清单用于指导 Denova 所有大范围功能变更、核心组件重构、跨模块调整和发布前回归。它是一份长期维护的测试目录，不绑定某个分支、版本或具体实现。
+本清单用于指导 InkDock 所有大范围功能变更、核心组件重构、跨模块调整和发布前回归。它是一份长期维护的测试目录，不绑定某个分支、版本或具体实现。
 
 适用场景包括：
 
@@ -143,16 +143,16 @@ pnpm --dir web test
 
 - `pnpm --dir web test:playwright`：主测试层，同一套 Playwright Test 同时承载浏览器行为回归与核心 E2E。
 - `pnpm --dir web test:browser`：浏览器交互回归，重点验证导航、响应式布局、主题与双语行为。
-- `pnpm --dir web test:e2e`：连接隔离的真实 Denova 后端与本地确定性模型，覆盖写作保存和游戏回合持久化等核心链路。
-- 发布包回归：先解压当前宿主平台的产物，再运行 `DENOVA_E2E_PACKAGE_DIR=/absolute/path/to/denova pnpm --dir web exec playwright test --project=e2e`；复用隔离数据和确定性模型，直接检查包内二进制、前端及 Skills。不可与其他 E2E 同时运行。
+- `pnpm --dir web test:e2e`：连接隔离的真实 InkDock 后端与本地确定性模型，覆盖写作保存和游戏回合持久化等核心链路。
+- 发布包回归：先解压当前宿主平台的产物，再运行 `INKDOCK_E2E_PACKAGE_DIR=/absolute/path/to/inkdock pnpm --dir web exec playwright test --project=e2e`；复用隔离数据和确定性模型，直接检查包内二进制、前端及 Skills。不可与其他 E2E 同时运行。
 - `pnpm --dir web test:unit`：辅助测试层，仅保留纯逻辑、解析器、状态转换和需要快速反馈的组件/Hook 测试。
 - `pnpm --dir web test`：CI 与发布使用的完整前端测试入口，先跑 Vitest，再一次性跑全部 Playwright 项目。
 
-Playwright 的后端数据固定写入 `web/test-results/runtime`，每次启动时重建；模型请求只发送到本地确定性服务。自动化测试不得复用开发者正在运行的 Denova 后端，也不得读取真实 `DENOVA_DIR`。
+Playwright 的后端数据固定写入 `web/test-results/runtime`，每次启动时重建；模型请求只发送到本地确定性服务。自动化测试不得复用开发者正在运行的 InkDock 后端，也不得读取真实 `INKDOCK_DIR`。
 
 根据选中的影响域准备最小测试集，不必为无关变更创建所有数据：
 
-- 全新的临时 `DENOVA_DIR`：用于首次启动、创建和安装类测试。
+- 全新的临时 `INKDOCK_DIR`：用于首次启动、创建和安装类测试。
 - 当前支持格式的已有用户数据副本：包含已完成会话、游戏故事、资料、预设和版本历史。
 - 长篇 Book：包含大量章节、长正文、深层目录、长文件名和多份打开的文档。
 - 普通目录 Project：与当前 Book 不同，用于 General Agent、Files 和 Terminal。
@@ -222,7 +222,7 @@ Playwright 的后端数据固定写入 `web/test-results/runtime`，每次启动
 | WRITE-01 | 新建或打开 Book，必要时导入 `.txt` / `.md` | 目录、章节、正文和统计正确；失败不留下半成品 |
 | WRITE-02 | 在长篇作品展开/折叠卷、定位章节、切换多文档与 Tab | 长列表可用；每个文档恢复自己的阅读位置，Tab 顺序和编辑状态稳定 |
 | WRITE-03 | 编辑正文并测试自动保存、外部修改、冲突和文件删除 | 内容/结构事件区分正确；无自刷新回声；冲突可恢复，删除文件不恢复为空白 Tab |
-| WRITE-04 | 执行普通/正则搜索与替换 | 预览、命中数和实际文件一致；不扫描 Denova 状态目录；失败不产生不可恢复的部分写入 |
+| WRITE-04 | 执行普通/正则搜索与替换 | 预览、命中数和实际文件一致；不扫描 InkDock 状态目录；失败不产生不可恢复的部分写入 |
 | WRITE-05 | 让 Writing Agent 新建、修改和删除测试文件 | 写入绑定正确 Project；变更摘要及时出现；完成后 Diff、文件状态和磁盘内容一致 |
 | WRITE-06 | 在 Diff Review 筛选文件、切换文件、评论、接受/驳回、Undo/Redo | 编辑器状态稳定；新增/修改/删除/冲突正确；每个操作可逆且刷新后一致 |
 | WRITE-07 | 在正文或 Lore 选区创建评论并提交给 Agent | 锚点和 revision 正确；反馈只消费一次；刷新或重连不重复出现 |

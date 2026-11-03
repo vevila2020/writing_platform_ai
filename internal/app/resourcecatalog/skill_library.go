@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 // SkillPreferenceChange changes exactly one library preference. Shared and

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // FollowUp accepts a distinct Run in the existing child Session. HostData is

@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/interactive"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 const platformStoryBindingOwner = "denova.platform"

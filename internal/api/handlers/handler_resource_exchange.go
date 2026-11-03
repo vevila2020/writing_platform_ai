@@ -2,16 +2,16 @@ package handlers
 
 import (
 	"context"
-	"denova/internal/revisionfile"
 	"errors"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 	"io"
 	"log/slog"
 	"strings"
 
-	"denova/internal/app/resourceexchange"
-	"denova/internal/book/lore"
-	"denova/internal/platform"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func exchangeError(ctx context.Context, c *app.RequestContext, err error) {
@@ -184,7 +184,7 @@ func (h *Handlers) HandleResourceExport(ctx context.Context, c *app.RequestConte
 		exchangeError(ctx, c, err)
 		return
 	}
-	c.Header("Content-Disposition", "attachment; filename=denova-resources.zip")
+	c.Header("Content-Disposition", "attachment; filename=inkdock-resources.zip")
 	c.Data(200, "application/zip", raw)
 }
 
@@ -222,7 +222,7 @@ func (h *Handlers) HandleResourceExportDownload(ctx context.Context, c *app.Requ
 		exchangeError(ctx, c, err)
 		return
 	}
-	c.Header("Content-Disposition", "attachment; filename=denova-resources.zip")
+	c.Header("Content-Disposition", "attachment; filename=inkdock-resources.zip")
 	c.Data(200, "application/zip", raw)
 }
 func (h *Handlers) HandleResourceExportDefinitions(ctx context.Context, c *app.RequestContext) {
@@ -269,7 +269,7 @@ func (h *Handlers) HandleResourceBackupDownload(ctx context.Context, c *app.Requ
 		exchangeError(ctx, c, err)
 		return
 	}
-	c.Header("Content-Disposition", "attachment; filename=denova-installation-backup.zip")
+	c.Header("Content-Disposition", "attachment; filename=inkdock-installation-backup.zip")
 	c.Data(200, "application/zip", raw)
 }
 func (h *Handlers) HandleResourceBackupPlan(ctx context.Context, c *app.RequestContext) {

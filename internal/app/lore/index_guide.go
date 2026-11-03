@@ -2,7 +2,7 @@ package loreapp
 
 import (
 	"context"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func (service *Service) IndexGuide(ctx context.Context, projectID string) (lore.IndexGuideSnapshot, error) {

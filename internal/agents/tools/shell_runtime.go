@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	workspacechange "denova/internal/workspace/change"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
-// newAgentCommandRunner binds the reusable Process implementation to Denova's
+// newAgentCommandRunner binds the reusable Process implementation to InkDock's
 // workspace mutation coordinator, so shell effects cannot race editor saves,
 // reviewed changes, undo, or rewind operations.
 func newAgentCommandRunner(

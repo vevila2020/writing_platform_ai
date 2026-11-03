@@ -13,9 +13,9 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"denova/config"
-	"denova/internal/buildinfo"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func main() {
@@ -39,7 +39,7 @@ func main() {
 		panic(err)
 	}
 	actualPort := listener.Addr().(*net.TCPAddr).Port
-	root := os.Getenv("DENOVA_UPDATE_TEST_ROOT")
+	root := os.Getenv("INKDOCK_UPDATE_TEST_ROOT")
 	if root == "" {
 		panic("test root required")
 	}

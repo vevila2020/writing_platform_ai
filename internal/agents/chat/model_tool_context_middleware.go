@@ -7,11 +7,11 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type modelHistoryProjectionMiddleware struct {
@@ -19,7 +19,7 @@ type modelHistoryProjectionMiddleware struct {
 	policy toolresult.ContextPolicy
 }
 
-// NewModelHistoryProjectionMiddleware applies Denova's product history policy
+// NewModelHistoryProjectionMiddleware applies InkDock's product history policy
 // only before the active raw user message. The current cycle's tool exchange
 // remains visible. Provider adapters own reasoning replay because signed or
 // encrypted reasoning state is protocol-specific and may be required on the

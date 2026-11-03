@@ -11,8 +11,8 @@ import (
 	"os"
 	"path/filepath"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Match the product's upload limit. Image bytes have their own bound and never

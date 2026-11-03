@@ -10,9 +10,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	projectbookapp "denova/internal/app/projectbook"
-	booklore "denova/internal/book/lore"
-	"denova/internal/workspace/documentreview"
+	projectbookapp "github.com/vevila2020/writing_platform_ai/internal/app/projectbook"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 func (h *Handlers) HandleProjectBookSnapshot(ctx context.Context, c *app.RequestContext) {

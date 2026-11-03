@@ -13,7 +13,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/agent/internal/localfs"
 )
 
 const privateDirectory = ".git"
@@ -143,7 +143,7 @@ func writeSnapshot(root string, snapshot Snapshot) error {
 		if err := os.MkdirAll(filepath.Dir(absolute), 0o700); err != nil {
 			return err
 		}
-		temporary, err := os.CreateTemp(filepath.Dir(absolute), ".denova-state-*")
+		temporary, err := os.CreateTemp(filepath.Dir(absolute), ".inkdock-state-*")
 		if err != nil {
 			return err
 		}
@@ -206,7 +206,7 @@ func atomicJSON(path string, value any) error {
 	if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
 		return err
 	}
-	temporary, err := os.CreateTemp(filepath.Dir(path), ".denova-state-json-*")
+	temporary, err := os.CreateTemp(filepath.Dir(path), ".inkdock-state-json-*")
 	if err != nil {
 		return err
 	}

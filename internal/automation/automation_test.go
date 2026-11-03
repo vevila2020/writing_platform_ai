@@ -110,7 +110,7 @@ func TestStoreSeparatesUserAndWorkspaceTasks(t *testing.T) {
 	root := t.TempDir()
 	userDir := filepath.Join(root, "user")
 	workspace := filepath.Join(root, "book")
-	if err := os.MkdirAll(filepath.Join(workspace, ".nova"), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Join(workspace, ".inkdock"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	store := NewStore(userDir, workspace)
@@ -126,7 +126,7 @@ func TestStoreSeparatesUserAndWorkspaceTasks(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(userDir, "automations", "tasks.json")); err != nil {
 		t.Fatalf("user tasks not written: %v", err)
 	}
-	if _, err := os.Stat(filepath.Join(workspace, ".nova", "automations", "tasks.json")); err != nil {
+	if _, err := os.Stat(filepath.Join(workspace, ".inkdock", "automations", "tasks.json")); err != nil {
 		t.Fatalf("workspace tasks not written: %v", err)
 	}
 
@@ -161,7 +161,7 @@ func TestStoreListDoesNotCreateWorkspaceAutomationFile(t *testing.T) {
 	if len(tasks) != 0 {
 		t.Fatalf("task count = %d, want no implicit tasks", len(tasks))
 	}
-	path := filepath.Join(workspace, ".denova", "automations", "tasks.json")
+	path := filepath.Join(workspace, ".inkdock", "automations", "tasks.json")
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		t.Fatalf("read-only List should not create %s: %v", path, err)
 	}
@@ -523,18 +523,18 @@ func TestTaskDefinitionRunAndEvaluationWritesShareFileLease(t *testing.T) {
 }
 
 func TestAutomationTaskStoreProcessHelper(t *testing.T) {
-	if os.Getenv("DENOVA_AUTOMATION_STORE_HELPER") != "1" {
+	if os.Getenv("INKDOCK_AUTOMATION_STORE_HELPER") != "1" {
 		return
 	}
-	userDir := os.Getenv("DENOVA_AUTOMATION_STORE_USER_DIR")
-	workspace := os.Getenv("DENOVA_AUTOMATION_STORE_WORKSPACE")
-	taskID := os.Getenv("DENOVA_AUTOMATION_STORE_TASK_ID")
-	readyPath := os.Getenv("DENOVA_AUTOMATION_STORE_READY")
+	userDir := os.Getenv("INKDOCK_AUTOMATION_STORE_USER_DIR")
+	workspace := os.Getenv("INKDOCK_AUTOMATION_STORE_WORKSPACE")
+	taskID := os.Getenv("INKDOCK_AUTOMATION_STORE_TASK_ID")
+	readyPath := os.Getenv("INKDOCK_AUTOMATION_STORE_READY")
 	if err := os.WriteFile(readyPath, []byte("ready"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	store := NewStore(userDir, workspace)
-	switch os.Getenv("DENOVA_AUTOMATION_STORE_MODE") {
+	switch os.Getenv("INKDOCK_AUTOMATION_STORE_MODE") {
 	case "definition":
 		current, err := store.Get(taskID)
 		if err != nil {
@@ -560,7 +560,7 @@ func TestAutomationTaskStoreProcessHelper(t *testing.T) {
 			t.Fatal(err)
 		}
 	default:
-		t.Fatalf("unknown subprocess store mode %q", os.Getenv("DENOVA_AUTOMATION_STORE_MODE"))
+		t.Fatalf("unknown subprocess store mode %q", os.Getenv("INKDOCK_AUTOMATION_STORE_MODE"))
 	}
 }
 
@@ -600,12 +600,12 @@ func TestTaskDefinitionRunAndEvaluationWritesShareProcessLease(t *testing.T) {
 		readyPath := filepath.Join(root, mode+".ready")
 		command := exec.Command(os.Args[0], "-test.run=^TestAutomationTaskStoreProcessHelper$", "-test.count=1")
 		command.Env = append(os.Environ(),
-			"DENOVA_AUTOMATION_STORE_HELPER=1",
-			"DENOVA_AUTOMATION_STORE_USER_DIR="+userDir,
-			"DENOVA_AUTOMATION_STORE_WORKSPACE="+workspace,
-			"DENOVA_AUTOMATION_STORE_TASK_ID="+created.CatalogID,
-			"DENOVA_AUTOMATION_STORE_MODE="+mode,
-			"DENOVA_AUTOMATION_STORE_READY="+readyPath,
+			"INKDOCK_AUTOMATION_STORE_HELPER=1",
+			"INKDOCK_AUTOMATION_STORE_USER_DIR="+userDir,
+			"INKDOCK_AUTOMATION_STORE_WORKSPACE="+workspace,
+			"INKDOCK_AUTOMATION_STORE_TASK_ID="+created.CatalogID,
+			"INKDOCK_AUTOMATION_STORE_MODE="+mode,
+			"INKDOCK_AUTOMATION_STORE_READY="+readyPath,
 		)
 		if err := command.Start(); err != nil {
 			t.Fatal(err)

@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"denova/internal/analytics"
-	application "denova/internal/app"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	application "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 // Only authenticated, registered API routes are measured. A route is reduced

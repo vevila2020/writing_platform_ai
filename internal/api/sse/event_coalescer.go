@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"time"
 
-	novaApp "denova/internal/app"
-	apptask "denova/internal/app/task"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 // This is a transport flush window, not an Agent timeout. It bounds display

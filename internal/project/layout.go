@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 const (
@@ -19,8 +19,8 @@ func joinStore(root string, elements ...string) string {
 }
 
 func (registry *Registry) Layout(record Record) (Layout, error) {
-	if registry == nil || strings.TrimSpace(registry.denovaDir) == "" {
-		return Layout{}, fmt.Errorf("Denova data directory is required")
+	if registry == nil || strings.TrimSpace(registry.inkdockDir) == "" {
+		return Layout{}, fmt.Errorf("InkDock data directory is required")
 	}
 	if err := ValidateID(record.ID); err != nil {
 		return Layout{}, err
@@ -32,11 +32,11 @@ func (registry *Registry) Layout(record Record) (Layout, error) {
 	if err != nil {
 		return Layout{}, err
 	}
-	if err := portablepath.CheckPath(registry.denovaDir, storeDirectoryName+"/"+record.StoreDirName); err != nil {
+	if err := portablepath.CheckPath(registry.inkdockDir, storeDirectoryName+"/"+record.StoreDirName); err != nil {
 		return Layout{}, fmt.Errorf("inspect Project Store path: %w", err)
 	}
 	if record.Location.Kind == LocationManaged && record.Location.Path != "." {
-		if err := portablepath.CheckPath(registry.denovaDir, record.Location.Path); err != nil {
+		if err := portablepath.CheckPath(registry.inkdockDir, record.Location.Path); err != nil {
 			return Layout{}, fmt.Errorf("inspect managed Project path: %w", err)
 		}
 	}
@@ -44,7 +44,7 @@ func (registry *Registry) Layout(record Record) (Layout, error) {
 		ProjectID:   record.ID,
 		Type:        record.Type,
 		ContentRoot: workspace,
-		StoreRoot:   filepath.Join(registry.denovaDir, storeDirectoryName, record.StoreDirName),
+		StoreRoot:   filepath.Join(registry.inkdockDir, storeDirectoryName, record.StoreDirName),
 	}, nil
 }
 

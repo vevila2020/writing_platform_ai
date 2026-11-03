@@ -3,8 +3,8 @@ package context
 import (
 	"context"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ContextSource returns accountable model-visible fragments for one cycle.

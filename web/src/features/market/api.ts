@@ -240,7 +240,7 @@ export async function downloadExport(plan: ExportPlan) {
   const url = URL.createObjectURL(await response.blob())
   const a = document.createElement('a')
   a.href = url
-  a.download = `${plan.package.id || 'denova-resources'}.zip`
+  a.download = `${plan.package.id || 'inkdock-resources'}.zip`
   a.click()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }

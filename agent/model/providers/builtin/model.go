@@ -5,11 +5,11 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type modelDefinition struct {

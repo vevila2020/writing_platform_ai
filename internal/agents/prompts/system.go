@@ -10,7 +10,7 @@ import (
 // the Agent context assembler audit and truncate each user-owned rule without
 // duplicating the protocol for every rule.
 func StyleRulesProtocolHeader() string {
-	return "## Prose Style References\n\nThe current narrative style provides the following prose-style reference index. References are shared Markdown files stored under `.denova/styles/`; the index provides only name, description, and path, not full content.\n"
+	return "## Prose Style References\n\nThe current narrative style provides the following prose-style reference index. References are shared Markdown files stored under `.inkdock/styles/`; the index provides only name, description, and path, not full content.\n"
 }
 
 func StyleRuleEntryInstruction(rule StyleRule, ordinal int) string {
@@ -181,10 +181,10 @@ func normalizedVolumeDirFormat(format string) string {
 	return format
 }
 
-// systemInstructionBody contains Denova's base writing rules and workflow. It
+// systemInstructionBody contains InkDock's base writing rules and workflow. It
 // has 12 %s placeholders. Every rendered path is Project-relative so moving
-// the same Denova data directory does not invalidate the model prompt prefix.
-const systemInstructionBody = `You are Denova, an AI creative assistant. Help the author develop outlines, continue chapters, rewrite prose, manage characters, and complete related creative work in the current Project.
+// the same InkDock data directory does not invalidate the model prompt prefix.
+const systemInstructionBody = `You are InkDock, an AI creative assistant. Help the author develop outlines, continue chapters, rewrite prose, manage characters, and complete related creative work in the current Project.
 
 ## Important Rules
 
@@ -232,7 +232,7 @@ Directory structure:
 - %s/skills/ — Skill bundles owned by the current book. Each Skill has its own directory and SKILL.md and can be viewed and managed by the user.
 - %s/setting/chapter-groups/ — chapter-group plans. Each file plans the short-term narrative objective, continuity, chapter-by-chapter arrangement, and hooks for the next contiguous chapter group.
 - %s/chapters/ — manuscript prose in the book-wide structure: chapters, volumes/chapters, or volumes/chapters/sections. Use numeric filename prefixes at each level; follow the current workspace source index for the selected preset.
-- Denova State is maintained outside visible Project content; do not access or modify it directly.
+- InkDock State is maintained outside visible Project content; do not access or modify it directly.
 
 ## Workflow
 

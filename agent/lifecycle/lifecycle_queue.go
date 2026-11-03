@@ -4,10 +4,10 @@ import (
 	"context"
 	"strings"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // QueuedInput locates a durable supplemental input by Session and command ID.

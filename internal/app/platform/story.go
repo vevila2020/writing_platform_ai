@@ -7,11 +7,11 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/internal/agents/conversationjournal"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
-	"denova/internal/platform"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func platformStoryError(code, diagnostic string) error {

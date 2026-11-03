@@ -6,11 +6,11 @@ import (
 	"errors"
 	"strings"
 
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/interactive"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (c *Conversation) turnDraftIdentity() interactive.DomainCommitIdentity {

@@ -2,10 +2,10 @@ package lore
 
 import (
 	"context"
-	"denova/internal/revisionfile"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 	"log/slog"
 	"os"
 	"path/filepath"

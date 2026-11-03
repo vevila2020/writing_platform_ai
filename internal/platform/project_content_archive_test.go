@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestPluginContentArchivePreservesPortableDataAndRejectsOverwrite(t *testing.T) {

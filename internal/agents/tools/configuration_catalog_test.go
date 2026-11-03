@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestProjectAgentFactoriesExposeConfigurationTools(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	settings := config.ResolvedAgentToolSettings{
 		config.AgentToolConfigRead:  true,
 		config.AgentToolConfigApply: true,

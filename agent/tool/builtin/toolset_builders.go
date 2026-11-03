@@ -10,9 +10,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Combine preserves Toolset order. Duplicate tool names are rejected by Agent

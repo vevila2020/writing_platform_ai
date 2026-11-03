@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 )
 
 const storyIndexSchemaVersion = 1

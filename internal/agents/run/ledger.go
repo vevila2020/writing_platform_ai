@@ -1,9 +1,9 @@
 package agentrun
 
 import (
-	agentcontext "denova/internal/agents/context"
 	"encoding/json"
 	"fmt"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 	"os"
 	"path/filepath"
 	"sort"
@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	agenttool "denova/internal/agents/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 )
 
 // Ledger is a durable JSONL trace for one Agent loop run. Normal records retain

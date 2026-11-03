@@ -120,7 +120,7 @@
 | `world` | 世界事实、规则/能力体系、历史、文化、经济、地理 | 写成百科词条，规则没有限制和代价 |
 | 自定义分类 | 按项目定义，但至少保留稳定事实、可行动接口、边界 | 为每个想法新建分类，导致条目无法检索 |
 
-Denova 的默认分类是 `character`、`location`、`faction`、`item`、`world`；旧项目可能还有 `rule`、`other`。规则优先归入 `world` 或项目自定义的规则分类，`other` 只在没有更合适分类时使用。
+墨栈 AI 的默认分类是 `character`、`location`、`faction`、`item`、`world`；旧项目可能还有 `rule`、`other`。规则优先归入 `world` 或项目自定义的规则分类，`other` 只在没有更合适分类时使用。
 
 ### 外观、物件与感官锚点
 
@@ -136,7 +136,7 @@ Denova 的默认分类是 `character`、`location`、`faction`、`item`、`world
 
 ### 加载方式与索引
 
-Denova 的资料不是“全量注入”，而是通过 Lore Index 分级展示：
+墨栈 AI 的资料不是“全量注入”，而是通过 Lore Index 分级展示：
 
 - `resident`：常驻，通常给全文。只给每轮都在场的最小 canon，例如世界前提、核心规则、主角/核心 NPC 的最小身份。
 - `auto`：按需。索引通常给名称或简介，模型需要时再按名称读取全文。

@@ -2,12 +2,12 @@ package app
 
 import (
 	"context"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	appagentruntime "denova/internal/app/agentruntime"
-	apptask "denova/internal/app/task"
 	"fmt"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 )

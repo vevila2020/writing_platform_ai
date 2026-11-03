@@ -5,14 +5,14 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolresult"
-	producttools "denova/internal/agents/tools"
-	imageasset "denova/internal/image/asset"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestGeneratedImageToolResultTracksMutationTarget(t *testing.T) {

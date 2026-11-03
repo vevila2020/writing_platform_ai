@@ -1,13 +1,13 @@
-// Package context adapts the reusable agent context assembler to Denova's
+// Package context adapts the reusable agent context assembler to InkDock's
 // localized prompt wording. Product code depends on this package only for that
 // presentation policy; budgets, provenance, hashing, projection, and placement
-// are owned by github.com/alfredxw/denova/agent/context.
+// are owned by github.com/vevila2020/writing_platform_ai/agent/context.
 package context
 
 import (
 	"strings"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
 )
 
 type Placement = agentcontext.Placement

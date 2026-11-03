@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	agentcontext "denova/internal/agents/context"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestAgentMessageWireRoundTripsAllStableFields(t *testing.T) {
@@ -185,9 +185,9 @@ func TestAssistantMessageMetadataPersistsRunID(t *testing.T) {
 	if err := sess.AppendWithMetadata(agentschema.AssistantMessage("已完成", nil), MessageMetadata{
 		RunID:         "run-1",
 		AgentKind:     "ide",
-		AgentName:     "DenovaAgent",
-		RootAgentName: "DenovaAgent",
-		RunPath:       []string{"DenovaAgent"},
+		AgentName:     "InkDockAgent",
+		RootAgentName: "InkDockAgent",
+		RunPath:       []string{"InkDockAgent"},
 	}); err != nil {
 		t.Fatal(err)
 	}
@@ -205,7 +205,7 @@ func TestAssistantMessageMetadataPersistsRunID(t *testing.T) {
 		t.Fatalf("history entries = %d, want 2: %#v", len(history), history)
 	}
 	assistant := history[1]
-	if assistant.Role != "assistant" || assistant.RunID != "run-1" || assistant.AgentKind != "ide" || assistant.AgentName != "DenovaAgent" || len(assistant.RunPath) != 1 {
+	if assistant.Role != "assistant" || assistant.RunID != "run-1" || assistant.AgentKind != "ide" || assistant.AgentName != "InkDockAgent" || len(assistant.RunPath) != 1 {
 		t.Fatalf("assistant metadata was not persisted: %#v", assistant)
 	}
 	effective := reloaded.GetEffectiveMessages()
@@ -570,8 +570,8 @@ func TestSubAgentAssistantDisplayChunksPersistOutsideEffectiveContext(t *testing
 		Content:           "第一段",
 		RunID:             "run-1",
 		AgentName:         "researcher",
-		RootAgentName:     "DenovaAgent",
-		RunPath:           []string{"DenovaAgent", "researcher"},
+		RootAgentName:     "InkDockAgent",
+		RunPath:           []string{"InkDockAgent", "researcher"},
 		SubAgent:          true,
 		SubAgentSessionID: "run-1-subagent-01-researcher",
 		SubAgentType:      "researcher",

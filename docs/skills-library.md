@@ -9,22 +9,22 @@ groups are hidden while searching or filtering.
 
 ## Availability
 
-- Denova's built-in, user, and Project Skills are grouped separately from the
+- InkDock's built-in, user, and Project Skills are grouped separately from the
   shared library at `~/.agents/skills`.
 - Shared Skills are discovered for management but excluded from Agent discovery,
   slash commands, Skill loading, and reference reads until explicitly enabled.
   Shared directories may be symlinks; supporting-file reads stay inside the
-  selected Skill. Denova never edits the shared library.
+  selected Skill. InkDock never edits the shared library.
 - Name precedence is Project, user, built-in, then shared. Disabling the winning
   Skill does not silently activate a lower-priority version. Agent profiles can
   further restrict availability, but cannot bypass the Library's disable switch.
-- Global preferences are stored in `<data directory>/skills/.denova-library.json`;
-  Project Skill availability is stored in `<project>/skills/.denova-library.json`.
+- Global preferences are stored in `<data directory>/skills/.inkdock-library.json`;
+  Project Skill availability is stored in `<project>/skills/.inkdock-library.json`.
   These contain scope/name keys, never absolute host paths. Preferences apply to
   Writing, Game, and other Skill-capable Agents.
 - External engines receive the same host catalog and loader. Codex's automatic
-  Skills instruction block is suppressed for Denova-owned processes so its
-  ambient library cannot bypass these preferences. Denova does not rewrite the
+  Skills instruction block is suppressed for InkDock-owned processes so its
+  ambient library cannot bypass these preferences. InkDock does not rewrite the
   user's CLI Skills preferences.
 
 ## Import, export and remote updates
@@ -53,8 +53,8 @@ selected package with its source record. Before-images are retained in durable
 transaction records. The market can download backups or review a restore plan;
 it refuses to overwrite edits made since the original commit.
 
-On upgrade from v0.5.0, `.denova-source.json` is backed up and moved into the shared
+On upgrade from v0.5.0, `.inkdock-source.json` is backed up and moved into the shared
 installation model. An explicitly enabled auto-update preference is retained;
 other Skills remain manual. Skill content is unchanged. Downgrading requires
 restoring the old source files from migration before-images to recover source
-and update information. Existing legacy `.denova-backups` are not removed.
+and update information. Existing legacy `.inkdock-backups` are not removed.

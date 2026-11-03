@@ -2,14 +2,14 @@ package app
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
 	"errors"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
 	"testing"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestAppRestoresWritingAndGameQueuedTurnDependencies(t *testing.T) {
@@ -88,10 +88,10 @@ func newExecutionProfileTestApp(t *testing.T) *App {
 	t.Helper()
 	root := t.TempDir()
 	// Settings reloads must use the same isolated data directory as startup.
+	t.Setenv("INKDOCK_DIR", root)
 	t.Setenv("DENOVA_DIR", root)
-	t.Setenv("NOVA_DIR", root)
 	application, err := New(context.Background(), &config.Config{
-		OpenAIModel: "test-model", NovaDir: root, Workspace: root,
+		OpenAIModel: "test-model", DenovaDir: root, Workspace: root,
 		OpenAIBaseURL: "http://127.0.0.1:1/v1",
 	})
 	if err != nil {

@@ -10,17 +10,17 @@ import (
 	"fmt"
 	"log/slog"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolruntime"
-	"denova/internal/i18n"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publicresult "github.com/alfredxw/denova/agent/tool/result"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publicresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 type preparedTool struct {

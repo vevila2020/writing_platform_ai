@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // ReadRecord reuses offsets collected during checksum-verified replay/append.

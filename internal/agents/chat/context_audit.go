@@ -6,11 +6,11 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type contextBuildLog struct {

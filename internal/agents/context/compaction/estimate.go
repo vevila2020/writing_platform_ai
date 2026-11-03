@@ -1,10 +1,10 @@
 package compaction
 
 import (
-	"denova/config"
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	agenttoolresult "github.com/alfredxw/denova/agent/tool/result"
+	agenttoolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 // EstimateProjectionReserves returns bounded reserves for completion and

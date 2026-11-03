@@ -1,10 +1,10 @@
 package agentrun
 
-import agentcontext "denova/internal/agents/context"
+import agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 
 const (
 	defaultRunLedgerPreviewChars = 200
-	defaultRunLedgerDirectory    = ".denova/runs"
+	defaultRunLedgerDirectory    = ".inkdock/runs"
 )
 
 // LoopPolicy declares the stable observability constraints around one Agent
@@ -21,7 +21,7 @@ type LedgerPolicy struct {
 	PreviewChars int
 }
 
-// DefaultLoopPolicy returns Denova's default loop observability policy.
+// DefaultLoopPolicy returns InkDock's default loop observability policy.
 func DefaultLoopPolicy() LoopPolicy {
 	return LoopPolicy{
 		ContextLedger: agentcontext.AuditPolicy{Enabled: true, PreviewChars: agentcontext.DefaultAuditPreviewChars},

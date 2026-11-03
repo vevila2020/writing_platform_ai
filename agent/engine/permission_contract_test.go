@@ -7,12 +7,12 @@ import (
 	"strings"
 	"testing"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type permissionContractTools struct{ definitions []agenttool.ToolDefinition }

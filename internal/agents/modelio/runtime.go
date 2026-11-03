@@ -10,12 +10,12 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/builtin"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Catalog is the stable application projection of installed protocol

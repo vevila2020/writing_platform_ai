@@ -17,7 +17,7 @@ const VersionPanel = lazy(() => import('@/components/Versions/VersionPanel').the
 interface AgentChatRouteProps {
   /** Stable identity of the foreground Writing Book, used only for outer projection refresh. */
   projectId: string
-  novaDir: string
+  dataDir: string
   composerSettings: WritingComposerSettingsController
   tellers: Teller[]
   imagePresets: ImagePreset[]
@@ -38,7 +38,7 @@ interface AgentChatRouteProps {
  */
 function AgentChatRouteComponent({
   projectId: foregroundProjectId,
-  novaDir,
+  dataDir,
   composerSettings,
   tellers,
   imagePresets,
@@ -133,7 +133,7 @@ function AgentChatRouteComponent({
       composerSettings={composerSettings}
       tellers={tellers}
       imagePresets={imagePresets}
-      novaDir={novaDir}
+      dataDir={dataDir}
       autoSaveEnabled={autoSaveEnabled}
       autoSaveDelayMs={autoSaveDelayMs}
       renderPage={renderPage}

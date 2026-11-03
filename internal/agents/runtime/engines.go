@@ -8,12 +8,12 @@ import (
 	"slices"
 	"sync"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/runtime/external/claude"
-	"denova/internal/agents/runtime/external/codex"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/claude"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/codex"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 var (

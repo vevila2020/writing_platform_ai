@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestNormalizeModelContextMessagesPreservesValidRichExchange(t *testing.T) {

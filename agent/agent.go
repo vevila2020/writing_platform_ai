@@ -16,11 +16,11 @@ package agent
 import (
 	"context"
 
-	"github.com/alfredxw/denova/agent/engine"
-	"github.com/alfredxw/denova/agent/lifecycle"
-	"github.com/alfredxw/denova/agent/lifecycle/trace"
-	"github.com/alfredxw/denova/agent/schema"
-	"github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent/engine"
+	"github.com/vevila2020/writing_platform_ai/agent/lifecycle"
+	"github.com/vevila2020/writing_platform_ai/agent/lifecycle/trace"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // Agent owns Session handles and task-tree admission. Execution and persistence

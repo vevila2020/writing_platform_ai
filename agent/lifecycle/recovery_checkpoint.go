@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // This version only invalidates a disposable file-store checkpoint, never the

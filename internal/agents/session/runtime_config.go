@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 )
 
 // RuntimeConfig returns the complete per-conversation Agent selection.

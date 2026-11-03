@@ -3,7 +3,7 @@ package session
 import (
 	"context"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 // Sparse display anchors can start inside a long turn. Canonical assistant

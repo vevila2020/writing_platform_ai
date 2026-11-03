@@ -9,15 +9,15 @@ import (
 	"path/filepath"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // The fixture uses persistedTurn and record version 1 from the v0.4.5 tag.

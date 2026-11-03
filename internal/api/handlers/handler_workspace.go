@@ -10,9 +10,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	projectfilesapp "denova/internal/app/projectfiles"
-	"denova/internal/book"
-	workspacechange "denova/internal/workspace/change"
+	projectfilesapp "github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // HandleWorkspaceSearch searches text and paths in the scoped Project.

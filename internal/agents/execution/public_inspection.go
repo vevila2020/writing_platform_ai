@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type publicInspectionRegistrationContextKey struct{}
@@ -82,14 +82,14 @@ func inspectionRegistrationFromContext(
 ) (*publicCycleRegistration, error) {
 	value, ok := ctx.Value(publicInspectionRegistrationContextKey{}).(publicInspectionRegistration)
 	if !ok || value.registration == nil || value.registration.cycle == nil {
-		return nil, errors.New("Denova public Agent inspection has no ephemeral cycle registration")
+		return nil, errors.New("InkDock public Agent inspection has no ephemeral cycle registration")
 	}
 	canonical, err := agentsession.CanonicalKey(key)
 	if err != nil {
 		return nil, err
 	}
 	if canonical != value.session {
-		return nil, errors.New("Denova public Agent inspection Session changed during preparation")
+		return nil, errors.New("InkDock public Agent inspection Session changed during preparation")
 	}
 	cycle := *value.registration.cycle
 	want := agentchat.CallerView(cycle.Request)
@@ -97,7 +97,7 @@ func inspectionRegistrationFromContext(
 	if strings.TrimSpace(want.CommandID) != strings.TrimSpace(data.Caller.CommandID) ||
 		RequestSemanticFingerprint(cycle.Request) != RequestSemanticFingerprint(got) ||
 		cycle.Request.InputVisibility != data.InputVisibility {
-		return nil, fmt.Errorf("Denova public Agent inspection input does not match its ephemeral cycle")
+		return nil, fmt.Errorf("InkDock public Agent inspection input does not match its ephemeral cycle")
 	}
 	return value.registration, nil
 }

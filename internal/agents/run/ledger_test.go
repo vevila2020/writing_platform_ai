@@ -3,20 +3,20 @@ package agentrun
 import (
 	"bufio"
 	"context"
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/tool"
 	"encoding/json"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/toolresult"
-	producttools "denova/internal/agents/tools"
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func TestContextLedgerRecordsBoundedSources(t *testing.T) {
@@ -138,7 +138,7 @@ func TestPostRunVerifierChecksLoreWriteResult(t *testing.T) {
 
 func TestRunTraceReaderSummarizesLedger(t *testing.T) {
 	workspace := t.TempDir()
-	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".denova/runs", PreviewChars: 8}, Options{
+	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".inkdock/runs", PreviewChars: 8}, Options{
 		AgentKind:       AgentKindInteractiveStory,
 		TaskID:          "task-1",
 		SessionID:       "session-1",
@@ -259,7 +259,7 @@ func TestRunLedgerRecordsStructuredTraceSpans(t *testing.T) {
 	})
 
 	workspace := t.TempDir()
-	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".denova/runs", PreviewChars: 8}, Options{
+	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".inkdock/runs", PreviewChars: 8}, Options{
 		AgentKind: AgentKindIDE,
 		TaskID:    "task-structured-trace",
 		Workspace: workspace,
@@ -411,7 +411,7 @@ func TestRunTraceSummaryAggregatesLLMCacheUsage(t *testing.T) {
 
 func TestReadRunTraceKeepsHeadAndTailWhenTruncated(t *testing.T) {
 	workspace := t.TempDir()
-	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".denova/runs", PreviewChars: 8}, Options{
+	ledger, err := NewLedgerWithOptions(workspace, LedgerPolicy{Enabled: true, Directory: ".inkdock/runs", PreviewChars: 8}, Options{
 		AgentKind: AgentKindIDE,
 		TaskID:    "task-long-trace",
 		Workspace: workspace,
@@ -471,7 +471,7 @@ func TestRunLedgerWritesBoundedJSONLTrace(t *testing.T) {
 	workspace := t.TempDir()
 	ledger, err := NewLedger(workspace, LedgerPolicy{
 		Enabled:      true,
-		Directory:    ".denova/runs",
+		Directory:    ".inkdock/runs",
 		PreviewChars: 8,
 	})
 	if err != nil {
@@ -497,8 +497,8 @@ func TestRunLedgerWritesBoundedJSONLTrace(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !strings.HasPrefix(filepath.ToSlash(ledger.Path()), filepath.ToSlash(filepath.Join(workspace, ".denova/runs"))) {
-		t.Fatalf("ledger path should be under workspace .denova/runs: %s", ledger.Path())
+	if !strings.HasPrefix(filepath.ToSlash(ledger.Path()), filepath.ToSlash(filepath.Join(workspace, ".inkdock/runs"))) {
+		t.Fatalf("ledger path should be under workspace .inkdock/runs: %s", ledger.Path())
 	}
 	records := readRunLedgerRecords(t, ledger.Path())
 	if len(records) != 4 {
@@ -521,7 +521,7 @@ func TestRunLedgerSkipsTransportStreamEvents(t *testing.T) {
 	workspace := t.TempDir()
 	ledger, err := NewLedger(workspace, LedgerPolicy{
 		Enabled:      true,
-		Directory:    ".denova/runs",
+		Directory:    ".inkdock/runs",
 		PreviewChars: 8,
 	})
 	if err != nil {
@@ -570,7 +570,7 @@ func TestRunLedgerSkipsTransportStreamEvents(t *testing.T) {
 func TestRunLedgerPersistsOnlyContentFreeTelemetry(t *testing.T) {
 	const secret = "SYNTHETIC_SECRET_DO_NOT_PERSIST"
 	workspace := t.TempDir()
-	ledger, err := NewLedger(workspace, LedgerPolicy{Enabled: true, Directory: ".denova/runs"})
+	ledger, err := NewLedger(workspace, LedgerPolicy{Enabled: true, Directory: ".inkdock/runs"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -673,7 +673,7 @@ func TestRunLedgerPersistsOnlyContentFreeTelemetry(t *testing.T) {
 
 func TestRunLedgerSanitizationDoesNotMutateTransientEvent(t *testing.T) {
 	workspace := t.TempDir()
-	ledger, err := NewLedger(workspace, LedgerPolicy{Enabled: true, Directory: ".denova/runs"})
+	ledger, err := NewLedger(workspace, LedgerPolicy{Enabled: true, Directory: ".inkdock/runs"})
 	if err != nil {
 		t.Fatal(err)
 	}

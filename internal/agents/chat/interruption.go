@@ -7,8 +7,8 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 var ErrInterruptionNotPending = errors.New("requested interruption is no longer pending")

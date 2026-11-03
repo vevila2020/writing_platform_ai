@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/book"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func TestWorkspaceTreeMutationWaitsForSharedExclusiveLease(t *testing.T) {

@@ -3,8 +3,8 @@ package toolruntime
 import (
 	"context"
 
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 )
 
 // recordToolExecution feeds bounded product diagnostics. Canonical Tool

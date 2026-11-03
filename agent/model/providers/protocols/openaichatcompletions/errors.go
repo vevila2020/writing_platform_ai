@@ -4,8 +4,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
 	sdk "github.com/openai/openai-go/v3"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 func adaptAPIError(err error) error {

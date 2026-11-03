@@ -6,7 +6,7 @@ import (
 	"slices"
 	"sync"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Cache only decoding, keyed by the exact content revision read under the

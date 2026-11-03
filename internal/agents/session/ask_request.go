@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 // ProjectInteractionRequest is a display-only projection shared by live Native

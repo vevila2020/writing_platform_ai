@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	booklore "denova/internal/book/lore"
-	"denova/internal/interactive"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 const storyOpeningLoreCatalogMaxBytes = 256 * 1024

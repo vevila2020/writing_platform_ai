@@ -1,8 +1,8 @@
 package agentruntime
 
 import (
-	"denova/config"
-	"denova/internal/agents"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
 	"runtime"
 )
 

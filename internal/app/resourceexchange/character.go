@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/book/character"
-	"denova/internal/book/lore"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/book/character"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Character conversion uses the existing adapter in an isolated workspace. The
@@ -20,7 +20,7 @@ func (s *Service) previewCharacter(ctx context.Context, source Source, data []by
 // PreviewCharacter freezes the result of optional semantic classification once.
 // Applying or reloading the plan never invokes the classifier again.
 func (s *Service) PreviewCharacter(ctx context.Context, source Source, data []byte, options character.ImportOptions, categories []lore.Category) (Preview, error) {
-	dir, err := os.MkdirTemp("", "denova-card-")
+	dir, err := os.MkdirTemp("", "inkdock-card-")
 	if err != nil {
 		return Preview{}, err
 	}

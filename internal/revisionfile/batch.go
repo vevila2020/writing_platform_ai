@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"slices"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // LockedFiles holds the same canonical locks used by ordinary document writes.

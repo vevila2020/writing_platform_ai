@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"log/slog"
 
-	chatagent "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentrun "denova/internal/agents/run"
-	compactionapp "denova/internal/app/compaction"
-	conversationapp "denova/internal/app/conversation"
-	apptask "denova/internal/app/task"
+	chatagent "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	compactionapp "github.com/vevila2020/writing_platform_ai/internal/app/compaction"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 // CompactContext admits maintenance for exactly the selected Project/Session.

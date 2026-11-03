@@ -1,11 +1,11 @@
-// Package structural defines Denova's small product-facing command vocabulary
+// Package structural defines InkDock's small product-facing command vocabulary
 // for manual Agent context mutations. The public Agent Session owns admission,
 // execution, persistence, and recovery.
 package structural
 
 import (
-	"denova/internal/agents/context/compaction"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // Action is closed because every manual structural command must map to one
@@ -22,7 +22,7 @@ type Result struct {
 	Removed    bool
 }
 
-// Spec is a Denova adapter request. It deliberately contains no frozen
+// Spec is a InkDock adapter request. It deliberately contains no frozen
 // product-store mutation or runtime restore descriptor: the selected public
 // Agent Session is the sole durable authority for the command.
 type Spec struct {

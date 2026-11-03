@@ -2,14 +2,14 @@ package automationapp
 
 import (
 	"context"
-	apptask "denova/internal/app/task"
 	"errors"
 	"fmt"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 	"time"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 func (s *Service) Inbox() ([]automation.TriggerInboxItem, error) {

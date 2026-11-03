@@ -48,7 +48,7 @@ export function connect({ prepareExit } = {}) {
         const response = await fetch(connection.baseUrl + path, {
           ...fetchOptions, headers: { 'Content-Type': 'application/json',
             ...options.headers, Authorization: `Bearer ${connection.token}`,
-            ...(connection.consumerId ? { 'X-Denova-Consumer': connection.consumerId } : {}) },
+            ...(connection.consumerId ? { 'X-InkDock-Consumer': connection.consumerId } : {}) },
         });
         if (!response.ok) {
           const error = await response.json();

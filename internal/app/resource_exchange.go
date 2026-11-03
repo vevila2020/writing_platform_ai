@@ -2,10 +2,10 @@ package app
 
 import (
 	"context"
-	"denova/internal/app/resourceexchange"
-	"denova/internal/platform"
-	workspacechange "denova/internal/workspace/change"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // ResourceMarketCatalog captures the current user-wide registry for one fetch.

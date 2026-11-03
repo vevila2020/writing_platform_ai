@@ -4,11 +4,11 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestSessionConversationKeepsRichRawHistoryForAgentOwnedMaintenance(t *testing.T) {

@@ -3,7 +3,7 @@
 set -eu
 
 ROOT_DIR="$(CDPATH= cd "$(dirname "$0")/.." && pwd -P)"
-TEST_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/denova-install-test.XXXXXX")"
+TEST_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/inkdock-install-test.XXXXXX")"
 
 cleanup() {
   rm -rf "${TEST_ROOT}"
@@ -25,31 +25,31 @@ case "$(uname -m)" in
 esac
 
 VERSION="v0.4.0"
-ARCHIVE_NAME="denova-${VERSION}-${platform_os}-${platform_arch}.tar.gz"
+ARCHIVE_NAME="inkdock-${VERSION}-${platform_os}-${platform_arch}.tar.gz"
 RELEASE_DIR="${TEST_ROOT}/release"
 PACKAGE_ROOT="${TEST_ROOT}/package"
-PACKAGE_DIR="${PACKAGE_ROOT}/denova"
+PACKAGE_DIR="${PACKAGE_ROOT}/inkdock"
 FAKE_BIN="${TEST_ROOT}/fake-bin"
 HOME_DIR="${TEST_ROOT}/home"
 mkdir -p "${RELEASE_DIR}" "${PACKAGE_DIR}/web" "${PACKAGE_DIR}/skills" "${FAKE_BIN}" "${HOME_DIR}"
 
-cat > "${PACKAGE_DIR}/denova" <<'EOF'
+cat > "${PACKAGE_DIR}/inkdock" <<'EOF'
 #!/bin/sh
 if [ "${1:-}" = "--version" ]; then
   printf '0.4.0\n'
   exit 0
 fi
-printf '%s\n' "${DENOVA_DIR:-}"
+printf '%s\n' "${INKDOCK_DIR:-}"
 EOF
-cat > "${PACKAGE_DIR}/denova-updater" <<'EOF'
+cat > "${PACKAGE_DIR}/inkdock-updater" <<'EOF'
 #!/bin/sh
 exit 0
 EOF
-chmod 0755 "${PACKAGE_DIR}/denova" "${PACKAGE_DIR}/denova-updater"
+chmod 0755 "${PACKAGE_DIR}/inkdock" "${PACKAGE_DIR}/inkdock-updater"
 printf 'fixture\n' > "${PACKAGE_DIR}/web/index.html"
 printf 'fixture\n' > "${PACKAGE_DIR}/skills/README.md"
 
-(cd "${PACKAGE_ROOT}" && tar -czf "${RELEASE_DIR}/${ARCHIVE_NAME}" denova)
+(cd "${PACKAGE_ROOT}" && tar -czf "${RELEASE_DIR}/${ARCHIVE_NAME}" inkdock)
 if command -v sha256sum >/dev/null 2>&1; then
   checksum="$(sha256sum "${RELEASE_DIR}/${ARCHIVE_NAME}" | awk '{print $1}')"
 else
@@ -72,8 +72,8 @@ while [ "$#" -gt 0 ]; do
 done
 case "${url}" in
   */releases/latest) printf '%s' 'https://github.com/vevila2020/writing_platform_ai/releases/tag/v0.4.0' ;;
-  */checksums.txt) cp "${DENOVA_INSTALL_TEST_RELEASE_DIR}/checksums.txt" "${output}" ;;
-  */denova-v0.4.0-*.tar.gz) cp "${DENOVA_INSTALL_TEST_RELEASE_DIR}/${url##*/}" "${output}" ;;
+  */checksums.txt) cp "${INKDOCK_INSTALL_TEST_RELEASE_DIR}/checksums.txt" "${output}" ;;
+  */inkdock-v0.4.0-*.tar.gz) cp "${INKDOCK_INSTALL_TEST_RELEASE_DIR}/${url##*/}" "${output}" ;;
   *) printf 'Unexpected installer URL: %s\n' "${url}" >&2; exit 1 ;;
 esac
 EOF
@@ -81,21 +81,21 @@ chmod 0755 "${FAKE_BIN}/curl"
 
 PATH="${FAKE_BIN}:${PATH}" \
 HOME="${HOME_DIR}" \
-DENOVA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+INKDOCK_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
 sh "${ROOT_DIR}/scripts/install.sh" >/dev/null
 
-LAUNCHER="${HOME_DIR}/.local/bin/denova"
-INSTALL_DIR="${HOME_DIR}/.local/lib/denova"
+LAUNCHER="${HOME_DIR}/.local/bin/inkdock"
+INSTALL_DIR="${HOME_DIR}/.local/lib/inkdock"
 [ "$(HOME="${HOME_DIR}" "${LAUNCHER}" --version)" = "0.4.0" ]
-[ "$(HOME="${HOME_DIR}" "${LAUNCHER}")" = "${HOME_DIR}/.denova" ]
-[ "$(HOME="${HOME_DIR}" DENOVA_DIR="${TEST_ROOT}/custom-data" "${LAUNCHER}")" = "${TEST_ROOT}/custom-data" ]
+[ "$(HOME="${HOME_DIR}" "${LAUNCHER}")" = "${HOME_DIR}/.inkdock" ]
+[ "$(HOME="${HOME_DIR}" INKDOCK_DIR="${TEST_ROOT}/custom-data" "${LAUNCHER}")" = "${TEST_ROOT}/custom-data" ]
 [ ! -e "${INSTALL_DIR}/tools" ]
 [ ! -e "${INSTALL_DIR}/licenses" ]
 
 printf 'preserved = true\n' > "${INSTALL_DIR}/config.toml"
 PATH="${FAKE_BIN}:${PATH}" \
 HOME="${HOME_DIR}" \
-DENOVA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+INKDOCK_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
 sh "${ROOT_DIR}/scripts/install.sh" >/dev/null
 grep -Fq 'preserved = true' "${INSTALL_DIR}/config.toml"
 
@@ -103,7 +103,7 @@ grep -Fq 'preserved = true' "${INSTALL_DIR}/config.toml"
 printf 'corrupt archive\n' >> "${RELEASE_DIR}/${ARCHIVE_NAME}"
 if PATH="${FAKE_BIN}:${PATH}" \
   HOME="${HOME_DIR}" \
-  DENOVA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+  INKDOCK_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
   sh "${ROOT_DIR}/scripts/install.sh" >"${TEST_ROOT}/corrupt-install.log" 2>&1; then
   printf 'Installer unexpectedly accepted a corrupt archive.\n' >&2
   exit 1

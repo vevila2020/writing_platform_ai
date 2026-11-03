@@ -54,7 +54,7 @@ func (s *ResourceService) serveContentSource(w http.ResponseWriter, request *htt
 		var outgoing *http.Request
 		outgoing, err = http.NewRequestWithContext(request.Context(), http.MethodGet, input.URL, nil)
 		if err == nil {
-			outgoing.Header.Set("User-Agent", "Denova")
+			outgoing.Header.Set("User-Agent", "InkDock")
 			var response *http.Response
 			response, err = client.Do(outgoing)
 			if err == nil {
@@ -85,7 +85,7 @@ func (s *ResourceService) serveContentSource(w http.ResponseWriter, request *htt
 			var buffer bytes.Buffer
 			err = writePackageArchive(Candidate{Files: names, files: selected}, &buffer)
 			data = buffer.Bytes()
-			w.Header().Set("X-Denova-Source-Commit", source.Commit)
+			w.Header().Set("X-InkDock-Source-Commit", source.Commit)
 		}
 	}
 	if err != nil {
@@ -103,7 +103,7 @@ func (s *ResourceService) serveContentSource(w http.ResponseWriter, request *htt
 		return
 	}
 	w.Header().Set("Content-Type", "application/zip")
-	w.Header().Set("X-Denova-SHA256", digest)
+	w.Header().Set("X-InkDock-SHA256", digest)
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(data)
 }

@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // Exercise the persisted display recorder and wire encoder together: a wire

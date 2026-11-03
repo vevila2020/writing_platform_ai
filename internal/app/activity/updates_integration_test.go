@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/buildinfo"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func TestUpgradeNotesReadFullInstalledHistoryInRequestLanguage(t *testing.T) {
@@ -26,7 +26,7 @@ func TestUpgradeNotesReadFullInstalledHistoryInRequestLanguage(t *testing.T) {
 	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("DENOVA_CHANGELOG_PATH", path)
+	t.Setenv("INKDOCK_CHANGELOG_PATH", path)
 	service := &Service{dataDir: root, updates: update.NewService()}
 	for _, locale := range []string{"zh-CN", "en-US"} {
 		notes, err := service.UpdateNotes(context.Background(), "v0.6.0", "v0.6.15", locale)

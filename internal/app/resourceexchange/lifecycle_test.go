@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/skills"
-	"denova/internal/platform"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func TestRestoreIsAtomicAndDoesNotOverwriteLaterEdits(t *testing.T) {

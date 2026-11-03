@@ -56,7 +56,7 @@ for (const surface of ['writing', 'general'] as const) {
     await expect(composer).toHaveText('')
     const history = await (await request.get(versionPath)).json()
     expect(history.versions).toHaveLength(1)
-    const englishClean = await request.post(versionPath, { data: {}, headers: { 'X-Denova-Locale': 'en-US' } })
+    const englishClean = await request.post(versionPath, { data: {}, headers: { 'X-InkDock-Locale': 'en-US' } })
     expect(await englishClean.json()).toMatchObject({ code: 'api.versions.noChanges', error: 'The workspace has no changes to save.' })
 
     await saveProjectFile(request, project.id, filePath, 'Updated persisted content')

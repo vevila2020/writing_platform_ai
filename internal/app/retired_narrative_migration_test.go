@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/config"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 )
 
 func TestAppStartupRetiresReleasedNarrativeStyleWithBackup(t *testing.T) {
@@ -24,7 +24,7 @@ func TestAppStartupRetiresReleasedNarrativeStyleWithBackup(t *testing.T) {
 	writePresetLayoutTestFile(t, path, string(raw))
 	for range 2 {
 		application, err := New(context.Background(), &config.Config{
-			OpenAIModel: "test-model", DenovaDir: dataRoot, ResumeLastWorkspace: false,
+			OpenAIModel: "test-model", InkDockDir: dataRoot, ResumeLastWorkspace: false,
 		})
 		if err != nil {
 			t.Fatal(err)
@@ -70,7 +70,7 @@ func TestAppStartupPreservesEditedRetiredNarrativeStyle(t *testing.T) {
 	path := filepath.Join(presetlayout.NarrativeStyles(dataRoot), "direct-erotica.json")
 	writePresetLayoutTestFile(t, path, string(custom))
 	application, err := New(context.Background(), &config.Config{
-		OpenAIModel: "test-model", DenovaDir: dataRoot, ResumeLastWorkspace: false,
+		OpenAIModel: "test-model", InkDockDir: dataRoot, ResumeLastWorkspace: false,
 	})
 	if err != nil {
 		t.Fatal(err)

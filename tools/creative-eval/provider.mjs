@@ -5,7 +5,7 @@ import { stringify } from 'smol-toml'
 import { startBackend, request } from './backend.mjs'
 
 // Calls the product APIs; evaluation never replaces the Native execution loop.
-export default class DenovaProvider {
+export default class InkDockProvider {
   constructor({ label, variant, settings, binary, skillsDirectory, outputDirectory }) {
     this.label = label
     this.variant = variant
@@ -39,7 +39,7 @@ export default class DenovaProvider {
       backend = await startBackend({ binary: this.binary, directory, configuration: stringify(configuration),
         skillsDirectory: this.skillsDirectory, signal: options?.abortSignal })
       const api = (route, body) => request(backend.baseURL, route, { body, signal: options?.abortSignal })
-      const created = await api('/api/books/create', { title: `Evaluation ${scenario.id}`, author: 'Denova evaluation' })
+      const created = await api('/api/books/create', { title: `Evaluation ${scenario.id}`, author: 'InkDock evaluation' })
       evidence.project_id = created.project_id
       await api('/api/workspace/switch', { path: created.workspace })
       const projectRoute = `/api/projects/${encodeURIComponent(created.project_id)}`
@@ -148,7 +148,7 @@ export default class DenovaProvider {
       if (backend) await backend.stop()
       // Settings initialization can create migration backups containing the
       // same credentials. None of those temporary files is diagnostic evidence.
-      const dataDirectory = path.join(directory, '.denova')
+      const dataDirectory = path.join(directory, '.inkdock')
       const files = await readdir(dataDirectory).catch(error => {
         if (error.code === 'ENOENT') return []
         throw error
@@ -165,7 +165,7 @@ export default class DenovaProvider {
 async function contentSnapshot(directory, prefix = '') {
   const snapshot = {}
   for (const entry of await readdir(path.join(directory, prefix), { withFileTypes: true })) {
-    if (!prefix && ['.git', '.denova', '.nova', 'book.json'].includes(entry.name)) continue
+    if (!prefix && ['.git', '.inkdock', '.denova', 'book.json'].includes(entry.name)) continue
     const relative = path.posix.join(prefix, entry.name)
     if (entry.isDirectory()) Object.assign(snapshot, await contentSnapshot(directory, relative))
     else if (entry.isFile()) snapshot[relative] = (await readFile(path.join(directory, relative))).toString('base64')

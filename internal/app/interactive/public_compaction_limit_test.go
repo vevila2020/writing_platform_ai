@@ -6,20 +6,20 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/agents/modelio"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type guardedGameCheckpointModel struct{ calls int }

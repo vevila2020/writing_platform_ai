@@ -4,7 +4,7 @@ import { createAndOpenBook, createStartedStory } from '../support/api'
 import { openWritingAgent, submitAgentChatMessage } from '../support/agent-chat'
 import { getCapturedModelRequest, type E2EModelRequest } from '../support/model'
 
-const contextAnalysisProbe = '[Denova context analysis probe]'
+const contextAnalysisProbe = '[InkDock context analysis probe]'
 const writingFlowMarker = 'E2E_WRITING_PROMPT_FLOW_PARITY'
 const writingContextMarker = 'E2E_WRITING_PROMPT_CONTEXT_PARITY'
 const gameFlowMarker = 'E2E_GAME_PROMPT_FLOW_PARITY'

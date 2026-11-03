@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 type request struct {

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/skills"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestDefaultImportReusesSharedResourcesAcrossBooks(t *testing.T) {

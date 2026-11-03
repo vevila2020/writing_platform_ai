@@ -71,7 +71,7 @@ func TestReleasedGamePresetMigrationPreservesEffectiveStoryChoices(t *testing.T)
 	if err != nil {
 		t.Fatal(err)
 	}
-	store := NewStoreWithNovaDir(workspace, novaDir)
+	store := NewStoreWithDenovaDir(workspace, novaDir)
 	story, err := store.CreateStory(CreateStoryRequest{Title: "Released story", ModuleRefs: &legacyRefs})
 	if err != nil {
 		t.Fatal(err)
@@ -99,7 +99,7 @@ func TestReleasedGamePresetMigrationPreservesEffectiveStoryChoices(t *testing.T)
 		t.Fatal(err)
 	}
 
-	migratedStore := NewStoreWithNovaDir(workspace, novaDir)
+	migratedStore := NewStoreWithDenovaDir(workspace, novaDir)
 	if _, err := migratedStore.Snapshot(story.ID, "main"); err != nil {
 		t.Fatal(err)
 	}

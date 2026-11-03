@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/alfredxw/denova/agent/schema"
-	"github.com/alfredxw/denova/agent/session"
-	"github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // ProjectCheckpoint returns a complete durable projection. Lifecycle treats

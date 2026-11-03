@@ -3,14 +3,14 @@ package agents
 import (
 	"context"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/scripttools"
-	"denova/internal/agents/skillassembly"
-	"denova/internal/agents/toolruntime"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/scripttools"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skillassembly"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // agentToolsSpec assembles product tools and Skills without a model, permission

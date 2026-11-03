@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	workspacelayout "denova/internal/workspace"
-	workspacechange "denova/internal/workspace/change"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func TestDocumentReviewCommentLifecyclePersistsAndRotatesThread(t *testing.T) {
@@ -128,7 +128,7 @@ func TestProjectDocumentReviewStorageFollowsStateRootAcrossRelink(t *testing.T) 
 	if _, err := os.Stat(filepath.Join(service.StateRoot(), "reviews", "ledger.jsonl")); err != nil {
 		t.Fatalf("project review ledger missing: %v", err)
 	}
-	if _, err := os.Stat(filepath.Join(workspace, ".denova")); !errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(filepath.Join(workspace, ".inkdock")); !errors.Is(err, os.ErrNotExist) {
 		t.Fatalf("project review state leaked into content workspace: %v", err)
 	}
 
@@ -208,10 +208,10 @@ func TestDocumentReviewStorageRejectsSymlinkedDirectory(t *testing.T) {
 	}
 	workspace := t.TempDir()
 	external := t.TempDir()
-	if err := os.Mkdir(filepath.Join(workspace, ".denova"), 0o700); err != nil {
+	if err := os.Mkdir(filepath.Join(workspace, ".inkdock"), 0o700); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.Symlink(external, filepath.Join(workspace, ".denova", "reviews")); err != nil {
+	if err := os.Symlink(external, filepath.Join(workspace, ".inkdock", "reviews")); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := NewService(workspace); err == nil {
@@ -234,7 +234,7 @@ func TestDocumentReviewRepairsTornLedgerTail(t *testing.T) {
 	}
 	service.store.close()
 
-	ledger := filepath.Join(workspace, ".denova", "reviews", "ledger.jsonl")
+	ledger := filepath.Join(workspace, ".inkdock", "reviews", "ledger.jsonl")
 	complete, err := os.Stat(ledger)
 	if err != nil {
 		t.Fatal(err)

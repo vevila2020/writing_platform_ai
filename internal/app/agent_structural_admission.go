@@ -2,15 +2,15 @@ package app
 
 import (
 	"context"
-	agentexecution "denova/internal/agents/execution"
-	apptask "denova/internal/app/task"
 	"fmt"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	appagentruntime "denova/internal/app/agentruntime"
-	"denova/internal/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // writingStructuralFence is the immutable admission snapshot used by session

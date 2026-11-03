@@ -3,12 +3,12 @@ package chat
 import (
 	"encoding/json"
 
-	agentattachment "denova/internal/agents/attachment"
-	"denova/internal/agents/prompts"
-	agentreview "denova/internal/agents/review"
-	agentrun "denova/internal/agents/run"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ReferenceFileByteLimit bounds one caller-selected workspace reference in the

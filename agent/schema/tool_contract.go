@@ -86,7 +86,7 @@ const (
 	// purpose can replace an arbitrary rich model projection by itself.
 	ToolArtifactPurposeCompleteModelOutput ToolArtifactPurpose = "complete_model_output"
 	// ToolArtifactPurposeCompleteToolOutput contains the complete primary byte
-	// stream emitted by a tool before Denova adds its bounded result envelope.
+	// stream emitted by a tool before InkDock adds its bounded result envelope.
 	// The retained envelope plus this artifact is a lossless recovery path for
 	// streaming tools that cannot buffer an exact ModelContent copy in memory.
 	ToolArtifactPurposeCompleteToolOutput ToolArtifactPurpose = "complete_tool_output"

@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	agentmodeltask "denova/internal/agents/modeltask"
-	booklore "denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentmodeltask "github.com/vevila2020/writing_platform_ai/internal/agents/modeltask"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // loreHost is the stable-Project boundary for lore operations. Foreground

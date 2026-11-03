@@ -8,7 +8,7 @@ import (
 	"path"
 	"path/filepath"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // Resource packages keep association text and file references; runtime provider

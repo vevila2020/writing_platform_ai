@@ -1,4 +1,4 @@
-// Package providers defines Denova's provider-neutral model catalog and the
+// Package providers defines InkDock's provider-neutral model catalog and the
 // registry seam used to select a wire protocol adapter.
 package providers
 

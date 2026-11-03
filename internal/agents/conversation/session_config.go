@@ -7,9 +7,9 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // IsReservedSessionID reports whether an ID belongs to a fixed Agent surface

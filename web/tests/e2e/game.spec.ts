@@ -334,7 +334,7 @@ test('queues a Game Follow Up and steers the active turn through the real runtim
       expect.objectContaining({
         // Same-turn native steering retains the accepted original player
         // input; the additional instruction lives in that turn's journal.
-        user: process.env.DENOVA_TEST_CODEX_EXE ? `先观察石门，等待下一步。${gameFollowUpDelayMarker}` : followUp,
+        user: process.env.INKDOCK_TEST_CODEX_EXE ? `先观察石门，等待下一步。${gameFollowUpDelayMarker}` : followUp,
         narrative: expect.stringContaining(gameFollowUpNarrative),
       }),
     ])

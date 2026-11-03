@@ -11,16 +11,16 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/platform"
-	"denova/internal/project"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestIndexExamplesValidation(t *testing.T) {
-	dir := os.Getenv("DENOVA_INDEX_EXAMPLES_DIR")
+	dir := os.Getenv("INKDOCK_INDEX_EXAMPLES_DIR")
 	if dir == "" {
-		t.Skip("Set DENOVA_INDEX_EXAMPLES_DIR to validate the independent index checkout")
+		t.Skip("Set INKDOCK_INDEX_EXAMPLES_DIR to validate the independent index checkout")
 	}
 	entries, err := os.ReadDir(dir)
 	if err != nil {

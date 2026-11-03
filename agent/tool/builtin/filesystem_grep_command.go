@@ -17,7 +17,7 @@ const (
 	maxGrepPipelineStages = 16
 )
 
-// compileGrepCommand turns Denova's literal command language into an argv plan
+// compileGrepCommand turns InkDock's literal command language into an argv plan
 // before any process starts. A pipeline may contain only literal rg stages, so
 // execution can connect processes directly without granting shell authority.
 func (workspace *LocalWorkspace) compileGrepCommand(input string) (compiledGrepCommand, error) {
@@ -95,7 +95,7 @@ func (workspace *LocalWorkspace) compileGrepStage(words []string, stageIndex int
 			return compiledGrepStage{}, nil, false, grepCommandError("invalid_pattern", "rg command must contain a pattern or -e/--regexp")
 		}
 		// Canonicalizing the positional pattern through -e also preserves native
-		// `rg -- -leading-dash path` behavior after Denova appends its invariants.
+		// `rg -- -leading-dash path` behavior after InkDock appends its invariants.
 		stage.args = append(stage.args, "-e", positionals[0])
 		stage.hasRegexp = true
 		paths = positionals[1:]

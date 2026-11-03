@@ -32,7 +32,7 @@ for (const size of [100, 1000]) {
     await page.addInitScript(() => localStorage.setItem('nova:mode', 'ide'))
     const library = await visit(page, '资料库', { selector: '[data-testid="lore-card-perf-0"]' })
     saveAudit(`data-${size}-partial`, { size, bodyChars: body.length, library })
-    if (process.env.DENOVA_PERFORMANCE_PROFILE === '1') {
+    if (process.env.INKDOCK_PERFORMANCE_PROFILE === '1') {
       await page.getByLabel('工作台侧边栏').getByRole('button', { name: '写作', exact: true }).click()
       await expect(page.getByLabel('作品大纲')).toBeVisible()
       const profiler = await page.context().newCDPSession(page)

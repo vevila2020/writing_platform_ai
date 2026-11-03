@@ -133,7 +133,7 @@ func TestRelease051ManifestIsUpgradedBeforeReplacement(t *testing.T) {
 	if err := RunUpdater(context.Background(), path, UpdaterOptions{
 		ProcessAlive: func(int) bool { return false },
 		StartProcess: func(executable string, args, env []string) error {
-			if !slices.Contains(env, "DENOVA_UPDATE_FROM_VERSION=0.5.1") {
+			if !slices.Contains(env, "INKDOCK_UPDATE_FROM_VERSION=0.5.1") {
 				t.Fatal("legacy launch lost its original default port context")
 			}
 			return acknowledgeTestLaunch(executable, args, env)

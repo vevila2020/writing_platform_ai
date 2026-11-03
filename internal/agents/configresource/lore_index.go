@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // The guide is one workspace document. Memberships remain independently

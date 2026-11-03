@@ -729,7 +729,7 @@ function modeRouterProps(
     rightPanel: null,
     settingsOpen: false,
     interactiveRightVisible: false,
-    novaDir: '/book-a/.nova',
+    dataDir: '/book-a/.inkdock',
     books: [],
     bookSortMode: 'recent',
     tree: [],

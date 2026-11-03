@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type completionFeedbackMiddleware struct {

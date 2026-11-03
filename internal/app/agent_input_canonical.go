@@ -7,16 +7,16 @@ import (
 	"strconv"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	"denova/internal/interactive"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (a *App) sessionCanonicalInput(
@@ -53,7 +53,7 @@ func (a *App) sessionCanonicalInput(
 			}
 			if request.Options.InputCommitEffect != nil {
 				if err := request.Options.InputCommitEffect.Apply(ctx, canonicalInputEffectRequest(input.Identity, input.Hash)); err != nil {
-					return agentcanonical.CommitReceipt{}, fmt.Errorf("run Denova input-commit callback: %w", err)
+					return agentcanonical.CommitReceipt{}, fmt.Errorf("run InkDock input-commit callback: %w", err)
 				}
 			}
 			return agentcanonical.CommitReceipt{Revision: strconv.FormatUint(receipt.ContextRevision, 10)}, nil

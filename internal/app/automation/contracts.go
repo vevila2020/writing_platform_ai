@@ -3,16 +3,16 @@ package automationapp
 import (
 	"context"
 
-	"denova/config"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	appagentruntime "denova/internal/app/agentruntime"
-	apptask "denova/internal/app/task"
-	"denova/internal/automation"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 var (

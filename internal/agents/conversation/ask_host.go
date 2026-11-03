@@ -3,9 +3,9 @@ package conversation
 import (
 	"strings"
 
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 // HostAskAnswer is the transport-neutral answer accepted from an interactive

@@ -8,16 +8,16 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestGameImageCheckpointUsesCanonicalMediaAndSurvivesColdReopen(t *testing.T) {

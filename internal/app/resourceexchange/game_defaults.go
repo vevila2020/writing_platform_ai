@@ -10,9 +10,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/config"
-	"denova/internal/book/lore"
 	toml "github.com/pelletier/go-toml/v2"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // PackageGameDefaults is a declarative recommendation. IDs reference manifest

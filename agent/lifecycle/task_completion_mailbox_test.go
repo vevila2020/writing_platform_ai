@@ -7,12 +7,12 @@ import (
 	"testing"
 	"time"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestTaskCompletionMailboxInjectsAfterToolBoundaryWithoutWait(t *testing.T) {

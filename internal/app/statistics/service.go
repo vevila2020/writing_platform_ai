@@ -10,11 +10,11 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/app/projectbook"
-	"denova/internal/book"
-	"denova/internal/project"
-	stats "denova/internal/statistics"
-	"denova/internal/workspace/filewatch"
+	"github.com/vevila2020/writing_platform_ai/internal/app/projectbook"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	stats "github.com/vevila2020/writing_platform_ai/internal/statistics"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/filewatch"
 )
 
 type Project struct {

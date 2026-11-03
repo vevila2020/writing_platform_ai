@@ -5,12 +5,12 @@ import (
 	"errors"
 	"strings"
 
-	"denova/config"
-	novaskills "denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/config"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 const GeneralSubAgentName = publictools.DefaultTaskAgentName

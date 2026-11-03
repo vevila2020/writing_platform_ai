@@ -7,7 +7,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // SystemPromptOverflowPolicy declares how one model-visible system source
@@ -23,7 +23,7 @@ const (
 )
 
 // SystemPromptFragment is one independently attributable source in the system
-// instruction. Prefix and Suffix are model-visible framing owned by Denova and
+// instruction. Prefix and Suffix are model-visible framing owned by InkDock and
 // are charged to the aggregate budget together with Content.
 type SystemPromptFragment struct {
 	ID       string

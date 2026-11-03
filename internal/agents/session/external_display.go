@@ -6,7 +6,7 @@ import (
 	"errors"
 	"sort"
 
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 )
 
 // External tool cards are derived from execution facts. They are never written

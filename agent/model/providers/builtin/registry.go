@@ -1,4 +1,4 @@
-// Package builtin assembles Denova's built-in protocol adapters and provider
+// Package builtin assembles InkDock's built-in protocol adapters and provider
 // presets. Custom endpoints use the compatible preset plus an explicit
 // registered protocol instead of inventing provider identities.
 package builtin
@@ -7,11 +7,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/anthropicmessages"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/googlegenerativeai"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openaichatcompletions"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openairesponses"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/anthropicmessages"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/googlegenerativeai"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openaichatcompletions"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openairesponses"
 )
 
 // NewRegistry returns a fully validated, independent built-in registry.
@@ -57,7 +57,7 @@ func providerPresets() ([]providers.ProviderPreset, error) {
 	deepSeekChat, err := protocolOptions(openaichatcompletions.Compatibility{
 		ThinkingToggle: openaichatcompletions.ThinkingToggleNested,
 		// DeepSeek requires reasoning from a tool-calling turn on every
-		// subsequent request. Denova may project the completed tool pair while
+		// subsequent request. InkDock may project the completed tool pair while
 		// retaining that assistant message, so replay cannot depend on the call
 		// still being present in the provider-visible projection.
 		ReasoningReplay:       openaichatcompletions.ReasoningReplayAlways,

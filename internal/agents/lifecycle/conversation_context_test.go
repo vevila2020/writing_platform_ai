@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent"
-	sdkcontext "github.com/alfredxw/denova/agent/context"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	sdkcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 type contextTestConversation struct {
@@ -30,7 +30,7 @@ func (conversation *contextTestConversation) AssembleModelContext(
 ) (agentcontext.ModelContextResult, error) {
 	conversation.assemblies++
 	assembled, err := agentcontext.NewAssembler(agentcontext.Budget{}).Assemble(context.Background(), agentcontext.AssembleRequest{
-		Messages: []*agentschema.Message{agentschema.UserMessage("精确的 Denova 用户消息 / exact Denova user message")},
+		Messages: []*agentschema.Message{agentschema.UserMessage("精确的墨栈 AI 用户消息 / exact InkDock user message")},
 		Fragments: []agentcontext.Fragment{
 			{
 				ID: "stable", Source: "workspace.stable", Title: "稳定状态", Purpose: "cache prefix",
@@ -76,14 +76,14 @@ func (conversation *contextTestConversation) BindAgentCycleIdentity(identity age
 }
 func (conversation *contextTestConversation) BindAgentKind(kind string) { conversation.kind = kind }
 
-func TestConversationContextSourcePreservesExactDenovaRenderingAndCycleIdentity(t *testing.T) {
+func TestConversationContextSourcePreservesExactInkDockRenderingAndCycleIdentity(t *testing.T) {
 	conversation := &contextTestConversation{}
 	preparedCalled := false
 	source, err := NewConversationContextSource(ConversationContextConfig{
 		Conversation: conversation,
 		Request:      agentchat.ChatRequest{Message: "raw request"},
 		Options:      agentrun.Options{AgentKind: agentrun.AgentKindIDE, Workspace: "/book"},
-		Identity:     agentschema.CapabilityIdentity{Kind: "context.denova-test", Version: 1},
+		Identity:     agentschema.CapabilityIdentity{Kind: "context.inkdock-test", Version: 1},
 		OnPrepared: func(agentchat.AgentContextPreparation) {
 			preparedCalled = true
 		},
@@ -109,7 +109,7 @@ func TestConversationContextSourcePreservesExactDenovaRenderingAndCycleIdentity(
 	}
 	leading := fragments[0]
 	if leading.Placement != agentschema.ContextLeadingMessage || leading.Rendering != agentschema.ContextRenderVerbatim ||
-		leading.Role != agentschema.User || !strings.Contains(leading.Content, "stable body") || leading.HardLimit < minimumDenovaContextHardLimit {
+		leading.Role != agentschema.User || !strings.Contains(leading.Content, "stable body") || leading.HardLimit < minimumInkDockContextHardLimit {
 		t.Fatalf("leading fragment=%#v", leading)
 	}
 	if fragments[1].Placement != agentschema.ContextAuditOnly || fragments[1].Content != "turn body" {
@@ -117,7 +117,7 @@ func TestConversationContextSourcePreservesExactDenovaRenderingAndCycleIdentity(
 	}
 	final := fragments[2]
 	if final.Placement != agentschema.ContextFinalUserMessage || final.Rendering != agentschema.ContextRenderVerbatim ||
-		final.Content != "精确的 Denova 用户消息 / exact Denova user message" || final.HardLimit < minimumDenovaContextHardLimit {
+		final.Content != "精确的墨栈 AI 用户消息 / exact InkDock user message" || final.HardLimit < minimumInkDockContextHardLimit {
 		t.Fatalf("final fragment=%#v", final)
 	}
 }
@@ -126,7 +126,7 @@ func TestConversationContextSourceRejectsInexactCycleIdentity(t *testing.T) {
 	source, err := NewConversationContextSource(ConversationContextConfig{
 		Conversation: &contextTestConversation{},
 		Request:      agentchat.ChatRequest{Message: "raw request"},
-		Identity:     agentschema.CapabilityIdentity{Kind: "context.denova-test", Version: 1},
+		Identity:     agentschema.CapabilityIdentity{Kind: "context.inkdock-test", Version: 1},
 	})
 	if err != nil {
 		t.Fatal(err)

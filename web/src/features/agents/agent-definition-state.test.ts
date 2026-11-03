@@ -29,7 +29,7 @@ describe('cloneBuiltInAgent', () => {
       user: {},
       workspace: {},
       effective,
-      paths: { denova_dir: '', nova_dir: '', user_config: '', workspace_config: '' },
+      paths: { inkdock_dir: '', denova_dir: '', user_config: '', workspace_config: '' },
       resolved_agent_tool_manifests: {
         ide: [{
           capability: 'filesystem_read',

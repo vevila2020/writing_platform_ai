@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	booklore "denova/internal/book/lore"
-	"denova/internal/speech"
+	"github.com/vevila2020/writing_platform_ai/config"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/speech"
 )
 
 type ItemSpeechGenerateRequest struct {

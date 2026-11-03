@@ -4,19 +4,19 @@ import (
 	"context"
 	"errors"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ErrCyclePreparationUnavailable means a durable public Agent turn cannot be
-// rebound to its Denova product dependencies in the current process.
+// rebound to its InkDock product dependencies in the current process.
 var ErrCyclePreparationUnavailable = errors.New("Agent execution cycle preparation dependency is unavailable")
 
-// Cycle is the process-local Denova composition for one public Agent cycle.
+// Cycle is the process-local InkDock composition for one public Agent cycle.
 // Durable recovery stores only stable Definition/host data and rebuilds these
 // dependencies through the selected Profile.
 type Cycle struct {

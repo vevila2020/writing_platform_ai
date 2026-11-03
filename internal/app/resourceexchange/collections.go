@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // Collections are distribution units with stable source IDs. Receipts track

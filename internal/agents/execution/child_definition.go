@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"strings"
 
-	agentdelegation "denova/internal/agents/delegation"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	agenttoolartifact "denova/internal/agents/toolartifact"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttoolartifact "github.com/vevila2020/writing_platform_ai/internal/agents/toolartifact"
 
-	"github.com/alfredxw/denova/agent"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // ChildDefinitionRequest rebuilds one named child from the exact durable

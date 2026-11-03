@@ -8,9 +8,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestHostStageSelectionRunsOnceAfterReadyAndSurvivesColdReplay(t *testing.T) {

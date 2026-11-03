@@ -6,10 +6,10 @@ import (
 	"errors"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/statistics"
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/statistics"
 )
 
 // statisticsAdapter observes each host invocation, not the operation aggregate.

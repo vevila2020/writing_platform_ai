@@ -12,10 +12,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
-const remoteStateFile = ".denova-source.json"
+const remoteStateFile = ".inkdock-source.json"
 const DefaultUpdateInterval = 24 * time.Hour
 
 // RemoteState travels with an installed Skill. SourcePath is relative to the

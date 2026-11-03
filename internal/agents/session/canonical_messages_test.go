@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/config"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/config"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 )
 
 func TestCanonicalWindowReadsExternalToolStartAcrossSeekBoundary(t *testing.T) {

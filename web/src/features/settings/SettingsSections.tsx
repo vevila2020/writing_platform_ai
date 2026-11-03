@@ -377,7 +377,7 @@ export const SettingsSections = memo(function SettingsSections({ layered, draft,
       <>
         <Text label={t('settings.paths.skillsDir')} value={draft.skills_dir} placeholder={placeholderFor('skills_dir')}
               onChange={(v) => setField('skills_dir', v)} />
-        <ReadOnly label={t('settings.paths.novaDir')} value={layered?.paths?.denova_dir || layered?.paths?.nova_dir} />
+        <ReadOnly label={t('settings.paths.dataDir')} value={layered?.paths?.inkdock_dir || layered?.paths?.denova_dir} />
         <ReadOnly label={t('settings.paths.userConfig')} value={layered?.paths?.user_config} />
       </>
     ),

@@ -8,14 +8,14 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // Exercise the model-visible tools against the real store, including edits
 // from another caller. Pure adapter/schema assertions cannot catch lost canon.
 func TestLoreIndexConfigurationRoundTrip(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	store := lore.NewStore(cfg.Workspace)
 	read := configManagerToolByName(t, cfg, "config_read")
 	apply := configManagerToolByName(t, cfg, "config_apply")

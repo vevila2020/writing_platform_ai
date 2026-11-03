@@ -9,12 +9,12 @@ import (
 
 const (
 	// DataDirName is the current workspace-private data directory.
-	DataDirName = ".denova"
+	DataDirName = ".inkdock"
 	// LegacyDataDirName is the pre-rename workspace-private data directory.
-	LegacyDataDirName = ".nova"
+	LegacyDataDirName = ".denova"
 )
 
-// IsUserDataRoot identifies a user-level Denova data directory by its Project
+// IsUserDataRoot identifies a user-level InkDock data directory by its Project
 // or released Book registry. Callers handling legacy workspace-private state
 // must exclude these roots so global resources never become Project content.
 // This inspects markers only; registry validation belongs to its owning store.
@@ -28,9 +28,9 @@ func IsUserDataRoot(directory string) bool {
 }
 
 // DirName returns the active workspace-private directory name.
-// Existing .denova wins for new workspaces. When both names exist because a
-// legacy workspace was opened during the Denova rename, old .nova state is kept
-// active if .denova only contains generated or ephemeral files.
+// Existing .inkdock wins for new workspaces. When both names exist because a
+// legacy workspace was opened during the InkDock rename, old .denova state is kept
+// active if .inkdock only contains generated or ephemeral files.
 func DirName(workspace string) string {
 	return dirNameFor(workspace)
 }
@@ -79,13 +79,13 @@ func Rel(workspace string, elem ...string) string {
 	return filepath.ToSlash(filepath.Join(parts...))
 }
 
-// CurrentRel joins elem under the current Denova data directory name.
+// CurrentRel joins elem under the current InkDock data directory name.
 func CurrentRel(elem ...string) string {
 	parts := append([]string{DataDirName}, elem...)
 	return filepath.ToSlash(filepath.Join(parts...))
 }
 
-// LegacyRel joins elem under the legacy Nova data directory name.
+// LegacyRel joins elem under the legacy Denova data directory name.
 func LegacyRel(elem ...string) string {
 	parts := append([]string{LegacyDataDirName}, elem...)
 	return filepath.ToSlash(filepath.Join(parts...))

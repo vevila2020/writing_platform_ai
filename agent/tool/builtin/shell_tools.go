@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // ShellKind is the command language presented to the model.
@@ -69,7 +69,7 @@ type CommandRunner interface {
 }
 
 // CommandRunGuard coordinates a process with other workspace mutation paths.
-// Denova injects workspacechange.WithExclusiveWorkspace here.
+// InkDock injects workspacechange.WithExclusiveWorkspace here.
 type CommandRunGuard func(context.Context, func() error) error
 
 // CommandRunnerOptions configure the reusable local Process implementation.

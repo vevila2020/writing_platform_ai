@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/skills"
-	"denova/internal/app/resourcecatalog"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestExportResourcesHidesUnmodifiedBuiltinPresets(t *testing.T) {

@@ -11,8 +11,8 @@ if (!key?.startsWith('phx_')) throw new Error('Set POSTHOG_PERSONAL_API_KEY in t
 const origin = 'https://us.posthog.com'
 const projectId = 685522
 const base = `/api/projects/${projectId}/`
-const tag = 'denova-app-schema-2'
-const dashboardName = 'Denova App｜产品分析'
+const tag = 'inkdock-app-schema-2'
+const dashboardName = 'InkDock App｜产品分析'
 const apply = process.argv.includes('--apply')
 if (process.argv.slice(2).some(arg => !['--apply', '--verify'].includes(arg))) throw new Error('Usage: node scripts/configure-posthog.mjs [--apply | --verify]')
 

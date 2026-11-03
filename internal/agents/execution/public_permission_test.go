@@ -7,14 +7,14 @@ import (
 	"testing"
 	"time"
 
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestAgentRuntimeResolvesConsecutiveToolApprovals(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 
 	"gopkg.in/yaml.v3"
 )

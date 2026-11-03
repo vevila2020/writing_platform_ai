@@ -2,7 +2,7 @@
 set -e
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
-FRONTEND_BIND_HOST="${DENOVA_FRONTEND_HOST:-${NOVA_FRONTEND_HOST:-}}"
+FRONTEND_BIND_HOST="${INKDOCK_FRONTEND_HOST:-${DENOVA_FRONTEND_HOST:-}}"
 
 cd "${ROOT_DIR}"
 
@@ -45,27 +45,27 @@ expand_path() {
 }
 
 default_data_dir() {
-    if [ -d ".nova" ] && [ ! -d ".denova" ]; then
-        echo "./.nova"
+    if [ -d ".denova" ] && [ ! -d ".inkdock" ]; then
+        echo "./.denova"
         return
     fi
-    echo "./.denova"
+    echo "./.inkdock"
 }
 
 startup_data_dir() {
+    if [ -n "${INKDOCK_DIR:-}" ]; then
+        expand_path "${INKDOCK_DIR}"
+        return
+    fi
     if [ -n "${DENOVA_DIR:-}" ]; then
         expand_path "${DENOVA_DIR}"
         return
     fi
-    if [ -n "${NOVA_DIR:-}" ]; then
-        expand_path "${NOVA_DIR}"
-        return
-    fi
 
     local configured
-    configured="$(read_config_value "config.toml" "denova_dir")"
+    configured="$(read_config_value "config.toml" "inkdock_dir")"
     if [ -z "${configured}" ]; then
-        configured="$(read_config_value "config.toml" "nova_dir")"
+        configured="$(read_config_value "config.toml" "denova_dir")"
     fi
     if [ -n "${configured}" ]; then
         expand_path "${configured}"
@@ -103,8 +103,8 @@ resolve_port() {
     echo "${port}"
 }
 
-BACKEND_PORT="$(resolve_port "${DENOVA_BACKEND_PORT:-}" "${NOVA_BACKEND_PORT:-}" "backend_port" "7789")"
-FRONTEND_PORT="$(resolve_port "${DENOVA_FRONTEND_PORT:-}" "${NOVA_FRONTEND_PORT:-}" "frontend_port" "7788")"
+BACKEND_PORT="$(resolve_port "${INKDOCK_BACKEND_PORT:-}" "${DENOVA_BACKEND_PORT:-}" "backend_port" "7789")"
+FRONTEND_PORT="$(resolve_port "${INKDOCK_FRONTEND_PORT:-}" "${DENOVA_FRONTEND_PORT:-}" "frontend_port" "7788")"
 FRONTEND_URL="http://localhost:${FRONTEND_PORT}"
 BACKEND_URL="http://localhost:${BACKEND_PORT}"
 
@@ -198,7 +198,7 @@ BACKEND_URL="http://localhost:${BACKEND_PORT}"
 
 case "$MODE" in
   fe|frontend)
-    echo "==> Starting the Denova frontend development server"
+    echo "==> Starting the InkDock frontend development server"
     echo "  Frontend URL: ${FRONTEND_URL}"
     echo "  Backend proxy: ${BACKEND_URL}"
     if [ "${FRONTEND_BIND_HOST}" = "0.0.0.0" ]; then
@@ -224,8 +224,8 @@ case "$MODE" in
     fi
 
     echo "  Press Ctrl+C to stop"
-    export DENOVA_BACKEND_PORT="${BACKEND_PORT}"
-    export DENOVA_FRONTEND_PORT="${FRONTEND_PORT}"
+    export INKDOCK_BACKEND_PORT="${BACKEND_PORT}"
+    export INKDOCK_FRONTEND_PORT="${FRONTEND_PORT}"
     # An unspecified host lets Node use dual-stack networking when available,
     # avoiding localhost IPv6 fallback delays with an IPv4-only LAN listener.
     if [ "${FRONTEND_BIND_HOST}" = "0.0.0.0" ]; then
@@ -238,7 +238,7 @@ case "$MODE" in
     ;;
 
   be|backend)
-    echo "==> Starting the Denova backend development server"
+    echo "==> Starting the InkDock backend development server"
     echo "  The final URL will be shown after the server starts"
     echo ""
 
@@ -246,11 +246,11 @@ case "$MODE" in
     go mod tidy
 
     echo "  Press Ctrl+C to stop"
-    exec go run ./cmd/denova --dev-mode --no-open
+    exec go run ./cmd/inkdock --dev-mode --no-open
     ;;
 
   all)
-    echo "==> Starting Denova development services"
+    echo "==> Starting InkDock development services"
     echo "  The final URLs will be shown after the services start"
     echo ""
 
@@ -271,7 +271,7 @@ case "$MODE" in
     echo "  Press Ctrl+C to stop"
     echo ""
 
-    exec go run ./cmd/denova --dev --dev-mode --no-open
+    exec go run ./cmd/inkdock --dev --dev-mode --no-open
     ;;
 
   *)

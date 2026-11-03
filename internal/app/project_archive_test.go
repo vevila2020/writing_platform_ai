@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestArchiveProjectCancelsReadsAndPreservesContentAndStore(t *testing.T) {
@@ -30,7 +30,7 @@ func TestArchiveProjectCancelsReadsAndPreservesContentAndStore(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	application := &App{cfg: &config.Config{NovaDir: root}, projectRegistry: registry}
+	application := &App{cfg: &config.Config{DenovaDir: root}, projectRegistry: registry}
 	t.Cleanup(application.Close)
 	operation, err := application.AcquireProjectOperation(context.Background(), record.ID)
 	if err != nil {

@@ -18,8 +18,8 @@ clicks and App activity do not share an attribution identity.
 - On upgrading from the last Umami release, an enabled instance must acknowledge
   the new collector. A previous opt-out remains disabled without a new prompt.
 - The existing random `app_<UUID>` identity, preference and first-active date
-  remain in `os.UserConfigDir()/Denova/analytics.json`. This host-user state is
-  outside portable `.denova` data. Browsers and LAN clients of a host share one
+  remain in `os.UserConfigDir()/InkDock/analytics.json`. This host-user state is
+  outside portable `.inkdock` data. Browsers and LAN clients of a host share one
   identity. Reinstallation preserving this state preserves identity; deleting
   the state starts a new observation. Counts describe instances, not natural people.
 - `cohort_origin=migrated` and `first_app_version=unknown` identify previously
@@ -160,7 +160,7 @@ explicitly; wait until each cohort has matured before comparing rates.
 
 ## Managed cloud dashboard
 
-[Denova App product analytics](https://us.posthog.com/project/685522/dashboard/2256487)
+[InkDock App product analytics](https://us.posthog.com/project/685522/dashboard/2256487)
 contains 17 saved insights in three sections. The project timezone is UTC and
 the dashboard remains private. The two wizard-generated dashboards are preserved.
 

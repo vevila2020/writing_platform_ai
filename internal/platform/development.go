@@ -10,9 +10,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/platform/assets"
-	"denova/internal/portablepath"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/platform/assets"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 func validateDevelopmentPath(path string) error {

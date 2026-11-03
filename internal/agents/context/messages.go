@@ -1,7 +1,7 @@
 package context
 
 import (
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // CloneMessages returns a deep-enough model-message snapshot using the Agent

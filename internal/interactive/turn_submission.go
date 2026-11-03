@@ -2,10 +2,10 @@ package interactive
 
 import (
 	"bytes"
-	interactivestate "denova/internal/interactive/state"
 	"encoding/json"
 	"errors"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"io"
 	"strings"
 )

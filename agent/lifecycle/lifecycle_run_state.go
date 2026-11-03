@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agenttrace "github.com/alfredxw/denova/agent/lifecycle/trace"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agenttrace "github.com/vevila2020/writing_platform_ai/agent/lifecycle/trace"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func (run *Run) updateEngineTranscript(state json.RawMessage, persist bool) error {

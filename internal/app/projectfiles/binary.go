@@ -6,8 +6,8 @@ import (
 	"errors"
 	"path/filepath"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // CreateAsset adopts an immutable media result under the same workspace lock

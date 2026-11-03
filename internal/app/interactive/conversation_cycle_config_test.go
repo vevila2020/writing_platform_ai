@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestConversationKeepsCycleConfigWhileReadingLatestStorySnapshot(t *testing.T) {

@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // restorePendingToolBatch pairs confirmed individual results without executing

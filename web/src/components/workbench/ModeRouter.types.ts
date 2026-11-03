@@ -46,7 +46,7 @@ export interface ModeRouterProps {
   settingsOpen: boolean
   developerMode?: boolean
   interactiveRightVisible: boolean
-  novaDir: string
+  dataDir: string
   books: BookRecord[]
   bookSortMode: BookSortMode
   tree: FileNode[]

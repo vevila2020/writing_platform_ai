@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"denova/internal/concurrency"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
 )
 
 const MissingRevision = "missing"

@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { Agent } from 'node:http'
 import path from 'path'
 
-const backendPort = process.env.DENOVA_BACKEND_PORT || process.env.NOVA_BACKEND_PORT || '7789'
+const backendPort = process.env.INKDOCK_BACKEND_PORT || process.env.DENOVA_BACKEND_PORT || '7789'
 
 // Only suites that exercise browser APIs need a fresh DOM and React setup.
 // Keep file isolation in both projects so mocks and module state cannot leak.
@@ -28,7 +28,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   // Isolated browser-test servers must not replace a running dev server's
   // optimized modules while it still holds their previous metadata in memory.
-  cacheDir: process.env.DENOVA_TEST_VITE_CACHE_DIR || 'node_modules/.vite',
+  cacheDir: process.env.INKDOCK_TEST_VITE_CACHE_DIR || 'node_modules/.vite',
   optimizeDeps: {
     // Prebundle the renderer and lazy App's hook dependencies together. Late
     // discovery can otherwise replace React's shared chunks during startup.

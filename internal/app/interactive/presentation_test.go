@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/book/lore"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestDefaultBackgroundSelectionPersistsAndSeedsOpening(t *testing.T) {

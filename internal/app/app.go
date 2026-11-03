@@ -11,40 +11,40 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/canonicalstore"
-	agentexecution "denova/internal/agents/execution"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	"denova/internal/agents/trajectory"
-	"denova/internal/analytics"
-	activityapp "denova/internal/app/activity"
-	agentchatapp "denova/internal/app/agentchat"
-	appagentruntime "denova/internal/app/agentruntime"
-	automationapp "denova/internal/app/automation"
-	bookapp "denova/internal/app/book"
-	imageapp "denova/internal/app/image"
-	loreapp "denova/internal/app/lore"
-	modelsapp "denova/internal/app/models"
-	platformapp "denova/internal/app/platform"
-	projectbookapp "denova/internal/app/projectbook"
-	projectfilesapp "denova/internal/app/projectfiles"
-	resourcecatalogapp "denova/internal/app/resourcecatalog"
-	"denova/internal/app/resourceexchange"
-	settingsapp "denova/internal/app/settings"
-	statisticsapp "denova/internal/app/statistics"
-	apptask "denova/internal/app/task"
-	"denova/internal/book"
-	"denova/internal/concurrency"
-	"denova/internal/interactive"
-	"denova/internal/localfs"
-	"denova/internal/observability"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
-	projectdomain "denova/internal/project"
-	"denova/internal/terminal"
-	"denova/internal/update"
-	"denova/internal/workspace/filewatch"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/trajectory"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	activityapp "github.com/vevila2020/writing_platform_ai/internal/app/activity"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	automationapp "github.com/vevila2020/writing_platform_ai/internal/app/automation"
+	bookapp "github.com/vevila2020/writing_platform_ai/internal/app/book"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	loreapp "github.com/vevila2020/writing_platform_ai/internal/app/lore"
+	modelsapp "github.com/vevila2020/writing_platform_ai/internal/app/models"
+	platformapp "github.com/vevila2020/writing_platform_ai/internal/app/platform"
+	projectbookapp "github.com/vevila2020/writing_platform_ai/internal/app/projectbook"
+	projectfilesapp "github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	resourcecatalogapp "github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
+	settingsapp "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	statisticsapp "github.com/vevila2020/writing_platform_ai/internal/app/statistics"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/terminal"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/filewatch"
 )
 
 // App 是 API 层使用的应用门面；具体业务由领域应用服务承接。
@@ -136,17 +136,17 @@ func New(ctx context.Context, cfg *config.Config) (_ *App, err error) {
 		return nil, ErrAgentDataDirRequired
 	}
 	if err := portablepath.CheckDirectory(dataDir); err != nil && !os.IsNotExist(err) {
-		return nil, fmt.Errorf("inspect Denova data directory: %w", err)
+		return nil, fmt.Errorf("inspect InkDock data directory: %w", err)
 	}
 	if err := os.MkdirAll(dataDir, 0o700); err != nil {
-		return nil, fmt.Errorf("initialize Denova data directory: %w", err)
+		return nil, fmt.Errorf("initialize InkDock data directory: %w", err)
 	}
 	if err := portablepath.CheckPath(dataDir, "runtime/portable-startup.lock"); err != nil {
-		return nil, fmt.Errorf("inspect Denova startup lock path: %w", err)
+		return nil, fmt.Errorf("inspect InkDock startup lock path: %w", err)
 	}
 	releaseStartupLease, err := localfs.AcquireLease(ctx, filepath.Join(dataDir, "runtime", "portable-startup.lock"))
 	if err != nil {
-		return nil, fmt.Errorf("acquire Denova data migration lock: %w", err)
+		return nil, fmt.Errorf("acquire InkDock data migration lock: %w", err)
 	}
 	defer func() {
 		if releaseErr := releaseStartupLease(); releaseErr != nil {
@@ -167,10 +167,10 @@ func New(ctx context.Context, cfg *config.Config) (_ *App, err error) {
 	}
 	migrationBackups, err := preparePortableDataMigration(dataDir)
 	if err != nil {
-		return nil, fmt.Errorf("prepare portable Denova data migration: %w", err)
+		return nil, fmt.Errorf("prepare portable InkDock data migration: %w", err)
 	}
 	if err := migratePresetLayout(dataDir); err != nil {
-		return nil, fmt.Errorf("migrate Denova preset layout: %w", err)
+		return nil, fmt.Errorf("migrate InkDock preset layout: %w", err)
 	}
 	if err := migrateRetiredNarrativeStyle(dataDir); err != nil {
 		return nil, fmt.Errorf("migrate retired narrative style: %w", err)
@@ -206,7 +206,7 @@ func New(ctx context.Context, cfg *config.Config) (_ *App, err error) {
 		cfg.AgentApprovalRules = rules
 	}
 	if err := completePortableDataMigration(dataDir, migrationBackups, len(registeredProjects)); err != nil {
-		return nil, fmt.Errorf("complete portable Denova data migration: %w", err)
+		return nil, fmt.Errorf("complete portable InkDock data migration: %w", err)
 	}
 	app := &App{
 		cfg:                cfg,

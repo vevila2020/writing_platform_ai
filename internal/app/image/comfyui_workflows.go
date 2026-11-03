@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 // DiscoverComfyUIWorkflows inspects an unsaved ComfyUI profile without

@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func evaluateFilesystemRead(request Request) (Decision, bool) {

@@ -7,9 +7,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	loreapp "denova/internal/app/lore"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/speech"
+	loreapp "github.com/vevila2020/writing_platform_ai/internal/app/lore"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/speech"
 )
 
 func (h *Handlers) HandleLoreItemSpeechGenerate(ctx context.Context, c *app.RequestContext) {

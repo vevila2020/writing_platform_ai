@@ -12,17 +12,17 @@ import (
 	"strings"
 	"sync"
 
-	"denova/config"
-	"denova/internal/agents/canonicalstore"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelResolver resolves an explicitly selected profile without exposing keys.

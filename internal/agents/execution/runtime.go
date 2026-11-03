@@ -5,18 +5,18 @@ import (
 	"errors"
 	"fmt"
 
-	"denova/config"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // ErrUnavailable reports that a Runtime has no live public Agent backend.
 var ErrUnavailable = errors.New("Agent execution runtime is unavailable")
 
-// Runtime adapts Denova product cycles to the public Agent -> Session -> Run
+// Runtime adapts InkDock product cycles to the public Agent -> Session -> Run
 // lifecycle. Agent owns in-process ordering and the capability protocol;
-// Denova journals own canonical conversations and durable root state.
+// InkDock journals own canonical conversations and durable root state.
 type Runtime struct {
 	public *publicBackend
 }
@@ -32,7 +32,7 @@ type runtimeOptions struct {
 	sessionStore        agentsession.Store
 }
 
-// WithSessionStore installs Denova's canonical Project-journal router. Tests
+// WithSessionStore installs InkDock's canonical Project-journal router. Tests
 // and standalone compositions may omit it and receive an in-memory Store.
 func WithSessionStore(store agentsession.Store) Option {
 	return func(options *runtimeOptions) error {

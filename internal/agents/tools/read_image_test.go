@@ -16,15 +16,15 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/toolartifact"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolartifact"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
-	toolresult "github.com/alfredxw/denova/agent/tool/result"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
+	toolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 func TestReadImagesCaptureImmutableCopiesAcrossFormats(t *testing.T) {

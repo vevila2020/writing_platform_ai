@@ -80,7 +80,7 @@ func buildInteractiveTurnInstructionParts(content string) []ContextAnalysisPart 
 		if builtIn := strings.TrimSpace(content[builtInStart:]); builtIn != "" {
 			parts = append(parts, NewContextAnalysisPart(ContextAnalysisPartInput{
 				ID:      "interactive_instruction_runtime_rules",
-				Source:  "Denova built-in",
+				Source:  "InkDock built-in",
 				Title:   "Interactive turn execution rules",
 				Kind:    "body",
 				Content: builtIn,
@@ -115,7 +115,7 @@ func buildInteractiveDynamicContextParts(content string) []ContextAnalysisPart {
 	if preamble := strings.TrimSpace(content[:preambleEnd]); preamble != "" {
 		parts = append(parts, NewContextAnalysisPart(ContextAnalysisPartInput{
 			ID:      "interactive_dynamic_rules",
-			Source:  "Denova built-in",
+			Source:  "InkDock built-in",
 			Title:   "Dynamic context rules",
 			Kind:    "body",
 			Content: preamble,

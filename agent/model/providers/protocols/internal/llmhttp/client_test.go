@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 type roundTripFunc func(*http.Request) (*http.Response, error)

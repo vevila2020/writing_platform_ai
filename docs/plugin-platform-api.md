@@ -1,4 +1,4 @@
-# Denova 插件与游戏平台 HTTP API
+# InkDock 插件与游戏平台 HTTP API
 
 状态：API v1，v0.6.0 工作区实现，尚未发布。更新：2026-10-10。当前实现以 [OpenAPI 生成代码](../internal/platform/openapi.go) 和隔离运行实例的 GET /api/platform/v1/openapi.json 为准。
 
@@ -10,7 +10,7 @@ Consumer API 使用普通 HTTP + JSON，事件使用 SSE。每个游戏开局或
 
 请求使用 Authorization: Bearer <token>。凭证绑定包身份、准确发行、Project/Session/游戏实例范围与已授予权限；body 不能选择其他范围。可信 App 的 /api/platform/manage/* 仅允许本机宿主管理，第三方页面不能借用该路由或历史内部 API。第一版第三方作品在本机桌面使用，不承诺 LAN 远程运行。
 
-同一 Project 插件的面板与命令共享激活，但 `connection` 为每个消费者提供独立的 `{ baseUrl, token, consumerId }`。请求附带 `X-Denova-Consumer: <consumerId>`；浏览器 SDK 自动添加，后端向宿主转发时必须保留此 header。消费者令牌即使省略 header 也绑定原消费者，关闭后失效。异步 Agent 与图像操作可以超过发起请求的 HTTP 生命周期，但不能超过所属消费者的生命周期；关闭不自动重放未知副作用。
+同一 Project 插件的面板与命令共享激活，但 `connection` 为每个消费者提供独立的 `{ baseUrl, token, consumerId }`。请求附带 `X-InkDock-Consumer: <consumerId>`；浏览器 SDK 自动添加，后端向宿主转发时必须保留此 header。消费者令牌即使省略 header 也绑定原消费者，关闭后失效。异步 Agent 与图像操作可以超过发起请求的 HTTP 生命周期，但不能超过所属消费者的生命周期；关闭不自动重放未知副作用。
 
 包引用为 { kind: "plugin" | "game", id }，发行引用为 { package, releaseId }。公共贡献引用 pluginId/localId，游戏私有定义 local:id。运行时路径仅作当前系统投影；所有受管来源与文件引用按规范相对路径持久化。
 

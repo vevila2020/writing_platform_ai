@@ -4,8 +4,8 @@ import (
 	"errors"
 	"io"
 
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ConcatMessageStream drains and strictly merges a message stream.

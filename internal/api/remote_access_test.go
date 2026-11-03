@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
 	"github.com/cloudwego/hertz/pkg/app"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/ut"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func testRemoteAccess(t *testing.T) (*remoteAccessGate, *hertzserver.Hertz, *config.RemoteAccessConfig) {

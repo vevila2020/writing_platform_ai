@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // acquireStoryMutationLeaseLocked linearizes the read/CAS/write section across

@@ -56,7 +56,7 @@ function Find-RepoViteProcessIds {
     } | ForEach-Object { [int]$_.ProcessId })
 }
 
-function Test-DenovaGoRunProcess {
+function Test-InkDockGoRunProcess {
     param(
         [Parameter(Mandatory)]
         [object]$Process
@@ -64,7 +64,7 @@ function Test-DenovaGoRunProcess {
 
     return $Process.Name -eq 'go.exe' -and
         $Process.CommandLine -and
-        $Process.CommandLine -match '(?i)(?:^|\s)run\s+(?:"[^"]*[\\/]|[^\s"]*[\\/])?cmd[\\/]denova(?:"?)(?:\s|$)'
+        $Process.CommandLine -match '(?i)(?:^|\s)run\s+(?:"[^"]*[\\/]|[^\s"]*[\\/])?cmd[\\/]inkdock(?:"?)(?:\s|$)'
 }
 
 function Get-RepoDevStateRecords {
@@ -108,7 +108,7 @@ function Find-RepoDevProcessIds {
 
     foreach ($record in $StateRecords) {
         $recorded = $processById[[int]$record.State.process_id]
-        if ($recorded -and (Test-DenovaGoRunProcess -Process $recorded)) {
+        if ($recorded -and (Test-InkDockGoRunProcess -Process $recorded)) {
             [void]$roots.Add([int]$recorded.ProcessId)
         }
     }
@@ -116,13 +116,13 @@ function Find-RepoDevProcessIds {
     # A live backend plus its go run parent identifies backend-only bootstrap
     # trees that have neither a state file nor a Vite child.
     foreach ($backend in $Snapshot | Where-Object {
-        $_.Name -eq 'denova.exe' -and
+        $_.Name -eq 'inkdock.exe' -and
         $_.CommandLine -and
         $_.CommandLine -match '(?i)(?:^|\s)--dev-mode(?:\s|$)'
     }) {
         $root = $null
         $current = $processById[[int]$backend.ParentProcessId]
-        while ($current -and (Test-DenovaGoRunProcess -Process $current)) {
+        while ($current -and (Test-InkDockGoRunProcess -Process $current)) {
             $root = $current
             $current = $processById[[int]$current.ParentProcessId]
         }
@@ -135,7 +135,7 @@ function Find-RepoDevProcessIds {
         $current = $processById[[int]$viteProcessId]
         $root = $null
         while ($current) {
-            if ($current.Name -in @('denova.exe', 'go.exe')) {
+            if ($current.Name -in @('inkdock.exe', 'go.exe')) {
                 $root = $current
             }
             $current = $processById[[int]$current.ParentProcessId]
@@ -161,7 +161,7 @@ function Stop-RepoDevProcesses {
     }
 
     $allProcessIds = @(Get-DescendantProcessIds -RootProcessIds $rootProcessIds -Snapshot $snapshot)
-    Write-Host "Stopping Denova development process trees (root PID: $($rootProcessIds -join ', '))."
+    Write-Host "Stopping InkDock development process trees (root PID: $($rootProcessIds -join ', '))."
     foreach ($record in $stateRecords) {
         try {
             $record.State | Add-Member -NotePropertyName stop_requested -NotePropertyValue $true -Force
@@ -209,15 +209,15 @@ $pnpmBin = Split-Path -Parent $pnpmExecutable
 $env:Path = "$pnpmBin;$env:Path"
 
 Stop-RepoDevProcesses
-$denovaArguments = @('run', './cmd/denova', '--dev', '--dev-mode', '--no-open')
+$inkdockArguments = @('run', './cmd/inkdock', '--dev', '--dev-mode', '--no-open')
 
 New-Item -ItemType Directory -Path $stateDirectory -Force | Out-Null
-Write-Host 'Starting Denova in the native Windows development environment.'
+Write-Host 'Starting InkDock in the native Windows development environment.'
 Write-Host "Repository: $repoRoot"
 
 $goProcess = Start-Process `
     -FilePath $goExecutable `
-    -ArgumentList $denovaArguments `
+    -ArgumentList $inkdockArguments `
     -WorkingDirectory $repoRoot `
     -NoNewWindow `
     -PassThru

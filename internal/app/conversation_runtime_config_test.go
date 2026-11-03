@@ -5,13 +5,13 @@ import (
 	"errors"
 	"testing"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	apptask "denova/internal/app/task"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestGameDoesNotExposeGoalForAnyRuntime(t *testing.T) {

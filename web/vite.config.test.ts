@@ -22,7 +22,7 @@ it('reuses browser and backend connections across API requests', async () => {
   const proxyOptions = config.server!.proxy!['/api']
   if (typeof proxyOptions === 'string') throw new Error('Expected API proxy options')
   const browserAgent = new Agent({ keepAlive: true })
-  const cacheDir = await mkdtemp(join(tmpdir(), 'denova-proxy-test-'))
+  const cacheDir = await mkdtemp(join(tmpdir(), 'inkdock-proxy-test-'))
   let frontend: Server | undefined
   let vite: Awaited<ReturnType<typeof createViteServer>> | undefined
   try {

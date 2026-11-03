@@ -10,7 +10,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 
 	"golang.org/x/text/cases"
 	"golang.org/x/text/unicode/norm"
@@ -57,8 +57,8 @@ func (registry *Registry) usedStoreDirNames(projects []Record) (map[string]bool,
 			used[storeDirNameKey(record.StoreDirName)] = true
 		}
 	}
-	if registry != nil && strings.TrimSpace(registry.denovaDir) != "" {
-		entries, err := os.ReadDir(filepath.Join(registry.denovaDir, storeDirectoryName))
+	if registry != nil && strings.TrimSpace(registry.inkdockDir) != "" {
+		entries, err := os.ReadDir(filepath.Join(registry.inkdockDir, storeDirectoryName))
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			return nil, err
 		}
@@ -159,8 +159,8 @@ func validateStoreDirNames(projects []Record) error {
 // migrateLegacyProjectStoreRoot atomically adopts the unreleased project-state
 // root. A conflicting stores root is never merged or overwritten.
 func (registry *Registry) migrateLegacyProjectStoreRoot() error {
-	source := filepath.Join(registry.denovaDir, legacyProjectStateDirectoryName)
-	destination := filepath.Join(registry.denovaDir, storeDirectoryName)
+	source := filepath.Join(registry.inkdockDir, legacyProjectStateDirectoryName)
+	destination := filepath.Join(registry.inkdockDir, storeDirectoryName)
 	sourceInfo, sourceErr := os.Lstat(source)
 	destinationInfo, destinationErr := os.Lstat(destination)
 	if sourceErr != nil && !errors.Is(sourceErr, os.ErrNotExist) {
@@ -199,7 +199,7 @@ func (registry *Registry) migrateLegacyProjectStores(projects []Record) error {
 		return err
 	}
 	for _, record := range projects {
-		receipt := filepath.Join(registry.denovaDir, storeDirectoryName, record.StoreDirName, "migration.json")
+		receipt := filepath.Join(registry.inkdockDir, storeDirectoryName, record.StoreDirName, "migration.json")
 		if _, err := ensureCurrentStoreMigrationReceipt(receipt, record.ID); err != nil {
 			return err
 		}
@@ -210,7 +210,7 @@ func (registry *Registry) migrateLegacyProjectStores(projects []Record) error {
 // migrateProjectIDStoreDirectories moves the unreleased ID-named layout to
 // the persisted readable directory. It never merges or overwrites Store data.
 func (registry *Registry) migrateProjectIDStoreDirectories(projects []Record) error {
-	storesRoot := filepath.Join(registry.denovaDir, storeDirectoryName)
+	storesRoot := filepath.Join(registry.inkdockDir, storeDirectoryName)
 	for _, record := range projects {
 		source := filepath.Join(storesRoot, record.ID)
 		destination := filepath.Join(storesRoot, record.StoreDirName)

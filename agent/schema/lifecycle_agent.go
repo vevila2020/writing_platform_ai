@@ -1,7 +1,7 @@
 package schema
 
 import (
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // CacheKeyGenerator derives an opaque, stable provider cache-routing key.

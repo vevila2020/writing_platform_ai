@@ -17,7 +17,7 @@ test('upgrade notes cover every skipped release before downloading in Writing an
   } }))
   await page.route('**/api/update/notes?**', route => {
     const from = new URL(route.request().url()).searchParams.get('from')
-    const english = route.request().headers()['x-denova-locale']?.startsWith('en')
+    const english = route.request().headers()['x-inkdock-locale']?.startsWith('en')
     const entries = (from ? versions : [...versions, `v${previous}`]).map(version => ({
       version, published_at: '2026-10-20T00:00:00Z',
       summary: english ? `Changes in ${version}` : `${version} 的创作变化`,

@@ -189,7 +189,7 @@ function notifyBackendUnavailableIfNeeded(input: RequestInfo | URL, status: numb
 
 function notifyRemoteAccessRequiredIfNeeded(input: RequestInfo | URL, res: Response) {
   if (res.status !== 401 || !isLocalAPIRequest(input)) return
-  if (res.headers.get('X-Denova-Auth') !== 'required') return
+  if (res.headers.get('X-InkDock-Auth') !== 'required') return
   handleRemoteAccessChallenge()
 }
 

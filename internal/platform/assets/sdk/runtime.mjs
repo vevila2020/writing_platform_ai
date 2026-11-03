@@ -9,15 +9,15 @@ export async function serve(handler) {
     input.once('line', (line) => { try { resolve(JSON.parse(line)); } catch (error) { reject(error); } });
     input.once('close', () => reject(new Error('Bootstrap pipe closed')));
   });
-  if (bootstrap.protocol !== 'denova-runtime-v1') throw new Error('Unsupported runtime protocol');
+  if (bootstrap.protocol !== 'inkdock-runtime-v1') throw new Error('Unsupported runtime protocol');
   const expected = Buffer.from(`Bearer ${bootstrap.hostToken}`);
   const server = createServer(async (request, response) => {
     const actual = Buffer.from(request.headers.authorization || '');
     if (actual.length !== expected.length || !timingSafeEqual(actual, expected)) {
       response.writeHead(403).end(); return;
     }
-    if (request.method === 'GET' && request.url === '/__denova/ready') {
-      response.writeHead(200).end('denova-runtime-v1'); return;
+    if (request.method === 'GET' && request.url === '/__inkdock/ready') {
+      response.writeHead(200).end('inkdock-runtime-v1'); return;
     }
     try { await handler(request, response, bootstrap); }
     catch (error) {
@@ -32,7 +32,7 @@ export async function serve(handler) {
   });
   input.on('close', () => { server.close(); server.closeAllConnections(); });
   await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
-  console.log(JSON.stringify({ type: 'ready', protocol: 'denova-runtime-v1', port: server.address().port }));
+  console.log(JSON.stringify({ type: 'ready', protocol: 'inkdock-runtime-v1', port: server.address().port }));
 }
 
 export async function readJSON(request) {
@@ -47,6 +47,6 @@ export function requestHost(bootstrap, request, path, options = {}) {
   return fetch(bootstrap.connection.baseUrl + path, { ...options, headers: {
     'Content-Type': 'application/json', ...options.headers,
     Authorization: `Bearer ${bootstrap.connection.token}`,
-    ...(request.headers['x-denova-consumer'] ? { 'X-Denova-Consumer': request.headers['x-denova-consumer'] } : {}),
+    ...(request.headers['x-inkdock-consumer'] ? { 'X-InkDock-Consumer': request.headers['x-inkdock-consumer'] } : {}),
   } });
 }

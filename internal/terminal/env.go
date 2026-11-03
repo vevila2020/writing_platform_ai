@@ -16,10 +16,10 @@ func baseEnv(spec Spec) []string {
 		"COLORTERM=truecolor",
 	}
 	if spec.Workspace != "" {
-		env = append(env, "DENOVA_WORKSPACE="+spec.Workspace)
+		env = append(env, "INKDOCK_WORKSPACE="+spec.Workspace)
 	}
 	if spec.ProjectID != "" {
-		env = append(env, "DENOVA_PROJECT_ID="+spec.ProjectID)
+		env = append(env, "INKDOCK_PROJECT_ID="+spec.ProjectID)
 	}
 	// Interactive CLIs decide whether wide characters are printable from LANG, and that
 	// variable is frequently missing when the backend runs as a service, so default to UTF-8.
@@ -30,7 +30,7 @@ func baseEnv(spec Spec) []string {
 }
 
 // terminalProcessEnv builds the exact child environment instead of passing through renderer
-// hints from Denova's own host process. In particular, desktop/agent launchers commonly set
+// hints from InkDock's own host process. In particular, desktop/agent launchers commonly set
 // NO_COLOR for their logs; leaking it into an interactive PTY makes color-aware programs such as
 // Some interactive CLIs disable their UI palette even though the terminal advertises truecolor support.
 func terminalProcessEnv(inherited, overrides []string) []string {

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func protectedSystemInstruction(cfg *config.Config, agentKind, builtIn string) string {
 	composition, err := composeProtectedSystemInstruction(cfg, agentKind, agentKind, "", []SystemPromptFragment{{
-		ID: "builtin_base", Source: "Denova built-in", Title: "Denova built-in system instruction",
+		ID: "builtin_base", Source: "InkDock built-in", Title: "InkDock built-in system instruction",
 		Purpose: "define the built-in Agent behavior and workflow", Content: builtIn, Required: true,
 		Overflow: SystemPromptOverflowReject,
 	}})
@@ -29,7 +29,7 @@ func composeProtectedSystemInstruction(cfg *config.Config, agentKind, mode, work
 		}
 	}
 	if firstIncluded >= 0 {
-		builtIn[firstIncluded].Prefix = "\n\n---\n\n# Denova Built-in System Instruction\n\n" + builtIn[firstIncluded].Prefix
+		builtIn[firstIncluded].Prefix = "\n\n---\n\n# InkDock Built-in System Instruction\n\n" + builtIn[firstIncluded].Prefix
 	}
 	fragments = append(fragments, builtIn...)
 	return composeSystemPrompt(cfg, agentKind, mode, workspace, fragments)
@@ -37,7 +37,7 @@ func composeProtectedSystemInstruction(cfg *config.Config, agentKind, mode, work
 
 func ComposeBuiltinSystemInstruction(cfg *config.Config, agentKind, mode, workspace, id, title, purpose, builtIn string) (SystemPromptComposition, error) {
 	fragments := []SystemPromptFragment{{
-		ID: id, Source: "Denova built-in", Title: title, Purpose: purpose, Content: builtIn,
+		ID: id, Source: "InkDock built-in", Title: title, Purpose: purpose, Content: builtIn,
 		Required: true, Overflow: SystemPromptOverflowReject,
 	}}
 	return composeProtectedSystemInstruction(cfg, agentKind, mode, workspace, applyAgentPromptDefinition(cfg, agentKind, fragments))
@@ -45,12 +45,12 @@ func ComposeBuiltinSystemInstruction(cfg *config.Config, agentKind, mode, worksp
 
 func protectedSystemPromptFragments(cfg *config.Config, agentKind string) []SystemPromptFragment {
 	return []SystemPromptFragment{{
-		ID: "runtime_contract", Source: "Denova runtime", Title: "Runtime contract",
+		ID: "runtime_contract", Source: "InkDock runtime", Title: "Runtime contract",
 		Purpose: "define shared runtime behavior",
-		Content: runtimeContractForAgent(cfg, agentKind), Prefix: "# Denova Runtime Contract\n\n",
+		Content: runtimeContractForAgent(cfg, agentKind), Prefix: "# InkDock Runtime Contract\n\n",
 		Required: true, Overflow: SystemPromptOverflowReject,
 	}, {
-		ID: "output_protocol", Source: "Denova runtime", Title: "Output protocol",
+		ID: "output_protocol", Source: "InkDock runtime", Title: "Output protocol",
 		Purpose: "define the Agent output protocol",
 		Content: outputProtocolForAgent(agentKind), Prefix: "\n\n## Output Protocol\n\n",
 		Required: true, Overflow: SystemPromptOverflowReject,

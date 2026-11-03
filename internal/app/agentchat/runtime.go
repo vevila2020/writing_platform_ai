@@ -6,13 +6,13 @@ import (
 	"sort"
 	"strings"
 
-	chatagent "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	conversationapp "denova/internal/app/conversation"
-	apptask "denova/internal/app/task"
+	chatagent "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func (service *Service) ActiveView(ctx context.Context, binding Binding) ActiveView {

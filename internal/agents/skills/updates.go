@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // UpdateAction separates a manual check from permission to install changes.
@@ -208,7 +208,7 @@ func UpdateDue(ctx context.Context, dirs []Directory, now time.Time) []UpdateRes
 // A crash between renames restores it when the library is next opened. After
 // success it becomes a retained backup; all paths remain relative to the root.
 func replaceRemoteSkill(dir Directory, name, staged string) error {
-	backupRoot := filepath.Join(dir.Path, ".denova-backups", name)
+	backupRoot := filepath.Join(dir.Path, ".inkdock-backups", name)
 	if err := os.MkdirAll(backupRoot, 0o700); err != nil {
 		return err
 	}
@@ -232,7 +232,7 @@ func replaceRemoteSkill(dir Directory, name, staged string) error {
 }
 
 func recoverSkillUpdate(dir Directory, name string) error {
-	pending := filepath.Join(dir.Path, ".denova-backups", name, "pending")
+	pending := filepath.Join(dir.Path, ".inkdock-backups", name, "pending")
 	if _, err := os.Stat(pending); os.IsNotExist(err) {
 		return nil
 	} else if err != nil {
@@ -251,12 +251,12 @@ func recoverDirectoryUpdates(ctx context.Context, dir Directory) {
 	if !dir.Writable {
 		return
 	}
-	entries, _ := os.ReadDir(filepath.Join(dir.Path, ".denova-backups"))
+	entries, _ := os.ReadDir(filepath.Join(dir.Path, ".inkdock-backups"))
 	for _, entry := range entries {
 		if !entry.IsDir() || ValidateName(entry.Name()) != nil {
 			continue
 		}
-		if _, err := os.Stat(filepath.Join(dir.Path, ".denova-backups", entry.Name(), "pending")); err != nil {
+		if _, err := os.Stat(filepath.Join(dir.Path, ".inkdock-backups", entry.Name(), "pending")); err != nil {
 			continue
 		}
 		_, err := withSkillLease(ctx, dir, entry.Name(), func() (struct{}, error) { return struct{}{}, recoverSkillUpdate(dir, entry.Name()) })

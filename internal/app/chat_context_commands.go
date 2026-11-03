@@ -3,10 +3,10 @@ package app
 import (
 	"context"
 
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentrun "denova/internal/agents/run"
-	conversationapp "denova/internal/app/conversation"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
 )
 
 func (a *App) AnalyzeContext(ctx context.Context, req agentchat.ChatRequest) (agentchat.ContextAnalysis, error) {

@@ -1,4 +1,4 @@
-// Package agentruntime is Denova's runtime boundary. It binds product sessions
+// Package agentruntime is InkDock's runtime boundary. It binds product sessions
 // to Native execution or external adapters without changing the independent
 // agent module. Product preparation and domain commits remain with callers.
 package agentruntime
@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 var ErrOperationActive = errors.New("agent operation is already active")

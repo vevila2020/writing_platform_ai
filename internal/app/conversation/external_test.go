@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	"denova/internal/agents/conversationconfig"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestExternalPreparationUsesProductContextWithoutNativeModel(t *testing.T) {
@@ -24,7 +24,7 @@ func TestExternalPreparationUsesProductContextWithoutNativeModel(t *testing.T) {
 				t.Fatal(err)
 			}
 			selection := config.RuntimeSelection{Kind: config.RuntimeCodex, Codex: &config.CodexRuntimeSettings{Model: "external-model"}}
-			cfg := config.Config{Workspace: workspace, ProjectID: "project-1", ProjectStoreDir: filepath.Join(root, "store"), DenovaDir: root, ActiveAgentRuntime: &selection}
+			cfg := config.Config{Workspace: workspace, ProjectID: "project-1", ProjectStoreDir: filepath.Join(root, "store"), InkDockDir: root, ActiveAgentRuntime: &selection}
 			store, err := session.NewStore(filepath.Join(cfg.ProjectStoreDir, "sessions"))
 			if err != nil {
 				t.Fatal(err)

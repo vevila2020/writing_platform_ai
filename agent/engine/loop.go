@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"time"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agenttoolresult "github.com/alfredxw/denova/agent/tool/result"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agenttoolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 // loopConfig configures the provider-neutral model/tool loop.

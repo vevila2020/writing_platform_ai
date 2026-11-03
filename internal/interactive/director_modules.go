@@ -13,12 +13,12 @@ import (
 	"strings"
 	"time"
 
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive/teller"
-	"denova/internal/presetlayout"
-	"denova/internal/revisionfile"
-	"denova/internal/revisionjson"
-	"denova/internal/style"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionjson"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 const (
@@ -433,7 +433,7 @@ func ResolveStoryDirectorModules(novaDir string, director StoryDirector) StoryDi
 	snapshot := normalizeStoryDirectorResolvedSnapshot(director.ResolvedSnapshot)
 	effective := director
 	effective.ModuleRefs = refs
-	// Some pure in-memory callers intentionally have no .denova directory. In
+	// Some pure in-memory callers intentionally have no .inkdock directory. In
 	// that case the director already carries its built-in or frozen resources;
 	// avoid materializing resource libraries relative to the process cwd.
 	if strings.TrimSpace(novaDir) == "" {

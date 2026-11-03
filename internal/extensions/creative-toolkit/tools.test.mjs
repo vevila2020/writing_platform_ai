@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { invoke } from './package/tools.mjs';
 
 test('creative tools isolate notes, deduplicate concurrent retries, and retain individual batch successes', async t => {
-  const directory = await mkdtemp(join(tmpdir(), 'denova-toolkit-'));
+  const directory = await mkdtemp(join(tmpdir(), 'inkdock-toolkit-'));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const writing = { dataDir: join(directory, 'writing'), context: { settings: {} } };
   const game = { ...writing, dataDir: join(directory, 'game') };

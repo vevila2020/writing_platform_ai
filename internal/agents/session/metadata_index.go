@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 const metadataIndexName = ".metadata.idx.json"

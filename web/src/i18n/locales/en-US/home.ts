@@ -28,7 +28,7 @@ const home = {
   'home.descriptionPlaceholder': 'Description (optional)',
   'home.descriptionTooLong': 'Synopsis must be {{limit}} characters or fewer',
   'home.editInfo': 'Edit Info',
-  'home.empty': 'No books found in the current Denova data directory',
+  'home.empty': 'No books found in the current InkDock data directory',
   'home.emptyDescription': 'Create a book first, or import an existing novel or character card. Writing, Interactive, Agent, and Automation workflows become available after a book is open.',
   'home.exportError': 'Export failed',
   'home.exporting': 'Exporting',
@@ -37,7 +37,7 @@ const home = {
   'home.importCard': 'Import Tavern Card',
   'home.importNovel': 'Import Existing Novel',
   'home.generateCover': 'Generate Cover',
-  'home.novaDirLoading': 'Denova data directory loading...',
+  'home.dataDirLoading': 'InkDock data directory loading...',
   'home.saveError': 'Save failed',
   'home.sortLabel': 'Book order',
   'home.sortManual': 'Manual order',
@@ -52,7 +52,7 @@ const home = {
   'home.unnamedBook': 'Untitled Book',
   'home.uploadCover': 'Upload Cover',
   'home.coverUploadPending': 'Cover selected. It will be saved when the book is created.',
-  'home.waitNovaDir': 'Denova data directory is not ready. Try again later.',
+  'home.waitDataDir': 'InkDock data directory is not ready. Try again later.',
 } as const
 
 export default home

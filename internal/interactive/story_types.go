@@ -3,13 +3,13 @@ package interactive
 import (
 	"encoding/json"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/conversationconfig"
-	interactivestate "denova/internal/interactive/state"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type CreateStoryRequest struct {

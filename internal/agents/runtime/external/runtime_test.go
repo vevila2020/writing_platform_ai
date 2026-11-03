@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"denova/config"
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/config"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 )
 
 func TestProductAcceptsOnlySettledInterruptedProviderSession(t *testing.T) {

@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	bookdomain "denova/internal/book"
-	projectdomain "denova/internal/project"
+	bookdomain "github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type Service struct {

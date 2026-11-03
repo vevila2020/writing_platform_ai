@@ -1,4 +1,4 @@
-// Package webaccess provides Denova's bounded public-web search and readable
+// Package webaccess provides InkDock's bounded public-web search and readable
 // page-fetching boundary. Agent tool schemas depend only on Client; search
 // providers and HTML extraction remain private implementation details.
 package webaccess
@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 const (

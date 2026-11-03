@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/run"
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 func (t *Task) Emit(ev agentrun.Event) {

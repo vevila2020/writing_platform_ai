@@ -26,7 +26,7 @@ func TestVersionDiffFiltersExcludedHistoricalFiles(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	excluded := []string{"session.jsonl.domain.lock", ".denova/runs/trace.json", ".nova/reviews/review.json"}
+	excluded := []string{"session.jsonl.domain.lock", ".inkdock/runs/trace.json", ".denova/reviews/review.json"}
 	for _, path := range append(excluded, "chapter.md", "Cargo.lock") {
 		writeFile(t, dir, path, "second")
 		if _, err := worktree.Add(path); err != nil {

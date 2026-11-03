@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// NewDirectories returns the canonical skill search path for Denova.
+// NewDirectories returns the canonical skill search path for InkDock.
 func NewDirectories(builtinDir, novaDir, workspace string) []Directory {
 	dirs := make([]Directory, 0, 4)
 	settingsRoot := ""

@@ -629,8 +629,8 @@ interface AgentPromptBlockSettings {
 }
 
 interface SettingsPaths {
+  inkdock_dir: string
   denova_dir: string
-  nova_dir: string
   user_config: string
   workspace_config: string
 }

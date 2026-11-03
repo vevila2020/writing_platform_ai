@@ -7,12 +7,12 @@ import (
 	"runtime"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestEvaluateBashAllowsStaticWorkspaceTextAnalysis(t *testing.T) {
 	t.Parallel()
-	workspace := filepath.Join(t.TempDir(), ".nova", "示例书")
+	workspace := filepath.Join(t.TempDir(), ".inkdock", "示例书")
 	if err := os.MkdirAll(workspace, 0o755); err != nil {
 		t.Fatal(err)
 	}

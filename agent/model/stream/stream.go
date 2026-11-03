@@ -7,7 +7,7 @@ import (
 	"io"
 	"sync"
 
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
 )
 
 var (

@@ -1,11 +1,11 @@
 package modelio
 
 import (
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelExecutionPolicy maps the persisted product retry setting to the shared

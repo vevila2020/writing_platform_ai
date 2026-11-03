@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 const (
@@ -35,7 +35,7 @@ type legacyBookRegistry struct {
 }
 
 func (registry *Registry) loadOrMigrateLocked() (registryData, bool, error) {
-	if err := portablepath.CheckPath(registry.denovaDir, "projects.json"); err != nil {
+	if err := portablepath.CheckPath(registry.inkdockDir, "projects.json"); err != nil {
 		return registryData{}, false, fmt.Errorf("inspect Project Registry path: %w", err)
 	}
 	var data registryData
@@ -254,7 +254,7 @@ func (registry *Registry) legacyProjectLocation(value string) (ProjectLocation, 
 	if err != nil {
 		return ProjectLocation{}, err
 	}
-	if found && !isUserDataDirectory(managed) && isBookWorkspace(filepath.Join(registry.denovaDir, filepath.FromSlash(managed))) {
+	if found && !isUserDataDirectory(managed) && isBookWorkspace(filepath.Join(registry.inkdockDir, filepath.FromSlash(managed))) {
 		return ProjectLocation{Kind: LocationManaged, Path: managed}, nil
 	}
 
@@ -276,7 +276,7 @@ func (registry *Registry) existingManagedLegacyLocation(relative string) (string
 	if err != nil || normalized == "." {
 		return "", false, nil
 	}
-	current := registry.denovaDir
+	current := registry.inkdockDir
 	resolved := make([]string, 0, strings.Count(normalized, "/")+1)
 	for _, component := range strings.Split(normalized, "/") {
 		entries, readErr := os.ReadDir(current)

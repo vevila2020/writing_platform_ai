@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 )
 
 func TestBuildAdvertisesEffectiveCatalogAndLoadsSkillByName(t *testing.T) {
@@ -25,9 +25,9 @@ func TestBuildAdvertisesEffectiveCatalogAndLoadsSkillByName(t *testing.T) {
 	writeAssemblySkill(t, skillsDir, "blocked", "Unavailable guidance.", "Never load this.")
 
 	cfg := &config.Config{
-		SkillsDir: skillsDir,
-		DenovaDir: filepath.Join(root, "data"),
-		Workspace: workspace,
+		SkillsDir:  skillsDir,
+		InkDockDir: filepath.Join(root, "data"),
+		Workspace:  workspace,
 		AgentSkills: config.AgentSkillSettings{General: config.AgentSkillOverride{
 			"alpha": true, "blocked": false,
 		}},

@@ -9,9 +9,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/agents/conversationconfig"
-	novaApp "denova/internal/app"
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 type chatAgentCommandRequest struct {

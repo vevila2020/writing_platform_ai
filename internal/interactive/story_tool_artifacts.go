@@ -1,7 +1,7 @@
 package interactive
 
 import (
-	"denova/internal/agents/toolartifact"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolartifact"
 )
 
 const storyToolArtifactNamespace = "game"

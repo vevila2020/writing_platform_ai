@@ -61,7 +61,7 @@ export function SkillLibrary({ target, snapshot, loading, onSelect, onChanged }:
   const filtered = useMemo(() => snapshot.skills.filter((skill) => {
     const enabled = skill.active && skill.enabled !== false
     if (status === 'enabled' && !enabled || status === 'disabled' && enabled) return false
-    if (source === 'remote' && !sources.has(keyOf(skill)) || source === 'denova' && skill.scope === 'shared' || source === 'shared' && skill.scope !== 'shared') return false
+    if (source === 'remote' && !sources.has(keyOf(skill)) || source === 'inkdock' && skill.scope === 'shared' || source === 'shared' && skill.scope !== 'shared') return false
     if (category !== 'all' && skillCategory(skill) !== category) return false
     return `${skill.name} ${skill.description}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())
   }), [category, query, snapshot.skills, source, sources, status])
@@ -77,7 +77,7 @@ export function SkillLibrary({ target, snapshot, loading, onSelect, onChanged }:
   }
 
   const sections = [
-    { id: 'denova', label: t('skills.library.denova'), skills: filtered.filter((skill) => skill.scope !== 'shared') },
+    { id: 'inkdock', label: t('skills.library.inkdock'), skills: filtered.filter((skill) => skill.scope !== 'shared') },
     { id: 'shared', label: t('skills.library.shared'), skills: filtered.filter((skill) => skill.scope === 'shared') },
   ]
 
@@ -120,7 +120,7 @@ export function SkillLibrary({ target, snapshot, loading, onSelect, onChanged }:
           </div>
           <div className="flex flex-col gap-3 @3xl:flex-row @3xl:items-center @3xl:gap-4">
             <ToggleGroup type="single" value={source} onValueChange={(value) => value && setSource(value)} size="sm" aria-label={t('skills.library.sourceFilter')} className="max-w-full flex-wrap @3xl:shrink-0">
-              {['all', 'denova', 'shared', 'remote'].map((item) => <ToggleGroupItem key={item} value={item}>{t(`skills.library.${item}`)}</ToggleGroupItem>)}
+              {['all', 'inkdock', 'shared', 'remote'].map((item) => <ToggleGroupItem key={item} value={item}>{t(`skills.library.${item}`)}</ToggleGroupItem>)}
             </ToggleGroup>
             {categories.length > 1 && (
               <>
@@ -142,7 +142,7 @@ export function SkillLibrary({ target, snapshot, loading, onSelect, onChanged }:
         ) : sections.map((section) => {
           const shared = section.id === 'shared'
           if (hasFilters && section.skills.length === 0) return null
-          if (source === 'denova' && shared || source === 'shared' && !shared || source === 'remote' && shared) return null
+          if (source === 'inkdock' && shared || source === 'shared' && !shared || source === 'remote' && shared) return null
           return (
             <section key={section.id} className="flex min-w-0 flex-col gap-3" aria-label={section.label}>
               <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-3">

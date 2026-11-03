@@ -11,8 +11,8 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/book/lore"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func readLoreCollection(raw []byte) (portableCollection[json.RawMessage], []lore.Item, error) {
@@ -152,7 +152,7 @@ func (s *Service) stageLoreCollection(ctx context.Context, previewDir string, re
 		return err
 	}
 	target := FileTarget{ProjectID: binding.Local.ProjectID, Path: lore.ItemsRelativePath}
-	dir, err := os.MkdirTemp("", "denova-lore-")
+	dir, err := os.MkdirTemp("", "inkdock-lore-")
 	if err != nil {
 		return err
 	}

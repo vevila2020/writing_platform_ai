@@ -91,9 +91,9 @@ func TestDiscoverCodexResolvesWindowsNPMShimToNativeBinary(t *testing.T) {
 }
 
 func TestDiscoverInstalledCodex(t *testing.T) {
-	executable := os.Getenv("DENOVA_TEST_CODEX_EXE")
+	executable := os.Getenv("INKDOCK_TEST_CODEX_EXE")
 	if executable == "" {
-		t.Skip("DENOVA_TEST_CODEX_EXE is not set")
+		t.Skip("INKDOCK_TEST_CODEX_EXE is not set")
 	}
 	got := DiscoverCodex([]string{"PATH=" + filepath.Dir(executable)})
 	gotInfo, gotErr := os.Stat(got)

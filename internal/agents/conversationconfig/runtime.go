@@ -3,7 +3,7 @@ package conversationconfig
 import (
 	"errors"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 var ErrRuntimeCapabilityUnsupported = errors.New("runtime does not support the requested configuration")

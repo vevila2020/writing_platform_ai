@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	interactivestate "denova/internal/interactive/state"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 )
 
 func TestPlayerInputAcceptedIsIdempotentPendingAndConsumedByTurn(t *testing.T) {

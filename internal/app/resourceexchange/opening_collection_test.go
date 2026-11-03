@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/platform"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestOpeningCollectionLifecycle(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"time"
 
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 // startResourceUpdates is owned by the App root scope, including cancellation

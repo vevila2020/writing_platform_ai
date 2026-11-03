@@ -2,12 +2,12 @@ package automationapp
 
 import (
 	"context"
-	apptask "denova/internal/app/task"
 	"errors"
 	"fmt"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"time"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 // processDurableBuiltInTrigger runs schedule and chapter evaluators through

@@ -6,14 +6,14 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestNestedProviderCallIDsReceiveDistinctDurableExecutionIDs(t *testing.T) {

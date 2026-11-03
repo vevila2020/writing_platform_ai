@@ -42,7 +42,7 @@ func (s *Service) downloadAsset(ctx context.Context, url, target string, expecte
 		req.Size = expectedSize
 		req.SetChecksum(sha256.New(), checksum, true)
 		req.HTTPRequest.Header.Set("Accept", "application/octet-stream")
-		req.HTTPRequest.Header.Set("User-Agent", "denova-updater")
+		req.HTTPRequest.Header.Set("User-Agent", "inkdock-updater")
 		slog.InfoContext(ctx, "update_download_started", "asset", filepath.Base(target), "attempt", attempt)
 		resp := client.Do(req)
 		ticker := time.NewTicker(200 * time.Millisecond)

@@ -6,11 +6,11 @@ import (
 	"io"
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 // applyModelOutputToolSafety rejects calls from an incomplete model response.
@@ -43,18 +43,18 @@ func incompleteModelToolArgumentsMessage(
 	}
 	reason := "model_output_incomplete"
 	retryable := true
-	explanation := "The provider returned an incomplete model response, so the tool arguments may be incomplete. Denova blocked execution with no side effects; retry the model step."
+	explanation := "The provider returned an incomplete model response, so the tool arguments may be incomplete. InkDock blocked execution with no side effects; retry the model step."
 	switch class {
 	case agentmodel.ModelFinishReasonOutputLimit:
 		reason = "model_output_token_limit"
-		explanation = "The model reached its output-token limit, so the tool arguments are incomplete. Denova blocked execution with no side effects; retry with shorter arguments or split the task."
+		explanation = "The model reached its output-token limit, so the tool arguments are incomplete. InkDock blocked execution with no side effects; retry with shorter arguments or split the task."
 	case agentmodel.ModelFinishReasonContextLimit:
 		reason = "model_context_window_exceeded"
-		explanation = "The model reached its context-window limit, so the tool arguments may be incomplete. Denova blocked execution with no side effects; reduce the request or output limit before retrying."
+		explanation = "The model reached its context-window limit, so the tool arguments may be incomplete. InkDock blocked execution with no side effects; reduce the request or output limit before retrying."
 	case agentmodel.ModelFinishReasonContentFilter:
 		reason = "model_output_interrupted_by_content_filter"
 		retryable = false
-		explanation = "Content filtering interrupted the model response, so the tool arguments are incomplete. Denova blocked execution with no side effects."
+		explanation = "Content filtering interrupted the model response, so the tool arguments are incomplete. InkDock blocked execution with no side effects."
 	}
 	return fmt.Sprintf(`[tool error]
 type: incomplete_tool_arguments

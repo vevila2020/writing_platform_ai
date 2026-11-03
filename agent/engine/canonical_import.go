@@ -7,10 +7,10 @@ import (
 	"log/slog"
 	"strings"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // CanonicalImportRequest is a detached snapshot. Planning never mutates the

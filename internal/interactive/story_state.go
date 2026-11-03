@@ -7,11 +7,11 @@ import (
 	"log/slog"
 	"strings"
 
-	interactivestate "denova/internal/interactive/state"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func sanitizeDisplayEvents(events []DisplayEvent) []DisplayEvent {

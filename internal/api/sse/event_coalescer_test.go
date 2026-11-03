@@ -3,8 +3,8 @@ package sse
 import (
 	"testing"
 
-	novaApp "denova/internal/app"
-	apptask "denova/internal/app/task"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func TestCoalesceTaskEventsPreservesExactTextAndLastCursor(t *testing.T) {

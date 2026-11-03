@@ -7,7 +7,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 const searchCacheBytes = 16 << 20

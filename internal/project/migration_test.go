@@ -13,19 +13,19 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
-	productsession "denova/internal/agents/session"
-	"denova/internal/assetstore"
-	"denova/internal/book/lore"
-	bookversions "denova/internal/book/versions"
-	"denova/internal/interactive"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	bookversions "github.com/vevila2020/writing_platform_ai/internal/book/versions"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestEnsureStoreCopiesLegacyProjectDataWithoutDeletingSource(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
 	legacyRoot := workspacelayout.Dir(workspace)
 	fixtures := map[string]string{
@@ -46,7 +46,7 @@ func TestEnsureStoreCopiesLegacyProjectDataWithoutDeletingSource(t *testing.T) {
 		}
 	}
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -86,12 +86,12 @@ func TestEnsureStoreCopiesLegacyProjectDataWithoutDeletingSource(t *testing.T) {
 }
 
 func TestResolveMissingProjectDefersStateMigrationUntilContentReturns(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := filepath.Join(t.TempDir(), "book")
 	if err := os.MkdirAll(workspace, 0o755); err != nil {
 		t.Fatal(err)
 	}
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -129,9 +129,9 @@ func TestResolveMissingProjectDefersStateMigrationUntilContentReturns(t *testing
 }
 
 func TestResolveMalformedExternalProjectForArchiveDoesNotOpenWorkspace(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	const projectID = "project-broken-path"
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	if err := registry.saveLocked(registryData{
 		Version: registryVersion,
 		Projects: []Record{{
@@ -141,7 +141,7 @@ func TestResolveMalformedExternalProjectForArchiveDoesNotOpenWorkspace(t *testin
 			StoreDirName: "Book",
 			Location: ProjectLocation{
 				Kind: LocationExternal,
-				Path: `D:\mnt\d\Code\denova\D:\mnt\d\Code\denova\.denova\projects\Book`,
+				Path: `D:\mnt\d\Code\denova\D:\mnt\d\Code\denova\.inkdock\projects\Book`,
 			},
 		}},
 	}); err != nil {
@@ -168,9 +168,9 @@ func TestResolveMalformedExternalProjectForArchiveDoesNotOpenWorkspace(t *testin
 }
 
 func TestEnsureStoreRejectsUnsupportedIntermediateReceipt(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -191,9 +191,9 @@ func TestEnsureStoreRejectsUnsupportedIntermediateReceipt(t *testing.T) {
 }
 
 func TestEnsureStoreMigratesReleasedReceiptWithoutRecopyingData(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -252,8 +252,8 @@ func TestEnsureStoreMigratesReleasedReceiptWithoutRecopyingData(t *testing.T) {
 }
 
 func TestRegistryDefersReleasedReceiptsUntilStoreIsUsed(t *testing.T) {
-	denovaDir := t.TempDir()
-	registry := NewRegistry(denovaDir)
+	inkdockDir := t.TempDir()
+	registry := NewRegistry(inkdockDir)
 	workspaces := []string{t.TempDir(), t.TempDir()}
 	records := make([]Record, 0, len(workspaces))
 	for _, workspace := range workspaces {
@@ -285,7 +285,7 @@ func TestRegistryDefersReleasedReceiptsUntilStoreIsUsed(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	projects, err := NewRegistry(denovaDir).List(true)
+	projects, err := NewRegistry(inkdockDir).List(true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -301,7 +301,7 @@ func TestRegistryDefersReleasedReceiptsUntilStoreIsUsed(t *testing.T) {
 	}
 	// Listing a missing or unused Project must not mutate its Store.
 	for _, record := range records {
-		receiptPath := filepath.Join(denovaDir, storeDirectoryName, record.StoreDirName, "migration.json")
+		receiptPath := filepath.Join(inkdockDir, storeDirectoryName, record.StoreDirName, "migration.json")
 		raw, err := os.ReadFile(receiptPath)
 		if err != nil || !strings.Contains(string(raw), `"source"`) {
 			t.Fatalf("listing migrated an unused Store: %s %v", raw, err)
@@ -314,7 +314,7 @@ func TestRegistryDefersReleasedReceiptsUntilStoreIsUsed(t *testing.T) {
 	}
 
 	for _, record := range records {
-		receiptPath := filepath.Join(denovaDir, storeDirectoryName, record.StoreDirName, "migration.json")
+		receiptPath := filepath.Join(inkdockDir, storeDirectoryName, record.StoreDirName, "migration.json")
 		raw, err := os.ReadFile(receiptPath)
 		if err != nil {
 			t.Fatal(err)
@@ -333,7 +333,7 @@ func TestRegistryDefersReleasedReceiptsUntilStoreIsUsed(t *testing.T) {
 }
 
 func TestEnsureStoreMigratesReleasedVersionRepositoryWithoutDeletingSource(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
 	chapter := filepath.Join(workspace, "chapters", "ch0001.md")
 	if err := os.MkdirAll(filepath.Dir(chapter), 0o755); err != nil {
@@ -350,7 +350,7 @@ func TestEnsureStoreMigratesReleasedVersionRepositoryWithoutDeletingSource(t *te
 	}
 	legacy.Close()
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -374,7 +374,7 @@ func TestEnsureStoreMigratesReleasedVersionRepositoryWithoutDeletingSource(t *te
 }
 
 func TestEnsureStoreIsIdempotentForConcurrentProjectResolution(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
 	legacyChanges := workspacelayout.Path(workspace, "changes")
 	if err := os.MkdirAll(legacyChanges, 0o755); err != nil {
@@ -384,7 +384,7 @@ func TestEnsureStoreIsIdempotentForConcurrentProjectResolution(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -427,7 +427,7 @@ func TestEnsureStoreRejectsLegacySymlinks(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		t.Skip("requires optional Windows symlink privileges")
 	}
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	workspace := t.TempDir()
 	legacySessions := workspacelayout.Path(workspace, "sessions")
 	if err := os.MkdirAll(filepath.Dir(legacySessions), 0o755); err != nil {
@@ -436,7 +436,7 @@ func TestEnsureStoreRejectsLegacySymlinks(t *testing.T) {
 	if err := os.Symlink(t.TempDir(), legacySessions); err != nil {
 		t.Fatal(err)
 	}
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)
@@ -447,8 +447,8 @@ func TestEnsureStoreRejectsLegacySymlinks(t *testing.T) {
 }
 
 func TestShallowAssetsMigrationPreservesAttributesJournalsAndVersionRestore(t *testing.T) {
-	workspace, denovaDir := t.TempDir(), t.TempDir()
-	registry := NewRegistry(denovaDir)
+	workspace, inkdockDir := t.TempDir(), t.TempDir()
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(workspace, TypeBook, "Book")
 	if err != nil {
 		t.Fatal(err)

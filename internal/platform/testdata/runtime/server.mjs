@@ -11,7 +11,7 @@ input.once('line', line => {
   const server = createServer(async (request, response) => {
     if (request.headers.authorization !== `Bearer ${bootstrap.hostToken}`) return response.writeHead(403).end();
     try {
-      if (request.url === '/__denova/ready') return response.end('denova-runtime-v1');
+      if (request.url === '/__inkdock/ready') return response.end('inkdock-runtime-v1');
       if (request.method === 'POST' && request.url === '/tools/probe') {
         for await (const _ of request) { /* Drain the validated request body. */ }
         return json(response, { content: 'Probe completed.', data: { value: bootstrap.context.settings.enabled ? 2 : 3 } });
@@ -31,5 +31,5 @@ input.once('line', line => {
   const close = () => { server.close(); server.closeAllConnections(); input.close(); };
   input.on('line', close);
   input.on('close', () => { server.close(); server.closeAllConnections(); });
-  server.listen(0, '127.0.0.1', () => console.log(JSON.stringify({ type: 'ready', protocol: 'denova-runtime-v1', port: server.address().port })));
+  server.listen(0, '127.0.0.1', () => console.log(JSON.stringify({ type: 'ready', protocol: 'inkdock-runtime-v1', port: server.address().port })));
 });

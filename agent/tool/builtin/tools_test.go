@@ -14,15 +14,15 @@ import (
 	"testing"
 	"time"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestMain(m *testing.M) {
-	if os.Getenv("DENOVA_TEST_RIPGREP_HELPER") == "1" {
+	if os.Getenv("INKDOCK_TEST_RIPGREP_HELPER") == "1" {
 		for _, arg := range os.Args[1:] {
 			if arg == "--no-config" {
-				fmt.Fprint(os.Stdout, os.Getenv("DENOVA_TEST_RIPGREP_OUTPUT"))
+				fmt.Fprint(os.Stdout, os.Getenv("INKDOCK_TEST_RIPGREP_OUTPUT"))
 				os.Exit(0)
 			}
 		}
@@ -625,8 +625,8 @@ func TestLocalWorkspaceGlobAndGrep(t *testing.T) {
 
 func TestLocalWorkspaceGrepUsesConfiguredRipgrep(t *testing.T) {
 	t.Setenv("PATH", t.TempDir())
-	t.Setenv("DENOVA_TEST_RIPGREP_HELPER", "1")
-	t.Setenv("DENOVA_TEST_RIPGREP_OUTPUT", "chapters/one.md\n")
+	t.Setenv("INKDOCK_TEST_RIPGREP_HELPER", "1")
+	t.Setenv("INKDOCK_TEST_RIPGREP_OUTPUT", "chapters/one.md\n")
 	workspace, err := OpenWorkspaceWithOptions(WorkspaceOptions{Root: t.TempDir(), RipgrepExecutable: os.Args[0]})
 	if err != nil {
 		t.Fatal(err)
@@ -870,7 +870,7 @@ func TestBashUsesCapturedBaseEnvironmentAndExplicitOverrides(t *testing.T) {
 		Shell:     ShellBash,
 		BaseEnvironment: []string{
 			"PATH=" + os.Getenv("PATH"),
-			"DENOVA_PROFILE_VALUE=from-login-shell",
+			"INKDOCK_PROFILE_VALUE=from-login-shell",
 			"PWD=/stale/profile/directory",
 		},
 	})
@@ -878,8 +878,8 @@ func TestBashUsesCapturedBaseEnvironmentAndExplicitOverrides(t *testing.T) {
 		t.Fatal(err)
 	}
 	result, err := runner.Run(context.Background(), CommandRequest{
-		Command: `printf '%s|%s' "$DENOVA_PROFILE_VALUE" "$PWD"`,
-		Env:     map[string]string{"DENOVA_PROFILE_VALUE": "explicit-override"},
+		Command: `printf '%s|%s' "$INKDOCK_PROFILE_VALUE" "$PWD"`,
+		Env:     map[string]string{"INKDOCK_PROFILE_VALUE": "explicit-override"},
 	}, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -1065,8 +1065,8 @@ func TestBashSupportsCwdEnvTimeoutMergedOrderAndPTY(t *testing.T) {
 		t.Fatal(err)
 	}
 	result, err := runner.Run(context.Background(), CommandRequest{
-		Command: `printf '%s:%s:' "$NOVA_TEST_VALUE" "$PWD"; printf out; printf err >&2; printf tail`,
-		Cwd:     "sub", Env: map[string]string{"NOVA_TEST_VALUE": "env-ok"},
+		Command: `printf '%s:%s:' "$INKDOCK_TEST_VALUE" "$PWD"; printf out; printf err >&2; printf tail`,
+		Cwd:     "sub", Env: map[string]string{"INKDOCK_TEST_VALUE": "env-ok"},
 	}, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -1215,7 +1215,7 @@ func (writer *memoryToolArtifactWriter) Commit() (agentschema.ToolArtifactRef, e
 	writer.terminal = true
 	return agentschema.ToolArtifactRef{
 		ID: "memory-artifact", Purpose: writer.store.purpose,
-		ReadablePath: ".denova/artifacts/test/memory.log",
+		ReadablePath: ".inkdock/artifacts/test/memory.log",
 		ContentType:  "text/plain; charset=utf-8", EstimatedBytes: int64(writer.store.content.Len()),
 		EstimatedTokens: (writer.store.content.Len() + 3) / 4, Complete: true, SHA256: strings.Repeat("0", 64),
 	}, nil

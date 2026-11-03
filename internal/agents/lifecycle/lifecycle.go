@@ -1,4 +1,4 @@
-// Package lifecycle adapts Denova's application boundary to the public
+// Package lifecycle adapts InkDock's application boundary to the public
 // Agent -> Session -> Run lifecycle.
 package lifecycle
 
@@ -6,18 +6,18 @@ import (
 	"context"
 	"errors"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agenttrace "github.com/alfredxw/denova/agent/lifecycle/trace"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agenttrace "github.com/vevila2020/writing_platform_ai/agent/lifecycle/trace"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
-// Lifecycle-facing aliases keep application packages on Denova's adapter
+// Lifecycle-facing aliases keep application packages on InkDock's adapter
 // boundary while preserving the public lifecycle API unchanged.
 type Agent = agent.Agent
 type Session = agent.Session
@@ -42,7 +42,7 @@ type ContextCommitRequest = agentcanonical.ContextCommitRequest
 type EffectRequest = agentcanonical.EffectRequest
 type EffectResult = agentcanonical.EffectResult
 
-// Config declares Denova-owned Session storage and optional integrations.
+// Config declares InkDock-owned Session storage and optional integrations.
 type Config struct {
 	Store             agentsession.Store
 	Trace             agenttrace.TraceSink
@@ -50,7 +50,7 @@ type Config struct {
 	CacheKeyGenerator agentschema.CacheKeyGenerator
 }
 
-// DefaultRunIDGenerator is Denova's application-owned execution identity
+// DefaultRunIDGenerator is InkDock's application-owned execution identity
 // policy. Agent treats the returned value as opaque.
 func DefaultRunIDGenerator(agent.RunIDRequest) (string, error) {
 	return agentrun.NewID("run"), nil
@@ -58,10 +58,10 @@ func DefaultRunIDGenerator(agent.RunIDRequest) (string, error) {
 
 func New(ctx context.Context, source agent.Source, config Config) (*Agent, error) {
 	if config.Store == nil {
-		return nil, errors.New("Denova Agent lifecycle Store is required")
+		return nil, errors.New("InkDock Agent lifecycle Store is required")
 	}
 	if source == nil {
-		return nil, errors.New("Denova Agent lifecycle Source is required")
+		return nil, errors.New("InkDock Agent lifecycle Source is required")
 	}
 	runIDs := config.RunIDGenerator
 	if runIDs == nil {

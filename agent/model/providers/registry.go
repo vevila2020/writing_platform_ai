@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 // EndpointPreset supplies optional defaults for one provider/protocol route.

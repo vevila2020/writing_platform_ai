@@ -8,7 +8,7 @@ test('resource errors are localized by the API before reaching the UI', async ({
     ['en-US', 'The operation could not complete'],
   ]) {
     const response = await request.post('/api/resource-exchange/previews', {
-      headers: { 'X-Denova-Locale': locale },
+      headers: { 'X-InkDock-Locale': locale },
       data: { kind: 'github', url: 'http://invalid.example/repository' },
     })
     expect(response.status()).toBe(400)

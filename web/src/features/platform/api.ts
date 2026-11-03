@@ -201,7 +201,7 @@ export async function consumer<T>(
     headers: {
       ...jsonHeaders,
       Authorization: `Bearer ${runtime.connection.token}`,
-      ...(runtime.connection.consumerId ? { 'X-Denova-Consumer': runtime.connection.consumerId } : {}),
+      ...(runtime.connection.consumerId ? { 'X-InkDock-Consumer': runtime.connection.consumerId } : {}),
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   })

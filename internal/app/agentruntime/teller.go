@@ -1,11 +1,11 @@
 package agentruntime
 
 import (
-	"denova/config"
-	"denova/internal/agents/prompts"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func WritingTellerForConfig(cfg *config.Config) prompts.IDEStoryTeller {

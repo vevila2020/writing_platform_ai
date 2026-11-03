@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
-	booklore "denova/internal/book/lore"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 const (

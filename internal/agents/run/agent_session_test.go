@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
-func TestAgentSessionKeyRoundTripsEveryDenovaBinding(t *testing.T) {
+func TestAgentSessionKeyRoundTripsEveryInkDockBinding(t *testing.T) {
 	cases := []RuntimeBinding{
 		{AgentKind: AgentKindIDE, ProjectID: "project", Workspace: "/book", SessionID: "writing"},
 		{AgentKind: AgentKindIDE, Mode: ModeAgentChat, ProjectID: "project", Workspace: "/mutable", SessionID: "ide-chat"},
@@ -41,7 +41,7 @@ func TestAgentSessionKeyRoundTripsEveryDenovaBinding(t *testing.T) {
 	}
 }
 
-func TestDenovaSessionSelectorsMatchOnlyTheirOwnedLanes(t *testing.T) {
+func TestInkDockSessionSelectorsMatchOnlyTheirOwnedLanes(t *testing.T) {
 	key := func(binding RuntimeBinding) agentsession.Key {
 		t.Helper()
 		result, err := binding.AgentSessionKey()

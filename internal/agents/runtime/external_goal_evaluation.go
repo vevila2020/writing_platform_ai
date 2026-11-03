@@ -6,8 +6,8 @@ import (
 	"errors"
 	"strings"
 
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // External Goal evaluation uses a provider's read-only session fork. Native

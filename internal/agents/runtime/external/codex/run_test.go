@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 func TestPublicSummaryAndTextStreamBeforeTurnCompletion(t *testing.T) {

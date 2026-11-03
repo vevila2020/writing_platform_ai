@@ -1,6 +1,6 @@
 package resourcecatalog
 
-import "denova/internal/interactive"
+import "github.com/vevila2020/writing_platform_ai/internal/interactive"
 
 func (s *Service) GamePlanningTemplates() ([]interactive.GamePlanningTemplate, error) {
 	if err := s.ready(); err != nil {

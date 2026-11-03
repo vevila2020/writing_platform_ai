@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	agentcontext "denova/internal/agents/context"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Append 追加消息并持久化到磁盘。

@@ -6,17 +6,17 @@ import (
 	"runtime"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/configresource"
-	novaskills "denova/internal/agents/skills"
-	"denova/internal/webaccess"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/configresource"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/webaccess"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
-// Catalog is the only construction boundary for Denova's concrete tools. It
+// Catalog is the only construction boundary for InkDock's concrete tools. It
 // selects executable definitions from resolved capabilities; implementations
 // remain in their cohesive modules and host differences remain in Adapters.
 type Catalog struct {

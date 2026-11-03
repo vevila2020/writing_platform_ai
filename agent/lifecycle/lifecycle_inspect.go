@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // RunSnapshot is a read-only view of one exact accepted Run. Result is nil until

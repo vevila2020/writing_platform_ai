@@ -94,7 +94,7 @@ test('searches saved conversation bodies and downloads the full visible Markdown
   try {
     await expect.poll(async () => (await getModelStatus(request)).delayed_waiting_by_marker.E2E_DELAYED_AGENT_REPLY ?? 0).toBe(1)
     const english = await request.get(`${apiPath}/session/export?session_id=${session.id}`, {
-      headers: { 'X-Denova-Locale': 'en-US' },
+      headers: { 'X-InkDock-Locale': 'en-US' },
     })
     expect(english.ok()).toBe(true)
     const snapshot = await english.text()

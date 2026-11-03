@@ -4,9 +4,9 @@ import (
 	"context"
 	"log/slog"
 
-	"denova/internal/analytics"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 )
 
 func (h *Handlers) HandleAnalyticsGet(_ context.Context, c *app.RequestContext) {

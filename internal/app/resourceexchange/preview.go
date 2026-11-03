@@ -15,13 +15,13 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/skills"
-	"denova/internal/buildinfo"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
 	"github.com/Masterminds/semver/v3"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func decode(raw []byte, value any) error {
@@ -189,7 +189,7 @@ func (s *Service) Preview(ctx context.Context, source Source, data []byte) (Prev
 		return Preview{}, fmt.Errorf("source contains no package files")
 	}
 	if source.Kind == "github" && (files["denova.plugin.json"] != nil || files["denova.game.json"] != nil) {
-		directory, err := os.MkdirTemp("", "denova-release-")
+		directory, err := os.MkdirTemp("", "inkdock-release-")
 		if err != nil {
 			return Preview{}, err
 		}
@@ -341,7 +341,7 @@ func (s *Service) preparePackage(ctx context.Context, dir, root string, manifest
 		if buildinfo.Version != "dev" {
 			current, err := semver.NewVersion(buildinfo.Version)
 			if err != nil || current.LessThan(minimum) {
-				return PackagePreview{}, fmt.Errorf("package requires Denova %s", minimum)
+				return PackagePreview{}, fmt.Errorf("package requires InkDock %s", minimum)
 			}
 		}
 	}

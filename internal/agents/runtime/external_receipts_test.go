@@ -12,15 +12,15 @@ import (
 	"strings"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	"denova/internal/agents/sessionjournal"
-	"denova/internal/interactive"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type receiptJournal struct {

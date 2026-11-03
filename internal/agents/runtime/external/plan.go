@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 // PlanEvent is an observed provider snapshot, never a host tool invocation.

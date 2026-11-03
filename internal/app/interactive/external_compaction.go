@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/runtime/external"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 // CompactExternal does not accept a player input, create a draft or advance the

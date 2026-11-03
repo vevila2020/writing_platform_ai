@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestCustomAgentOwnsWorkflowWithoutReplacingProtectedContracts(t *testing.T) {
@@ -23,7 +23,7 @@ func TestCustomAgentOwnsWorkflowWithoutReplacingProtectedContracts(t *testing.T)
 		t.Fatal(err)
 	}
 	instruction := composition.Instruction()
-	for _, required := range []string{"Denova Runtime Contract", "Output Protocol", "CUSTOM WORKFLOW"} {
+	for _, required := range []string{"InkDock Runtime Contract", "Output Protocol", "CUSTOM WORKFLOW"} {
 		if !strings.Contains(instruction, required) {
 			t.Fatalf("custom Agent instruction missing %q:\n%s", required, instruction)
 		}

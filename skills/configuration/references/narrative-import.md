@@ -25,7 +25,7 @@ Only those entries were selected. Do not invent or enable other source styles.
   hidden reasoning, guardrail overrides, assistant prefills, history/character
   injection markers, and frontend/output-processing instructions. Preserve their
   independent prose requirements when they can be separated reliably.
-- Native slots describe prose, not execution. Do not replace Denova's tools,
+- Native slots describe prose, not execution. Do not replace InkDock's tools,
   workflow, facts, player choices, or turn submission protocol. Prefer stable
   `system` rules; use `turn_context` only for a genuine per-turn prose instruction.
   Source message roles and injection depths are not native slot targets.

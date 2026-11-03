@@ -11,11 +11,11 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const modelInputCacheScopes = 128

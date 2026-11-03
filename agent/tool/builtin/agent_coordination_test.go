@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	filesession "github.com/alfredxw/denova/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	filesession "github.com/vevila2020/writing_platform_ai/agent/session/file"
 )
 
 func TestAgentControlsKeepRunIdentityAndReceipts(t *testing.T) {

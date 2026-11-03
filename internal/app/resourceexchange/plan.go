@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/skills"
-	"denova/internal/book/lore"
-	"denova/internal/platform"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func (s *Service) snapshot(ctx context.Context, target FileTarget) (revisionfile.Snapshot, error) {
@@ -319,7 +319,7 @@ func (s *Service) Plan(ctx context.Context, request PlanRequest) (Plan, error) {
 			if err != nil {
 				return Plan{}, err
 			}
-			delete(files, ".denova-source.json")
+			delete(files, ".inkdock-source.json")
 			if binding.Local.ID != resource.Name {
 				renamed, err := skills.RenameDocument(string(files["SKILL.md"]), binding.Local.ID)
 				if err != nil {

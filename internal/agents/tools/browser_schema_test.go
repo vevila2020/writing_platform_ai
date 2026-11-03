@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	browserruntime "denova/internal/browser"
+	browserruntime "github.com/vevila2020/writing_platform_ai/internal/browser"
 )
 
 type schemaBrowserController struct{ actions []string }

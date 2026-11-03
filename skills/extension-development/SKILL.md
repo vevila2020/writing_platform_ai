@@ -1,6 +1,6 @@
 ---
 name: extension-development
-description: Develop, repair, and validate a Denova plugin or playable game in its source Project.
+description: Develop, repair, and validate an InkDock plugin or playable game in its source Project.
 category: development
 agent: general,ide
 ---

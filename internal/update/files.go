@@ -1,8 +1,8 @@
 package update
 
 import (
-	"denova/internal/localfs"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 	"io"
 	"os"
 	"path/filepath"

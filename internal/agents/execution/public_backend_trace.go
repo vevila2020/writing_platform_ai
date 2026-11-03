@@ -8,17 +8,17 @@ import (
 	"sync"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/statistics"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/statistics"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
-// publicAgentRunTrace projects the public Agent lifecycle into Denova's
+// publicAgentRunTrace projects the public Agent lifecycle into InkDock's
 // bounded local trace. Public Agent events are the canonical source here: they
 // cover every model/tool cycle without introducing a second execution ID.
 type publicAgentRunTrace struct {

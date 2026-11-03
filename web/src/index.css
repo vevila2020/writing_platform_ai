@@ -2424,7 +2424,7 @@ html[data-nova-motion="off"] .nova-change-review-layer {
 }
 
 /* Streamdown supplies its own block and list spacing. Keep Agent Markdown rhythm
-   compact instead of stacking those defaults with Denova's reading styles. */
+   compact instead of stacking those defaults with InkDock's reading styles. */
 .nova-streamdown p {
   margin: 0.3em 0;
 }

@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 const browserSessionLifetime = 30 * 24 * time.Hour

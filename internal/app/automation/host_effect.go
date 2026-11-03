@@ -2,16 +2,16 @@ package automationapp
 
 import (
 	"context"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
 	"encoding/json"
 	"errors"
 	"fmt"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 	"log/slog"
 	"strings"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 const admittedToolMutationVersion = 1

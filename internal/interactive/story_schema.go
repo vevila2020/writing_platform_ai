@@ -1,13 +1,13 @@
 package interactive
 
 import (
-	interactivestate "denova/internal/interactive/state"
 	"encoding/json"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 )
 
 const (

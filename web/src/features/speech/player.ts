@@ -136,7 +136,7 @@ export class SpeechPlayer {
       if (!url) {
         this.requestID = randomUUID()
         const response = await fetchAPI('/api/speech', { method: 'POST', signal: abort.signal, suppressBackendUnavailableToast: true,
-          headers: { 'Content-Type': 'application/json', 'X-Denova-Locale': i18n.language },
+          headers: { 'Content-Type': 'application/json', 'X-InkDock-Locale': i18n.language },
           body: JSON.stringify({ id: this.requestID, input: task.chunks[index], ...(task.preview ? { preview: task.preview } : {}) }) })
         if (!response.ok) throw await responseAPIError(response)
         const blob = await response.blob()

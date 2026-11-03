@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/internal/publicnet"
+	"github.com/vevila2020/writing_platform_ai/internal/publicnet"
 )
 
 const maxBrowserURLRunes = 4096

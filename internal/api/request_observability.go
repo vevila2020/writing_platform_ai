@@ -10,7 +10,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 // requestObservabilityMiddleware gives every HTTP request a server-owned ID,

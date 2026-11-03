@@ -4,19 +4,19 @@ import (
 	"context"
 	"fmt"
 
-	"denova/config"
-	"denova/internal/agents/agentprofile"
-	"denova/internal/agents/conversationconfig"
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/agents/lifecycle"
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/toolruntime"
-	producttools "denova/internal/agents/tools"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/agentprofile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 // ExternalAssembly contains reusable product capabilities only. The caller

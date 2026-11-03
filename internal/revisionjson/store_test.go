@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 type testValue struct {

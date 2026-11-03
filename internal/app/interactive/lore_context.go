@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/book/lore"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 const ResolvedLoreContextMaxBytes = interactive.StoryContextMaxBytes

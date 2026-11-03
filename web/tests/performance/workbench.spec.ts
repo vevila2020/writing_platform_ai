@@ -22,7 +22,7 @@ test('measures startup, every primary destination, and shared API reads', async 
   await page.route('**/api/resource-market/catalog', route => route.fulfill({ json: { schema_version: 1, entries: [] } }))
   await page.addInitScript(() => {
     const measurements = { startupMs: 0, navigationMs: 0 }
-    ;(window as unknown as { denovaPerformance: typeof measurements }).denovaPerformance = measurements
+    ;(window as unknown as { denovaPerformance: typeof measurements }).inkdockPerformance = measurements
     let navigation: { started: number; previous: Element | null } | undefined
     let framePending = false
     const section = () => document.querySelector('[data-testid="main"] section[aria-hidden="false"]')
@@ -63,7 +63,7 @@ test('measures startup, every primary destination, and shared API reads', async 
       const scripts = resources.filter(entry => /\/assets\/.*\.js(?:\?|$)/.test(entry.name))
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
       return {
-        readyMs: (window as unknown as { denovaPerformance: { startupMs: number } }).denovaPerformance.startupMs,
+        readyMs: (window as unknown as { denovaPerformance: { startupMs: number } }).inkdockPerformance.startupMs,
         domContentLoadedMs: navigation.domContentLoadedEventEnd,
         scriptBytes: scripts.reduce((sum, entry) => sum + entry.decodedBodySize, 0), scriptRequests: scripts.length,
       }
@@ -94,7 +94,7 @@ test('measures startup, every primary destination, and shared API reads', async 
         await page.waitForFunction(previous => document.querySelector('[data-testid="main"] section[aria-hidden="false"]') !== previous, oldSection)
         await expect(page.locator('[data-slot=loading-state]:visible')).toHaveCount(0)
         await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
-        const elapsed = await page.evaluate(() => (window as unknown as { denovaPerformance: { navigationMs: number } }).denovaPerformance.navigationMs)
+        const elapsed = await page.evaluate(() => (window as unknown as { denovaPerformance: { navigationMs: number } }).inkdockPerformance.navigationMs)
         expect(elapsed).toBeGreaterThan(0)
         const routes = phase === 'cold' ? coldRoutes : warmRoutes
         ;(routes[destination] ??= []).push(elapsed)
@@ -124,7 +124,7 @@ test('measures startup, every primary destination, and shared API reads', async 
     .sort((left, right) => right.bytes - left.bytes))
   const report = { platform: process.platform, startup, coldRoutes, warmRoutes, api, startupScripts, scripts }
   mkdirSync('test-results', { recursive: true })
-  const output = `test-results/performance-${process.env.DENOVA_PERFORMANCE_LABEL || 'current'}.json`
+  const output = `test-results/performance-${process.env.INKDOCK_PERFORMANCE_LABEL || 'current'}.json`
   writeFileSync(output, JSON.stringify(report, null, 2) + '\n')
   await testInfo.attach('performance', { path: output, contentType: 'application/json' })
 })

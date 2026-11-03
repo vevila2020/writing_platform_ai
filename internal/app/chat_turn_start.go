@@ -2,21 +2,21 @@ package app
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	conversationapp "denova/internal/app/conversation"
-	apptask "denova/internal/app/task"
 	"fmt"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/analytics"
-	appagentruntime "denova/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
 )
 
 func (a *App) StartTask(ctx context.Context, req agentchat.ChatRequest) *apptask.Task {

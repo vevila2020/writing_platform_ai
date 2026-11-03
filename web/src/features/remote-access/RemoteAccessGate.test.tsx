@@ -31,7 +31,7 @@ describe('RemoteAccessGate', () => {
     vi.stubGlobal('fetch', fetchMock)
     mount()
     expect(screen.queryByText('Private workbench')).not.toBeInTheDocument()
-    await screen.findByRole('heading', { name: 'Sign in to Denova' })
+    await screen.findByRole('heading', { name: 'Sign in to InkDock' })
     expect(window.sessionStorage.getItem('nova.remoteAccess.credentials')).toBeNull()
     fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'reader' } })
     fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'secret' } })
@@ -115,7 +115,7 @@ describe('RemoteAccessGate', () => {
     })
     vi.stubGlobal('fetch', fetchMock)
     mount()
-    await screen.findByRole('heading', { name: 'Sign in to Denova' })
+    await screen.findByRole('heading', { name: 'Sign in to InkDock' })
     act(() => {
       window.history.replaceState(null, '', '/#pair=expired')
       fireEvent(window, new Event('hashchange'))

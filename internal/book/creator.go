@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"path/filepath"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // ensureCreatorTemplate seeds missing instructions and replaces only the exact

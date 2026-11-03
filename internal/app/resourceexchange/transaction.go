@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/localfs"
-	"denova/internal/portablepath"
-	"denova/internal/project"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // FileTarget persists a logical location; a Project's current host path is

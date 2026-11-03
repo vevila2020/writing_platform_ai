@@ -74,9 +74,9 @@ function PromptReference({ source, ...editor }: PromptEditorProps & { source: Ag
 
 function fallbackPromptSources(blocks?: AgentPromptBlocks, builtin?: string): AgentPromptSource[] {
   return [
-    ...(blocks?.runtime_contract ? [{ id: 'runtime_contract', title: 'Runtime Contract', source: 'Denova runtime', content: blocks.runtime_contract }] : []),
-    ...(blocks?.output_protocol ? [{ id: 'output_protocol', title: 'Output Format', source: 'Denova runtime', content: blocks.output_protocol }] : []),
-    { id: 'flow', title: 'Flow Rules', source: 'Denova built-in', content: blocks?.editable_system_prompt || builtin || '', editable: true, field: 'flow_prompt' },
+    ...(blocks?.runtime_contract ? [{ id: 'runtime_contract', title: 'Runtime Contract', source: 'InkDock runtime', content: blocks.runtime_contract }] : []),
+    ...(blocks?.output_protocol ? [{ id: 'output_protocol', title: 'Output Format', source: 'InkDock runtime', content: blocks.output_protocol }] : []),
+    { id: 'flow', title: 'Flow Rules', source: 'InkDock built-in', content: blocks?.editable_system_prompt || builtin || '', editable: true, field: 'flow_prompt' },
     { id: 'custom', title: 'Custom Rules', source: 'user/workspace config', content: '', editable: true, field: 'system_prompt' },
   ]
 }

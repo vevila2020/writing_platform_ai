@@ -15,7 +15,7 @@ import (
 // this function stays free of storage concerns.
 func BuildRunUserMessage(task Task, run RunRecord, confirmedSummary string) string {
 	var sb strings.Builder
-	sb.WriteString("Execute this Denova automation task.\n\n")
+	sb.WriteString("Execute this InkDock automation task.\n\n")
 	sb.WriteString(fmt.Sprintf("Task name: %s\n", task.Name))
 	sb.WriteString(fmt.Sprintf("Trigger source: %s\n", run.Trigger))
 	if len(run.TriggerEvidence) > 0 {

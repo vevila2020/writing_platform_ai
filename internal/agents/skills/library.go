@@ -9,10 +9,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
-const librarySettingsFile = ".denova-library.json"
+const librarySettingsFile = ".inkdock-library.json"
 
 // LibrarySettings belongs to a Skill root, not an Agent profile. Global settings
 // control shared discovery and builtin/user availability; Project roots only
@@ -76,7 +76,7 @@ func SetLibraryEnabled(ctx context.Context, dirs []Directory, scope Scope, name 
 	})
 }
 
-// SetSharedEnabled only changes Denova's use of the host's shared library. It
+// SetSharedEnabled only changes InkDock's use of the host's shared library. It
 // never writes into ~/.agents/skills or changes another application's state.
 func SetSharedEnabled(ctx context.Context, dirs []Directory, enabled bool) error {
 	dir, err := directoryForScope(dirs, ScopeUser)
@@ -90,7 +90,7 @@ func editLibrarySettings(ctx context.Context, root string, edit func(*LibrarySet
 	if root == "" {
 		return fmt.Errorf("Skill library settings directory is not configured")
 	}
-	release, err := localfs.AcquireLease(ctx, filepath.Join(root, ".denova-locks", "library.lock"))
+	release, err := localfs.AcquireLease(ctx, filepath.Join(root, ".inkdock-locks", "library.lock"))
 	if err != nil {
 		return err
 	}

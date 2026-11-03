@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 // AgentApprovalMode is the user-owned safety posture snapshotted when an Agent
@@ -22,7 +22,7 @@ const (
 const (
 	// AgentApprovalRuleWorkspace is deliberately the only persisted scope. A
 	// managed Project binds this scope to ProjectID so the authorization moves
-	// with Denova State; an external Project keeps a host workspace boundary.
+	// with InkDock State; an external Project keeps a host workspace boundary.
 	AgentApprovalRuleWorkspace      = "workspace"
 	AgentApprovalRuleMatcherVersion = 1
 	AgentApprovalMatcherShell       = "shell_command"

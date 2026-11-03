@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/session"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestRuntimeTodoHistoryIsAPlanSnapshotWithoutToolExecution(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"slices"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 type portableImage struct {

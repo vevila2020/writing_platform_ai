@@ -1,8 +1,8 @@
 package handlers
 
-import novaApp "denova/internal/app"
-import "denova/internal/hostdialog"
-import "denova/internal/speech"
+import novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+import "github.com/vevila2020/writing_platform_ai/internal/hostdialog"
+import "github.com/vevila2020/writing_platform_ai/internal/speech"
 
 // Handlers owns HTTP request handlers and adapts requests to application services.
 type Handlers struct {

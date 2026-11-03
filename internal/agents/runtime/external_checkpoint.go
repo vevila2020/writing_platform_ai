@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"denova/internal/agents/runtime/external"
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 )
 
 // PrepareExternalHistory is used only for canonical reconstruction. The runtime

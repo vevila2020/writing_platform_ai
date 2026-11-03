@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
-const CompactionSummaryPrefix = "[Denova Context Compaction]"
+const CompactionSummaryPrefix = "[InkDock Context Compaction]"
 
 // NewCompactionSummaryMessage creates the stable model-visible checkpoint
 // envelope shared by writing and game conversations.
@@ -20,7 +20,7 @@ func NewCompactionSummaryMessage(epoch int, summary string) *agentschema.Message
 	), nil)
 }
 
-// IsCompactionSummaryMessage reports whether message is a Denova checkpoint.
+// IsCompactionSummaryMessage reports whether message is a InkDock checkpoint.
 func IsCompactionSummaryMessage(message *agentschema.Message) bool {
 	return message != nil && strings.HasPrefix(strings.TrimSpace(message.Content), CompactionSummaryPrefix)
 }

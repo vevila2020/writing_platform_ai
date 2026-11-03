@@ -9,7 +9,7 @@ const (
 	// StoryStateSchemaModeFixedTemplate freezes the selected reusable template
 	// as-is and never exposes the opening schema tool.
 	StoryStateSchemaModeFixedTemplate = "fixed_template"
-	// StoryStateSchemaModeGenerate starts from Denova's invariant core and lets
+	// StoryStateSchemaModeGenerate starts from InkDock's invariant core and lets
 	// the opening Game Agent build the story-specific fields.
 	StoryStateSchemaModeGenerate = "generate"
 
@@ -103,7 +103,7 @@ func OpeningGameStateSchemaInstruction(meta StoryMeta) string {
 		"After finalization, follow initialization_guide.required_state_changes exactly and initialize every field that still lacks a value in the first submit_interactive_turn.state_changes call. Do not use empty strings or placeholders such as unset, unknown, or pending. The schema draft, opening narrative, initial state, and choices are persisted atomically only when this turn succeeds.",
 	}, " ")
 	if mode == StoryStateSchemaModeGenerate {
-		return base + " The current handbook contains only Denova's non-removable protagonist and story-continuity core. Add only the templates and fields that the actual opening requires for persistent tracking; do not add unused fields merely for completeness."
+		return base + " The current handbook contains only InkDock's non-removable protagonist and story-continuity core. Add only the templates and fields that the actual opening requires for persistent tracking; do not add unused fields merely for completeness."
 	}
 	return base + " The current handbook comes from the user's selected state template. Keep, add, replace, or remove fields so it represents only independently tracked state that this story truly needs. Do not duplicate existing fields for formal completeness, and do not alter fields still bound by TRPG rules. Every writable field retained for an opening Actor must receive a concrete initial value from source facts, a justified inference, or an applicable template default."
 }

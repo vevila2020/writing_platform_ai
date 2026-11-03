@@ -10,9 +10,9 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
 	"github.com/invopop/jsonschema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const readToolContractVersion = 4

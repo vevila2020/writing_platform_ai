@@ -4,7 +4,7 @@ import (
 	"context"
 	"log/slog"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // withProjectStoryRead captures stable Project identity independently of the

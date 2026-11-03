@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 
 	hertzapp "github.com/cloudwego/hertz/pkg/app"
 )

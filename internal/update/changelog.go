@@ -43,7 +43,7 @@ func (s *Service) Changelog(ctx context.Context, version string) (string, error)
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("User-Agent", "denova-update-checker")
+	req.Header.Set("User-Agent", "inkdock-update-checker")
 	resp, err := s.httpClient.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("read release changelog: %w", err)

@@ -5,11 +5,11 @@ import (
 	"strings"
 	"time"
 
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/agents/session"
-	"denova/internal/interactive"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func (c *Conversation) AppendDisplayEvent(event session.DisplayEvent) error {

@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func settledChildForRetirement(t *testing.T) (*Session, *Session) {

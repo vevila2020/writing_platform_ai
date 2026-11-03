@@ -2,8 +2,8 @@ package agentui
 
 import (
 	"bytes"
-	agentrun "denova/internal/agents/run"
 	"encoding/json"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"reflect"
 	"strings"
 	"testing"

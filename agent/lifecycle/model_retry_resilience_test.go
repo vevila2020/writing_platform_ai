@@ -6,13 +6,13 @@ import (
 	"sync/atomic"
 	"testing"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type partialRetryModel struct {

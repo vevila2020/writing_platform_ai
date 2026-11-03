@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import type { OnMount } from '@monaco-editor/react'
 import { Braces, ChevronDown, ChevronRight, Eye } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { DenovaMonacoEditor } from '@/components/monaco/DenovaMonaco'
+import { InkDockMonacoEditor } from '@/components/monaco/InkDockMonaco'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -222,7 +222,7 @@ export function PresetConfigSectionEditor<T extends object>({
             )}
             data-testid="story-director-json-editor"
           >
-            <DenovaMonacoEditor
+            <InkDockMonacoEditor
               height="100%"
               language="json"
               value={jsonDraft}

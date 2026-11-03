@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"slices"
 
-	"denova/config"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // Remember the normalized creation choices, not the Story's later tuning or

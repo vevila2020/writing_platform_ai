@@ -32,7 +32,7 @@ const chatMarkdownControls = {
   mermaid: false,
 } satisfies ControlsConfig
 // Keep Streamdown's HTML sanitization without its final URL hardener: that
-// hardener replaces Denova's bare workspace image paths before our image
+// hardener replaces InkDock's bare workspace image paths before our image
 // component can resolve them through the authenticated Project asset API.
 const chatMarkdownRehypePlugins = [
   defaultRehypePlugins.raw,

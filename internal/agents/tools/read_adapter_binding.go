@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 // ReadAdapterBinding keeps each URI adapter attached to the capability that

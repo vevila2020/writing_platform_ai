@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/internal/agents/runtime/external"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func TestModelDiscoveryPreservesRuntimeChoices(t *testing.T) {
@@ -25,9 +25,9 @@ func TestModelDiscoveryPreservesRuntimeChoices(t *testing.T) {
 }
 
 func TestInstalledClaudeModelDiscovery(t *testing.T) {
-	executable := os.Getenv("DENOVA_TEST_CLAUDE_EXE")
+	executable := os.Getenv("INKDOCK_TEST_CLAUDE_EXE")
 	if executable == "" {
-		t.Skip("set DENOVA_TEST_CLAUDE_EXE to validate the installed runtime")
+		t.Skip("set INKDOCK_TEST_CLAUDE_EXE to validate the installed runtime")
 	}
 	client, err := Connect(t.Context(), ProcessOptions{Launch: hostruntime.ClaudeLaunch{Executable: executable}})
 	if err != nil {

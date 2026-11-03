@@ -3,11 +3,11 @@ package lifecycle
 import (
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 
-	sdkcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	sdkcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestProjectConversationContextSelectsUserRequestBeforeProtocolTail(t *testing.T) {

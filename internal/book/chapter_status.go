@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 const chapterStatusFileName = "chapter_statuses.json"

@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func preserveModelSettingsMigrationBackup(path string, snapshot revisionfile.Snapshot) (string, error) {

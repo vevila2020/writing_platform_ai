@@ -8,11 +8,11 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Manifest is the durable, bounded projection of a registered definition.
@@ -97,7 +97,7 @@ func filterWithManifest(manifest Manifest, args string, result agentschema.ToolR
 	return Filtered{Result: normalized, Manifest: manifest}
 }
 
-// PrepareStructured applies Denova's semantic model projection and stable
+// PrepareStructured applies InkDock's semantic model projection and stable
 // audit metadata without bounding or normalizing the result. The public
 // Agent ResultProcessor must receive this lossless value; callers that need a
 // bounded ledger copy must create one independently through ProjectAudit.

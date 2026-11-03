@@ -1,11 +1,11 @@
 package agents
 
 import (
-	agentchat "denova/internal/agents/chat"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
+	"github.com/vevila2020/writing_platform_ai/agent"
 )
 
 // Product lifecycle vocabulary lives in lifecycle so the execution host can

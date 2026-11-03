@@ -1,6 +1,6 @@
-# Denova 设计规范
+# InkDock 设计规范
 
-Denova 是供创作者长期使用的 AI 创作工作台：**内容居中，工具退后，状态真实**。本文参考 `interface-design`，只保留跨页面的稳定决策；工程与数据约束遵循 [AGENTS.md](AGENTS.md)，组件行为和具体 token 数值以源码为准。
+InkDock 是供创作者长期使用的 AI 创作工作台：**内容居中，工具退后，状态真实**。本文参考 `interface-design`，只保留跨页面的稳定决策；工程与数据约束遵循 [AGENTS.md](AGENTS.md)，组件行为和具体 token 数值以源码为准。
 
 ## 产品与布局
 

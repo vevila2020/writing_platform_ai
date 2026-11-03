@@ -46,7 +46,7 @@ func (sub *subscription) fail(err error) {
 	sub.once.Do(func() { sub.err = err; close(sub.done) })
 }
 
-// Client multiplexes a Denova-owned process. Close interrupts all attempts;
+// Client multiplexes a InkDock-owned process. Close interrupts all attempts;
 // cancelling an individual Run interrupts only its disposable thread.
 type Client struct {
 	mu            sync.Mutex
@@ -145,7 +145,7 @@ func (c *Client) call(ctx context.Context, method string, params, result any) er
 	if err != nil {
 		return err
 	}
-	id := json.RawMessage(fmt.Sprintf(`"denova-%d"`, c.next.Add(1)))
+	id := json.RawMessage(fmt.Sprintf(`"inkdock-%d"`, c.next.Add(1)))
 	response := make(chan packet, 1)
 	c.mu.Lock()
 	c.pending[string(id)] = response

@@ -13,11 +13,11 @@ import (
 	"sync/atomic"
 	"testing"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/openai/openai-go/v3/responses"
 	"github.com/openai/openai-go/v3/shared"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestApplyThinkingLevelCoversOpenAIResponsesEfforts(t *testing.T) {

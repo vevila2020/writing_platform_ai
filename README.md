@@ -20,14 +20,12 @@
 </p>
 
 <p align="center">
-  沿用上游版本号：<strong>v0.6.3</strong>（上游 Release 于 2026-10-20 发布） · Beta · <a href="https://github.com/vevila2020/writing_platform_ai/releases">本项目尚未发布自己的 Release</a>
+  当前版本：<strong>v1.0.0</strong>（2026-11-03 发布） · <a href="https://github.com/vevila2020/writing_platform_ai/releases">发布记录</a>
 </p>
 
 墨栈 AI 基于 [Denova](https://github.com/alfredxw/denova) 开源项目进行二次开发，保留小说写作、互动故事、资料库、AI Agent、图像创作与项目版本管理等能力。
 
 项目规划对接自部署的 Sub2API，并提供用户注册和模型服务使用入口，减少对第三方 API 站点的依赖。**Sub2API 注册集成尚未包含在当前代码中。**
-
-> 当前截图展示的是继承的界面，产品名称和视觉素材会随着后续开发逐步替换。
 
 ![墨栈 AI 写作界面预览](./img/ide.png)
 
@@ -96,7 +94,7 @@ macOS / Linux 可以使用一键安装脚本：
 curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-本项目尚未发布自己的 Release；发布首个版本后，上述安装命令和 [墨栈 AI Releases](https://github.com/vevila2020/writing_platform_ai/releases) 页面会提供安装包。安装完成后运行 `denova`，Windows 运行 `denova.exe`。
+本项目尚未发布自己的 Release；发布首个版本后，上述安装命令和 [墨栈 AI Releases](https://github.com/vevila2020/writing_platform_ai/releases) 页面会提供安装包。安装完成后运行 `inkdock`，Windows 运行 `inkdock.exe`。
 
 稳定使用建议选择 Release；`master` 分支可能包含尚未发布的改动。
 

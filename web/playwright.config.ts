@@ -1,9 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const backendPort = process.env.DENOVA_E2E_BACKEND_PORT || '18080'
-const frontendPort = process.env.DENOVA_E2E_FRONTEND_PORT || '15173'
-const modelPort = process.env.DENOVA_E2E_MODEL_PORT || '18081'
-const packaged = Boolean(process.env.DENOVA_E2E_PACKAGE_DIR)
+const backendPort = process.env.INKDOCK_E2E_BACKEND_PORT || '18080'
+const frontendPort = process.env.INKDOCK_E2E_FRONTEND_PORT || '15173'
+const modelPort = process.env.INKDOCK_E2E_MODEL_PORT || '18081'
+const packaged = Boolean(process.env.INKDOCK_E2E_PACKAGE_DIR)
 const baseURL = `http://127.0.0.1:${packaged ? backendPort : frontendPort}`
 
 export default defineConfig({
@@ -16,10 +16,10 @@ export default defineConfig({
   workers: 1,
   forbidOnly: Boolean(process.env.CI),
   retries: 0,
-  maxFailures: process.env.DENOVA_CI_SUITE === 'smoke' ? 1 : 0,
+  maxFailures: process.env.INKDOCK_CI_SUITE === 'smoke' ? 1 : 0,
   // Push/PR CI exercises both products on the production package. Daily,
   // explicit full runs and release verification retain every regression.
-  grep: process.env.DENOVA_CI_SUITE === 'smoke' ? /@smoke/ : undefined,
+  grep: process.env.INKDOCK_CI_SUITE === 'smoke' ? /@smoke/ : undefined,
   reporter: process.env.CI
     ? [['line'], ['html', { open: 'never' }], ['json', { outputFile: 'test-results/playwright.json' }]]
     : [['list'], ['html', { open: 'never' }]],
@@ -67,7 +67,7 @@ export default defineConfig({
       url: `http://127.0.0.1:${modelPort}/health`,
       reuseExistingServer: false,
       env: {
-        DENOVA_E2E_MODEL_PORT: modelPort,
+        INKDOCK_E2E_MODEL_PORT: modelPort,
       },
     },
     {
@@ -75,8 +75,8 @@ export default defineConfig({
       url: `http://127.0.0.1:${backendPort}/api/status`,
       reuseExistingServer: false,
       env: {
-        DENOVA_E2E_BACKEND_PORT: backendPort,
-        DENOVA_E2E_MODEL_PORT: modelPort,
+        INKDOCK_E2E_BACKEND_PORT: backendPort,
+        INKDOCK_E2E_MODEL_PORT: modelPort,
       },
     },
     ...(!packaged ? [{
@@ -84,9 +84,9 @@ export default defineConfig({
       url: baseURL,
       reuseExistingServer: false,
       env: {
-        DENOVA_BACKEND_PORT: backendPort,
-        DENOVA_FRONTEND_PORT: frontendPort,
-        DENOVA_TEST_VITE_CACHE_DIR: `node_modules/.vite-playwright-${frontendPort}`,
+        INKDOCK_BACKEND_PORT: backendPort,
+        INKDOCK_FRONTEND_PORT: frontendPort,
+        INKDOCK_TEST_VITE_CACHE_DIR: `node_modules/.vite-playwright-${frontendPort}`,
       },
     }] : []),
   ],

@@ -2,7 +2,7 @@ package style
 
 import (
 	"context"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 	"errors"
 	"fmt"
 	"os"
@@ -18,13 +18,13 @@ var ErrReferenceRevisionConflict = errors.New("文风参考文件已被其他来
 
 const (
 	DirName            = "styles"
-	DisplayDir         = ".denova/styles"
+	DisplayDir         = ".inkdock/styles"
 	MaxContentBytes    = 160 * 1024
 	MaxDescriptionSize = 240
 )
 
 type Library struct {
-	novaDir string
+	dataDir string
 }
 
 type Reference struct {
@@ -57,13 +57,13 @@ type UpdateRequest struct {
 	BaseRevision string `json:"base_revision"`
 }
 
-func NewLibrary(novaDir string) *Library {
-	return &Library{novaDir: strings.TrimSpace(novaDir)}
+func NewLibrary(dataDir string) *Library {
+	return &Library{dataDir: strings.TrimSpace(dataDir)}
 }
 
 func (l *Library) List() ([]Reference, error) {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
-		return nil, fmt.Errorf("nova_dir 不可用，无法读取文风参考")
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
+		return nil, fmt.Errorf("数据目录不可用，无法读取文风参考")
 	}
 	if err := os.MkdirAll(l.dir(), 0o755); err != nil {
 		return nil, err
@@ -97,7 +97,7 @@ func (l *Library) List() ([]Reference, error) {
 }
 
 func (l *Library) Resolve(paths []string) []Reference {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
 		return nil
 	}
 	refs := make([]Reference, 0, len(paths))
@@ -136,8 +136,8 @@ func (l *Library) Create(req WriteRequest) (Reference, error) {
 }
 
 func (l *Library) write(req WriteRequest, exclusive bool) (Reference, error) {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
-		return Reference{}, fmt.Errorf("nova_dir 不可用，无法写入文风参考")
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
+		return Reference{}, fmt.Errorf("数据目录不可用，无法写入文风参考")
 	}
 	content := strings.TrimSpace(req.Content)
 	if content == "" {
@@ -185,8 +185,8 @@ func createReferenceFile(dir, filename string, data []byte) error {
 }
 
 func (l *Library) Read(path string) (FileDocument, error) {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
-		return FileDocument{}, fmt.Errorf("nova_dir 不可用，无法读取文风参考")
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
+		return FileDocument{}, fmt.Errorf("数据目录不可用，无法读取文风参考")
 	}
 	stored := NormalizeStoragePath(path)
 	if stored == "" {
@@ -210,8 +210,8 @@ func (l *Library) Read(path string) (FileDocument, error) {
 }
 
 func (l *Library) Update(req UpdateRequest) (FileDocument, error) {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
-		return FileDocument{}, fmt.Errorf("nova_dir 不可用，无法写入文风参考")
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
+		return FileDocument{}, fmt.Errorf("数据目录不可用，无法写入文风参考")
 	}
 	stored := NormalizeStoragePath(req.Path)
 	if stored == "" {
@@ -241,8 +241,8 @@ func (l *Library) Update(req UpdateRequest) (FileDocument, error) {
 }
 
 func (l *Library) Delete(path string) error {
-	if l == nil || strings.TrimSpace(l.novaDir) == "" {
-		return fmt.Errorf("nova_dir 不可用，无法删除文风参考")
+	if l == nil || strings.TrimSpace(l.dataDir) == "" {
+		return fmt.Errorf("数据目录不可用，无法删除文风参考")
 	}
 	stored := NormalizeStoragePath(path)
 	if stored == "" {
@@ -261,7 +261,7 @@ func (l *Library) AbsPath(path string) string {
 }
 
 func (l *Library) dir() string {
-	return filepath.Join(l.novaDir, DirName)
+	return filepath.Join(l.dataDir, DirName)
 }
 
 func (l *Library) referenceFromFile(path string) (Reference, error) {

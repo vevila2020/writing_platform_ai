@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"slices"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // GameCreationDefaults belongs to one Project. It seeds new Stories only;

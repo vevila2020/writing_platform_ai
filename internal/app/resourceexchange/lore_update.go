@@ -10,8 +10,8 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/book/lore"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Content equality excludes generated identities and timestamps, but includes

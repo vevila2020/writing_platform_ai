@@ -8,11 +8,11 @@ import (
 	"errors"
 	"fmt"
 
-	"denova/config"
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 var (

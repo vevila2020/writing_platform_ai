@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
 )
 
 // bindChildTrace gives the child its own recorder and event consumer. Task

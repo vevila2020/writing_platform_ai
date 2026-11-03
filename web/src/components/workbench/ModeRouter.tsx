@@ -84,7 +84,7 @@ export function ModeRouter(props: ModeRouterProps) {
     settingsOpen,
     developerMode = false,
     interactiveRightVisible,
-    novaDir,
+    dataDir,
     books,
     bookSortMode,
     tree,
@@ -819,7 +819,7 @@ export function ModeRouter(props: ModeRouterProps) {
         route={presentedMainRoute}
         isMounted={routeHost.isMounted}
         loadingLabel={t('router.loading')}
-        home={{ workspace, novaDir, books, bookSortMode, onSwitch: onSwitchBook,
+        home={{ workspace, dataDir, books, bookSortMode, onSwitch: onSwitchBook,
           onBeforeSwitch: flushBeforeWorkspaceSwitch, onBooksChange, onOpenCharacterCardImport, onBookImported: () => onSetMode(lastCreationRoute) }}
         automations={{ projectId, workspace, onOpenAgentChat: openAgentChatRoute }}
         resourceTarget={resourceTarget}
@@ -831,7 +831,7 @@ export function ModeRouter(props: ModeRouterProps) {
         loadingLabel={t('router.loading')}
         retentionKey={workspace}
         projectId={projectId}
-        novaDir={novaDir}
+        dataDir={dataDir}
         composerSettings={composerSettings}
         tellers={tellers}
         imagePresets={imagePresets}

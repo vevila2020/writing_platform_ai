@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentinteractive "denova/internal/agents/interactive"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestInteractiveStoryToolMiddlewareBlocksWorkspaceAndHostMutations(t *testing.T) {

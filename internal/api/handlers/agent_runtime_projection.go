@@ -1,6 +1,6 @@
 package handlers
 
-import appsvc "denova/internal/app"
+import appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 
 // HTTP projection DTOs intentionally do not mirror runtime structs. This
 // keeps internal journal/context fields out of the shared writing/game API as

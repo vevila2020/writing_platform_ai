@@ -13,24 +13,24 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Exercise the same preparation/acceptance/settlement used by Writing and
@@ -39,9 +39,9 @@ import (
 func TestInstalledExternalProductExecution(t *testing.T) {
 	for _, engine := range []config.RuntimeID{config.RuntimeCodex, config.RuntimeClaude} {
 		t.Run(string(engine), func(t *testing.T) {
-			executable := os.Getenv("DENOVA_TEST_" + strings.ToUpper(string(engine)) + "_EXE")
+			executable := os.Getenv("INKDOCK_TEST_" + strings.ToUpper(string(engine)) + "_EXE")
 			if executable == "" {
-				t.Skip("set the corresponding DENOVA_TEST runtime executable to exercise real CLI execution")
+				t.Skip("set the corresponding INKDOCK_TEST runtime executable to exercise real CLI execution")
 			}
 			for _, source := range []string{"cli", "api"} {
 				t.Run(source, func(t *testing.T) { testInstalledProductExecution(t, engine, executable, source) })
@@ -149,7 +149,7 @@ func testInstalledProductExecution(t *testing.T, engine config.RuntimeID, execut
 			if engine == config.RuntimeClaude {
 				preference = &config.RuntimePreferences{Selected: config.RuntimeClaude, Claude: &config.ClaudeRuntimeSettings{Model: "sonnet"}}
 			}
-			cfg := config.Config{DenovaDir: root, Workspace: workspace, ProjectID: "product-fixture", ProjectStoreDir: filepath.Join(root, "store"), AgentRuntimes: config.AgentRuntimeSettings{IDE: preference, General: preference}}
+			cfg := config.Config{InkDockDir: root, Workspace: workspace, ProjectID: "product-fixture", ProjectStoreDir: filepath.Join(root, "store"), AgentRuntimes: config.AgentRuntimeSettings{IDE: preference, General: preference}}
 			if source == "api" {
 				protocol := "openai-responses"
 				preference.Codex = &config.CodexRuntimeSettings{ProfileID: "api-profile"}

@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/portablepath"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // checkUpgrade starts the target backend against a disposable save copy. The

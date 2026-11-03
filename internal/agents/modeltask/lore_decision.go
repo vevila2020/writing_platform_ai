@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/book/lore"
-	"denova/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 )
 
 // ClassifyLoreItems keeps the existing LLM path when decision selection is off.

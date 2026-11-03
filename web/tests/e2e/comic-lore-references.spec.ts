@@ -5,10 +5,10 @@ import { expect, test, type APIRequestContext, type Locator, type Page } from '.
 import { createAndOpenBook, enablePlugin, registerAgentChatProject } from '../support/api'
 import { modelControlURL, type E2EModelRequest } from '../support/model'
 
-const source = process.env.DENOVA_TEST_COMIC_PLUGIN
+const source = process.env.INKDOCK_TEST_COMIC_PLUGIN
 
 test('native plugin Lore preserves the comic and Agent, flushes edits, and references the current Project', async ({ page, request, browserDiagnostics }, testInfo) => {
-  test.skip(!source, 'Set DENOVA_TEST_COMIC_PLUGIN to the index comic plugin directory')
+  test.skip(!source, 'Set INKDOCK_TEST_COMIC_PLUGIN to the index comic plugin directory')
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fcomic.json/)
   // Episode settings are optional until a script or reference plan is saved.
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fepisodes%2F[0-9a-f-]+%2Fepisode\.json/)
@@ -102,7 +102,7 @@ test('native plugin Lore preserves the comic and Agent, flushes edits, and refer
 })
 
 test('comic @ references use the current Book library even when the previous response arrives late', async ({ page, request, browserDiagnostics }, testInfo) => {
-  test.skip(!source, 'Set DENOVA_TEST_COMIC_PLUGIN to the index comic plugin directory')
+  test.skip(!source, 'Set INKDOCK_TEST_COMIC_PLUGIN to the index comic plugin directory')
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fcomic.json/)
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fepisodes%2F[0-9a-f-]+%2Fepisode\.json/)
   const alpha = await createAndOpenBook(request, 'Comic lore Alpha')
@@ -159,7 +159,7 @@ test('comic @ references use the current Book library even when the previous res
 })
 
 test('the comic workspace sends General Project lore into actual model context', async ({ page, request, browserDiagnostics }, testInfo) => {
-  test.skip(!source, 'Set DENOVA_TEST_COMIC_PLUGIN to the index comic plugin directory')
+  test.skip(!source, 'Set INKDOCK_TEST_COMIC_PLUGIN to the index comic plugin directory')
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fcomic.json/)
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fepisodes%2F[0-9a-f-]+%2Fepisode\.json/)
   const book = await createAndOpenBook(request, 'Comic host installation')

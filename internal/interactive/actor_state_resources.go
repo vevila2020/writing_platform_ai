@@ -3,7 +3,7 @@ package interactive
 import (
 	"fmt"
 
-	interactivestate "denova/internal/interactive/state"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 )
 
 func validateActorResourceFields(template ActorStateTemplate) error {

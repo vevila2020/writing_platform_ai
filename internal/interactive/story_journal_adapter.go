@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 func (s *Store) openStoryJournalLocked(storyID string) (*storyJournalHandle, error) {

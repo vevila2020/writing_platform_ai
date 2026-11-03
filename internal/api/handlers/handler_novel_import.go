@@ -12,8 +12,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // MaxNovelImportUploadBytes limits txt/md novel imports.
@@ -135,13 +135,13 @@ func (h *Handlers) HandleNovelImport(ctx context.Context, c *app.RequestContext)
 		writeError(c, consts.StatusInternalServerError, err.Error())
 		return
 	}
-	if layered.Paths.DenovaDir == "" {
+	if layered.Paths.InkDockDir == "" {
 		writeErrorKey(c, consts.StatusInternalServerError, "api.books.novaDirMissing")
 		return
 	}
 
 	slog.InfoContext(ctx, fmt.Sprintf("[api] Importing novel filename=%q size=%d title=%q strategy=%s regex=%q chapters=%d", filename, len(data), title, preview.SplitStrategy, preview.SplitRegex, preview.ChapterCount))
-	created, err := h.app.CreateBook(ctx, layered.Paths.DenovaDir, title, author, description, preview.Structure)
+	created, err := h.app.CreateBook(ctx, layered.Paths.InkDockDir, title, author, description, preview.Structure)
 	if err != nil {
 		status := consts.StatusInternalServerError
 		if strings.Contains(err.Error(), "已存在") {

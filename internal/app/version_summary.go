@@ -8,10 +8,10 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
-	agentmodeltask "denova/internal/agents/modeltask"
-	"denova/internal/agents/session"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentmodeltask "github.com/vevila2020/writing_platform_ai/internal/agents/modeltask"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 const (
@@ -107,7 +107,7 @@ func buildVersionSummaryInstruction(status book.VersionStatus, source string, bo
 	sort.SliceStable(changes, func(i, j int) bool { return changes[i].Path < changes[j].Path })
 
 	var sb strings.Builder
-	sb.WriteString("请根据以下 Denova 小说工程变更，推理这次版本保存说明。\n")
+	sb.WriteString("请根据以下墨栈 AI 小说工程变更，推理这次版本保存说明。\n")
 	sb.WriteString("要求：只概括对创作内容或工程文件最关键的变化；不要逐文件罗列；不要提到 Git、diff、快照。\n")
 	sb.WriteString(fmt.Sprintf("保存来源：%s\n", versionSourceLabel(source)))
 	sb.WriteString(fmt.Sprintf("变更数量：%d\n", len(changes)))

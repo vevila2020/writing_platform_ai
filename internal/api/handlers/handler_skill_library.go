@@ -4,9 +4,9 @@ import (
 	"context"
 	"log/slog"
 
-	"denova/internal/app/resourcecatalog"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
 )
 
 func (h *Handlers) HandleSkillPreference(ctx context.Context, c *app.RequestContext) {

@@ -5,20 +5,20 @@ import (
 	"testing"
 	"time"
 
-	agentconversation "denova/internal/agents/conversation"
-	agentdelegation "denova/internal/agents/delegation"
-	agentprompts "denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentprompts "github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	"github.com/alfredxw/denova/agent"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 func TestChildTracesRemainIndependentAfterParentStops(t *testing.T) {

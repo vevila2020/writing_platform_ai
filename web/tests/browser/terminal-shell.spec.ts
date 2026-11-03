@@ -73,7 +73,7 @@ test('Windows terminal shell choices persist across Writing and Game', async ({ 
 })
 
 test('installed Windows shells accept commands in workbench terminals', async ({ page, request }) => {
-  test.skip(process.env.DENOVA_TEST_WINDOWS_SHELLS !== '1', 'Requires PowerShell 7 and a configured WSL distribution')
+  test.skip(process.env.INKDOCK_TEST_WINDOWS_SHELLS !== '1', 'Requires PowerShell 7 and a configured WSL distribution')
   test.setTimeout(90_000)
   const book = await createAndOpenBook(request, 'Interactive Shell Book')
   const chat = await createAgentChatSession(request, book.projectId, 'Shell verification')
@@ -94,9 +94,9 @@ test('installed Windows shells accept commands in workbench terminals', async ({
     await expect(input).toBeVisible()
     await expect.poll(() => output).toContain('"type":"ready"')
     await input.focus()
-    await page.keyboard.insertText(shell === 'pwsh.exe' ? "Write-Output ('denova-' + 'interactive-ok')" : "printf 'denova-%s\\n' 'interactive-ok'")
+    await page.keyboard.insertText(shell === 'pwsh.exe' ? "Write-Output ('inkdock-' + 'interactive-ok')" : "printf 'inkdock-%s\\n' 'interactive-ok'")
     await page.keyboard.press('Enter')
-    await expect.poll(() => output, { timeout: 15_000 }).toContain('denova-interactive-ok')
+    await expect.poll(() => output, { timeout: 15_000 }).toContain('inkdock-interactive-ok')
     // Close through the API so each shell leaves no process running after this test.
     const runtime = await (await request.get('/api/terminal/sessions')).json()
     for (const session of runtime.sessions) {

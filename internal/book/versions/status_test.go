@@ -92,7 +92,7 @@ func TestStatusDoesNotImportSourceRepository(t *testing.T) {
 		t.Fatal(err)
 	}
 	if status.HasVersions || status.Latest != nil {
-		t.Fatalf("source Git history became Denova history: %#v", status)
+		t.Fatalf("source Git history became InkDock history: %#v", status)
 	}
 	if _, err := os.Stat(service.repository); !os.IsNotExist(err) {
 		t.Fatalf("status created a version repository: %v", err)

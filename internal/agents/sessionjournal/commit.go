@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // CheckpointRecords prepares the embedded Agent half of a product transaction.

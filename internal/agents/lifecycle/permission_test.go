@@ -7,14 +7,14 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
-func TestDenovaPermissionPolicyPersistsRememberedRuleBeforeAllowing(t *testing.T) {
+func TestInkDockPermissionPolicyPersistsRememberedRuleBeforeAllowing(t *testing.T) {
 	var persisted config.AgentApprovalRule
 	policy, err := NewPermissionPolicy(PermissionConfig{
 		Mode: config.AgentApprovalAsk, ProjectID: "project-1", Workspace: t.TempDir(), GOOS: "linux",
@@ -53,7 +53,7 @@ func TestDenovaPermissionPolicyPersistsRememberedRuleBeforeAllowing(t *testing.T
 	}
 }
 
-func TestDenovaPermissionPolicyBlocksCriticalShellCommand(t *testing.T) {
+func TestInkDockPermissionPolicyBlocksCriticalShellCommand(t *testing.T) {
 	policy, err := NewPermissionPolicy(PermissionConfig{
 		Mode: config.AgentApprovalFullAccess, Workspace: t.TempDir(), GOOS: "linux",
 	})
@@ -89,7 +89,7 @@ func TestNonInteractivePermissionPolicyBlocksApprovalPrompt(t *testing.T) {
 	}
 }
 
-func TestDenovaPermissionRememberIsVisibleImmediatelyAndDoesNotChangeIdentity(t *testing.T) {
+func TestInkDockPermissionRememberIsVisibleImmediatelyAndDoesNotChangeIdentity(t *testing.T) {
 	workspace := t.TempDir()
 	var durable []config.AgentApprovalRule
 	load := func(context.Context) ([]config.AgentApprovalRule, error) {
@@ -142,7 +142,7 @@ func TestDenovaPermissionRememberIsVisibleImmediatelyAndDoesNotChangeIdentity(t 
 	}
 }
 
-func TestDenovaPermissionPersistFailureDoesNotAuthorizeProcessState(t *testing.T) {
+func TestInkDockPermissionPersistFailureDoesNotAuthorizeProcessState(t *testing.T) {
 	policy, err := NewPermissionPolicy(PermissionConfig{
 		Mode: config.AgentApprovalAsk, ProjectID: "project-1", Workspace: t.TempDir(), GOOS: "linux",
 		PersistRule: func(context.Context, config.AgentApprovalRule) error { return errors.New("disk unavailable") },
@@ -162,7 +162,7 @@ func TestDenovaPermissionPersistFailureDoesNotAuthorizeProcessState(t *testing.T
 	}
 }
 
-func TestDenovaPermissionRejectsConflictingRememberedRuleBeforePersistence(t *testing.T) {
+func TestInkDockPermissionRejectsConflictingRememberedRuleBeforePersistence(t *testing.T) {
 	workspace := t.TempDir()
 	request := permissionTestRequest(`{"command":"go test ./..."}`)
 	var generated config.AgentApprovalRule

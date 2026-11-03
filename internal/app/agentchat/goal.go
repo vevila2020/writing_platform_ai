@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 
-	agentconversation "denova/internal/agents/conversation"
-	agentruntime "denova/internal/agents/runtime"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
 
-	publicgoal "github.com/alfredxw/denova/agent/engine/goal"
+	publicgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
 )
 
 func (service *Service) ConversationGoal(ctx context.Context, binding Binding) (publicgoal.GoalState, bool, error) {

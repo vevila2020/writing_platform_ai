@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 // trajectoryLineResult projects an already selected contiguous JSONL window.

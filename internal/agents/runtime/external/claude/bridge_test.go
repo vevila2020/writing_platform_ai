@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/runtime/external"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 type authorizedTransport struct{ token string }

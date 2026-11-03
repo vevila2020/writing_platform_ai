@@ -38,22 +38,22 @@ type Registry struct {
 	storeMu         sync.Mutex
 	path            string
 	legacyBooksPath string
-	denovaDir       string
+	inkdockDir      string
 	readCache       *registryReadCache
 	preparedStores  map[string]preparedProjectStore // Guarded by storeMu; successful migrations only.
 }
 
-func NewRegistry(denovaDir string) *Registry {
-	denovaDir = strings.TrimSpace(denovaDir)
-	if canonical, err := canonicalDirectory(denovaDir, false); err == nil {
-		denovaDir = canonical
-	} else if absolute, err := filepath.Abs(denovaDir); err == nil {
-		denovaDir = filepath.Clean(absolute)
+func NewRegistry(inkdockDir string) *Registry {
+	inkdockDir = strings.TrimSpace(inkdockDir)
+	if canonical, err := canonicalDirectory(inkdockDir, false); err == nil {
+		inkdockDir = canonical
+	} else if absolute, err := filepath.Abs(inkdockDir); err == nil {
+		inkdockDir = filepath.Clean(absolute)
 	}
 	return &Registry{
-		path:            filepath.Join(denovaDir, "projects.json"),
-		legacyBooksPath: filepath.Join(denovaDir, "books.json"),
-		denovaDir:       denovaDir,
+		path:            filepath.Join(inkdockDir, "projects.json"),
+		legacyBooksPath: filepath.Join(inkdockDir, "books.json"),
+		inkdockDir:      inkdockDir,
 	}
 }
 
@@ -365,7 +365,7 @@ func (registry *Registry) Rename(id, name string) (Record, error) {
 	}
 	return registry.updateRecord(id, func(record *Record, now time.Time) error {
 		if record.Type == TypeAgents {
-			return errors.New("the Agents project name is managed by Denova")
+			return errors.New("the Agents project name is managed by InkDock")
 		}
 		record.Name = name
 		record.UpdatedAt = now
@@ -415,7 +415,7 @@ func (registry *Registry) Relink(id, path string) (Record, error) {
 			continue
 		}
 		if data.Projects[index].Type == TypeAgents {
-			return Record{}, errors.New("the Agents project directory is managed by Denova")
+			return Record{}, errors.New("the Agents project directory is managed by InkDock")
 		}
 		data.Projects[index].Location = location
 		data.Projects[index].WorkspacePath = canonical
@@ -549,10 +549,10 @@ func (registry *Registry) loadLocked() (registryData, error) {
 }
 
 func (registry *Registry) discoverBooksLocked(data *registryData) (bool, error) {
-	if strings.TrimSpace(registry.denovaDir) == "" {
+	if strings.TrimSpace(registry.inkdockDir) == "" {
 		return false, nil
 	}
-	root, err := filepath.Abs(registry.denovaDir)
+	root, err := filepath.Abs(registry.inkdockDir)
 	if err != nil {
 		return false, err
 	}

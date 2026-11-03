@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	appagentruntime "denova/internal/app/agentruntime"
-	apptask "denova/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (a *App) prepareWritingProfileCycle(

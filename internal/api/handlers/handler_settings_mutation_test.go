@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agentprofiles"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agentprofiles"
 )
 
 func TestSettingsMutationErrorPreservesFileOutcomesAndLocalizesMessage(t *testing.T) {
@@ -20,7 +20,7 @@ func TestSettingsMutationErrorPreservesFileOutcomesAndLocalizesMessage(t *testin
 	for locale, phrase := range map[string]string{"zh-CN": "以下配置文件保存失败", "en-US": "These settings files could not be saved"} {
 		t.Run(locale, func(t *testing.T) {
 			request := app.NewContext(0)
-			request.Request.Header.Set("X-Denova-Locale", locale)
+			request.Request.Header.Set("X-InkDock-Locale", locale)
 			err := errors.Join(&agentprofiles.MutationError{Files: files}, config.ErrInvalidAgentProfile, errors.New("private storage failure"))
 			if !writeSettingsMutationError(request, err) {
 				t.Fatal("mutation error not handled")

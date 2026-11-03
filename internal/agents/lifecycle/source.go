@@ -7,17 +7,17 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 const turnHostDataType = "denova.turn"
 
-// TurnKind is Denova's product delivery semantic. It is persisted in HostData
+// TurnKind is InkDock's product delivery semantic. It is persisted in HostData
 // because a recovered public Agent cycle must not infer FollowUp versus
 // NextTurn from process-local control flow or from the cycle ordinal.
 type TurnKind string
@@ -46,22 +46,22 @@ type TurnHostData struct {
 	RestoreData     *agentrun.RestoreData    `json:"restore_data,omitempty"`
 }
 
-// TurnInput converts Denova transport semantics into the public Agent Input.
+// TurnInput converts InkDock transport semantics into the public Agent Input.
 // The user text remains first-class while product-only fields stay in HostData.
 func TurnInput(kind TurnKind, request agentchat.ChatRequest, options agentrun.Options) (agent.Input, error) {
 	switch kind {
 	case TurnStart, TurnSteer, TurnFollowUp, TurnNext:
 	default:
-		return agent.Input{}, fmt.Errorf("Denova Agent turn kind %q is invalid", kind)
+		return agent.Input{}, fmt.Errorf("InkDock Agent turn kind %q is invalid", kind)
 	}
 	request = agentchat.CaptureChatRequestCallerInput(request)
 	caller := agentchat.CallerView(request)
 	if strings.TrimSpace(caller.Message) == "" && len(request.AttachedFiles) == 0 {
-		return agent.Input{}, errors.New("Denova Agent turn requires a message or attachments")
+		return agent.Input{}, errors.New("InkDock Agent turn requires a message or attachments")
 	}
 	if options.RestoreData != nil && (strings.TrimSpace(options.RestoreData.Type) == "" ||
 		options.RestoreData.Version == 0 || !json.Valid(options.RestoreData.Data)) {
-		return agent.Input{}, errors.New("Denova Agent turn product restore data is invalid")
+		return agent.Input{}, errors.New("InkDock Agent turn product restore data is invalid")
 	}
 	data := TurnHostData{
 		Kind: kind, Caller: caller, InputVisibility: request.InputVisibility,
@@ -73,7 +73,7 @@ func TurnInput(kind TurnKind, request agentchat.ChatRequest, options agentrun.Op
 	}
 	encoded, err := json.Marshal(data)
 	if err != nil {
-		return agent.Input{}, fmt.Errorf("encode Denova Agent turn HostData: %w", err)
+		return agent.Input{}, fmt.Errorf("encode InkDock Agent turn HostData: %w", err)
 	}
 	return agent.Input{
 		Text: caller.Message, Attachments: append([]agentschema.Attachment(nil), request.AttachedFiles...),
@@ -98,24 +98,24 @@ func DecodeTurnHostDataFromPrepare(request agent.PrepareRequest) (TurnHostData, 
 
 func decodeTurnHostData(hostData *agent.HostData, inputText string) (TurnHostData, error) {
 	if hostData == nil || hostData.Type != turnHostDataType || hostData.Version != 2 {
-		return TurnHostData{}, errors.New("Denova Agent turn HostData is unavailable")
+		return TurnHostData{}, errors.New("InkDock Agent turn HostData is unavailable")
 	}
 	var data TurnHostData
 	if err := json.Unmarshal(hostData.Data, &data); err != nil {
-		return TurnHostData{}, fmt.Errorf("decode Denova Agent turn HostData: %w", err)
+		return TurnHostData{}, fmt.Errorf("decode InkDock Agent turn HostData: %w", err)
 	}
 	switch data.Kind {
 	case TurnStart, TurnSteer, TurnFollowUp, TurnNext:
 	default:
-		return TurnHostData{}, errors.New("Denova Agent turn HostData has an invalid turn kind")
+		return TurnHostData{}, errors.New("InkDock Agent turn HostData has an invalid turn kind")
 	}
 	if strings.TrimSpace(data.Caller.Message) == "" && len(data.Caller.AttachmentIDs) == 0 ||
 		inputText != "" && data.Caller.Message != inputText {
-		return TurnHostData{}, errors.New("Denova Agent turn HostData does not match public Input")
+		return TurnHostData{}, errors.New("InkDock Agent turn HostData does not match public Input")
 	}
 	if data.RestoreData != nil {
 		if strings.TrimSpace(data.RestoreData.Type) == "" || data.RestoreData.Version == 0 || !json.Valid(data.RestoreData.Data) {
-			return TurnHostData{}, errors.New("Denova Agent turn HostData has invalid product restore data")
+			return TurnHostData{}, errors.New("InkDock Agent turn HostData has invalid product restore data")
 		}
 		cloned := *data.RestoreData
 		cloned.Type = strings.TrimSpace(cloned.Type)
@@ -131,7 +131,7 @@ func (data TurnHostData) ChatRequest() agentchat.ChatRequest {
 	return request
 }
 
-// DefinitionRequest is Denova's product composition seam. It contains product
+// DefinitionRequest is InkDock's product composition seam. It contains product
 // identity and the public lifecycle request, but no runtime implementation.
 type DefinitionRequest struct {
 	Binding agentrun.RuntimeBinding
@@ -153,17 +153,17 @@ type DefinitionResolverFunc func(context.Context, DefinitionRequest) (agent.Defi
 
 func (resolve DefinitionResolverFunc) ResolveDefinition(ctx context.Context, request DefinitionRequest) (agent.Definition, error) {
 	if resolve == nil {
-		return agent.Definition{}, errors.New("Denova Agent Definition resolver is nil")
+		return agent.Definition{}, errors.New("InkDock Agent Definition resolver is nil")
 	}
 	return resolve(ctx, request)
 }
 
 type denovaSource struct{ resolver DefinitionResolver }
 
-// NewSource adapts Denova Session identity to the public Agent Source seam.
+// NewSource adapts InkDock Session identity to the public Agent Source seam.
 func NewSource(resolver DefinitionResolver) (agent.Source, error) {
 	if resolver == nil {
-		return nil, errors.New("Denova Agent Definition resolver is required")
+		return nil, errors.New("InkDock Agent Definition resolver is required")
 	}
 	return denovaSource{resolver: resolver}, nil
 }
@@ -178,11 +178,11 @@ func (source denovaSource) CanonicalInput(ctx context.Context, request agent.Pre
 	}
 	resolver, ok := source.resolver.(CanonicalInputResolver)
 	if !ok {
-		return nil, errors.New("Denova Agent Definition resolver has no provider-free canonical input boundary")
+		return nil, errors.New("InkDock Agent Definition resolver has no provider-free canonical input boundary")
 	}
 	binding, err := agentrun.RuntimeBindingFromAgentSessionKey(request.Session.Key)
 	if err != nil {
-		return nil, fmt.Errorf("resolve Denova Agent Session binding: %w", err)
+		return nil, fmt.Errorf("resolve InkDock Agent Session binding: %w", err)
 	}
 	return resolver.ResolveCanonicalInput(ctx, DefinitionRequest{Binding: binding, Agent: request})
 }
@@ -194,7 +194,7 @@ func (source denovaSource) resolve(ctx context.Context, request agent.PrepareReq
 		// resolver reconstructs the parent product binding from immutable child
 		// key attributes and therefore receives a zero Binding here.
 		if !strings.HasPrefix(request.Session.Key.Namespace, "task.") {
-			return agent.Definition{}, fmt.Errorf("resolve Denova Agent Session binding: %w", err)
+			return agent.Definition{}, fmt.Errorf("resolve InkDock Agent Session binding: %w", err)
 		}
 		return source.resolver.ResolveDefinition(ctx, DefinitionRequest{Agent: request})
 	}

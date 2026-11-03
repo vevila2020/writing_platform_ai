@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"denova/internal/agents/conversationjournal"
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // CanonicalHistoryHead reads only the reducer. Clear and journal replacement

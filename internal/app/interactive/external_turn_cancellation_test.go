@@ -6,12 +6,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/i18n"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestExternalGamePersistsToolNotInvokedResult(t *testing.T) {

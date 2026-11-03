@@ -3,11 +3,11 @@ package interactiveapp
 import (
 	"errors"
 
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
 )
 
 // BindAgentCompaction mirrors Agent's single checkpoint for context inspection

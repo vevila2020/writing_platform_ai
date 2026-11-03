@@ -3,10 +3,10 @@ package modelio
 import (
 	"fmt"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ProviderInputLimitError is returned before a provider sees an input that

@@ -9,18 +9,18 @@ import (
 	"strings"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/conversationjournal"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolruntime"
-	"denova/internal/book"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Service owns live operations and question wakeups only. Acceptance, command

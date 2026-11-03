@@ -2,13 +2,13 @@ package task
 
 import (
 	"context"
-	"denova/internal/agents/run"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"strings"
 	"testing"
 
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 func TestTaskDisconnectsSlowSubscriberInsteadOfDroppingEvents(t *testing.T) {

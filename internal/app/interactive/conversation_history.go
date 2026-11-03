@@ -11,12 +11,12 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"denova/internal/agents"
-	"denova/internal/agents/session"
-	"denova/internal/book/lore"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
 )
 
 func (c *Conversation) MarkInterrupted(userMessage, assistantContent, reason string) error {

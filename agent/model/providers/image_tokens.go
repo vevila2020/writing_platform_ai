@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 // InputEstimator follows the image detail actually sent by the built-in

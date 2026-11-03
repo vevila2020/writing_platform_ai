@@ -2,9 +2,9 @@ package lore
 
 import (
 	"context"
-	"denova/internal/revisionfile"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 	"log/slog"
 	"slices"
 	"strings"

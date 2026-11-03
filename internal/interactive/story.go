@@ -4,7 +4,7 @@ import (
 	"strings"
 	"sync"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 const schemaVersion = 1
@@ -74,9 +74,9 @@ func NewStore(root string) *Store {
 	return &Store{root: root}
 }
 
-// NewStoreWithNovaDir creates an interactive store that can resolve reusable
-// director modules from the workspace .denova directory.
-func NewStoreWithNovaDir(root, novaDir string) *Store {
+// NewStoreWithDenovaDir creates an interactive store that can resolve reusable
+// director modules from the workspace .inkdock directory.
+func NewStoreWithDenovaDir(root, novaDir string) *Store {
 	return &Store{root: root, novaDir: strings.TrimSpace(novaDir)}
 }
 

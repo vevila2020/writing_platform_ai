@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	agentchat "denova/internal/agents/chat"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
 )
 
 // Steering connects one live provider attempt to the application's durable

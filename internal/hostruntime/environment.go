@@ -99,7 +99,7 @@ func resolveConfiguredLoginShell(configured string) (string, error) {
 	if err == nil {
 		return shell, nil
 	}
-	// SHELL belongs to the current process rather than Denova data, but it can
+	// SHELL belongs to the current process rather than InkDock data, but it can
 	// still be stale in a GUI launch. Use the platform baseline as the last
 	// current-host fallback.
 	platformShell := "/bin/bash"
@@ -124,9 +124,9 @@ func capture(ctx context.Context, shell, home string, base []string) (Environmen
 		return EnvironmentSnapshot{}, fmt.Errorf("create shell environment marker: %w", err)
 	}
 	token := hex.EncodeToString(tokenBytes)
-	begin := []byte("\x00DENOVA_ENV_BEGIN_" + token + "\x00")
-	end := []byte("\x00DENOVA_ENV_END_" + token + "\x00")
-	script := "printf '\\0DENOVA_ENV_BEGIN_" + token + "\\0'; /usr/bin/env -0; printf '\\0DENOVA_ENV_END_" + token + "\\0'"
+	begin := []byte("\x00INKDOCK_ENV_BEGIN_" + token + "\x00")
+	end := []byte("\x00INKDOCK_ENV_END_" + token + "\x00")
+	script := "printf '\\0INKDOCK_ENV_BEGIN_" + token + "\\0'; /usr/bin/env -0; printf '\\0INKDOCK_ENV_END_" + token + "\\0'"
 	command := exec.CommandContext(ctx, shell, loginInteractiveArgs(shell, script)...)
 	command.Dir = home
 	command.Env = captureBaseEnvironment(base, home)

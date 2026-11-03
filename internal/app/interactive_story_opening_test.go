@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	booklore "denova/internal/book/lore"
-	"denova/internal/interactive"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestInteractiveStoryOpeningCatalogKeepsAllCharactersEligible(t *testing.T) {

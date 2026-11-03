@@ -9,10 +9,10 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/automation"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func decisionTestConfig(endpoint string) *config.Config {

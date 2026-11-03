@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"denova/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
 )
 
 var diagnosticRedactions = []*regexp.Regexp{

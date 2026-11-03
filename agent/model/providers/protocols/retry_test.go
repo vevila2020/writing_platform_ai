@@ -9,13 +9,13 @@ import (
 	"testing"
 	"time"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/anthropicmessages"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/googlegenerativeai"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openaichatcompletions"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openairesponses"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/anthropicmessages"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/googlegenerativeai"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openaichatcompletions"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openairesponses"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestAdaptersMakeOneHTTPAttemptAndPreserveRetryHints(t *testing.T) {

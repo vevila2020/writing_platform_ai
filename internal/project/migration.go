@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	"denova/internal/book/versions"
-	"denova/internal/portablepath"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/versions"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 const (
@@ -150,7 +150,7 @@ func (registry *Registry) prepareBookStore(layout Layout) error {
 	if layout.Type != TypeBook {
 		return nil
 	}
-	if err := book.NewMetaStore(registry.denovaDir).MigrateLegacy(layout.ContentRoot, layout.StoreRoot); err != nil {
+	if err := book.NewMetaStore(registry.inkdockDir).MigrateLegacy(layout.ContentRoot, layout.StoreRoot); err != nil {
 		return fmt.Errorf("migrate Book metadata: %w", err)
 	}
 	return assetstore.Migrate(layout.ContentRoot, layout.StoreRoot)

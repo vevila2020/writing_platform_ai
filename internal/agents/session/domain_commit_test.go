@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	agentcontext "denova/internal/agents/context"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestCommitDomainMessageIsIdempotentAndPersistsCoordinatorIdentity(t *testing.T) {

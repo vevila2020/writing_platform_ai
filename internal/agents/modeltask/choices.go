@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/agents/modelio"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // SelectChoices preserves accepted decision answers and asks the configured

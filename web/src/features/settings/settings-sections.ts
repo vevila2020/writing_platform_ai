@@ -40,7 +40,7 @@ export const SETTINGS_SECTIONS = [
   { id: 'market', group: 'tools', titleKey: 'settings.section.market', icon: Store,
     fieldKeys: ['settings.market.registryURL', 'settings.market.githubToken'] },
   { id: 'paths', group: 'system', titleKey: 'settings.section.paths', icon: Folder,
-    fieldKeys: ['settings.paths.skillsDir', 'settings.paths.novaDir', 'settings.paths.userConfig'] },
+    fieldKeys: ['settings.paths.skillsDir', 'settings.paths.dataDir', 'settings.paths.userConfig'] },
   { id: 'versions', group: 'system', titleKey: 'settings.section.versions', icon: History,
     fieldKeys: ['settings.versions.timedAuto', 'settings.versions.timedInterval'] },
   { id: 'access', group: 'system', titleKey: 'settings.section.access', icon: Wifi,

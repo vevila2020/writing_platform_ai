@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { toast } from '@/lib/toast'
 import { DeleteConfirmDialog } from '@/components/Sidebar/DeleteConfirmDialog'
 import { FileTreeMenu, FileTreeMenuItem, FileTreeMenuSeparator, FileTreeMenuShortcut } from '@/components/file-tree/FileTreeMenu'
-import { NovaFileTree } from '@/components/file-tree/NovaFileTree'
+import { InkDockFileTree } from '@/components/file-tree/InkDockFileTree'
 import { applicationFileTreePath, canonicalFileTreePath, writeClipboardText } from '@/components/file-tree/paths'
 import { fileTreeMenuPlatformPresentation } from '@/components/file-tree/platform'
 import type { ProjectFileExplorerNode } from './model'
@@ -392,7 +392,7 @@ export const ProjectExplorerTree = forwardRef<ProjectExplorerTreeHandle, Project
             for (const path of treeRef.current?.getSelectedPaths() ?? []) treeRef.current?.getItem(path)?.deselect()
           }}
         >
-          <NovaFileTree
+          <InkDockFileTree
             ref={treeRef}
             paths={projection.paths}
             presorted

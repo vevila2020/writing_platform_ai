@@ -1,4 +1,4 @@
-// Package project owns Denova's user-level Project identity and storage layout.
+// Package project owns InkDock's user-level Project identity and storage layout.
 //
 // A Project is deliberately independent from its content directory. The ID is
 // stable across display-name changes and directory relinks, while Type selects
@@ -50,7 +50,7 @@ const (
 )
 
 // LocationKind identifies how Project content is resolved. Managed content is
-// relative to the current Denova data root; external content is an opaque host
+// relative to the current InkDock data root; external content is an opaque host
 // path and may be unavailable after moving the data root to another host.
 type LocationKind string
 
@@ -109,7 +109,7 @@ func (record *Record) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Layout separates content owned by a Project from its Denova Project Store.
+// Layout separates content owned by a Project from its InkDock Project Store.
 // Interactive story content intentionally remains beneath ContentRoot.
 type Layout struct {
 	ProjectID   string

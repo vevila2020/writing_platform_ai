@@ -7,16 +7,16 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	publiccontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	publiccontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func gameRuntimeBoundary(snapshot interactive.Snapshot) string {

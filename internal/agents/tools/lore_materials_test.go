@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
 )
 
 func TestLoreMaterialDiscoveryThenNativeImageRead(t *testing.T) {

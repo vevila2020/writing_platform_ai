@@ -14,8 +14,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/assetstore"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
 	_ "golang.org/x/image/webp"
 )
 

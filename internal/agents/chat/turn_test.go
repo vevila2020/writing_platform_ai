@@ -6,13 +6,13 @@ import (
 	"strings"
 	"testing"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/book"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestMergeToolCalls(t *testing.T) {
@@ -171,8 +171,8 @@ func TestTurnContextBoundaryEmphasizesCurrentRequest(t *testing.T) {
 
 func TestStyleRulesSystemInstructionEmitsSceneAndStyles(t *testing.T) {
 	got := styleRulesSystemInstruction([]prompts.StyleRule{
-		{Global: true, StyleReferences: []prompts.StyleReference{{Name: "默认克制", Path: "/tmp/.denova/styles/global.md", DisplayPath: ".denova/styles/global.md"}}},
-		{Scene: "激烈打斗", StyleReferences: []prompts.StyleReference{{Name: "克制细腻", Description: "短句留白", Path: "/tmp/.denova/styles/restraint.md", DisplayPath: ".denova/styles/restraint.md"}}, StyleContents: []string{"短句留白", "强冲突快节奏"}},
+		{Global: true, StyleReferences: []prompts.StyleReference{{Name: "默认克制", Path: "/tmp/.inkdock/styles/global.md", DisplayPath: ".inkdock/styles/global.md"}}},
+		{Scene: "激烈打斗", StyleReferences: []prompts.StyleReference{{Name: "克制细腻", Description: "短句留白", Path: "/tmp/.inkdock/styles/restraint.md", DisplayPath: ".inkdock/styles/restraint.md"}}, StyleContents: []string{"短句留白", "强冲突快节奏"}},
 		{Scene: "日常对话", StyleContents: []string{"温吞对白"}},
 		{Scene: "", StyleContents: []string{"无效内容"}},     // 应被跳过
 		{Scene: "空风格", StyleContents: []string{"", " "}}, // 空内容应被跳过
@@ -185,7 +185,7 @@ func TestStyleRulesSystemInstructionEmitsSceneAndStyles(t *testing.T) {
 	assertContains(t, got, "短句留白")
 	assertContains(t, got, "强冲突快节奏")
 	assertContains(t, got, "name: 克制细腻")
-	assertContains(t, got, "path: /tmp/.denova/styles/restraint.md")
+	assertContains(t, got, "path: /tmp/.inkdock/styles/restraint.md")
 	assertContains(t, got, "Scene: 日常对话")
 	assertContains(t, got, "温吞对白")
 	assertContains(t, got, "Global references apply to all prose generation by default")
@@ -204,8 +204,8 @@ func TestBoundedStyleRulesBoundsReferenceIndex(t *testing.T) {
 	got := boundedStyleRules([]prompts.StyleRule{{
 		Scene: "日常对话",
 		StyleReferences: []prompts.StyleReference{
-			{Name: "短", Path: "/tmp/.denova/styles/short.md", DisplayPath: ".denova/styles/short.md"},
-			{Name: strings.Repeat("长", 100), Description: strings.Repeat("风", 100), Path: "/tmp/.denova/styles/long.md", DisplayPath: ".denova/styles/long.md"},
+			{Name: "短", Path: "/tmp/.inkdock/styles/short.md", DisplayPath: ".inkdock/styles/short.md"},
+			{Name: strings.Repeat("长", 100), Description: strings.Repeat("风", 100), Path: "/tmp/.inkdock/styles/long.md", DisplayPath: ".inkdock/styles/long.md"},
 		},
 	}}, 120)
 	if len(got) != 1 || len(got[0].StyleReferences) != 1 {

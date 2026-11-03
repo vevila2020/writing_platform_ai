@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 func TestChatModelConfigFromResolvedKeepsNeutralThinkingLevel(t *testing.T) {

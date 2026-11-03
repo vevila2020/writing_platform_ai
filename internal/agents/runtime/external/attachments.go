@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"denova/internal/agents/attachment"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // MediaProjection binds immutable user copies and tool artifacts to one product.

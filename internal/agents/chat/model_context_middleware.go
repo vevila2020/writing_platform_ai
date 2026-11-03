@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"reflect"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/toolresult"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 type contextNormalizerMiddleware struct {
 	*agentmiddleware.BaseMiddleware
 }
 
-// NewModelContextMiddlewares returns Denova's model-only history policy and
+// NewModelContextMiddlewares returns InkDock's model-only history policy and
 // presentation normalizer. Agent retains complete raw tool batches and
 // provider reasoning so Cleanup, Compaction, recovery, and audit stay lossless;
 // only the request projection drops history that the product never replays.

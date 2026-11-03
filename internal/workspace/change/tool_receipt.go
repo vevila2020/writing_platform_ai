@@ -9,7 +9,7 @@ import (
 // mutation tools.
 const ToolResultSchema = "workspace_change.tool_result.v1"
 
-const legacyToolResultMetadataHeader = "[Denova tool result metadata]"
+const legacyToolResultMetadataHeader = "[InkDock tool result metadata]"
 
 // ToolReceipt is the complete durable mutation identity. Base and resulting
 // revisions are retained for recovery but removed from model projections.

@@ -2,16 +2,16 @@ package reviewapp
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
 	"errors"
 	"fmt"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
 	"log/slog"
 	"strings"
 
-	agentreview "denova/internal/agents/review"
-	agentrun "denova/internal/agents/run"
-	workspacechange "denova/internal/workspace/change"
-	"denova/internal/workspace/documentreview"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 const maxReviewFeedbackCommentIDs = 256

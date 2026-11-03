@@ -11,9 +11,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/api/agentui"
-	appsvc "denova/internal/app"
-	"denova/internal/restart"
+	"github.com/vevila2020/writing_platform_ai/internal/api/agentui"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/restart"
 )
 
 // sessionDTO 会话摘要 DTO。

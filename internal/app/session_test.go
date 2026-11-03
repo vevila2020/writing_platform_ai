@@ -11,19 +11,19 @@ import (
 	"runtime"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentattachment "denova/internal/agents/attachment"
-	"denova/internal/agents/canonicalstore"
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/agents/sessionjournal"
-	agentchatapp "denova/internal/app/agentchat"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
 
-	"github.com/alfredxw/denova/agent"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func TestAgentChatConcurrentDeletesPreserveTheRemainingConversation(t *testing.T) {
@@ -157,7 +157,7 @@ func TestAgentChatDeleteSessionPreservesRejectedJournalAndCleansAcceptedTree(t *
 					t.Fatalf("warm Goal = %#v, present=%v, err=%v", state, present, err)
 				}
 			}
-			canonical, err := canonicalstore.New(application.cfg.NovaDir, application.projectRegistry)
+			canonical, err := canonicalstore.New(application.cfg.DenovaDir, application.projectRegistry)
 			if err != nil {
 				t.Fatal(err)
 			}

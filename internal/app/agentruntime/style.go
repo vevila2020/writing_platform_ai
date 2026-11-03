@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/agents/prompts"
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 // StyleRules resolves one shared prompt projection for Writing and Game. Both

@@ -6,18 +6,18 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	publiccontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	publiccontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
-const minimumDenovaContextHardLimit = publiccontext.DefaultLifecycleHardLimit
+const minimumInkDockContextHardLimit = publiccontext.DefaultLifecycleHardLimit
 
-// ConversationContextConfig adapts Denova's product context projection to the
+// ConversationContextConfig adapts InkDock's product context projection to the
 // public Agent transcript boundary. Conversation owns current workspace/story
 // state; Agent remains the only owner of model history.
 type ConversationContextConfig struct {
@@ -35,10 +35,10 @@ type conversationContextSource struct {
 
 func NewConversationContextSource(config ConversationContextConfig) (publiccontext.ContextSource, error) {
 	if config.Conversation == nil {
-		return nil, errors.New("Denova Conversation ContextSource requires a conversation")
+		return nil, errors.New("InkDock Conversation ContextSource requires a conversation")
 	}
 	if strings.TrimSpace(config.Identity.Kind) == "" || config.Identity.Version == 0 {
-		return nil, errors.New("Denova Conversation ContextSource requires a stable identity")
+		return nil, errors.New("InkDock Conversation ContextSource requires a stable identity")
 	}
 	config.Request = agentchat.CaptureChatRequestCallerInput(config.Request)
 	return &conversationContextSource{config: config}, nil
@@ -53,7 +53,7 @@ func (source *conversationContextSource) Identity() agentschema.CapabilityIdenti
 
 func (source *conversationContextSource) Materialize(ctx context.Context, request publiccontext.ContextRequest) ([]agentschema.ContextFragment, error) {
 	if source == nil || source.config.Conversation == nil {
-		return nil, errors.New("Denova Conversation ContextSource is unavailable")
+		return nil, errors.New("InkDock Conversation ContextSource is unavailable")
 	}
 	if err := bindConversationCycle(source.config.Conversation, source.config.Options.AgentKind, request.Run); err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ func bindConversationCycle(conversation agentchat.Conversation, agentKind string
 		CommandID: agentrun.CommandID(run.CommandID), OperationID: agentrun.OperationID(run.ID), Cycle: run.Cycle,
 	}
 	if !agentrun.ValidCycleIdentity(identity) {
-		return errors.New("Denova Conversation ContextSource requires an exact Agent cycle identity")
+		return errors.New("InkDock Conversation ContextSource requires an exact Agent cycle identity")
 	}
 	if binder, ok := conversation.(agentrun.CycleIdentityBinder); ok {
 		binder.BindAgentCycleIdentity(identity)
@@ -107,16 +107,16 @@ func projectConversationContext(
 ) ([]agentschema.ContextFragment, error) {
 	modelUser := lastUserMessage(prepared.ModelContext.Messages)
 	if modelUser == nil {
-		return nil, errors.New("Denova context assembly produced no final user message")
+		return nil, errors.New("InkDock context assembly produced no final user message")
 	}
-	hardLimit := max(minimumDenovaContextHardLimit, budget.MaxTotalBytes+len(request.Input.Text)+minimumDenovaContextHardLimit)
+	hardLimit := max(minimumInkDockContextHardLimit, budget.MaxTotalBytes+len(request.Input.Text)+minimumInkDockContextHardLimit)
 	hardLimit = max(hardLimit, len(modelUser.Content))
 	fragments, err := publiccontext.ExportLifecycleFragments(prepared.ModelContext.Context)
 	if err != nil {
-		return nil, fmt.Errorf("export Denova model context to Agent lifecycle: %w", err)
+		return nil, fmt.Errorf("export InkDock model context to Agent lifecycle: %w", err)
 	}
 	fragments = append(fragments, agentschema.ContextFragment{
-		Source: "denova.turn.context", Purpose: "preserve the exact localized Denova turn assembly",
+		Source: "denova.turn.context", Purpose: "preserve the exact localized InkDock turn assembly",
 		Resource: firstContextValue(request.Run.CommandID, request.Run.ID, "turn"), Revision: request.Run.ID,
 		Stability: agentschema.ContextTurn, Placement: agentschema.ContextFinalUserMessage, Rendering: agentschema.ContextRenderVerbatim,
 		Content: modelUser.Content, HardLimit: hardLimit,

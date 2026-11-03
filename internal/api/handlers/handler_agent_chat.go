@@ -12,14 +12,14 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	"denova/internal/api/agentui"
-	"denova/internal/api/sse"
-	appsvc "denova/internal/app"
-	agentchatapp "denova/internal/app/agentchat"
-	appagentruntime "denova/internal/app/agentruntime"
-	"denova/internal/project"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/api/agentui"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type agentChatSessionCreateRequest struct {

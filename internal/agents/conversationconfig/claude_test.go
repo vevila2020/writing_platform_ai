@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestClaudeModelPatchIsIndependentAndSnapshotDetached(t *testing.T) {

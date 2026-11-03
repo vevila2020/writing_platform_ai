@@ -1,10 +1,10 @@
 package interactive
 
 import (
-	interactivestate "denova/internal/interactive/state"
 	"encoding/json"
 	"errors"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"os"
 	"path/filepath"
 	"strings"
@@ -1056,7 +1056,7 @@ func TestRerollRuleResolutionReplacesAutomaticRuleStateOps(t *testing.T) {
 func newStoreWithStaminaTestActorState(t *testing.T) (*Store, ActorStateModule) {
 	t.Helper()
 	root := t.TempDir()
-	novaDir := filepath.Join(root, ".nova")
+	novaDir := filepath.Join(root, ".inkdock")
 	staminaMin, staminaMax := 0.0, 5.0
 	actorState, err := NewActorStateLibrary(novaDir).Create(ActorStateModule{
 		ID:   "stamina-test-state",
@@ -1086,7 +1086,7 @@ func newStoreWithStaminaTestActorState(t *testing.T) (*Store, ActorStateModule) 
 	if err != nil {
 		t.Fatalf("create stamina test actor state failed: %v", err)
 	}
-	return NewStoreWithNovaDir(root, novaDir), actorState
+	return NewStoreWithDenovaDir(root, novaDir), actorState
 }
 
 func staminaTestModuleRefs(actorStateID string) *StoryDirectorModuleRefs {

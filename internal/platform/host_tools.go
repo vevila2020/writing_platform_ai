@@ -9,10 +9,10 @@ import (
 	"sort"
 	"sync"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // HostAgentTools reads the installed plugins and shared settings for a new

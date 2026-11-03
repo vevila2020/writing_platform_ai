@@ -8,9 +8,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	imageapp "denova/internal/app/image"
-	loreapp "denova/internal/app/lore"
-	"denova/internal/book/lore"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	loreapp "github.com/vevila2020/writing_platform_ai/internal/app/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func (h *Handlers) HandleLoreClassificationPreview(ctx context.Context, c *app.RequestContext) {

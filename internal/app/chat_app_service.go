@@ -1,16 +1,16 @@
 package app
 
 import (
-	agentexecution "denova/internal/agents/execution"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
 	"strings"
 	"sync"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/session"
-	conversationapp "denova/internal/app/conversation"
-	apptask "denova/internal/app/task"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // confirmSelectedSessionID rejects requests whose explicit browser binding no

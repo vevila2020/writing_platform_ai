@@ -7,8 +7,8 @@ import (
 	"path"
 	"path/filepath"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Metadata stores only otherwise-unrecorded generation details, keyed by the

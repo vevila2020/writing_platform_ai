@@ -29,9 +29,9 @@ describe('AgentCheckpointSection', () => {
         value={{}}
         resolved={resolvedContext}
         sources={[
-          { id: 'runtime_contract', title: 'Runtime', source: 'Denova runtime', content: 'Do not call tools.' },
-          { id: 'checkpoint_schema', title: 'Schema', source: 'Denova runtime', content: '## Goal' },
-          { id: 'domain_rules', title: 'Domain', source: 'Denova runtime', content: 'Workspace requirements.' },
+          { id: 'runtime_contract', title: 'Runtime', source: 'InkDock runtime', content: 'Do not call tools.' },
+          { id: 'checkpoint_schema', title: 'Schema', source: 'InkDock runtime', content: '## Goal' },
+          { id: 'domain_rules', title: 'Domain', source: 'InkDock runtime', content: 'Workspace requirements.' },
         ]}
         onChange={onChange}
       />,

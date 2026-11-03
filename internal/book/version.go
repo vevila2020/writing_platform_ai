@@ -1,6 +1,6 @@
 package book
 
-import "denova/internal/book/versions"
+import "github.com/vevila2020/writing_platform_ai/internal/book/versions"
 
 const (
 	DefaultTimedVersionIntervalMinutes = versions.DefaultTimedVersionIntervalMinutes

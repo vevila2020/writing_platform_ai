@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type controlAdapter func(context.Context, external.Input, external.Host) (external.Result, error)

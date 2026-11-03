@@ -4,12 +4,12 @@ import { createAndOpenBook, createProjectFile, createStartedStory, getStorySnaps
 import { openWritingAgent, submitAgentChatMessage } from '../support/agent-chat'
 import { modelControlURL } from '../support/model'
 
-// Run with DENOVA_TEST_CODEX_EXE. No product API or runtime event is mocked.
+// Run with INKDOCK_TEST_CODEX_EXE. No product API or runtime event is mocked.
 // The ordinary core journey specs use the same installed runtime in this mode.
-test.skip(!process.env.DENOVA_TEST_CODEX_EXE, 'Installed Codex acceptance is opt-in')
+test.skip(!process.env.INKDOCK_TEST_CODEX_EXE, 'Installed Codex acceptance is opt-in')
 test.beforeAll(async ({}, info) => {
-  if (process.env.DENOVA_TEST_CODEX_EXE) await info.attach('runtime-version', {
-    body: execFileSync(process.env.DENOVA_TEST_CODEX_EXE, ['--version']), contentType: 'text/plain',
+  if (process.env.INKDOCK_TEST_CODEX_EXE) await info.attach('runtime-version', {
+    body: execFileSync(process.env.INKDOCK_TEST_CODEX_EXE, ['--version']), contentType: 'text/plain',
   })
 })
 

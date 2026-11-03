@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 func TestLegacySkillMigrationRetainsConsentAndModifiedState(t *testing.T) {
@@ -26,7 +26,7 @@ func TestLegacySkillMigrationRetainsConsentAndModifiedState(t *testing.T) {
 			// automatic replacement simply by hashing whatever is present now.
 			state := skills.RemoteState{Source: skills.RemoteArchiveSource{URL: "https://github.com/author/repository", Ref: "main"}, SourcePath: "skills/legacy", Digest: "old-baseline", AutoUpdate: automatic}
 			original := jsonBytes(t, state)
-			if err := os.WriteFile(filepath.Join(directory, ".denova-source.json"), original, 0600); err != nil {
+			if err := os.WriteFile(filepath.Join(directory, ".inkdock-source.json"), original, 0600); err != nil {
 				t.Fatal(err)
 			}
 			if err := s.MigrateSources(ctx); err != nil {
@@ -47,7 +47,7 @@ func TestLegacySkillMigrationRetainsConsentAndModifiedState(t *testing.T) {
 			if item.UpdateMode != mode || item.LocalState != "modified" || item.Source.Path != "skills/legacy" {
 				t.Fatalf("migration changed trust: %#v", item)
 			}
-			if _, err := os.Stat(filepath.Join(directory, ".denova-source.json")); !os.IsNotExist(err) {
+			if _, err := os.Stat(filepath.Join(directory, ".inkdock-source.json")); !os.IsNotExist(err) {
 				t.Fatal("legacy source still writable")
 			}
 			content, err := os.ReadFile(filepath.Join(directory, "SKILL.md"))

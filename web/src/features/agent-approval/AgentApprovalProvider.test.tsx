@@ -70,7 +70,7 @@ function settingsSnapshot(userMode: AgentApprovalMode | undefined): LayeredSetti
     user: userMode ? { agent_approval_mode: userMode as AgentApprovalMode } : {},
     workspace: {},
     effective: { agent_approval_mode: effectiveMode as AgentApprovalMode },
-    paths: { denova_dir: '/tmp', nova_dir: '/tmp', user_config: '/tmp/config.toml', workspace_config: '' },
+    paths: { inkdock_dir: '/tmp', denova_dir: '/tmp', user_config: '/tmp/config.toml', workspace_config: '' },
     resolved_agent_tool_manifests: {},
     resolved_agent_contexts: {},
   }

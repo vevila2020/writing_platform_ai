@@ -9,16 +9,16 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	agentconversation "denova/internal/agents/conversation"
-	agentreview "denova/internal/agents/review"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func fixedTurnRuntimeEnvironment(service *book.Service) turnRuntimeEnvironment {

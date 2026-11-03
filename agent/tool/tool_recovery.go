@@ -1,7 +1,7 @@
 package tool
 
 import (
-	"github.com/alfredxw/denova/agent/internal/protocol"
+	"github.com/vevila2020/writing_platform_ai/agent/internal/protocol"
 )
 
 // UnknownToolEffectResult is the provider-neutral synthetic result for a tool

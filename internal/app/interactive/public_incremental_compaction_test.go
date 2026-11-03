@@ -8,29 +8,29 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/canonicalstore"
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	"github.com/alfredxw/denova/agent/tool/permission"
-	toolresult "github.com/alfredxw/denova/agent/tool/result"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent/tool/permission"
+	toolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 const incrementalIntent = "Verify 24 sources. Corrected budget is 72519, not 72591; preserve evidence IDs."
@@ -72,7 +72,7 @@ func (c countedGameHistory) ReadCanonicalWindow(ctx context.Context, count int, 
 	return c.Conversation.ReadCanonicalWindow(ctx, count, archive)
 }
 
-// Model responses are deterministic; both products use the actual Denova
+// Model responses are deterministic; both products use the actual InkDock
 // manager, primary snapshot fork, final request validator and canonical store.
 type longProductModel struct {
 	t               *testing.T

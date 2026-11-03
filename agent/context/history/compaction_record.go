@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type CompactionRecord struct {

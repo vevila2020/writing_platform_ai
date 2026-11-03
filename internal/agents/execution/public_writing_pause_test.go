@@ -8,19 +8,19 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/canonicalstore"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	"denova/internal/book"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func TestWritingCanonicalPauseAnswerAndColdResume(t *testing.T) {

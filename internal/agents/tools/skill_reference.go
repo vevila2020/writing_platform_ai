@@ -5,10 +5,10 @@ import (
 	"errors"
 	"strings"
 
-	novaskills "denova/internal/agents/skills"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 type skillReferenceReadInput struct {

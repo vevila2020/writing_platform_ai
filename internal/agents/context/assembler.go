@@ -1,8 +1,8 @@
 package context
 
-import agentcontext "github.com/alfredxw/denova/agent/context"
+import agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
 
-// Assembler is the reusable bounded assembler configured with Denova's prompt
+// Assembler is the reusable bounded assembler configured with InkDock's prompt
 // renderer. The core policy remains in the standalone agent module; only the
 // product's localized wrapper text lives here.
 type Assembler = agentcontext.Assembler

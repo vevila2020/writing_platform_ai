@@ -2,7 +2,7 @@
 
 <!-- impeccable:product-schema 1 -->
 
-Denova 的长期产品记录。用户、定位与核心价值已由维护者确认；能力与约束依据现有代码、[README.md](README.md) 和 [AGENTS.md](AGENTS.md)。工程与数据不变量以 AGENTS.md 为准，界面设计规范见 [DESIGN.md](DESIGN.md)。
+InkDock 的长期产品记录。用户、定位与核心价值已由维护者确认；能力与约束依据现有代码、[README.md](README.md) 和 [AGENTS.md](AGENTS.md)。工程与数据不变量以 AGENTS.md 为准，界面设计规范见 [DESIGN.md](DESIGN.md)。
 
 ## Platform
 
@@ -23,7 +23,7 @@ web
 
 ## Positioning
 
-Denova 将长期积累的项目内容、结构化资料库、可调用工具并修改文件的 Agent，以及本地版本恢复放在同一创作工作区。小说写作与互动故事共享资料和创作能力，各自保留章节进度、剧情分支与游戏状态。
+InkDock 将长期积累的项目内容、结构化资料库、可调用工具并修改文件的 Agent，以及本地版本恢复放在同一创作工作区。小说写作与互动故事共享资料和创作能力，各自保留章节进度、剧情分支与游戏状态。
 
 这是产品的能力组合与工作方式，不代表已验证的竞争优势或效率提升幅度。
 
@@ -51,7 +51,7 @@ Denova 将长期积累的项目内容、结构化资料库、可调用工具并�
 
 ## Brand Commitments
 
-- 产品名为 Denova，现有图标入口为 [web/public/favicon.svg](web/public/favicon.svg)。
+- 产品名为 InkDock，现有图标入口为 [web/public/favicon.svg](web/public/favicon.svg)。
 - 文案使用具体动作和对象，状态表述真实；避免不帮助用户决策的内部实现说明和不必要的次级描述。
 - 中英文分别提供完整资源，界面按当前语言单语展示。内置模型提示词与工具描述使用英文并保持产品中立。
 - 已有黑白底色与克制状态色的方向由 AGENTS.md 和 DESIGN.md 约束；本记录不另建视觉系统。

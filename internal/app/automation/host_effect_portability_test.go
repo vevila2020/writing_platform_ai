@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 )
 
 func TestProjectHostEffectPayloadOmitsRuntimeWorkspace(t *testing.T) {

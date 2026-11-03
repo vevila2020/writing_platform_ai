@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/buildinfo"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 const (
@@ -115,7 +115,7 @@ func (s *Service) latestRelease(ctx context.Context) (githubRelease, error) {
 		return githubRelease{}, err
 	}
 	req.Header.Set("Accept", "application/vnd.github+json")
-	req.Header.Set("User-Agent", "denova-update-checker")
+	req.Header.Set("User-Agent", "inkdock-update-checker")
 	resp, err := s.httpClient.Do(req)
 	if err != nil {
 		return githubRelease{}, fmt.Errorf("check GitHub release: %w", err)
@@ -158,7 +158,7 @@ func platformKey(goos, goarch string) string {
 func selectAsset(assets []githubAsset, platform string) *githubAsset {
 	for i := range assets {
 		name := strings.ToLower(assets[i].Name)
-		if strings.Contains(name, strings.ToLower(platform)) && strings.HasPrefix(name, "denova-") &&
+		if strings.Contains(name, strings.ToLower(platform)) && strings.HasPrefix(name, "inkdock-") &&
 			(strings.HasSuffix(name, ".tar.gz") || strings.HasSuffix(name, ".zip")) {
 			return &assets[i]
 		}

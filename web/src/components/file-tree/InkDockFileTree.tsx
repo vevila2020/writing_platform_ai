@@ -18,7 +18,7 @@ import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, u
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { expandedFileTreePathsForReset } from './paths'
-import './NovaFileTree.css'
+import './InkDockFileTree.css'
 
 const NOVA_FILE_TREE_UNSAFE_CSS = `
 [data-type="item"][data-item-focused="true"]:not(:focus-visible)::before {
@@ -48,7 +48,7 @@ const COLOR_ONLY_GIT_STATUS_UNSAFE_CSS = `
 }
 `
 
-export interface NovaFileTreeProps {
+export interface InkDockFileTreeProps {
   paths: readonly string[]
   presorted?: boolean
   ariaLabel: string
@@ -73,10 +73,10 @@ export interface NovaFileTreeProps {
 }
 
 /**
- * Denova's shared Pierre surface. Business state remains authoritative in each
+ * InkDock's shared Pierre surface. Business state remains authoritative in each
  * consumer while this component owns common options and model synchronization.
  */
-export const NovaFileTree = forwardRef<FileTreeModel, NovaFileTreeProps>(function NovaFileTree({
+export const InkDockFileTree = forwardRef<FileTreeModel, InkDockFileTreeProps>(function InkDockFileTree({
   paths,
   presorted = false,
   ariaLabel,
@@ -200,7 +200,7 @@ export const NovaFileTree = forwardRef<FileTreeModel, NovaFileTreeProps>(functio
         callbacks.onDirectoryExpandedChange?.(row.path, row.isExpanded)
         if (row.isExpanded) {
           void Promise.resolve(callbacks.onDirectoryExpand?.(row.path)).catch((cause) => {
-            console.error('[components/file-tree/NovaFileTree.tsx] expanding a directory failed', { path: row.path, cause })
+            console.error('[components/file-tree/InkDockFileTree.tsx] expanding a directory failed', { path: row.path, cause })
           })
         }
       }

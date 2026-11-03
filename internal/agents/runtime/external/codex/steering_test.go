@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/runtime/external"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 type steeringHost struct {

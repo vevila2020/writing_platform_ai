@@ -6,16 +6,16 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/conversationconfig"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type recoveryAdapter func(context.Context, external.Input, external.Host) (external.Result, error)
@@ -32,7 +32,7 @@ func TestExternalRecoveryRecognizesCommittedContinuation(t *testing.T) {
 		t.Fatal(err)
 	}
 	selection := config.RuntimeSelection{Kind: config.RuntimeCodex, Codex: &config.CodexRuntimeSettings{Model: "fixture"}}
-	cfg := config.Config{Workspace: workspace, ProjectID: "project", ProjectStoreDir: filepath.Join(root, "store"), DenovaDir: root, ActiveAgentRuntime: &selection}
+	cfg := config.Config{Workspace: workspace, ProjectID: "project", ProjectStoreDir: filepath.Join(root, "store"), InkDockDir: root, ActiveAgentRuntime: &selection}
 	store, err := session.NewStore(filepath.Join(cfg.ProjectStoreDir, "sessions"))
 	if err != nil {
 		t.Fatal(err)

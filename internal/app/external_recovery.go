@@ -3,12 +3,12 @@ package app
 import (
 	"context"
 
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	conversationapp "denova/internal/app/conversation"
-	interactiveapp "denova/internal/app/interactive"
-	apptask "denova/internal/app/task"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func (s *ChatAppService) recoverExternal(ctx context.Context, control *agentruntime.ExternalController, action agentexecution.RuntimeRecoveryAction) (AgentRuntimeRecoveryResult, error) {

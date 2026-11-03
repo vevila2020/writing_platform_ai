@@ -1,7 +1,7 @@
 package lifecycle
 
 import (
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 // eventDropState coalesces bounded observer loss without coupling a slow

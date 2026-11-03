@@ -2,16 +2,16 @@ package automationapp
 
 import (
 	"context"
-	apptask "denova/internal/app/task"
 	"encoding/json"
 	"errors"
 	"fmt"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"strings"
 	"time"
 
-	"denova/config"
-	agentmodeltask "denova/internal/agents/modeltask"
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentmodeltask "github.com/vevila2020/writing_platform_ai/internal/agents/modeltask"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 const semanticTriggerConfidenceThreshold = 0.55

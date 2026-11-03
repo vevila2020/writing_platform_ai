@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 var (

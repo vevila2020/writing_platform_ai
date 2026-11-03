@@ -9,12 +9,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestNativeImageAdmissionSeparatesVisualTokensFromEncodedBytes(t *testing.T) {

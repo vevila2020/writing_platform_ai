@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestBoundedGlobalRunCatalogKeepsExplicitTarget(t *testing.T) {

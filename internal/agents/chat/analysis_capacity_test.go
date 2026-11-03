@@ -3,12 +3,12 @@ package chat
 import (
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestInspectedContextAnalysisUsesCapacityAwareProfileOutputReserve(t *testing.T) {

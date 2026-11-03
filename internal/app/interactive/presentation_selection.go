@@ -7,10 +7,10 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/decision"
-	"denova/internal/agents/modeltask"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/decision"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modeltask"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // PresentationSelectedByHost is snapshotted with the conversation configuration;

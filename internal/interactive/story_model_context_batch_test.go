@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func TestModelContextBatchPersistsWithoutAdvancingBranch(t *testing.T) {
@@ -515,7 +515,7 @@ func durableModelContextBatchFixtureForCall(callID, evidence string) []ModelCont
 			Role: "tool", ToolCallID: callID, ToolName: "web_fetch", Content: evidence,
 			ToolResult: &agentschema.ToolResultSummary{
 				Status: agentschema.ToolResultSuccess, ResultRetention: agentschema.ToolResultEagerCandidate,
-				Artifacts: []agentschema.ToolArtifactRef{{ReadablePath: ".denova/artifacts/game/fetch.txt", EstimatedBytes: 4096, Complete: true}},
+				Artifacts: []agentschema.ToolArtifactRef{{ReadablePath: ".inkdock/artifacts/game/fetch.txt", EstimatedBytes: 4096, Complete: true}},
 			},
 		},
 	}

@@ -65,7 +65,7 @@ func OpenAPI() map[string]any {
 			response["content"] = content(responseSchema)
 		}
 		operation := map[string]any{"summary": summary, "responses": map[string]any{success: response, "default": map[string]any{"description": "Localized error; never retry an uncertain mutation with a new commandId", "content": content(ref("Error"))}}}
-		parameters := []map[string]any{{"name": "X-Denova-Consumer", "in": "header", "schema": str, "description": "Forward connection.consumerId for page/command-owned requests and asynchronous work."}}
+		parameters := []map[string]any{{"name": "X-InkDock-Consumer", "in": "header", "schema": str, "description": "Forward connection.consumerId for page/command-owned requests and asynchronous work."}}
 		for _, segment := range strings.Split(path, "/") {
 			if strings.HasPrefix(segment, "{") {
 				parameters = append(parameters, map[string]any{"name": strings.Trim(segment, "{}"), "in": "path", "required": true, "schema": str})
@@ -163,5 +163,5 @@ func OpenAPI() map[string]any {
 		add("put", prefix+"/file", "Write a file with compare-and-swap", ref("FileMutation"), object(map[string]any{"revision": str}, "revision"), "200", nil)
 		add("delete", prefix+"/file", "Delete a file with compare-and-swap", ref("FileMutation"), nil, "204", nil)
 	}
-	return map[string]any{"openapi": "3.1.0", "info": map[string]string{"title": "Denova Platform", "version": "1.0.0"}, "servers": []map[string]string{{"url": "/api/platform/v1"}}, "security": []map[string]any{{"bearerAuth": []string{}}}, "components": map[string]any{"schemas": schemas, "securitySchemes": map[string]any{"bearerAuth": map[string]string{"type": "http", "scheme": "bearer"}}}, "paths": paths}
+	return map[string]any{"openapi": "3.1.0", "info": map[string]string{"title": "InkDock Platform", "version": "1.0.0"}, "servers": []map[string]string{{"url": "/api/platform/v1"}}, "security": []map[string]any{{"bearerAuth": []string{}}}, "components": map[string]any{"schemas": schemas, "securitySchemes": map[string]any{"bearerAuth": map[string]string{"type": "http", "scheme": "bearer"}}}, "paths": paths}
 }

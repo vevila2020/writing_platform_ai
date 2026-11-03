@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 func atomicReplace(path string, content []byte, fileMode, directoryMode os.FileMode) (err error) {
@@ -13,7 +13,7 @@ func atomicReplace(path string, content []byte, fileMode, directoryMode os.FileM
 	if err := os.MkdirAll(dir, directoryMode); err != nil {
 		return err
 	}
-	temp, err := os.CreateTemp(dir, "."+filepath.Base(path)+".denova-*")
+	temp, err := os.CreateTemp(dir, "."+filepath.Base(path)+".inkdock-*")
 	if err != nil {
 		return err
 	}

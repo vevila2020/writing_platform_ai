@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"testing"
 
-	"denova/config"
-	runtimeapp "denova/internal/app"
 	"github.com/cloudwego/hertz/pkg/app"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/ut"
+	"github.com/vevila2020/writing_platform_ai/config"
+	runtimeapp "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 func TestNewServerUsesLocalHostByDefault(t *testing.T) {
@@ -28,7 +28,7 @@ func TestNewServerUsesLANHostWhenEnabled(t *testing.T) {
 	}
 	application, err := runtimeapp.New(context.Background(), &config.Config{
 		OpenAIModel:              "test-model",
-		NovaDir:                  root,
+		DenovaDir:                root,
 		Workspace:                root,
 		ResumeLastWorkspace:      false,
 		AllowLANAccess:           true,
@@ -80,7 +80,7 @@ func TestLocalHostEffectMiddlewareRejectsForwardedRemoteClient(t *testing.T) {
 		"/native",
 		nil,
 		ut.Header{Key: "X-Forwarded-For", Value: "192.168.1.8"},
-		ut.Header{Key: "X-Denova-Locale", Value: "en-US"},
+		ut.Header{Key: "X-InkDock-Locale", Value: "en-US"},
 	)
 	if response.Code != http.StatusForbidden || called {
 		t.Fatalf("remote host effect response = %d called=%v body=%s", response.Code, called, response.Body.String())

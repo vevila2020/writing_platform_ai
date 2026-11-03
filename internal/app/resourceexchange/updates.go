@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func automaticKinds(bindings []Binding) bool {

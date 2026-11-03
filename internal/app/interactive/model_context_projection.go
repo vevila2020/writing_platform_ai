@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/agents"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelContextProjection renders the canonical branch in message order.

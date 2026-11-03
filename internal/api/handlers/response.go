@@ -10,8 +10,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/i18n"
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 // decodeStrictJSONRequest rejects unknown fields and trailing JSON values at
@@ -55,7 +55,7 @@ func requestLocale(c *app.RequestContext) string {
 }
 
 func requestLocaleHeader(c *app.RequestContext) string {
-	if header := strings.TrimSpace(string(c.Request.Header.Peek("X-Denova-Locale"))); header != "" {
+	if header := strings.TrimSpace(string(c.Request.Header.Peek("X-InkDock-Locale"))); header != "" {
 		return header
 	}
 	return strings.TrimSpace(string(c.Request.Header.Peek("X-Nova-Locale")))

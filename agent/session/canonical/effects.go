@@ -3,7 +3,7 @@ package canonical
 import (
 	"context"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // EffectApplier accepts idempotent tool effects without owning the Agent's

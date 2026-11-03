@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"sync"
 
-	"denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // Event is one display event together with its monotonic, task-local

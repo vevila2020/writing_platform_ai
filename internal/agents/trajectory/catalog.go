@@ -17,11 +17,11 @@ import (
 	"strings"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 const Scheme = "trajectory://"

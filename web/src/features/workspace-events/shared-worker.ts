@@ -27,7 +27,7 @@ async function openProjectEventStream(options: { projectId: string; signal: Abor
     signal: options.signal,
   })
   if (!response.ok) {
-    throw new ProjectEventStreamHTTPError(response.status, response.headers.get('X-Denova-Auth') === 'required')
+    throw new ProjectEventStreamHTTPError(response.status, response.headers.get('X-InkDock-Auth') === 'required')
   }
   if (!response.body) throw new Error('Project event stream has no response body')
   return parseSSEStream(response.body)

@@ -7,12 +7,12 @@ import (
 	"log/slog"
 	"strings"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const sessionControlRecord = "session.control"

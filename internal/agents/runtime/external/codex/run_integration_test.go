@@ -19,24 +19,24 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	toml "github.com/pelletier/go-toml/v2"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // This opt-in fixture exercises the installed executable, without account
 // credentials or remote model traffic. It tests the real protocol and sandbox,
 // not the quality or capabilities of an actual model.
 func TestInstalledAppServerHostBoundary(t *testing.T) {
-	executable := os.Getenv("DENOVA_TEST_CODEX_EXE")
+	executable := os.Getenv("INKDOCK_TEST_CODEX_EXE")
 	if executable == "" {
-		t.Skip("set DENOVA_TEST_CODEX_EXE to test the installed App Server")
+		t.Skip("set INKDOCK_TEST_CODEX_EXE to test the installed App Server")
 	}
 	versionOutput, err := exec.Command(executable, "--version").Output()
 	if err != nil {
@@ -56,10 +56,10 @@ func TestInstalledAppServerHostBoundary(t *testing.T) {
 			if err := os.MkdirAll(ambientSkill, 0o755); err != nil {
 				t.Fatal(err)
 			}
-			if err := os.WriteFile(filepath.Join(ambientSkill, "SKILL.md"), []byte("---\nname: ambient-disabled\ndescription: ambient-skill-must-not-bypass-library\n---\nExternal discovery must not bypass Denova's catalog.\n"), 0o600); err != nil {
+			if err := os.WriteFile(filepath.Join(ambientSkill, "SKILL.md"), []byte("---\nname: ambient-disabled\ndescription: ambient-skill-must-not-bypass-library\n---\nExternal discovery must not bypass InkDock's catalog.\n"), 0o600); err != nil {
 				t.Fatal(err)
 			}
-			t.Setenv("DENOVA_FIXTURE_CODEX_KEY", "overridden-by-codex-dotenv")
+			t.Setenv("INKDOCK_FIXTURE_CODEX_KEY", "overridden-by-codex-dotenv")
 			guard := filepath.Join(project, "chapter.txt")
 			if err := os.WriteFile(guard, []byte("Original content.\n"), 0o600); err != nil {
 				t.Fatal(err)
@@ -82,7 +82,7 @@ func TestInstalledAppServerHostBoundary(t *testing.T) {
 				}
 				mu.Lock()
 				if bytes.Contains(body, []byte("ambient-skill-must-not-bypass-library")) {
-					t.Error("App Server injected an ambient Skill outside the Denova library")
+					t.Error("App Server injected an ambient Skill outside the InkDock library")
 				}
 				if scenario == "api" && (!bytes.Contains(body, []byte(`"model":"fixture-api-model"`)) || r.Header.Get("X-Tenant") != "api-tenant" || r.Header.Get("X-Unexpected") != "") {
 					t.Error("API model or custom header was not applied")
@@ -121,19 +121,19 @@ func TestInstalledAppServerHostBoundary(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			configuration := fmt.Sprintf("model = \"gpt-5.5\"\nmodel_provider = \"fixture\"\nmodel_context_window = 128000\n[model_providers.fixture]\nname = \"Local fixture\"\nbase_url = %q\nwire_api = \"responses\"\nenv_key = \"DENOVA_FIXTURE_CODEX_KEY\"\n[features]\nenable_request_compression = false\n", server.URL+"/v1")
+			configuration := fmt.Sprintf("model = \"gpt-5.5\"\nmodel_provider = \"fixture\"\nmodel_context_window = 128000\n[model_providers.fixture]\nname = \"Local fixture\"\nbase_url = %q\nwire_api = \"responses\"\nenv_key = \"INKDOCK_FIXTURE_CODEX_KEY\"\n[features]\nenable_request_compression = false\n", server.URL+"/v1")
 			if err := os.WriteFile(filepath.Join(home, "config.toml"), []byte(configuration), 0o600); err != nil {
 				t.Fatal(err)
 			}
-			// Let the actual CLI load .env from the selected home. Denova must
+			// Let the actual CLI load .env from the selected home. InkDock must
 			// not duplicate its dotenv/config/provider resolution rules.
-			if err := os.WriteFile(filepath.Join(home, ".env"), []byte("DENOVA_FIXTURE_CODEX_KEY=fixture-only\n"), 0o600); err != nil {
+			if err := os.WriteFile(filepath.Join(home, ".env"), []byte("INKDOCK_FIXTURE_CODEX_KEY=fixture-only\n"), 0o600); err != nil {
 				t.Fatal(err)
 			}
 			options := ProcessOptions{Executable: executable, Home: home}
 			if scenario == "api" {
 				options.API = &config.ResolvedModelSettings{BaseURL: server.URL + "/v1", APIKey: "fixture-only", Model: "fixture-api-model", Headers: map[string]string{"X-Tenant": "api-tenant"}}
-				configuration = "model_provider = \"denova\"\n[model_providers.denova]\nname=\"Wrong\"\nbase_url=\"http://127.0.0.1:1\"\nhttp_headers={\"X-Unexpected\"=\"inherited-secret\"}\n[features]\nenable_request_compression=false\n"
+				configuration = "model_provider = \"denova\"\n[model_providers.inkdock]\nname=\"Wrong\"\nbase_url=\"http://127.0.0.1:1\"\nhttp_headers={\"X-Unexpected\"=\"inherited-secret\"}\n[features]\nenable_request_compression=false\n"
 				if err := os.WriteFile(filepath.Join(home, "config.toml"), []byte(configuration), 0600); err != nil {
 					t.Fatal(err)
 				}

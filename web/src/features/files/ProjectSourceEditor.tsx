@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { IDisposable, editor } from 'monaco-editor'
 import { EmptyState } from '@/components/common/EmptyState'
 import { ImagePreviewDialog } from '@/components/common/ImagePreviewDialog'
-import { DenovaMonacoEditor } from '@/components/monaco/DenovaMonaco'
+import { InkDockMonacoEditor } from '@/components/monaco/InkDockMonaco'
 import { projectFileAssetURL, type ProjectFileDocument } from '@/lib/api-client/project-files'
 import { projectFileLanguage } from './file-language'
 
@@ -198,7 +198,7 @@ export const ProjectTextEditor = forwardRef<ProjectTextEditorHandle, ProjectText
       // widgets onto this wrapper, offsetting hovers and completion popups.
       style={{ contain: 'size style' }}
     >
-      <DenovaMonacoEditor
+      <InkDockMonacoEditor
         height="100%"
         path={modelPath}
         language={projectFileLanguage(document.path)}
@@ -282,5 +282,5 @@ function installEditorActions(editorInstance: editor.IStandaloneCodeEditor, mona
 
 export function projectFileModelPath(projectId: string, path: string) {
   const encodedPath = path.split('/').map(encodeURIComponent).join('/')
-  return `file:///denova-project/${encodeURIComponent(projectId)}/${encodedPath}`
+  return `file:///inkdock-project/${encodeURIComponent(projectId)}/${encodedPath}`
 }

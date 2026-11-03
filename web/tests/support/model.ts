@@ -1,7 +1,7 @@
 import type { APIResponse } from '@playwright/test'
 import { expect, type APIRequestContext } from './fixtures'
 
-export const modelControlURL = `http://127.0.0.1:${process.env.DENOVA_E2E_MODEL_PORT || '18081'}`
+export const modelControlURL = `http://127.0.0.1:${process.env.INKDOCK_E2E_MODEL_PORT || '18081'}`
 
 export interface E2EModelStatus {
   delayed_waiting: number

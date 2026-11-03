@@ -41,11 +41,11 @@ config_apply({
     "id": "close-suspense",
     "name": "Close suspense",
     "description": "Restricted viewpoint and escalating sensory tension.",
-    "style_refs": [".denova/styles/tense-close-third.md"],
+    "style_refs": [".inkdock/styles/tense-close-third.md"],
     "style_rules": [
       {
         "scene": "quiet-investigation",
-        "style_refs": [".denova/styles/tense-close-third.md"]
+        "style_refs": [".inkdock/styles/tense-close-third.md"]
       }
     ],
     "context_policy": {
@@ -88,9 +88,9 @@ config_apply({
     "id": "close-suspense",
     "name": "Close suspense",
     "description": "Restricted viewpoint with restrained, escalating tension.",
-    "style_refs": [".denova/styles/tense-close-third.md"],
+    "style_refs": [".inkdock/styles/tense-close-third.md"],
     "style_rules": [
-      {"scene": "quiet-investigation", "style_refs": [".denova/styles/tense-close-third.md"]}
+      {"scene": "quiet-investigation", "style_refs": [".inkdock/styles/tense-close-third.md"]}
     ],
     "context_policy": {"creator": "always", "lore": "relevant", "runtime_state": "always"},
     "slots": [

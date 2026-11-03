@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/api/agentui"
+	"github.com/vevila2020/writing_platform_ai/internal/api/agentui"
 )
 
 func (h *Handlers) HandleAgentSessionMessages(ctx context.Context, c *app.RequestContext) {

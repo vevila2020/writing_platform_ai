@@ -1,9 +1,9 @@
 package character
 
 import (
-	"denova/internal/book/lore"
 	"encoding/json"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"strings"
 )
 

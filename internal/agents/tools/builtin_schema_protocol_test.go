@@ -10,19 +10,19 @@ import (
 	"sort"
 	"testing"
 
-	"denova/config"
-	novaskills "denova/internal/agents/skills"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/anthropicmessages"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openaichatcompletions"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openairesponses"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
-	agentscript "github.com/alfredxw/denova/agent/tool/script"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/anthropicmessages"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openaichatcompletions"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openairesponses"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
+	agentscript "github.com/vevila2020/writing_platform_ai/agent/tool/script"
 )
 
 // Exercise the actual wire payload, since a valid in-memory schema alone does
@@ -170,7 +170,7 @@ func (schemaOnlyCommandRunner) Identity() agentschema.CapabilityIdentity {
 func builtinSchemaInfos(t *testing.T) []*agentschema.ToolInfo {
 	t.Helper()
 	ctx := context.Background()
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir(), ProjectStoreDir: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir(), ProjectStoreDir: t.TempDir()}
 	settings := config.ResolvedAgentToolSettings{
 		config.AgentToolFilesystemRead: true, config.AgentToolWorkspaceWrite: true,
 		config.AgentToolLoreRead: true, config.AgentToolLoreWrite: true, config.AgentToolImageGeneration: true,

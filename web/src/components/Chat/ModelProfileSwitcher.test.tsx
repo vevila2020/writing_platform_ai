@@ -86,7 +86,7 @@ describe('ModelProfileSwitcher', () => {
       await waitFor(() => expect(open).toHaveBeenCalledWith({ kind: 'config_resource', resource: 'agent_profile', id: 'ide', scope: 'user', section: 'runtime' }))
     } finally { warning.mockRestore() }
   })
-  it('uses only Denova profiles without requesting CLI models for an API conversation', async () => {
+  it('uses only InkDock profiles without requesting CLI models for an API conversation', async () => {
     settingsMocks.fetchEngineModels.mockClear()
     settingsMocks.profiles = [{ id: 'profile:api', label: 'Gateway', modelLabel: 'Gateway' }, { id: 'profile:second', label: 'Second gateway', modelLabel: 'Second gateway' }]
     const patch = vi.fn().mockResolvedValue(true)

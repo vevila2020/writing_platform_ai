@@ -5,8 +5,8 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/buildinfo"
 	"github.com/Masterminds/semver/v3"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
 )
 
 // ContributionContext selects a product destination, never an authorization scope.
@@ -82,7 +82,7 @@ func compatibleManifest(manifest Manifest) error {
 	}
 	host, err := semver.StrictNewVersion(hostVersion())
 	if err != nil || host.LessThan(minimum) {
-		return failure("API_INCOMPATIBLE", "Package %s requires Denova %s; host provides %s", manifest.ID, minimum, hostVersion())
+		return failure("API_INCOMPATIBLE", "Package %s requires InkDock %s; host provides %s", manifest.ID, minimum, hostVersion())
 	}
 	return nil
 }

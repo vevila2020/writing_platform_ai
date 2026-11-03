@@ -3,7 +3,7 @@ package interactive
 import (
 	"context"
 
-	story "denova/internal/interactive"
+	story "github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // InteractiveStoryToolContext is the application-facing input used to build

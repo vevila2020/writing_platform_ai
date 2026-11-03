@@ -10,7 +10,7 @@ import { setTimeout as delay } from 'node:timers/promises'
 // Own only this evaluation's child process. No development server is reused.
 export async function startBackend({ binary, directory, configuration, skillsDirectory, signal }) {
   await mkdir(directory, { recursive: true, mode: 0o700 })
-  const dataDirectory = path.join(directory, '.denova')
+  const dataDirectory = path.join(directory, '.inkdock')
   await mkdir(dataDirectory, { mode: 0o700 })
   const configPath = path.join(dataDirectory, 'config.toml')
   await writeFile(configPath, configuration, { mode: 0o600 })
@@ -20,11 +20,11 @@ export async function startBackend({ binary, directory, configuration, skillsDir
   const port = reservation.address().port
   await new Promise(resolve => reservation.close(resolve))
   const environment = Object.fromEntries(Object.entries(process.env)
-    .filter(([key]) => !/^(DENOVA_|NOVA_)/.test(key)))
+    .filter(([key]) => !/^(INKDOCK_|DENOVA_)/.test(key)))
   const log = createWriteStream(path.join(directory, 'backend.log'), { mode: 0o600 })
   const child = spawn(binary, ['--no-open', '--dev-mode', `--port=${port}`], {
     cwd: directory,
-    env: { ...environment, DENOVA_DIR: dataDirectory, DENOVA_SKILLS_DIR: skillsDirectory },
+    env: { ...environment, INKDOCK_DIR: dataDirectory, INKDOCK_SKILLS_DIR: skillsDirectory },
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   child.stdout.pipe(log, { end: false })

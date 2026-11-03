@@ -6,11 +6,11 @@ import (
 	"errors"
 	"sort"
 
-	"denova/config"
-	"denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // Status projects the same product control vocabulary without creating a

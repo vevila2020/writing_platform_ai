@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const defaultToolResultMaxBytes = config.DefaultAgentToolResultLimitKB * 1024
@@ -49,7 +49,7 @@ func NewTools(cfg *config.Config, maxResultBytes int) ([]agenttool.ToolDefinitio
 	}
 	readTool, err := agenttool.InferTool(
 		"config_read",
-		"Inspect, list, or read Denova configuration resources through one typed registry. List and large exact reads return stable continuation cursors. Exact reads return existing items plus missing_ids/failures; only an entirely unsuccessful completed request fails. Call operation=describe before using an unfamiliar resource and keep returned revisions for later mutations.",
+		"Inspect, list, or read InkDock configuration resources through one typed registry. List and large exact reads return stable continuation cursors. Exact reads return existing items plus missing_ids/failures; only an entirely unsuccessful completed request fails. Call operation=describe before using an unfamiliar resource and keep returned revisions for later mutations.",
 		func(ctx context.Context, input configReadInput) (string, error) {
 			value, err := registry.Read(ctx, ReadRequest{
 				Operation: input.Operation, Resource: input.Resource, IDs: input.IDs, Scope: input.Scope, Query: input.Query,
@@ -66,7 +66,7 @@ func NewTools(cfg *config.Config, maxResultBytes int) ([]agenttool.ToolDefinitio
 	}
 	applyTool, err := agenttool.InferTool(
 		"config_apply",
-		"Create, update, or delete exactly one Denova configuration resource. Updates, deletes, and agent_profile SubAgent creates require the latest revision from config_read; custom Agent creates use the same requirement. agent_profile deletes require value.kind. Resource-specific value shapes live in the configuration Skill references.",
+		"Create, update, or delete exactly one InkDock configuration resource. Updates, deletes, and agent_profile SubAgent creates require the latest revision from config_read; custom Agent creates use the same requirement. agent_profile deletes require value.kind. Resource-specific value shapes live in the configuration Skill references.",
 		func(ctx context.Context, input configApplyInput) (agentschema.ToolResult, error) {
 			value, err := registry.Apply(ctx, Mutation{
 				Operation: input.Operation, Resource: input.Resource, ID: input.ID, Scope: input.Scope, Revision: input.Revision, Value: input.Value,

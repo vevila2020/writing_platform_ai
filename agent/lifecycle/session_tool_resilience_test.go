@@ -9,16 +9,16 @@ import (
 	"testing"
 	"time"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type lostToolResultStore struct{ agentsession.Store }

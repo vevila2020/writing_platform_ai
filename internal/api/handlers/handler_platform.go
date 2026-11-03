@@ -3,15 +3,15 @@ package handlers
 import (
 	"bytes"
 	"context"
-	"denova/internal/app/resourceexchange"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
 	"log/slog"
 	"net/url"
 	"strings"
 
-	"denova/internal/platform"
 	hertzapp "github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 // HandlePlatformManagement is reachable only from the trusted App origin.
@@ -168,7 +168,7 @@ func (h *Handlers) HandlePlatformManagement(ctx context.Context, c *hertzapp.Req
 			platformManagementError(c, err)
 			return
 		}
-		c.Header("Content-Disposition", `attachment; filename="denova-package.zip"`)
+		c.Header("Content-Disposition", `attachment; filename="inkdock-package.zip"`)
 		c.Data(200, "application/zip", output.Bytes())
 		return
 	}

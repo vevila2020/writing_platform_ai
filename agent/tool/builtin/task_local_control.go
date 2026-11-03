@@ -3,8 +3,8 @@ package builtin
 import (
 	"context"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 // Interrupt uses the existing resumable Session pause. It never promotes a

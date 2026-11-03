@@ -1,8 +1,8 @@
 package engine
 
 import (
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
 )
 
 type compactionHealthState struct {

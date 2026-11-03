@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
-	"denova/internal/platform"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 // Stream binds the subscription to the observed operation and workspace lease.

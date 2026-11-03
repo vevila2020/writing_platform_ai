@@ -3,8 +3,8 @@ package platform
 import (
 	"context"
 
-	"denova/internal/interactive"
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func platformStoryStateSchema(schema *interactive.ActorStateSchemaSnapshot) *platform.StoryStateSchema {

@@ -215,7 +215,7 @@ func TestLegacyTopLevelImageSettingsDoNotLeakIntoNewProvider(t *testing.T) {
 }
 
 func TestApplyImageAPIEnvironmentAcceptsLegacyOpenAIAliases(t *testing.T) {
-	unsetEnvironmentForTest(t, "DENOVA_IMAGE_PROVIDER", "DENOVA_IMAGE_PROTOCOL", "DENOVA_IMAGE_API_KEY", "DENOVA_IMAGE_BASE_URL", "DENOVA_IMAGE_MODEL")
+	unsetEnvironmentForTest(t, "INKDOCK_IMAGE_PROVIDER", "INKDOCK_IMAGE_PROTOCOL", "INKDOCK_IMAGE_API_KEY", "INKDOCK_IMAGE_BASE_URL", "INKDOCK_IMAGE_MODEL")
 	t.Setenv("OPENAI_IMAGE_API_KEY", "legacy-key")
 	t.Setenv("OPENAI_IMAGE_BASE_URL", "https://legacy-images.example/v1")
 	t.Setenv("OPENAI_IMAGE_MODEL", "legacy-image-model")
@@ -233,11 +233,11 @@ func TestApplyImageAPIEnvironmentAcceptsLegacyOpenAIAliases(t *testing.T) {
 }
 
 func TestCanonicalImageEnvironmentOverridesLegacyAliases(t *testing.T) {
-	t.Setenv("DENOVA_IMAGE_PROVIDER", ImageProviderOpenAI)
-	t.Setenv("DENOVA_IMAGE_PROTOCOL", ImageProtocolOpenAI)
-	t.Setenv("DENOVA_IMAGE_API_KEY", "canonical-key")
-	t.Setenv("DENOVA_IMAGE_BASE_URL", "https://canonical-images.example/v1")
-	t.Setenv("DENOVA_IMAGE_MODEL", "canonical-image-model")
+	t.Setenv("INKDOCK_IMAGE_PROVIDER", ImageProviderOpenAI)
+	t.Setenv("INKDOCK_IMAGE_PROTOCOL", ImageProtocolOpenAI)
+	t.Setenv("INKDOCK_IMAGE_API_KEY", "canonical-key")
+	t.Setenv("INKDOCK_IMAGE_BASE_URL", "https://canonical-images.example/v1")
+	t.Setenv("INKDOCK_IMAGE_MODEL", "canonical-image-model")
 	t.Setenv("OPENAI_IMAGE_API_KEY", "legacy-key")
 	t.Setenv("OPENAI_IMAGE_BASE_URL", "https://legacy-images.example/v1")
 	t.Setenv("OPENAI_IMAGE_MODEL", "legacy-image-model")

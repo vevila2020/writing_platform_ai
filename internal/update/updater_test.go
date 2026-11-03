@@ -10,13 +10,13 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func TestRelaunchScopesUpdateOriginToTheCurrentHandoff(t *testing.T) {
-	t.Setenv("DENOVA_UPDATE_FROM_VERSION", "0.5.1")
-	t.Setenv("DENOVA_UPDATE_ID", "previous-update")
-	t.Setenv("DENOVA_UPDATE_MANIFEST", "previous-manifest")
+	t.Setenv("INKDOCK_UPDATE_FROM_VERSION", "0.5.1")
+	t.Setenv("INKDOCK_UPDATE_ID", "previous-update")
+	t.Setenv("INKDOCK_UPDATE_MANIFEST", "previous-manifest")
 	for _, test := range []struct {
 		name, previousVersion string
 		state                 Phase
@@ -27,16 +27,16 @@ func TestRelaunchScopesUpdateOriginToTheCurrentHandoff(t *testing.T) {
 		{"rollback", "0.5.1", PhaseFailed, ""},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			manifest := ApplyManifest{ID: "next-update", State: test.state, PreviousVersion: test.previousVersion, TargetExecutable: "denova", RelaunchArgs: []string{"denova", "--port=18080", "--no-open"}}
+			manifest := ApplyManifest{ID: "next-update", State: test.state, PreviousVersion: test.previousVersion, TargetExecutable: "inkdock", RelaunchArgs: []string{"inkdock", "--port=18080", "--no-open"}}
 			err := startRelaunch(context.Background(), "next-manifest", manifest, UpdaterOptions{
 				StartProcess: func(executable string, args, env []string) error {
-					if executable != "denova" || !slices.Equal(args, manifest.RelaunchArgs) {
+					if executable != "inkdock" || !slices.Equal(args, manifest.RelaunchArgs) {
 						t.Fatalf("explicit launch arguments changed: %s %v", executable, args)
 					}
 					var origin []string
 					for _, item := range env {
 						key, value, _ := strings.Cut(item, "=")
-						if strings.EqualFold(key, "DENOVA_UPDATE_FROM_VERSION") {
+						if strings.EqualFold(key, "INKDOCK_UPDATE_FROM_VERSION") {
 							origin = append(origin, value)
 						}
 					}
@@ -59,7 +59,7 @@ func TestRelaunchScopesUpdateOriginToTheCurrentHandoff(t *testing.T) {
 
 func TestRunUpdaterAppliesStagedPackageAndRelaunches(t *testing.T) {
 	installDir := t.TempDir()
-	sourceDir := filepath.Join(updateDataDir(installDir), "pending-test", "denova")
+	sourceDir := filepath.Join(updateDataDir(installDir), "pending-test", "inkdock")
 	backupDir := filepath.Join(filepath.Dir(sourceDir), "backup")
 	targetExe := filepath.Join(installDir, "nova")
 	updaterName := updaterExecutableName()
@@ -79,7 +79,7 @@ func TestRunUpdaterAppliesStagedPackageAndRelaunches(t *testing.T) {
 		UpdaterExecutable: stagedUpdater,
 		RelaunchArgs:      []string{targetExe, "--port", "8080", "--no-open"},
 		Version:           "0.2.0",
-		LogPath:           filepath.Join(installDir, ".denova-updates", "apply.log"),
+		LogPath:           filepath.Join(installDir, ".inkdock-updates", "apply.log"),
 	}
 	manifestPath := filepath.Join(filepath.Dir(sourceDir), manifestFileName)
 	if err := writeManifest(manifestPath, manifest); err != nil {
@@ -120,7 +120,7 @@ func TestRunUpdaterAppliesStagedPackageAndRelaunches(t *testing.T) {
 func TestRollbackUpdateRestoresBackups(t *testing.T) {
 	installDir := t.TempDir()
 	sourceDir := filepath.Join(t.TempDir(), "nova")
-	backupDir := filepath.Join(installDir, ".denova-updates", "backup-test")
+	backupDir := filepath.Join(installDir, ".inkdock-updates", "backup-test")
 	targetExe := filepath.Join(installDir, "nova")
 	updaterName := updaterExecutableName()
 	writeUpdateTestPackage(t, installDir, updateTestPackageContents{
@@ -216,10 +216,10 @@ func assertFileContent(t *testing.T, path, want string) {
 func acknowledgeTestLaunch(_ string, _ []string, env []string) error {
 	path, id := "", ""
 	for _, item := range env {
-		if value, ok := strings.CutPrefix(item, "DENOVA_UPDATE_MANIFEST="); ok {
+		if value, ok := strings.CutPrefix(item, "INKDOCK_UPDATE_MANIFEST="); ok {
 			path = value
 		}
-		if value, ok := strings.CutPrefix(item, "DENOVA_UPDATE_ID="); ok {
+		if value, ok := strings.CutPrefix(item, "INKDOCK_UPDATE_ID="); ok {
 			id = value
 		}
 	}

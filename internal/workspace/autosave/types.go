@@ -8,7 +8,7 @@ import (
 
 const (
 	// DirectoryName is the append-only conflict journal under the configured
-	// Denova data directory.
+	// InkDock data directory.
 	DirectoryName = "conflicts"
 	recordVersion = 1
 )

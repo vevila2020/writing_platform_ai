@@ -84,7 +84,7 @@ const storyPicker = {
   'storyPicker.setup.stateSchema.generate.description': '不使用状态预设；Game Agent 从最小核心生成本故事真正需要的字段。',
   'storyPicker.setup.stateSchema.template': '基础状态模板',
   'storyPicker.setup.stateSchema.templatePlaceholder': '选择状态模板',
-  'storyPicker.setup.stateSchema.generateCore': 'Denova 仍会保留主角、故事状态、当前详细地点和当前事件这组不可删除的最小核心，确保回合可以稳定承接。',
+  'storyPicker.setup.stateSchema.generateCore': '墨栈 AI 仍会保留主角、故事状态、当前详细地点和当前事件这组不可删除的最小核心，确保回合可以稳定承接。',
   'storyPicker.setup.planning.title': 'Game Agent 规划',
   'storyPicker.setup.planning.description': '开启后，Game Agent 会在生成每个回合时维护当前分支规划；之后可在控制台随时切换。',
   'storyPicker.label': '故事线',

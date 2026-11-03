@@ -11,10 +11,10 @@ import (
 
 	toml "github.com/pelletier/go-toml/v2"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
-// Config 保存 Denova 的全局配置。
+// Config 保存 InkDock 的全局配置。
 type Config struct {
 	Decision                  *DecisionSettings       `toml:"decision,omitempty"`
 	OpenAIAPIKey              string                  `toml:"openai_api_key"`
@@ -51,8 +51,8 @@ type Config struct {
 	RemoteAccessUsername     string                       `toml:"remote_access_username"`
 	RemoteAccessPasswordHash string                       `toml:"remote_access_password_hash"`
 	Language                 string                       `toml:"language"`
+	InkDockDir               string                       `toml:"inkdock_dir"`
 	DenovaDir                string                       `toml:"denova_dir"`
-	NovaDir                  string                       `toml:"nova_dir"`
 	Workspace                string                       `toml:"workspace"`
 	// ProjectID and ProjectStoreDir are runtime-owned bindings. They never
 	// persist into user configuration or enter the content workspacelayout.
@@ -108,23 +108,23 @@ type Config struct {
 
 // LoadWithWorkspace 在已知 workspace 时读取分层配置（默认 < 用户级 < 工作区级 < 环境变量）。
 func LoadWithWorkspace(workspace string) (*Config, LayeredSettings, error) {
-	return LoadWithProject(startupNovaDir(), workspace, "")
+	return LoadWithProject(startupDataDir(), workspace, "")
 }
 
 // LoadWithProject constructs a clean runtime configuration for an explicit
 // Project Store path. It is the Project-ID-era equivalent of
 // LoadWithWorkspace and prevents a background Project from inheriting fields
 // already merged into the foreground runtime.
-func LoadWithProject(novaDir, workspace, projectConfigPath string) (*Config, LayeredSettings, error) {
-	layered, err := LoadLayeredWithStartupConfigAt(novaDir, workspace, projectConfigPath)
+func LoadWithProject(dataDir, workspace, projectConfigPath string) (*Config, LayeredSettings, error) {
+	layered, err := LoadLayeredWithStartupConfigAt(dataDir, workspace, projectConfigPath)
 	if err != nil {
 		return nil, LayeredSettings{}, err
 	}
-	novaDir = layered.Paths.DenovaDir
-	return configFromLayered(novaDir, workspace, layered), layered, nil
+	dataDir = layered.Paths.InkDockDir
+	return configFromLayered(dataDir, workspace, layered), layered, nil
 }
 
-func configFromLayered(novaDir, workspace string, layered LayeredSettings) *Config {
+func configFromLayered(dataDir, workspace string, layered LayeredSettings) *Config {
 	s := layered.Effective
 	cfg := &Config{
 		OpenAIAPIKey:                s.OpenAIAPIKey,
@@ -157,8 +157,8 @@ func configFromLayered(novaDir, workspace string, layered LayeredSettings) *Conf
 		RemoteAccessUsername:        s.RemoteAccessUsername,
 		RemoteAccessPasswordHash:    s.RemoteAccessPasswordHash,
 		Language:                    s.Language,
-		DenovaDir:                   novaDir,
-		NovaDir:                     novaDir,
+		InkDockDir:                  dataDir,
+		DenovaDir:                   dataDir,
 		Workspace:                   workspace,
 		IDEStoryTellerID:            s.IDEStoryTellerID,
 		IDEImagePresetID:            s.IDEImagePresetID,
@@ -215,37 +215,37 @@ func configFromLayered(novaDir, workspace string, layered LayeredSettings) *Conf
 
 // LoadLayeredWithStartupConfig reads layered settings with the same global
 // startup config layer used by LoadWithWorkspace.
-func LoadLayeredWithStartupConfig(novaDir, workspace string) (LayeredSettings, error) {
-	return LoadLayeredWithStartupConfigAt(novaDir, workspace, "")
+func LoadLayeredWithStartupConfig(dataDir, workspace string) (LayeredSettings, error) {
+	return LoadLayeredWithStartupConfigAt(dataDir, workspace, "")
 }
 
 // LoadLayeredWithStartupConfigAt reads the Project layer from an explicit
 // user-state path. An empty path preserves the legacy workspace-local layout.
-func LoadLayeredWithStartupConfigAt(novaDir, workspace, projectConfigPath string) (LayeredSettings, error) {
-	if strings.TrimSpace(novaDir) == "" {
-		novaDir = startupNovaDir()
+func LoadLayeredWithStartupConfigAt(dataDir, workspace, projectConfigPath string) (LayeredSettings, error) {
+	if strings.TrimSpace(dataDir) == "" {
+		dataDir = startupDataDir()
 	} else {
-		novaDir = normalizePath(novaDir)
+		dataDir = normalizePath(dataDir)
 	}
 	globalSettings := settingsFromConfig(loadGlobalConfig())
-	globalSettings.DenovaDir = novaDir
-	globalSettings.NovaDir = novaDir
-	return LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath, globalSettings)
+	globalSettings.InkDockDir = dataDir
+	globalSettings.DenovaDir = dataDir
+	return LoadLayeredWithGlobalAt(dataDir, workspace, projectConfigPath, globalSettings)
 }
 
-func startupNovaDir() string {
+func startupDataDir() string {
 	global := loadGlobalConfig()
-	novaDir := firstNonEmpty(global.DenovaDir, global.NovaDir)
-	if novaDir == "" {
-		novaDir = defaultNovaDir()
+	dataDir := firstNonEmpty(global.InkDockDir, global.DenovaDir)
+	if dataDir == "" {
+		dataDir = defaultDataDir()
 	}
-	if v := envCompat("DENOVA_DIR", "NOVA_DIR"); v != "" {
-		novaDir = v
+	if v := envCompat("INKDOCK_DIR", "DENOVA_DIR"); v != "" {
+		dataDir = v
 	}
-	if novaDir == "" {
-		novaDir = defaultNovaDir()
+	if dataDir == "" {
+		dataDir = defaultDataDir()
 	}
-	return normalizePath(novaDir)
+	return normalizePath(dataDir)
 }
 
 func loadGlobalConfig() *Config {
@@ -300,8 +300,8 @@ func settingsFromConfig(cfg *Config) Settings {
 			DeveloperMode: boolPtr(cfg.Labs.DeveloperMode),
 		},
 		SkillsDir:                cfg.SkillsDir,
-		DenovaDir:                firstNonEmpty(cfg.DenovaDir, cfg.NovaDir),
-		NovaDir:                  firstNonEmpty(cfg.DenovaDir, cfg.NovaDir),
+		InkDockDir:               firstNonEmpty(cfg.InkDockDir, cfg.DenovaDir),
+		DenovaDir:                firstNonEmpty(cfg.InkDockDir, cfg.DenovaDir),
 		RemoteAccessUsername:     cfg.RemoteAccessUsername,
 		RemoteAccessPasswordHash: cfg.RemoteAccessPasswordHash,
 		Language:                 cfg.Language,
@@ -425,8 +425,8 @@ func Load() *Config {
 			RemoteAccessUsername:        d.RemoteAccessUsername,
 			RemoteAccessPasswordHash:    d.RemoteAccessPasswordHash,
 			Language:                    d.Language,
+			InkDockDir:                  normalizePath(d.InkDockDir),
 			DenovaDir:                   normalizePath(d.DenovaDir),
-			NovaDir:                     normalizePath(d.NovaDir),
 			IDEStoryTellerID:            d.IDEStoryTellerID,
 			IDEImagePresetID:            d.IDEImagePresetID,
 			WritingSkillDefault:         d.WritingSkillDefault,
@@ -583,37 +583,37 @@ func settingsOptionalString(value *string) string {
 func overrideFromEnv(cfg *Config) {
 	ApplyModelEnvironment(cfg)
 	ApplyImageAPIEnvironment(cfg)
-	if v := envCompat("DENOVA_SKILLS_DIR", "NOVA_SKILLS_DIR"); v != "" {
+	if v := envCompat("INKDOCK_SKILLS_DIR", "DENOVA_SKILLS_DIR"); v != "" {
 		cfg.SkillsDir = v
 	}
-	if v := envCompat("DENOVA_DIR", "NOVA_DIR"); v != "" {
+	if v := envCompat("INKDOCK_DIR", "DENOVA_DIR"); v != "" {
+		cfg.InkDockDir = v
 		cfg.DenovaDir = v
-		cfg.NovaDir = v
 	}
-	if v := envCompat("DENOVA_WORKSPACE", "NOVA_WORKSPACE"); v != "" {
+	if v := envCompat("INKDOCK_WORKSPACE", "DENOVA_WORKSPACE"); v != "" {
 		cfg.Workspace = v
 	}
-	if v := envCompat("DENOVA_BACKEND_PORT", "NOVA_BACKEND_PORT"); v != "" {
+	if v := envCompat("INKDOCK_BACKEND_PORT", "DENOVA_BACKEND_PORT"); v != "" {
 		if port, err := strconv.Atoi(v); err == nil && port >= 1 && port <= 65535 {
 			cfg.BackendPort = port
 		}
 	}
-	if v := envCompat("DENOVA_FRONTEND_PORT", "NOVA_FRONTEND_PORT"); v != "" {
+	if v := envCompat("INKDOCK_FRONTEND_PORT", "DENOVA_FRONTEND_PORT"); v != "" {
 		if port, err := strconv.Atoi(v); err == nil && port >= 1 && port <= 65535 {
 			cfg.FrontendPort = port
 		}
 	}
-	if v := strings.TrimSpace(os.Getenv("DENOVA_PROJECT_FILE_TREE_ENTRY_LIMIT")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("INKDOCK_PROJECT_FILE_TREE_ENTRY_LIMIT")); v != "" {
 		if limit, err := strconv.Atoi(v); err == nil {
 			cfg.ProjectFileTreeEntryLimit = settingsProjectFileTreeEntryLimit(&limit)
 		}
 	}
-	if v := envCompat("DENOVA_AGENT_IDLE_TIMEOUT_SECONDS", "NOVA_AGENT_IDLE_TIMEOUT_SECONDS"); v != "" {
+	if v := envCompat("INKDOCK_AGENT_IDLE_TIMEOUT_SECONDS", "DENOVA_AGENT_IDLE_TIMEOUT_SECONDS"); v != "" {
 		if seconds, err := strconv.Atoi(v); err == nil && seconds >= 0 {
 			cfg.AgentIdleTimeoutSeconds = seconds
 		}
 	}
-	if v := strings.TrimSpace(os.Getenv("DENOVA_SEARXNG_BASE_URL")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("INKDOCK_SEARXNG_BASE_URL")); v != "" {
 		cfg.WebAccess.SearXNGBaseURL = strings.TrimRight(v, "/")
 	}
 }
@@ -692,33 +692,33 @@ func (cfg *Config) RemoteAccessConfig() RemoteAccessConfig {
 	}
 }
 
-// DataDir returns the canonical Denova data directory. DenovaDir is the
-// authoritative field; the legacy NovaDir name remains accepted only as a
+// DataDir returns the canonical InkDock data directory. InkDockDir is the
+// authoritative field; the legacy DenovaDir name remains accepted only as a
 // deserialization alias for older config files, so this accessor bridges the
 // two during the rename. Runtime code should read through DataDir instead of
-// touching DenovaDir/NovaDir directly so the fallback lives in one seam.
+// touching InkDockDir/DenovaDir directly so the fallback lives in one seam.
 func (cfg *Config) DataDir() string {
 	if cfg == nil {
 		return ""
 	}
-	if dir := strings.TrimSpace(cfg.DenovaDir); dir != "" {
+	if dir := strings.TrimSpace(cfg.InkDockDir); dir != "" {
 		return dir
 	}
-	return strings.TrimSpace(cfg.NovaDir)
+	return strings.TrimSpace(cfg.DenovaDir)
 }
 
-// SetDataDir sets the canonical Denova data directory, keeping the deprecated
-// NovaDir field mirrored so any legacy reader still resolves the same value.
+// SetDataDir sets the canonical InkDock data directory, keeping the deprecated
+// DenovaDir field mirrored so any legacy reader still resolves the same value.
 func (cfg *Config) SetDataDir(dir string) {
 	if cfg == nil {
 		return
 	}
 	dir = strings.TrimSpace(dir)
+	cfg.InkDockDir = dir
 	cfg.DenovaDir = dir
-	cfg.NovaDir = dir
 }
 
-func defaultNovaDir() string {
+func defaultDataDir() string {
 	if dirExists(workspacelayout.LegacyDataDirName) && !dirExists(workspacelayout.DataDirName) {
 		return "./" + workspacelayout.LegacyDataDirName
 	}
@@ -729,13 +729,13 @@ func normalizeConfigDataDir(cfg *Config) {
 	if cfg == nil {
 		return
 	}
-	dataDir := firstNonEmpty(cfg.DenovaDir, cfg.NovaDir)
+	dataDir := firstNonEmpty(cfg.InkDockDir, cfg.DenovaDir)
 	if dataDir == "" {
-		dataDir = defaultNovaDir()
+		dataDir = defaultDataDir()
 	}
 	dataDir = normalizePath(dataDir)
+	cfg.InkDockDir = dataDir
 	cfg.DenovaDir = dataDir
-	cfg.NovaDir = dataDir
 }
 
 func envCompat(current, legacy string) string {

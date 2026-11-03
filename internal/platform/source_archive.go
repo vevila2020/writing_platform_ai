@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/project"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // readGitHubSubtree admits only the requested distribution directory. Unrelated
@@ -79,7 +79,7 @@ func githubPackageRoot(relative string, repository map[string][]byte) (Kind, Man
 	}
 	kind, err := detectManifestKind(names)
 	if err != nil {
-		return "", Manifest{}, nil, failure("GITHUB_MANIFEST_MISSING", "Select a directory with exactly one Denova manifest: %s", relative)
+		return "", Manifest{}, nil, failure("GITHUB_MANIFEST_MISSING", "Select a directory with exactly one InkDock manifest: %s", relative)
 	}
 	raw := files[kind.manifestFile()]
 	if len(raw) > MaxDefinitionBytes {

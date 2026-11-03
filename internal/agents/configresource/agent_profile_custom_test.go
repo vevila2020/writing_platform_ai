@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestConfigApplyAgentProfileCreatesCustomAgentWithinContractCeiling(t *testing.T) {
 	novaDir := t.TempDir()
-	cfg := &config.Config{NovaDir: novaDir, Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: novaDir, Workspace: t.TempDir()}
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	readOutput, err := runToolForTest(context.Background(), readTool, `{"operation":"list","resource":"agent_profile"}`)

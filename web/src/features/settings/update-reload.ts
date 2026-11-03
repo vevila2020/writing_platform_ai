@@ -40,7 +40,7 @@ export function scheduleFrontendReloadAfterUpdate(target: { id: string; version:
 
 export function buildFrontendReloadURL(version: string, nonce: number, currentHref: string) {
   const url = new URL(currentHref)
-  url.searchParams.set('denova_reload', `${version}-${nonce}`)
+  url.searchParams.set('inkdock_reload', `${version}-${nonce}`)
   return url.toString()
 }
 

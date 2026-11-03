@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"strings"
 
-	agenttool "denova/internal/agents/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const (

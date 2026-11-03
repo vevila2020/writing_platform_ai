@@ -64,7 +64,7 @@ func TestServiceObservesRecursiveAndAtomicWorkspaceChanges(t *testing.T) {
 	}
 	waitFor("chapters/volume-1/ch02.md", ChangeAdded)
 
-	temporary := filepath.Join(chapters, ".ch01.denova-test.tmp")
+	temporary := filepath.Join(chapters, ".ch01.inkdock-test.tmp")
 	if err := os.WriteFile(temporary, []byte("atomic"), 0o644); err != nil {
 		t.Fatal(err)
 	}

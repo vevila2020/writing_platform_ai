@@ -2,8 +2,8 @@ package interactive
 
 import (
 	"context"
-	interactivestate "denova/internal/interactive/state"
 	"fmt"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"log/slog"
 	"sort"
 )

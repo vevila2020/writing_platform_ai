@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	agentattachment "denova/internal/agents/attachment"
-	chatagent "denova/internal/agents/chat"
-	"denova/internal/interactive"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	chatagent "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // MaterializeWritingAttachments persists transport payloads in the selected

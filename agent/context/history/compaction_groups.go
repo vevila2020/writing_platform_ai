@@ -1,7 +1,7 @@
 package history
 
 import (
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // interactionBoundaries returns complete assistant steps, keeping the whole

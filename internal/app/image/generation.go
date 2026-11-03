@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/internal/assetstore"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 type GenerateResult struct {

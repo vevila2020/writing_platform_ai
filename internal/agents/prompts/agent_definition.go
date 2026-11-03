@@ -3,11 +3,11 @@ package prompts
 import (
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // applyAgentPromptDefinition keeps the Engine and Experience contracts owned
-// by Denova while replacing the user-owned workflow fragment. Built-in Agents
+// by InkDock while replacing the user-owned workflow fragment. Built-in Agents
 // still support sparse flow/custom overrides; custom Agents own the workflow
 // outright, including an intentionally empty workflow.
 func applyAgentPromptDefinition(cfg *config.Config, agentKind string, fragments []SystemPromptFragment) []SystemPromptFragment {

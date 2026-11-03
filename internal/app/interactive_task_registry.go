@@ -10,14 +10,14 @@ import (
 	"strings"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	interactiveapp "denova/internal/app/interactive"
-	apptask "denova/internal/app/task"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const maxRememberedInteractiveStarts = 128

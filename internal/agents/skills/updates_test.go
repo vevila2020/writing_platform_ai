@@ -74,11 +74,11 @@ func TestRemoteUpdatesPersistConsentProtectEditsAndKeepBackup(t *testing.T) {
 	if err != nil || doc.Description != "second version" {
 		t.Fatalf("updated doc: %+v %v", doc, err)
 	}
-	backups, _ := os.ReadDir(filepath.Join(dirs[0].Path, ".denova-backups", "remote"))
+	backups, _ := os.ReadDir(filepath.Join(dirs[0].Path, ".inkdock-backups", "remote"))
 	if len(backups) != 1 {
 		t.Fatalf("missing backup: %v", backups)
 	}
-	backup, err := os.ReadFile(filepath.Join(dirs[0].Path, ".denova-backups", "remote", backups[0].Name(), "references", "help.md"))
+	backup, err := os.ReadFile(filepath.Join(dirs[0].Path, ".inkdock-backups", "remote", backups[0].Name(), "references", "help.md"))
 	if err != nil || string(backup) != "first version" {
 		t.Fatal("backup lost previous content")
 	}
@@ -186,7 +186,7 @@ func TestArchiveCannotImportAutomaticUpdateConsent(t *testing.T) {
 func TestRecoverInterruptedRemoteDirectoryReplacement(t *testing.T) {
 	dir := Directory{Scope: ScopeUser, Path: t.TempDir(), Writable: true}
 	writeSkillFile(t, dir.Path, "remote", "remote", "original")
-	backup := filepath.Join(dir.Path, ".denova-backups", "remote")
+	backup := filepath.Join(dir.Path, ".inkdock-backups", "remote")
 	if err := os.MkdirAll(backup, 0o700); err != nil {
 		t.Fatal(err)
 	}

@@ -7,11 +7,11 @@ import (
 	"errors"
 	"testing"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func TestInvalidCanonicalImportPreservesLoadedSession(t *testing.T) {

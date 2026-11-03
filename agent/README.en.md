@@ -1,4 +1,4 @@
-# Denova Agent
+# InkDock Agent
 
 English | [简体中文](README.md)
 
@@ -9,7 +9,7 @@ An Agent runtime you can embed in Go applications. Start with one call, then add
 Requires Go 1.26.9 or later. Install in your own Go module:
 
 ```sh
-go get github.com/alfredxw/denova/agent
+go get github.com/vevila2020/writing_platform_ai/agent
 ```
 
 Save this as `main.go`, set `OPENAI_API_KEY`, and run `go run .`:
@@ -23,11 +23,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/alfredxw/denova/agent"
-	"github.com/alfredxw/denova/agent/lifecycle/event"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/builtin"
-	"github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	"github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func main() {
@@ -74,7 +74,7 @@ The next two examples reuse `ctx`, `model`, and the error-handling style above, 
 
 A user requests a paragraph, then asks for a shorter version. Put both tasks in the same Session so the second turn can build on the first.
 
-Also import `github.com/alfredxw/denova/agent/session`, `github.com/alfredxw/denova/agent/tool/builtin` as `tools`, and `github.com/alfredxw/denova/agent/session/file` with the alias `sessionfile`:
+Also import `github.com/vevila2020/writing_platform_ai/agent/session`, `github.com/vevila2020/writing_platform_ai/agent/tool/builtin` as `tools`, and `github.com/vevila2020/writing_platform_ai/agent/session/file` with the alias `sessionfile`:
 
 ```go
 store, err := sessionfile.New("./data/sessions")
@@ -135,7 +135,7 @@ if err != nil {
 }
 ```
 
-Import `github.com/alfredxw/denova/agent/lifecycle/interaction` for the response type. `response` is an [`interaction.InteractionResponse`](lifecycle/interaction/interaction.go): set `Answers` for ordinary questions (using the request's QuestionID and option Value, or Text), `Permission` for permission choices, or `Cancelled: true` for cancellation. A Run keeps waiting for unanswered questions; calling only `Wait` is insufficient.
+Import `github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction` for the response type. `response` is an [`interaction.InteractionResponse`](lifecycle/interaction/interaction.go): set `Answers` for ordinary questions (using the request's QuestionID and option Value, or Text), `Permission` for permission choices, or `Cancelled: true` for cancellation. A Run keeps waiting for unanswered questions; calling only `Wait` is insufficient.
 
 A Session executes one Run at a time; finish the previous turn before starting another. The file Store retains the conversation. After restarting, reopen it with the same directory and `session.Named("draft-42")`. Without a Store option, Sessions live only in memory.
 
@@ -320,7 +320,7 @@ Agent protects current user instructions, the newest complete tool group, and un
 
 Selection starts with the newest eligible groups to retain a longer cache prefix. Each result must save at least 256 tokens and each batch at least `max(256, 1% of the window)`, verified on the rebuilt provider request with an unchanged stable prefix. Raw history is never rewritten. An `agent.elision` v1 record in the same canonical journal stores only message coordinates and source hashes (at most 4096 entries; a Compaction boundary ignores coordinates it has absorbed), without copied bodies or host paths. Pause, cold restart, manual compaction and inspection share the projection; Clear or canonical history replacement invalidates it. `Inspect().ElisionMetrics` reports the last committed savings and estimated cache prefix.
 
-Denova's native writing, game and persistent child Agents share the existing automatic-compaction switch. The soft trigger scales with the summary trigger: 60% elision before 85% summarization by default. SDK callers use `Elision: nil` to disable new elisions; committed projections remain active. Latest-release user data needs no migration; legacy Cleanup records remain historical diagnostics only.
+InkDock's native writing, game and persistent child Agents share the existing automatic-compaction switch. The soft trigger scales with the summary trigger: 60% elision before 85% summarization by default. SDK callers use `Elision: nil` to disable new elisions; committed projections remain active. Latest-release user data needs no migration; legacy Cleanup records remain historical diagnostics only.
 
 ### Native image input
 

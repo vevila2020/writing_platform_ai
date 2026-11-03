@@ -6,7 +6,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func resultTestDescriptor(limit int) ToolDescriptor {
@@ -73,7 +73,7 @@ func TestNormalizeToolResultRejectsInvalidStructuredFields(t *testing.T) {
 			ID: "artifact", ReadablePath: "memory://artifact", ContentType: "text/plain", EstimatedBytes: 1, SHA256: "invalid",
 		}}}},
 		{name: "invalid artifact purpose", result: agentschema.ToolResult{Status: agentschema.ToolResultSuccess, Artifacts: []agentschema.ToolArtifactRef{{
-			ID: "artifact", Purpose: agentschema.ToolArtifactPurpose("future"), ReadablePath: ".denova/artifacts/item.log",
+			ID: "artifact", Purpose: agentschema.ToolArtifactPurpose("future"), ReadablePath: ".inkdock/artifacts/item.log",
 			ContentType: "text/plain", Complete: true,
 		}}}},
 	}
@@ -219,7 +219,7 @@ func TestNormalizeToolResultArtifactContractDoesNotRequireDigest(t *testing.T) {
 	result := agentschema.TextToolResult("preview")
 	result.Artifacts = []agentschema.ToolArtifactRef{{
 		ID: "artifact-1", Purpose: agentschema.ToolArtifactPurposeAttachment,
-		ReadablePath: ".denova/artifacts/session/call.log",
+		ReadablePath: ".inkdock/artifacts/session/call.log",
 		ContentType:  "text/plain; charset=utf-8", EstimatedBytes: 4096,
 		EstimatedTokens: 1024, Complete: true,
 	}}
@@ -237,7 +237,7 @@ func TestNormalizeToolResultArtifactContractDoesNotRequireDigest(t *testing.T) {
 func TestNormalizeToolResultBoundsArtifactMetadata(t *testing.T) {
 	valid := agentschema.ToolArtifactRef{
 		ID: "artifact", Purpose: agentschema.ToolArtifactPurposeAttachment,
-		ReadablePath: ".denova/artifacts/session/item.log", ContentType: "text/plain", Complete: true,
+		ReadablePath: ".inkdock/artifacts/session/item.log", ContentType: "text/plain", Complete: true,
 	}
 	tooMany := agentschema.TextToolResult("preview")
 	tooMany.Artifacts = make([]agentschema.ToolArtifactRef, agentschema.MaxToolResultArtifacts+1)
@@ -259,7 +259,7 @@ func TestNormalizeToolResultBoundsArtifactMetadata(t *testing.T) {
 	normal := agentschema.TextToolResult("preview")
 	normal.Artifacts = []agentschema.ToolArtifactRef{valid, {
 		ID: "raw-output", Purpose: agentschema.ToolArtifactPurposeCompleteToolOutput,
-		ReadablePath: ".denova/artifacts/session/raw.log", ContentType: "text/plain", Complete: true,
+		ReadablePath: ".inkdock/artifacts/session/raw.log", ContentType: "text/plain", Complete: true,
 	}}
 	normalized, err := NormalizeToolResult(normal, resultTestDescriptor(1024))
 	if err != nil || len(normalized.Artifacts) != 2 || normalized.Artifacts[1].Purpose != agentschema.ToolArtifactPurposeCompleteToolOutput {

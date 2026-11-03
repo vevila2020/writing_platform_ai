@@ -1,9 +1,9 @@
 package engine
 
 import (
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Inspection is a read-only preview of one prospective model step. The

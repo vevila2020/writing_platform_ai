@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/book/lore"
-	"denova/internal/platform"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestLoreMaterialsRoundTripPreservesSharingAndAssociationText(t *testing.T) {

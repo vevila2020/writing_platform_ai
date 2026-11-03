@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // InspectionRequest is an immutable preview snapshot with no admission or

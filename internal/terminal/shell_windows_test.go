@@ -10,8 +10,8 @@ import (
 
 // This opt-in integration test needs PowerShell 7 and a configured WSL distribution.
 func TestWindowsShellExecution(t *testing.T) {
-	if os.Getenv("DENOVA_TEST_WINDOWS_SHELLS") != "1" {
-		t.Skip("set DENOVA_TEST_WINDOWS_SHELLS=1 to verify installed Windows shells")
+	if os.Getenv("INKDOCK_TEST_WINDOWS_SHELLS") != "1" {
+		t.Skip("set INKDOCK_TEST_WINDOWS_SHELLS=1 to verify installed Windows shells")
 	}
 	for _, shell := range []string{"pwsh.exe", "wsl.exe"} {
 		t.Run(shell, func(t *testing.T) {
@@ -22,10 +22,10 @@ func TestWindowsShellExecution(t *testing.T) {
 			if err := os.WriteFile(filepath.Join(cwd, "sentinel.txt"), []byte("ok"), 0600); err != nil {
 				t.Fatal(err)
 			}
-			command := `if (Test-Path -LiteralPath './sentinel.txt') { Write-Output ('denova-' + 'cwd-ok') }; exit`
+			command := `if (Test-Path -LiteralPath './sentinel.txt') { Write-Output ('inkdock-' + 'cwd-ok') }; exit`
 			args := []string{"-NoProfile", "-Command", command}
 			if shell == "wsl.exe" {
-				command = `test -f ./sentinel.txt && printf 'denova-%s\n' 'cwd-ok'; exit`
+				command = `test -f ./sentinel.txt && printf 'inkdock-%s\n' 'cwd-ok'; exit`
 				args = []string{"--exec", "sh", "-c", command}
 			}
 			manager := NewManager(Config{Enabled: true, Shell: shell})
@@ -45,7 +45,7 @@ func TestWindowsShellExecution(t *testing.T) {
 				_ = session.Write([]byte("\x1b[1;1R"))
 			}
 			deadline := time.After(15 * time.Second)
-			for !strings.Contains(captured.String(), "denova-cwd-ok") {
+			for !strings.Contains(captured.String(), "inkdock-cwd-ok") {
 				select {
 				case chunk, ok := <-output:
 					captured.Write(chunk)

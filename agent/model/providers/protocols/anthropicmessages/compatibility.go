@@ -1,12 +1,12 @@
 // Package anthropicmessages adapts Anthropic Messages-compatible endpoints to
-// Denova's provider-neutral agent model contract.
+// InkDock's provider-neutral agent model contract.
 package anthropicmessages
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 const defaultMaxOutputTokens int64 = 65536
@@ -19,7 +19,7 @@ const (
 	ThinkingModeBudget   ThinkingMode = "budget"
 )
 
-// Compatibility describes endpoint traits that are not part of Denova's
+// Compatibility describes endpoint traits that are not part of InkDock's
 // provider-neutral model contract.
 type Compatibility struct {
 	ThinkingMode           ThinkingMode      `json:"thinking_mode,omitempty"`

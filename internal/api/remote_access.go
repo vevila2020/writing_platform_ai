@@ -10,11 +10,11 @@ import (
 	"strconv"
 	"strings"
 
-	"denova/config"
 	"github.com/cloudwego/hertz/pkg/app"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/protocol"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // remoteAccessGate owns browser authentication for one server. Static application
@@ -71,7 +71,7 @@ func (g *remoteAccessGate) middleware(ctx context.Context, c *app.RequestContext
 	}
 	c.Response.Header.Set("Cache-Control", "no-store")
 	// A machine-readable challenge avoids browser-native Basic Auth dialogs.
-	c.Response.Header.Set("X-Denova-Auth", "required")
+	c.Response.Header.Set("X-InkDock-Auth", "required")
 	abortWithLocalizedError(c, consts.StatusUnauthorized, "api.access.authRequired")
 }
 

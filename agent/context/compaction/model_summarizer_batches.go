@@ -7,8 +7,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Quoted records keep tool protocol out of cold calls. Native images follow

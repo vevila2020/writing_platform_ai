@@ -6,18 +6,18 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentdelegation "denova/internal/agents/delegation"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	"github.com/alfredxw/denova/agent"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func TestConfigMaxIterationDefaultsToNativeUnlimited(t *testing.T) {
@@ -32,7 +32,7 @@ func TestConfigMaxIterationDefaultsToNativeUnlimited(t *testing.T) {
 func TestBuildAgentExposesGeneralAndConfiguredSubAgentsThroughTask(t *testing.T) {
 	childWindow := 32_000
 	cfg := &config.Config{
-		DenovaDir:     filepath.Join(t.TempDir(), ".denova"),
+		InkDockDir:    filepath.Join(t.TempDir(), ".inkdock"),
 		OpenAIBaseURL: "https://example.invalid",
 		OpenAIModel:   "test-model",
 		ModelProfiles: []config.ModelProfileSettings{{
@@ -58,7 +58,7 @@ func TestBuildAgentExposesGeneralAndConfiguredSubAgentsThroughTask(t *testing.T)
 	}
 	definition, err := buildAgentDefinition(context.Background(), cfg, agentBuildSpec{
 		Kind:        config.AgentKindIDE,
-		Name:        "DenovaAgent",
+		Name:        "InkDockAgent",
 		Description: "test",
 		Composition: mustTestPromptComposition(t, config.AgentKindIDE, "test"),
 	})
@@ -145,7 +145,7 @@ func TestBuildAgentExposesGeneralAndConfiguredSubAgentsThroughTask(t *testing.T)
 }
 
 func TestBuildSubAgentInstructionInheritsParentSystemPrompt(t *testing.T) {
-	parentInstruction := "# Denova 运行时契约（不可覆盖）\n\n作品根目录：/tmp/book\n父级工具权限边界。"
+	parentInstruction := "# 墨栈 AI 运行时契约（不可覆盖）\n\n作品根目录：/tmp/book\n父级工具权限边界。"
 	instruction := buildSubAgentInstruction(agentBuildSpec{
 		Kind:        config.AgentKindIDE,
 		Composition: mustTestPromptComposition(t, config.AgentKindIDE, parentInstruction),
@@ -157,7 +157,7 @@ func TestBuildSubAgentInstructionInheritsParentSystemPrompt(t *testing.T) {
 	})
 
 	for _, required := range []string{
-		"Denova 运行时契约",
+		"墨栈 AI 运行时契约",
 		"/tmp/book",
 		"父级工具权限边界",
 		"SubAgent-specific Instructions",
@@ -224,7 +224,7 @@ func TestBuildAgentCanDisableGeneralSubAgent(t *testing.T) {
 		},
 	}, agentBuildSpec{
 		Kind:        config.AgentKindIDE,
-		Name:        "DenovaAgent",
+		Name:        "InkDockAgent",
 		Description: "test",
 		Composition: mustTestPromptComposition(t, config.AgentKindIDE, "test"),
 	})

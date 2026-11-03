@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"slices"
 
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 // observePlan translates successful native task observations only. Validation,

@@ -123,8 +123,8 @@ const agents = {
   'agents.field.editablePrompt': 'Flow and Custom Rules',
   'agents.prompt.placeholder': 'The built-in system prompt is shown by default. Edit it to save an override in this layer.',
   'agents.prompt.protectedNote':
-    'Custom prompts take priority over Denova built-in prompts for behavior, creative preferences, strategy, and style, but they cannot override tool permissions, output protocols, interactive no-write boundaries, structured JSON requirements, or backend validation.',
-  'agents.prompt.builtinNote': 'Showing Denova’s built-in default system prompt. Edit it to save a custom System Prompt in the current layer.',
+    'Custom prompts take priority over InkDock built-in prompts for behavior, creative preferences, strategy, and style, but they cannot override tool permissions, output protocols, interactive no-write boundaries, structured JSON requirements, or backend validation.',
+  'agents.prompt.builtinNote': 'Showing InkDock’s built-in default system prompt. Edit it to save a custom System Prompt in the current layer.',
   'agents.prompt.runtimeContract': 'Runtime Contract (Read-only)',
   'agents.prompt.outputProtocol': 'Output Format (Read-only)',
   'agents.prompt.source.runtime_contract': 'Runtime Contract',
@@ -160,7 +160,7 @@ const agents = {
   'agents.subAgents.newName': 'Custom SubAgent',
   'agents.subAgents.newDescription': 'Handles specialized subtasks delegated by the current parent Agent.',
   'agents.subAgents.newPrompt':
-    'You are a Denova custom SubAgent. Only handle the task delegated by the parent Agent, keep the result focused and actionable, and do not assume tool capabilities that the parent Agent did not grant.',
+    'You are an InkDock custom SubAgent. Only handle the task delegated by the parent Agent, keep the result focused and actionable, and do not assume tool capabilities that the parent Agent did not grant.',
   'agents.subAgents.dialogDescription': 'Edit the name, model, parent Agents, and tool restrictions. Changes autosave to the current settings layer.',
   'agents.subAgents.untitled': 'Untitled SubAgent',
   'agents.subAgents.enabled': 'Enabled',
@@ -194,7 +194,7 @@ const agents = {
   'agents.context.sessionContextValue': 'Effective current-session history',
   'agents.context.compactionValue': '{{threshold}}% auto compaction; before compaction, use the current effective transcript.',
   'agents.context.compactionNote':
-    'Auto compaction starts at the configured share of the model context window. Denova derives recovery headroom and cache-safe cleanup watermarks as one backend policy.',
+    'Auto compaction starts at the configured share of the model context window. InkDock derives recovery headroom and cache-safe cleanup watermarks as one backend policy.',
   'agents.checkpoint.protocolNote': 'These read-only blocks are the protocol the model follows. Source ranges, length targets, recent turns, and source locators are added dynamically for each compaction.',
   'agents.checkpoint.guidancePlaceholder': 'Prioritize rejected approaches and their reasons. Preserve file paths, commands, test results, and explicitly uncertain assumptions.',
   'agents.checkpoint.guidanceNote': 'Write preferences in English. They are appended only to future checkpoint forks and cannot override the read-only protocol. Existing checkpoints are not rebuilt automatically.',

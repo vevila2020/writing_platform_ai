@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const turnCheckpointRecord = "turn.checkpoint"

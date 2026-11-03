@@ -10,12 +10,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func runToolForTest(ctx context.Context, candidate any, arguments string) (string, error) {
@@ -34,7 +34,7 @@ func runToolForTest(ctx context.Context, candidate any, arguments string) (strin
 }
 
 func TestConfigurationToolFactoryExposesOnlyRegistryTools(t *testing.T) {
-	definitions, err := NewTools(&config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, 0)
+	definitions, err := NewTools(&config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, 0)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func TestConfigurationToolFactoryExposesOnlyRegistryTools(t *testing.T) {
 }
 
 func TestConfigApplySchemaDocumentsAgentProfileRevisionAndDeleteKind(t *testing.T) {
-	definition := configManagerDefinitionByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
+	definition := configManagerDefinitionByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
 	info, err := definition.Tool.Info(context.Background())
 	if err != nil {
 		t.Fatal(err)
@@ -94,7 +94,7 @@ func TestConfigApplySchemaDocumentsAgentProfileRevisionAndDeleteKind(t *testing.
 }
 
 func TestConfigReadDescribesEveryResourceIncludingRuleSystem(t *testing.T) {
-	readTool := configManagerToolByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
+	readTool := configManagerToolByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
 	output, err := runToolForTest(context.Background(), readTool, `{"operation":"describe"}`)
 	if err != nil {
 		t.Fatal(err)
@@ -113,7 +113,7 @@ func TestConfigReadDescribesEveryResourceIncludingRuleSystem(t *testing.T) {
 }
 
 func TestConfigReadSchemaHasNoArbitraryIDCountLimit(t *testing.T) {
-	definition := configManagerDefinitionByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
+	definition := configManagerDefinitionByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
 	info, err := definition.Tool.Info(context.Background())
 	if err != nil {
 		t.Fatal(err)
@@ -132,7 +132,7 @@ func TestConfigReadSchemaHasNoArbitraryIDCountLimit(t *testing.T) {
 }
 
 func TestConfigReadReturnsExistingItemsAndMissingIDs(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	createdOutput, err := runToolForTest(context.Background(), applyTool, `{
@@ -144,7 +144,7 @@ func TestConfigReadReturnsExistingItemsAndMissingIDs(t *testing.T) {
 	}
 	created := decodeConfigMutationReceipt(t, createdOutput)
 	output, err := runToolForTest(context.Background(), readTool, mustJSON(t, map[string]any{
-		"operation": "get", "resource": "style_reference", "ids": []string{created.ID, ".denova/styles/missing.md"},
+		"operation": "get", "resource": "style_reference", "ids": []string{created.ID, ".inkdock/styles/missing.md"},
 	}))
 	if err != nil {
 		t.Fatal(err)
@@ -157,18 +157,18 @@ func TestConfigReadReturnsExistingItemsAndMissingIDs(t *testing.T) {
 	if err := json.Unmarshal([]byte(output), &result); err != nil {
 		t.Fatal(err)
 	}
-	if len(result.Items) != 1 || !reflect.DeepEqual(result.MissingIDs, []string{".denova/styles/missing.md"}) || result.Status != "partial" {
+	if len(result.Items) != 1 || !reflect.DeepEqual(result.MissingIDs, []string{".inkdock/styles/missing.md"}) || result.Status != "partial" {
 		t.Fatalf("partial config read = %s", output)
 	}
 	if _, err := runToolForTest(context.Background(), readTool, `{
-		"operation":"get","resource":"style_reference","ids":[".denova/styles/missing.md"]
+		"operation":"get","resource":"style_reference","ids":[".inkdock/styles/missing.md"]
 	}`); err == nil {
 		t.Fatal("all-missing config read should fail")
 	}
 }
 
 func TestConfigApplyUsesReadRevisionForStyleReference(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 
 	createdOutput, err := runToolForTest(context.Background(), applyTool, `{
@@ -180,7 +180,7 @@ func TestConfigApplyUsesReadRevisionForStyleReference(t *testing.T) {
 		t.Fatal(err)
 	}
 	created := decodeConfigMutationReceipt(t, createdOutput)
-	if created.ID != ".denova/styles/noir.md" || created.Revision == "" {
+	if created.ID != ".inkdock/styles/noir.md" || created.Revision == "" {
 		t.Fatalf("create receipt = %#v", created)
 	}
 	if _, err := runToolForTest(context.Background(), applyTool, `{
@@ -216,7 +216,7 @@ func TestConfigApplyUsesReadRevisionForStyleReference(t *testing.T) {
 }
 
 func TestConfigApplyReturnsBoundedStructuredReceiptDetails(t *testing.T) {
-	definition := configManagerDefinitionByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
+	definition := configManagerDefinitionByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
 	result, err := definition.Tool.Run(context.Background(), `{
 		"operation":"create",
 		"resource":"style_reference",
@@ -239,7 +239,7 @@ func TestConfigApplyReturnsBoundedStructuredReceiptDetails(t *testing.T) {
 }
 
 func TestConfigApplyRejectsUnknownResourceValueFields(t *testing.T) {
-	applyTool := configManagerToolByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
+	applyTool := configManagerToolByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_apply")
 	_, err := runToolForTest(context.Background(), applyTool, `{
 		"operation":"create",
 		"resource":"automation",
@@ -252,7 +252,7 @@ func TestConfigApplyRejectsUnknownResourceValueFields(t *testing.T) {
 
 func TestConfigAutomationResourceUsesDefinitionRevisionForCRUD(t *testing.T) {
 	cfg := &config.Config{
-		NovaDir: t.TempDir(), ProjectID: "project-contract",
+		DenovaDir: t.TempDir(), ProjectID: "project-contract",
 		Workspace: t.TempDir(), ProjectStoreDir: t.TempDir(),
 	}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
@@ -301,7 +301,7 @@ func TestConfigAutomationResourceBindsCurrentProjectAndRejectsUserScope(t *testi
 	projectStoreDir := filepath.Join(t.TempDir(), "stores")
 	outside := filepath.Join(t.TempDir(), "outside-workspace")
 	cfg := &config.Config{
-		NovaDir: novaDir, ProjectID: "project-current", Workspace: workspace,
+		DenovaDir: novaDir, ProjectID: "project-current", Workspace: workspace,
 		ProjectStoreDir: projectStoreDir,
 	}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
@@ -387,7 +387,7 @@ func TestAgentProfileReadNeverReturnsSecrets(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	readTool := configManagerToolByName(t, &config.Config{NovaDir: novaDir, Workspace: workspace}, "config_read")
+	readTool := configManagerToolByName(t, &config.Config{DenovaDir: novaDir, Workspace: workspace}, "config_read")
 	output, err := runToolForTest(context.Background(), readTool, `{"operation":"list","resource":"agent_profile"}`)
 	if err != nil {
 		t.Fatal(err)
@@ -403,7 +403,7 @@ func TestAgentProfileReadNeverReturnsSecrets(t *testing.T) {
 }
 
 func TestAgentProfileGetUsesExactSingletonSnapshotContract(t *testing.T) {
-	readTool := configManagerToolByName(t, &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
+	readTool := configManagerToolByName(t, &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}, "config_read")
 	output, err := runToolForTest(context.Background(), readTool, `{"operation":"get","resource":"agent_profile","ids":["registry"],"scope":"workspace"}`)
 	if err != nil {
 		t.Fatal(err)
@@ -429,7 +429,7 @@ func TestAgentProfileGetUsesExactSingletonSnapshotContract(t *testing.T) {
 func TestConfigApplyAgentProfileHonorsSettingsRevision(t *testing.T) {
 	novaDir := t.TempDir()
 	workspace := filepath.Join(t.TempDir(), "workspace")
-	cfg := &config.Config{NovaDir: novaDir, Workspace: workspace}
+	cfg := &config.Config{DenovaDir: novaDir, Workspace: workspace}
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	output, err := runToolForTest(context.Background(), readTool, `{"operation":"list","resource":"agent_profile"}`)
@@ -453,7 +453,7 @@ func TestConfigApplyAgentProfileHonorsSettingsRevision(t *testing.T) {
 func TestConfigApplyAgentProfileCreateCannotBypassScopeRevision(t *testing.T) {
 	novaDir := t.TempDir()
 	workspace := filepath.Join(t.TempDir(), "workspace")
-	cfg := &config.Config{NovaDir: novaDir, Workspace: workspace}
+	cfg := &config.Config{DenovaDir: novaDir, Workspace: workspace}
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 
@@ -507,7 +507,7 @@ func TestConfigApplyAgentProfileDeleteRequiresKindAndRoutesByKind(t *testing.T) 
 	if err := config.EnsureAgentProfiles(novaDir); err != nil {
 		t.Fatal(err)
 	}
-	cfg := &config.Config{NovaDir: novaDir, Workspace: workspace}
+	cfg := &config.Config{DenovaDir: novaDir, Workspace: workspace}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	revision, err := config.UserSettingsRevision(novaDir)
 	if err != nil {
@@ -564,7 +564,7 @@ func TestConfigApplyAgentProfileDeleteRequiresKindAndRoutesByKind(t *testing.T) 
 func TestConfigApplyAgentProfileEnforcesActiveAgentToolCeiling(t *testing.T) {
 	novaDir := t.TempDir()
 	workspace := filepath.Join(t.TempDir(), "workspace")
-	cfg := &config.Config{NovaDir: novaDir, Workspace: workspace}
+	cfg := &config.Config{DenovaDir: novaDir, Workspace: workspace}
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 
@@ -619,7 +619,7 @@ func TestConfigApplyAgentProfileEnforcesActiveAgentToolCeiling(t *testing.T) {
 }
 
 func TestConfigSkillResourceMutatesOneReferencePerRevision(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	rootContent := "---\nname: research\ndescription: Research sources.\n---\n\n# Research\n"
@@ -704,7 +704,7 @@ func TestConfigResourceAdaptersShareCRUDAndRevisionContract(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.resource, func(t *testing.T) {
-			cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+			cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 			applyTool := configManagerToolByName(t, cfg, "config_apply")
 			readTool := configManagerToolByName(t, cfg, "config_read")
 
@@ -749,7 +749,7 @@ func TestConfigResourceAdaptersShareCRUDAndRevisionContract(t *testing.T) {
 }
 
 func TestConfigApplyPreservesLargeGameConfigurationCollections(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	readTool := configManagerToolByName(t, cfg, "config_read")
 
@@ -832,7 +832,7 @@ func TestConfigApplyPreservesLargeGameConfigurationCollections(t *testing.T) {
 
 	styleRefs := make([]string, 30)
 	for index := range styleRefs {
-		styleRefs[index] = fmt.Sprintf(".denova/styles/style-%02d.md", index)
+		styleRefs[index] = fmt.Sprintf(".inkdock/styles/style-%02d.md", index)
 	}
 	if _, err := runToolForTest(context.Background(), applyTool, mustJSON(t, map[string]any{
 		"operation": "create", "resource": "narrative_style",
@@ -855,7 +855,7 @@ func TestConfigApplyPreservesLargeGameConfigurationCollections(t *testing.T) {
 }
 
 func TestConfigApplyRejectsOversizedEventCardWithoutSavingTruncatedData(t *testing.T) {
-	cfg := &config.Config{NovaDir: t.TempDir(), Workspace: t.TempDir()}
+	cfg := &config.Config{DenovaDir: t.TempDir(), Workspace: t.TempDir()}
 	applyTool := configManagerToolByName(t, cfg, "config_apply")
 	readTool := configManagerToolByName(t, cfg, "config_read")
 	_, err := runToolForTest(context.Background(), applyTool, mustJSON(t, map[string]any{

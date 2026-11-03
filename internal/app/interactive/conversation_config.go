@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func RecentConversationSeed(store *interactive.Store, runtimeCfg *config.Config, excludeStoryID string) (conversationconfig.Config, error) {

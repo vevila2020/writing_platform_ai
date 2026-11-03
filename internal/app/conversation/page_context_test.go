@@ -6,13 +6,13 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	chat "denova/internal/agents/chat"
-	"denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	project "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	chat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	project "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestPageContextSurvivesDurableInputAndUsesProjectPreparation(t *testing.T) {
@@ -54,7 +54,7 @@ func TestPageContextSurvivesDurableInputAndUsesProjectPreparation(t *testing.T) 
 		t.Fatal(err)
 	}
 	called := false
-	adapter := Runtime{ProjectID: "project-one", ProjectType: project.TypeGeneral, AgentKind: config.AgentKindGeneral, Session: sess, Workspace: root, Config: config.Config{DenovaDir: t.TempDir()}, PageInstructions: func(_ context.Context, projectID, pluginID, pageID string) (string, error) {
+	adapter := Runtime{ProjectID: "project-one", ProjectType: project.TypeGeneral, AgentKind: config.AgentKindGeneral, Session: sess, Workspace: root, Config: config.Config{InkDockDir: t.TempDir()}, PageInstructions: func(_ context.Context, projectID, pluginID, pageID string) (string, error) {
 		if projectID != "project-one" || pluginID != "example.art" || pageID != "studio" {
 			t.Fatal("page resolver used another scope")
 		}

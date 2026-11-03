@@ -1,14 +1,14 @@
 package automationapp
 
 import (
-	agentexecution "denova/internal/agents/execution"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
 	"path/filepath"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // automationWorkspaceSnapshot binds asynchronous trigger evaluation and any

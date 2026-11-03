@@ -11,11 +11,11 @@ import (
 	"log/slog"
 	"strings"
 
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/platform"
-	"denova/internal/style"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 type portableNarrativeContent struct {

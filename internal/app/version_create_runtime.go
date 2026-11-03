@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/session"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // versionCreateRuntime is the immutable identity and dependency set for one

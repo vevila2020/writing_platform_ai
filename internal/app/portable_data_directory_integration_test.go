@@ -10,21 +10,21 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	"denova/internal/automation"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestManagedDataDirectoryRunsAfterCopyingToAnotherRoot(t *testing.T) {
 	ctx := context.Background()
 	parent := t.TempDir()
-	firstRoot := filepath.Join(parent, "denova-first")
-	secondRoot := filepath.Join(parent, "denova-second")
+	firstRoot := filepath.Join(parent, "inkdock-first")
+	secondRoot := filepath.Join(parent, "inkdock-second")
 	firstApp, err := New(ctx, &config.Config{
-		OpenAIModel: "test-model", DenovaDir: firstRoot, ResumeLastWorkspace: false,
+		OpenAIModel: "test-model", InkDockDir: firstRoot, ResumeLastWorkspace: false,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -91,7 +91,7 @@ func TestManagedDataDirectoryRunsAfterCopyingToAnotherRoot(t *testing.T) {
 		t.Fatal(err)
 	}
 	secondApp, err := New(ctx, &config.Config{
-		OpenAIModel: "test-model", DenovaDir: secondRoot, ResumeLastWorkspace: true,
+		OpenAIModel: "test-model", InkDockDir: secondRoot, ResumeLastWorkspace: true,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -215,5 +215,5 @@ type obsoleteRootError struct {
 }
 
 func (err *obsoleteRootError) Error() string {
-	return "moved Denova file " + err.path + " retained obsolete runtime root " + err.root
+	return "moved InkDock file " + err.path + " retained obsolete runtime root " + err.root
 }

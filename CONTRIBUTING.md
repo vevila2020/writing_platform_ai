@@ -1,10 +1,10 @@
-# Contributing to Denova
+# Contributing to InkDock
 
-Thanks for helping improve Denova. This project is in beta, so contribution work should favor clear product improvements, simple implementation, and readable code over broad backwards compatibility.
+Thanks for helping improve InkDock. Contribution work should favor clear product improvements, simple implementation, and readable code over broad backwards compatibility.
 
 ## Setup
 
-Denova requires Go 1.26.9+, Node.js 22.13+, and pnpm.
+InkDock requires Go 1.26.9+, Node.js 22.13+, and pnpm.
 
 ```bash
 corepack enable
@@ -23,6 +23,22 @@ Useful local commands:
 ```
 
 If a frontend command is missing, try the project script first, then use `npx` when appropriate. If port `7788` is already occupied by the user's Vite process, do not kill or replace it; use the existing hot-reload page.
+
+## Module Paths
+
+This repository is a fork. Both Go modules use the fork paths:
+
+- root module: `github.com/vevila2020/writing_platform_ai`
+- agent module: `github.com/vevila2020/writing_platform_ai/agent`
+
+Upstream still imports its own paths, so a cherry-picked commit can reintroduce them. Legacy imports compile as a separate module and the version injection (`-X` on the upstream buildinfo package) then fails silently, leaving release binaries reporting `dev`. After pulling or cherry-picking upstream work, run:
+
+```bash
+node scripts/module-paths.mjs --fix   # rewrite legacy paths
+node scripts/module-paths.mjs         # verify, also runs in CI
+```
+
+The script only rewrites import specs, `module` directives, and the version injection point. Data literals such as `.inkdock/runs`, `refs/denova/current`, `denova/lore`, and the `InkDock/` user agent are not module paths and stay untouched.
 
 For optional real-model Writing and Game comparisons, run `./scripts/eval-creative.sh` and see [Creative evaluation](docs/creative-evaluation.md) for one-time configuration. This standalone tool runs manually or from a separate scheduler and is not part of CI or release gates.
 
@@ -89,7 +105,7 @@ Guidelines:
 - Keep the subject under 72 characters when practical.
 - Use an imperative summary, such as `fix(editor): prevent stale autosave overwrite`.
 - Add a body when the change has behavior tradeoffs, migration risk, compatibility impact, or non-obvious validation.
-- Mention breaking beta behavior explicitly in the body with `BREAKING CHANGE:` when users or stored workspace data must adapt.
+- Mention breaking behavior explicitly in the body with `BREAKING CHANGE:` when users or stored workspace data must adapt.
 - Keep one commit focused on one purpose.
 
 ## Pull Request Checklist

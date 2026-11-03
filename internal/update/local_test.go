@@ -11,13 +11,13 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func TestInstallLocalRelease(t *testing.T) {
-	exeName, extension := "denova", ".tar.gz"
+	exeName, extension := "inkdock", ".tar.gz"
 	if runtime.GOOS == "windows" {
-		exeName, extension = "denova.exe", ".zip"
+		exeName, extension = "inkdock.exe", ".zip"
 	}
 	packageFiles := map[string]string{
 		"web/index.html":                               "<html>release</html>",
@@ -28,7 +28,7 @@ func TestInstallLocalRelease(t *testing.T) {
 	}
 	packageFiles[exeName] = "new executable"
 	packageFiles[updaterExecutableName()] = "new updater"
-	archiveName := "denova-v0.5.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + extension
+	archiveName := "inkdock-v0.5.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + extension
 	archive := localTestArchive(t, packageFiles, extension)
 	installDir := t.TempDir()
 	service := &Service{currentVersion: "0.4.5", executablePath: filepath.Join(installDir, exeName)}
@@ -85,7 +85,7 @@ func TestInstallLocalRelease(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		wrongPlatform = "linux-x64"
 	}
-	if _, err := service.InstallLocal(context.Background(), "denova-v0.5.0-"+wrongPlatform+extension, bytes.NewReader(archive)); !errors.Is(err, ErrPackagePlatform) {
+	if _, err := service.InstallLocal(context.Background(), "inkdock-v0.5.0-"+wrongPlatform+extension, bytes.NewReader(archive)); !errors.Is(err, ErrPackagePlatform) {
 		t.Fatalf("wrong platform: %v", err)
 	}
 	delete(packageFiles, updaterExecutableName())
@@ -137,12 +137,12 @@ func TestLocalUpdateRejectsConcurrentOperations(t *testing.T) {
 func localTestArchive(t *testing.T, files map[string]string, extension string) []byte {
 	t.Helper()
 	if extension == ".tar.gz" {
-		return testReleaseArchive(t, "denova", files)
+		return testReleaseArchive(t, "inkdock", files)
 	}
 	var out bytes.Buffer
 	writer := zip.NewWriter(&out)
 	for name, content := range files {
-		header := &zip.FileHeader{Name: "denova/" + name, Method: zip.Deflate}
+		header := &zip.FileHeader{Name: "inkdock/" + name, Method: zip.Deflate}
 		header.SetMode(0o755)
 		entry, err := writer.CreateHeader(header)
 		if err != nil {

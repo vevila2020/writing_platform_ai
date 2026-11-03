@@ -11,7 +11,7 @@ import { extensionImage, extensionOpening, extensionScene } from './e2e-extensio
 import { responsesRequest, responsesControl, captureNativeRequest, runtimeCompletion, writeCompletionFrame, finishCompletion } from './e2e-responses-fixture.mjs'
 import { geminiRequest, geminiControl, writeGeminiFrame, finishGemini, writeGeminiGenerated } from './e2e-gemini-fixture.mjs'
 
-const port = Number(process.env.DENOVA_E2E_MODEL_PORT || '18081')
+const port = Number(process.env.INKDOCK_E2E_MODEL_PORT || '18081')
 const narrative = '石门缓缓开启，暖色灯光照亮了前方的旧车站。'
 const gameOpeningMarker = '[Source: story opening configuration; purpose: generate the first playable turn]'
 const gameOpeningNarrative = '暮色落在旧车站外，石门后的轨道传来遥远的回声。'
@@ -52,7 +52,7 @@ const originalRegenerationNarrative = '第一次生成的钟声从旧车站深�
 const regeneratedNarrative = '重试后，月台广播给出了全新的撤离路线。'
 const gameFollowUpNarrative = '你立即改变方向，沿着新发现的脚印进入旧车站。'
 const gameBranchPlanNarrative = '你在站台地图上发现一条通往钟楼的维护通道。'
-const externalSecret = 'DENOVA_E2E_EXTERNAL_SECRET'
+const externalSecret = 'INKDOCK_E2E_EXTERNAL_SECRET'
 const externalSecretPath = path.join(runtimeRoot, 'e2e-external-secret.txt')
 const agentEditArguments = JSON.stringify({
   path: 'chapters/e2e-agent-chapter.md',
@@ -94,20 +94,20 @@ let gameRegenerationFailureRequests = 0
 
 function completionFrame(delta, finishReason = '') {
   return {
-    id: 'denova-e2e-response',
+    id: 'inkdock-e2e-response',
     object: 'chat.completion.chunk',
     created: 1,
-    model: 'denova-e2e',
+    model: 'inkdock-e2e',
     choices: [{ index: 0, delta, finish_reason: finishReason }],
   }
 }
 
 function usageFrame() {
   return {
-    id: 'denova-e2e-response',
+    id: 'inkdock-e2e-response',
     object: 'chat.completion.chunk',
     created: 1,
-    model: 'denova-e2e',
+    model: 'inkdock-e2e',
     choices: [],
     usage: { prompt_tokens: 10, completion_tokens: 10, total_tokens: 20 },
   }
@@ -294,10 +294,10 @@ function delay(milliseconds) {
 function writeGeneratedCompletion(response, content) {
   if (writeGeminiGenerated(response, content, writeJSON)) return
   writeJSON(response, 200, {
-    id: 'denova-e2e-response',
+    id: 'inkdock-e2e-response',
     object: 'chat.completion',
     created: 1,
-    model: 'denova-e2e',
+    model: 'inkdock-e2e',
     choices: [{ index: 0, message: { role: 'assistant', content }, finish_reason: 'stop' }],
     usage: { prompt_tokens: 10, completion_tokens: 10, total_tokens: 20 },
   })

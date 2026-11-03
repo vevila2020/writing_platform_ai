@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/portablepath"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // Materials distinguishes untouched legacy data (nil) from an explicitly empty collection.

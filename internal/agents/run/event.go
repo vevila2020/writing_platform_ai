@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"denova/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 // AbortReasonUserRequested identifies an expected pause initiated by the user.

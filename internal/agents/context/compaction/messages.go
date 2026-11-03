@@ -3,8 +3,8 @@ package compaction
 import (
 	"strings"
 
-	basecontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	basecontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func PreserveLeadingMessage(messages []*agentschema.Message, content string) []*agentschema.Message {

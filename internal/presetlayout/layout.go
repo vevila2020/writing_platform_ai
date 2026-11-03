@@ -1,4 +1,4 @@
-// Package presetlayout defines the durable on-disk layout for Denova's
+// Package presetlayout defines the durable on-disk layout for InkDock's
 // user-wide preset catalogs. Resource IDs remain the persistent identity;
 // these paths only locate each typed catalog inside the configured data root.
 package presetlayout

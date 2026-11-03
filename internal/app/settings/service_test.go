@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 type reloadTestHost struct {
@@ -27,7 +27,7 @@ func TestSnapshotPublishesReadonlyCompactionPromptSources(t *testing.T) {
 	if err := config.EnsureAgentProfiles(dataDir); err != nil {
 		t.Fatal(err)
 	}
-	service := NewService(&reloadTestHost{runtime: Runtime{Config: config.Config{DenovaDir: dataDir, NovaDir: dataDir}}})
+	service := NewService(&reloadTestHost{runtime: Runtime{Config: config.Config{InkDockDir: dataDir, DenovaDir: dataDir}}})
 
 	layered, err := service.Snapshot(Global())
 	if err != nil {
@@ -51,7 +51,7 @@ func TestReloadAppliesOutOfBandAgentProfileMutation(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(config.AgentProfilesRoot(dataDir), "main", "general.toml"), profile, 0o644); err != nil {
 		t.Fatal(err)
 	}
-	host := &reloadTestHost{runtime: Runtime{Config: config.Config{DenovaDir: dataDir, NovaDir: dataDir}}}
+	host := &reloadTestHost{runtime: Runtime{Config: config.Config{InkDockDir: dataDir, DenovaDir: dataDir}}}
 	service := NewService(host)
 
 	layered, err := service.Reload(Global(), config.SettingsLayerUser)

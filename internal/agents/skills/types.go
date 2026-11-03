@@ -29,7 +29,7 @@ const (
 	ContextModeForkWithContext ContextMode = "fork_with_context"
 )
 
-// FrontMatter is the stable SKILL.md metadata understood by Denova. It lives
+// FrontMatter is the stable SKILL.md metadata understood by InkDock. It lives
 // in the product Skills module so the catalog is independent from any Agent
 // framework implementation.
 type FrontMatter struct {

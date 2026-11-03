@@ -11,7 +11,7 @@ import { importNovel, previewNovelImportStream, type NovelImportPreview, type No
 
 interface NovelImportDialogProps {
   open: boolean
-  novaDir: string
+  dataDir: string
   onOpenChange: (open: boolean) => void
   onImported: (result: NovelImportResult) => void
 }
@@ -22,7 +22,7 @@ const defaultSampleChars = 20000
 const minSampleChars = 2000
 const maxSampleChars = 100000
 
-export function NovelImportDialog({ open, novaDir, onOpenChange, onImported }: NovelImportDialogProps) {
+export function NovelImportDialog({ open, dataDir, onOpenChange, onImported }: NovelImportDialogProps) {
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [file, setFile] = useState<File | null>(null)
@@ -289,7 +289,7 @@ export function NovelImportDialog({ open, novaDir, onOpenChange, onImported }: N
                   className={`${fieldCls} min-h-0 resize-none`}
                   disabled={importing}
                 />
-                <div className="truncate text-[11px] text-[var(--nova-text-faint)]">{t('novelImport.createIn', { dir: novaDir || t('importCard.novaDir') })}</div>
+                <div className="truncate text-[11px] text-[var(--nova-text-faint)]">{t('novelImport.createIn', { dir: dataDir || t('importCard.dataDir') })}</div>
               </div>
             )}
 

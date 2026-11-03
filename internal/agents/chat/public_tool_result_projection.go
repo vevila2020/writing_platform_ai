@@ -3,11 +3,11 @@ package chat
 import (
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	producttools "denova/internal/agents/tools"
-	workspacechange "denova/internal/workspace/change"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // ProjectToolResult derives product display data and change notifications from
@@ -68,7 +68,7 @@ func isWorkspaceArtifactRead(toolName, target string) bool {
 		return false
 	}
 	path := strings.ToLower(strings.ReplaceAll(strings.TrimSpace(target), "\\", "/"))
-	return strings.HasPrefix(path, ".denova/artifacts/") || strings.HasPrefix(path, ".nova/artifacts/") ||
-		strings.Contains(path, "/.denova/artifacts/") || strings.Contains(path, "/.nova/artifacts/") ||
+	return strings.HasPrefix(path, ".inkdock/artifacts/") || strings.HasPrefix(path, ".denova/artifacts/") ||
+		strings.Contains(path, "/.inkdock/artifacts/") || strings.Contains(path, "/.denova/artifacts/") ||
 		strings.Contains(path, ".jsonl.artifacts/") || strings.Contains(path, "/artifacts/game/")
 }

@@ -13,11 +13,11 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func TestSessionResourceReadsBeyondResidentHistory(t *testing.T) {

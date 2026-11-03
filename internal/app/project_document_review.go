@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 
-	reviewapp "denova/internal/app/review"
-	"denova/internal/book"
-	"denova/internal/workspace/documentreview"
+	reviewapp "github.com/vevila2020/writing_platform_ai/internal/app/review"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 // WithProjectDocumentReview binds comments and their source snapshots to one

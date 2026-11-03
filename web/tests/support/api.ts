@@ -53,7 +53,7 @@ export async function createAndOpenBook(request: APIRequestContext, title: strin
   // Every call owns its Project, including repeats and retries on one backend.
   const uniqueTitle = `${title} ${randomUUID().slice(0, 8)}`
   const created = await request.post('/api/books/create', {
-    data: { title: uniqueTitle, author: 'Denova E2E' },
+    data: { title: uniqueTitle, author: 'InkDock E2E' },
   })
   await expectSuccessful(created)
   const body = await created.json() as { project_id: string; workspace: string }

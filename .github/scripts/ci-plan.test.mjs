@@ -54,7 +54,7 @@ test('Agent and dependency changes also verify the root module consumer', () => 
 })
 
 test('updater dependencies retain native platform verification', () => {
-  for (const file of ['internal/update/apply.go', 'internal/localfs/replace.go', 'internal/hostruntime/runtime.go', 'internal/buildinfo/version.go', 'cmd/denova-updater/main.go']) {
+  for (const file of ['internal/update/apply.go', 'internal/localfs/replace.go', 'internal/hostruntime/runtime.go', 'internal/buildinfo/version.go', 'cmd/inkdock-updater/main.go']) {
     assert.equal(planCI([file], false).updater, true, file)
   }
   assert.equal(planCI(['internal/app/chat.go'], false).updater, false)
@@ -80,7 +80,7 @@ test('full verification covers every product suite even on a documentation commi
 })
 
 test('real Git comparison preserves product removals renamed into independent paths', () => {
-  const { directory, git, commit } = createGitFixture('denova-ci-plan-')
+  const { directory, git, commit } = createGitFixture('inkdock-ci-plan-')
   try {
     git('init', '-q')
     mkdirSync(path.join(directory, 'internal'))
@@ -106,7 +106,7 @@ test('real Git comparison preserves product removals renamed into independent pa
 })
 
 test('a docs push still verifies product changes from a cancelled preceding push', async () => {
-  const { directory, git, commit } = createGitFixture('denova-ci-cancelled-')
+  const { directory, git, commit } = createGitFixture('inkdock-ci-cancelled-')
   let verified
   const requests = []
   const server = createServer((request, response) => {

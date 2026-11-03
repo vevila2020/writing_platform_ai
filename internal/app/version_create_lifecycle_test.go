@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/session"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 func TestCreateVersionCancellationDoesNotCommitFallbackOrAgentJournal(t *testing.T) {
@@ -22,7 +22,7 @@ func TestCreateVersionCancellationDoesNotCommitFallbackOrAgentJournal(t *testing
 		t.Fatal(err)
 	}
 	application := &App{
-		cfg: &config.Config{Workspace: workspace, NovaDir: t.TempDir()}, workspace: workspace,
+		cfg: &config.Config{Workspace: workspace, DenovaDir: t.TempDir()}, workspace: workspace,
 		bookService:    bookService,
 		versionService: book.NewVersionService(workspace, filepath.Join(t.TempDir(), "repository")),
 		sessionStore:   store,
@@ -79,7 +79,7 @@ func TestCreateVersionSummaryUsesCapturedWorkspaceAndSessionStore(t *testing.T) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	cfg := &config.Config{Workspace: workspaceA, NovaDir: t.TempDir()}
+	cfg := &config.Config{Workspace: workspaceA, DenovaDir: t.TempDir()}
 	versionA := book.NewVersionService(workspaceA, filepath.Join(t.TempDir(), "repository-a"))
 	application := &App{
 		cfg: cfg, workspace: workspaceA, bookService: bookA,

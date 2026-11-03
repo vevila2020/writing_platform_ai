@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agenttool "denova/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const defaultToolResultMaxBytes = config.DefaultAgentToolResultLimitKB * 1024

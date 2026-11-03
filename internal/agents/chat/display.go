@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	agentplan "denova/internal/agents/plan"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentplan "github.com/vevila2020/writing_platform_ai/internal/agents/plan"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // displaySegmentIDEventKey carries the stable identity shared by the live

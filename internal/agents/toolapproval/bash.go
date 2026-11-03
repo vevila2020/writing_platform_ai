@@ -3,7 +3,7 @@ package toolapproval
 import (
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 	"mvdan.cc/sh/v3/syntax"
 )
 

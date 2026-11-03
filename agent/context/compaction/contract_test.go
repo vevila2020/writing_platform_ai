@@ -5,11 +5,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent"
-	"github.com/alfredxw/denova/agent/context/compaction"
-	"github.com/alfredxw/denova/agent/context/compaction/compactiontest"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	"github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/agent/context/compaction/compactiontest"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestStandardManagerContract(t *testing.T) {

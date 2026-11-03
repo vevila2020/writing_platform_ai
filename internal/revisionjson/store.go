@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 var (

@@ -7,15 +7,15 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	apptask "denova/internal/app/task"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type compactionLifecycleHost struct {
@@ -73,7 +73,7 @@ func TestCompactionLifecycleReleasesConversation(t *testing.T) {
 			service.projects[record.ID] = &projectRuntime{
 				projectID: record.ID, projectType: record.Type, agentKind: "general",
 				stateRoot: layout.StoreRoot, workspace: workspace, store: store,
-				cfg: config.Config{NovaDir: root, OpenAIModel: "fixture-model"},
+				cfg: config.Config{DenovaDir: root, OpenAIModel: "fixture-model"},
 			}
 			binding := Binding{ProjectID: record.ID, SessionID: conversation.ID}
 			if exit == "external_locked" {

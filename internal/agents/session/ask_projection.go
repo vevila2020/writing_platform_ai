@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
 )
 
 // Display delivery can stop before a paused interaction is answered. Read the

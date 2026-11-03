@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 // ListModels lists native Gemini model IDs without requiring a model selection.

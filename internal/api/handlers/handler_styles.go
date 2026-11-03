@@ -9,7 +9,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func (h *Handlers) HandleStyleReferences(ctx context.Context, c *app.RequestContext) {

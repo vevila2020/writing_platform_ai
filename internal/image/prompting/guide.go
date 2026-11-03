@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // SelectedGuide returns a provenance-labeled instruction for the active image

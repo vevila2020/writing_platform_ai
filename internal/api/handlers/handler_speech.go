@@ -8,9 +8,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/config"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/speech"
+	"github.com/vevila2020/writing_platform_ai/config"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/speech"
 )
 
 // HandleSpeech uses saved user settings, or an explicit unsaved preview. Audio

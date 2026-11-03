@@ -6,11 +6,11 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/agents/sessionjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // OpenAgentLog binds one game branch Agent Session to the Story JSONL that
@@ -26,7 +26,7 @@ func OpenAgentLog(
 	if err != nil {
 		return nil, err
 	}
-	store := NewStoreWithNovaDir(contentRoot, novaDir)
+	store := NewStoreWithDenovaDir(contentRoot, novaDir)
 	path := store.storyPath(storyID)
 	digest := sha256.Sum256([]byte(canonical))
 	release, err := localfs.AcquireLease(ctx, path+".agent-"+hex.EncodeToString(digest[:16])+".lock")
@@ -54,7 +54,7 @@ func OpenAgentLog(
 
 // AgentSessionKeys returns the derived Agent streams embedded in one Story.
 func AgentSessionKeys(contentRoot, novaDir, storyID string) ([]agentsession.Key, error) {
-	store := NewStoreWithNovaDir(contentRoot, novaDir)
+	store := NewStoreWithDenovaDir(contentRoot, novaDir)
 	store.mu.Lock()
 	handle, err := store.openStoryJournalLocked(storyID)
 	store.mu.Unlock()
@@ -67,7 +67,7 @@ func AgentSessionKeys(contentRoot, novaDir, storyID string) ([]agentsession.Key,
 
 // OpenAgentReader observes a branch without opening an execution writer.
 func OpenAgentReader(ctx context.Context, contentRoot, novaDir, storyID string, key agentsession.Key) (agentsession.Log, error) {
-	store := NewStoreWithNovaDir(contentRoot, novaDir)
+	store := NewStoreWithDenovaDir(contentRoot, novaDir)
 	path := store.storyPath(storyID)
 	meta, err := readStoryJournalHeader(path)
 	if err != nil {

@@ -6,10 +6,10 @@ import { getCurrentWorkspace, getProjectLoreItems, getStorySnapshot } from '../s
 import { submitAgentChatMessage } from '../support/agent-chat'
 
 const legacyWorkspace = path.join(runtimeRoot, 'denova/projects/Legacy E2E Book')
-const legacyLorePath = path.join(legacyWorkspace, '.nova', 'lore', 'items.json')
+const legacyLorePath = path.join(legacyWorkspace, '.denova', 'lore', 'items.json')
 const legacyWritingSessionPath = path.join(
   legacyWorkspace,
-  '.nova',
+  '.denova',
   'sessions',
   'v033-writing-main-e2e.jsonl',
 )
@@ -22,7 +22,7 @@ test('opens and continues the released v0.3.3 Writing, Book, Lore, and Game data
   await page.goto('/')
   const sidebar = page.getByLabel('工作台侧边栏')
   await sidebar.getByRole('button', { name: '书籍管理', exact: true }).click()
-  await page.getByRole('main').getByRole('button', { name: /Legacy E2E Book Denova v0\.3\.3/ }).click()
+  await page.getByRole('main').getByRole('button', { name: /Legacy E2E Book InkDock v0\.3\.3/ }).click()
 
   await expect.poll(async () => getCurrentWorkspace(request)).toMatchObject({
     workspace: legacyWorkspace,

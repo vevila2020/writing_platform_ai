@@ -97,7 +97,7 @@ export class AgentStreamProjection {
         return
       case 'error':
         throw new Error(chunk.errorText)
-      // These SDK features are not emitted by Denova's display encoder. Fail
+      // These SDK features are not emitted by InkDock's display encoder. Fail
       // visibly if that contract changes instead of silently dropping content.
       case 'custom':
       case 'tool-approval-request':

@@ -3,7 +3,7 @@ package lifecycle
 import (
 	"testing"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 func TestPublishLatestEventReportsBoundedLoss(t *testing.T) {

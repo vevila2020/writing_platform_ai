@@ -249,10 +249,10 @@ const rodObservationScript = `(maxElements, maxText) => {
 	)).filter(visible);
 	const elements = candidates.slice(0, maxElements).map((el, index) => {
 		const ref = 'e' + (index + 1);
-		el.setAttribute('data-denova-ref', ref);
+		el.setAttribute('data-inkdock-ref', ref);
 		const name = clean(el.getAttribute('aria-label') || el.getAttribute('title') ||
 			el.getAttribute('alt') || el.getAttribute('placeholder') || el.innerText || el.textContent);
-		return { ref, role: roleFor(el), name, selector: '[data-denova-ref="' + ref + '"]' };
+		return { ref, role: roleFor(el), name, selector: '[data-inkdock-ref="' + ref + '"]' };
 	});
 	const text = clean(document.body && document.body.innerText);
 	return {

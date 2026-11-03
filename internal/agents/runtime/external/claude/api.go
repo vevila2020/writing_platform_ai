@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // apiEnvironment builds a private routing environment. It removes inherited
@@ -19,7 +19,7 @@ func apiEnvironment(base []string, model config.ResolvedModelSettings) []string 
 		}
 		env = append(env, entry)
 	}
-	// Anthropic SDK appends /v1/messages; Denova also accepts /v1 roots.
+	// Anthropic SDK appends /v1/messages; InkDock also accepts /v1 roots.
 	baseURL := strings.TrimSuffix(model.BaseURL, "/v1")
 	env = append(env, "ANTHROPIC_BASE_URL="+baseURL, "ANTHROPIC_MODEL="+model.Model)
 	// Auxiliary calls must use the selected endpoint model as well.
@@ -30,7 +30,7 @@ func apiEnvironment(base []string, model config.ResolvedModelSettings) []string 
 		env = append(env, "ANTHROPIC_API_KEY="+model.APIKey)
 	} else {
 		// Local unauthenticated endpoints must never inherit a stored OAuth login.
-		env = append(env, "ANTHROPIC_AUTH_TOKEN=denova-local")
+		env = append(env, "ANTHROPIC_AUTH_TOKEN=inkdock-local")
 	}
 	var names, headers []string
 	for name := range model.Headers {

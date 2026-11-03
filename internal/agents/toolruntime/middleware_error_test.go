@@ -8,20 +8,20 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	"github.com/alfredxw/denova/agent"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	sdktool "github.com/alfredxw/denova/agent/tool"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
-	agenttoolresult "github.com/alfredxw/denova/agent/tool/result"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
+	agenttoolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 type runObserverMiddleware struct {
@@ -348,7 +348,7 @@ func TestOrchestratorKeepsLargeResultLosslessUntilPublicProcessor(t *testing.T) 
 			descriptor.MaxResultBytes = limit
 			store := &processorArtifactStore{}
 			artifacts, err := sdktool.IdentifyToolArtifactStorage(store, agentschema.CapabilityIdentity{
-				Kind: "test.denova.tool_artifacts", Version: 1, ConfigHash: test.toolName,
+				Kind: "test.inkdock.tool_artifacts", Version: 1, ConfigHash: test.toolName,
 			})
 			if err != nil {
 				t.Fatal(err)
@@ -359,14 +359,14 @@ func TestOrchestratorKeepsLargeResultLosslessUntilPublicProcessor(t *testing.T) 
 				t.Fatal(err)
 			}
 			definition := agent.Definition{
-				Name: "lossless-denova-chain", Model: model,
+				Name: "lossless-inkdock-chain", Model: model,
 				Tools:       toolset,
 				Middlewares: []agentmiddleware.Middleware{middleware}, Artifacts: artifacts,
 				ResultProcessor: agenttoolresult.Standard(agenttoolresult.Policy{MaxBytes: limit}),
 			}
 			if test.toolName == "write" {
 				definition.Effects = agentcanonical.EffectApplierFuncs{
-					CapabilityIdentity: agentschema.CapabilityIdentity{Kind: "test.denova.effects", Version: 1},
+					CapabilityIdentity: agentschema.CapabilityIdentity{Kind: "test.inkdock.effects", Version: 1},
 					ApplyEffectsFn: func(_ context.Context, requests []agentcanonical.EffectRequest) ([]agentcanonical.EffectResult, error) {
 						results := make([]agentcanonical.EffectResult, len(requests))
 						for index, request := range requests {

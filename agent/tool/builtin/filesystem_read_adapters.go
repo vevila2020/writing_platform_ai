@@ -13,7 +13,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type localFileReadInput struct {

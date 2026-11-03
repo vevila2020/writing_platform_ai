@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url'
 // promotional images and the separately verified evaluation tool are excluded.
 const independent = /^(docs\/|img\/|tools\/creative-eval\/|scripts\/eval-creative\.sh$|(?:README(?:\.en)?|AGENTS|CHANGELOG|CONTRIBUTING)\.md$|LICENSE$|\.git(?:ignore|attributes)$)/
 const manifests = /^(agent\/)?go\.(mod|sum)$/
-const updater = /^(internal\/(update|hostruntime|localfs|portablepath|buildinfo)\/|cmd\/denova-updater\/)/
+const updater = /^(internal\/(update|hostruntime|localfs|portablepath|buildinfo)\/|cmd\/inkdock-updater\/)/
 
 export function planCI(files, full) {
   const workflow = files.some(file => file.startsWith('.github/'))

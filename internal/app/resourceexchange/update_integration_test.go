@@ -8,8 +8,8 @@ import (
 	"slices"
 	"testing"
 
-	"denova/internal/book/lore"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestCollectionUpdatesPreserveAndResolveIndividualEdits(t *testing.T) {

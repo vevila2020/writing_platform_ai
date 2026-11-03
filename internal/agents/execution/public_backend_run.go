@@ -8,17 +8,17 @@ import (
 	"sort"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 
-	"github.com/alfredxw/denova/agent"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (backend *publicBackend) start(ctx context.Context, request StartRequest) (_ *Operation, err error) {
@@ -31,7 +31,7 @@ func (backend *publicBackend) start(ctx context.Context, request StartRequest) (
 	cycle.Request = agentchat.CaptureChatRequestCallerInput(cycle.Request)
 	commandID := strings.TrimSpace(cycle.Request.CommandID)
 	if commandID == "" {
-		return nil, errors.New("Denova public Agent Start requires command_id")
+		return nil, errors.New("InkDock public Agent Start requires command_id")
 	}
 	if err := agentrun.ValidateCommandID(commandID); err != nil {
 		return nil, err
@@ -113,7 +113,7 @@ func (backend *publicBackend) submit(ctx context.Context, spec CommandRequest) (
 	}
 	commandID := strings.TrimSpace(spec.CommandID)
 	if commandID == "" {
-		return agentrun.CommandReceipt{}, errors.New("Denova public Agent command requires command_id")
+		return agentrun.CommandReceipt{}, errors.New("InkDock public Agent command requires command_id")
 	}
 	if err := agentrun.ValidateCommandID(commandID); err != nil {
 		return agentrun.CommandReceipt{}, err
@@ -236,7 +236,7 @@ func (backend *publicBackend) submit(ctx context.Context, spec CommandRequest) (
 		backend.trackRun(target.session, next, registered, target.run.ID())
 		return mapPublicCommandReceipt(receipt), nil
 	default:
-		return agentrun.CommandReceipt{}, fmt.Errorf("unsupported Denova public Agent command %q", spec.Kind)
+		return agentrun.CommandReceipt{}, fmt.Errorf("unsupported InkDock public Agent command %q", spec.Kind)
 	}
 }
 
@@ -378,7 +378,7 @@ func (backend *publicBackend) wait(
 	for current != nil {
 		result, err := current.run.Wait(ctx)
 		if ctx != nil && ctx.Err() != nil {
-			_, abortErr := backend.agent.AbortTree(context.Background(), current.session.Key(), agentevent.AbortRequest{Reason: "Denova display task was cancelled"})
+			_, abortErr := backend.agent.AbortTree(context.Background(), current.session.Key(), agentevent.AbortRequest{Reason: "InkDock display task was cancelled"})
 			if abortErr != nil && !errors.Is(abortErr, agentschema.ErrRunSettled) && !errors.Is(abortErr, agentschema.ErrAgentClosed) {
 				return agentrun.NewOutcome(agentrun.OutcomeFailed, abortErr, abortErr.Error(), "", "")
 			}
@@ -421,7 +421,7 @@ func (backend *publicBackend) wait(
 		flushPublicCycleProjectors(registrations, result.Status, result.Reason, false)
 		current = next
 	}
-	return agentrun.NewOutcome(agentrun.OutcomeFailed, errors.New("Denova public Agent run disappeared"), "run disappeared", "", "")
+	return agentrun.NewOutcome(agentrun.OutcomeFailed, errors.New("InkDock public Agent run disappeared"), "run disappeared", "", "")
 }
 
 type publicCycleRegistrationAt struct {

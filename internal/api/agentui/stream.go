@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	appsvc "denova/internal/app"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 // StreamEncoder writes Agent events using the AI SDK UI message stream

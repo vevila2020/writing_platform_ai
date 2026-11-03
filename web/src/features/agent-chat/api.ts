@@ -182,7 +182,7 @@ export async function deleteAgentChatSession(projectId: string, sessionId: strin
   })
 }
 
-/** Open the folder chooser on the machine running Denova. */
+/** Open the folder chooser on the machine running InkDock. */
 export async function selectAgentChatProjectDirectory(initialPath = ''): Promise<HostDirectorySelection> {
   return requestJSON<HostDirectorySelection>('/api/host/dialogs/directory', {
     method: 'POST',

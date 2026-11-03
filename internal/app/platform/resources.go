@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/app/projectfiles"
-	appsettings "denova/internal/app/settings"
-	booklore "denova/internal/book/lore"
-	imagegen "denova/internal/image/generation"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 func (host Resources) LibraryItems(ctx context.Context, projectID string) ([]platform.LibraryItem, error) {

@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 
-	"denova/internal/agents/conversationjournal"
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ExternalContextRecord is a canonical content source, not a UI row. Native

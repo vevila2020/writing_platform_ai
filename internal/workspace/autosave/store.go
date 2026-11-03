@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
-// Store appends immutable autosave conflict records under one Denova data dir.
+// Store appends immutable autosave conflict records under one InkDock data dir.
 type Store struct {
 	dataDir string
 }
@@ -130,11 +130,11 @@ func newRecordID() (string, error) {
 
 func openConflictRoot(dataDir string) (*os.Root, *os.Root, error) {
 	if err := os.MkdirAll(dataDir, 0o755); err != nil {
-		return nil, nil, fmt.Errorf("create Denova data directory: %w", err)
+		return nil, nil, fmt.Errorf("create InkDock data directory: %w", err)
 	}
 	root, err := os.OpenRoot(dataDir)
 	if err != nil {
-		return nil, nil, fmt.Errorf("open Denova data directory: %w", err)
+		return nil, nil, fmt.Errorf("open InkDock data directory: %w", err)
 	}
 	closeRoot := true
 	defer func() {
@@ -160,7 +160,7 @@ func openConflictRoot(dataDir string) (*os.Root, *os.Root, error) {
 		return nil, nil, fmt.Errorf("secure autosave conflict directory: %w", err)
 	}
 	if syncErr := localfs.SyncRootDirectory(root, "."); syncErr != nil {
-		return nil, nil, fmt.Errorf("sync Denova data directory: %w", syncErr)
+		return nil, nil, fmt.Errorf("sync InkDock data directory: %w", syncErr)
 	}
 	conflictRoot, err := root.OpenRoot(DirectoryName)
 	if err != nil {

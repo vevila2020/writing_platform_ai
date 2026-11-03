@@ -2,8 +2,8 @@ package character
 
 import (
 	"context"
-	"denova/internal/book/lore"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func (s *Service) ImportTavernCard(filename string, data []byte, opts ...ImportOptions) (ImportResult, error) {

@@ -444,7 +444,7 @@ func (session *Session) writeScreenshot(tab string, content []byte) (*Screenshot
 	}
 	root := session.artifactRoot
 	if root == "" {
-		created, err := os.MkdirTemp("", "denova-browser-artifacts-")
+		created, err := os.MkdirTemp("", "inkdock-browser-artifacts-")
 		if err != nil {
 			return nil, fmt.Errorf("create browser artifact directory: %w", err)
 		}

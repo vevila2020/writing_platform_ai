@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/interactive"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestInteractiveSnapshotKeepsCanonicalStoryWhenAgentProjectionFails(t *testing.T) {

@@ -7,13 +7,13 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestInteractiveProviderContinuationSurvivesTurnCommitAndReload(t *testing.T) {
@@ -116,13 +116,13 @@ func TestInteractiveToolResultSummaryRoundTripsThroughStorySchema(t *testing.T) 
 			ContextHints: &agentschema.ToolResultContextHints{
 				Recovery: agentschema.ToolResultRecoveryHint{
 					Kind: agentschema.ToolResultRecoveryRead, Reference: map[string]any{"path": "chapters/one.md", "start_line": float64(10)},
-					ArtifactPath: ".denova/artifacts/story/call-read-1.log", EstimatedBytes: 64_000, EstimatedTokens: 16_000,
+					ArtifactPath: ".inkdock/artifacts/story/call-read-1.log", EstimatedBytes: 64_000, EstimatedTokens: 16_000,
 				},
 				ContextValue: agentschema.ToolResultContextDiscardable, SupersessionKey: "read:chapters/one.md",
 			},
 			ArtifactPersistence: &agentschema.ToolArtifactPersistence{Attempted: true, Complete: false, FailureReason: agentschema.ToolArtifactFailureWrite},
 			Artifacts: []agentschema.ToolArtifactRef{{
-				ID: "artifact-1", ReadablePath: ".denova/artifacts/story/call-read-1.log", ContentType: "text/plain",
+				ID: "artifact-1", ReadablePath: ".inkdock/artifacts/story/call-read-1.log", ContentType: "text/plain",
 				EstimatedBytes: 64_000, EstimatedTokens: 16_000, Complete: true,
 			}},
 		},
@@ -415,7 +415,7 @@ func durableInteractiveToolBatchFixture() []*agents.Message {
 	result := agents.ToolMessage(agentschema.TextToolResult("The gate was opened recently."), "call-fetch", agents.WithToolName("web_fetch"))
 	result.ToolResult = &agentschema.ToolResultSummary{
 		Status: agentschema.ToolResultSuccess, ResultRetention: agentschema.ToolResultEagerCandidate,
-		Artifacts: []agentschema.ToolArtifactRef{{ReadablePath: ".denova/artifacts/game/fetch.txt", EstimatedBytes: 4096, Complete: true}},
+		Artifacts: []agentschema.ToolArtifactRef{{ReadablePath: ".inkdock/artifacts/game/fetch.txt", EstimatedBytes: 4096, Complete: true}},
 	}
 	return []*agents.Message{assistant, result}
 }

@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestPageConversationMigrationPreservesHistoryAndCanContinue(t *testing.T) {

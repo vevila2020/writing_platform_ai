@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/localfs"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // Options belongs to application composition and isolated tests, never Project

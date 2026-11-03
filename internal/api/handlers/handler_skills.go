@@ -8,8 +8,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsvc "denova/internal/app"
-	resourcecatalogapp "denova/internal/app/resourcecatalog"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	resourcecatalogapp "github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
 )
 
 type skillCreateRequest struct {

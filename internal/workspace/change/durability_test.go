@@ -249,7 +249,7 @@ func TestChangeStoreRejectsPrivateDirectorySymlink(t *testing.T) {
 	}
 	workspace := t.TempDir()
 	external := t.TempDir()
-	if err := os.Symlink(external, filepath.Join(workspace, ".denova")); err != nil {
+	if err := os.Symlink(external, filepath.Join(workspace, ".inkdock")); err != nil {
 		t.Fatal(err)
 	}
 	_, err := NewService(workspace)
@@ -264,7 +264,7 @@ func TestChangeStoreRejectsLedgerSymlink(t *testing.T) {
 		t.Skip("requires optional Windows symlink privileges")
 	}
 	workspace := t.TempDir()
-	changesDir := filepath.Join(workspace, ".denova", "changes")
+	changesDir := filepath.Join(workspace, ".inkdock", "changes")
 	if err := os.MkdirAll(filepath.Join(changesDir, "blobs"), 0o700); err != nil {
 		t.Fatal(err)
 	}

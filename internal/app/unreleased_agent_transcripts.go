@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 const unreleasedAgentTranscriptDirectory = "agent-transcripts"
@@ -49,7 +49,7 @@ func backupUnreleasedAgentTranscripts(dataDir string) (string, error) {
 		return destination, fmt.Errorf("sync unreleased Agent transcript backup directory: %w", err)
 	}
 	if err := localfs.SyncDirectory(dataDir); err != nil {
-		return destination, fmt.Errorf("sync Denova data directory after Agent transcript backup: %w", err)
+		return destination, fmt.Errorf("sync InkDock data directory after Agent transcript backup: %w", err)
 	}
 	slog.Info("[internal/app/unreleased_agent_transcripts.go] backed up unreleased Agent transcript directory",
 		"source", source, "destination", destination)

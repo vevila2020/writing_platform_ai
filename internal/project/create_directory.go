@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // CreateDirectoryRequest creates a new General Project. An omitted parent uses
@@ -23,7 +23,7 @@ func (registry *Registry) CreateDirectory(request CreateDirectoryRequest) (Recor
 	}
 	parent := request.ParentDirectory
 	if parent == "" {
-		parent = filepath.Join(registry.denovaDir, "projects")
+		parent = filepath.Join(registry.inkdockDir, "projects")
 		if err := os.MkdirAll(parent, 0o700); err != nil {
 			return Record{}, err
 		}

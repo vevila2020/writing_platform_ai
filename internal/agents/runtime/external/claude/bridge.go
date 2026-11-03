@@ -12,10 +12,10 @@ import (
 	"net/http"
 	"sync"
 
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // toolBridge is private to one accepted attempt. Its bearer credential and URL

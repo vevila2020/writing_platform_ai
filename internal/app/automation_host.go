@@ -6,13 +6,13 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	agenttool "denova/internal/agents/tool"
-	agentchatapp "denova/internal/app/agentchat"
-	automationapp "denova/internal/app/automation"
-	"denova/internal/automation"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	automationapp "github.com/vevila2020/writing_platform_ai/internal/app/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // automationHost is composition glue: it exposes only immutable runtime

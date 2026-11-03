@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/automation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 // validateAutomationReceipt is the single admission-receipt validator. A

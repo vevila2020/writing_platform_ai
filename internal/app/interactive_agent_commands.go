@@ -5,11 +5,11 @@ import (
 	"errors"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	apptask "denova/internal/app/task"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 // InteractiveAgentCommand targets one exact game operation. Workspace and

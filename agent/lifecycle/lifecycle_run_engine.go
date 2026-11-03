@@ -10,16 +10,16 @@ import (
 	"strings"
 	"time"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func (run *Run) execute() {

@@ -25,7 +25,7 @@ func TestServiceExportTextAssemblesReadableManuscript(t *testing.T) {
 		}
 	}
 
-	result, err := NewService(root).ExportText(BookMeta{Title: "星河边境", Author: "Denova"})
+	result, err := NewService(root).ExportText(BookMeta{Title: "星河边境", Author: "墨栈 AI"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -35,7 +35,7 @@ func TestServiceExportTextAssemblesReadableManuscript(t *testing.T) {
 	}
 	wantOrder := []string{
 		"星河边境",
-		"作者: Denova",
+		"作者: 墨栈 AI",
 		"第一卷 风起",
 		"第一章 开局",
 		"天亮了。",

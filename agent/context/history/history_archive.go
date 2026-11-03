@@ -6,7 +6,7 @@ import (
 	"errors"
 	"sort"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // historyArchive omits one compacted interval from the active transcript while

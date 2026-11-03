@@ -1,4 +1,4 @@
-// Package canonicalstore routes Denova Agent Sessions to their owning product
+// Package canonicalstore routes InkDock Agent Sessions to their owning product
 // journals. Root writing/chat/image/automation Sessions share the Product
 // Session JSONL, game branches share the Story JSONL, and delegated children
 // keep one self-contained journal below the same Project Store.
@@ -15,14 +15,14 @@ import (
 	"strings"
 	"sync"
 
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
 )
 
 type Store struct {

@@ -1,11 +1,11 @@
 package chat
 
 import (
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/session"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Conversation is the stable orchestration boundary used by chat and execution.
@@ -24,7 +24,7 @@ type ContextSourceReporter interface {
 	ContextSourceSummary() string
 }
 
-// ToolArtifactStoreProvider lets the public lifecycle bind Denova's scoped
+// ToolArtifactStoreProvider lets the public lifecycle bind InkDock's scoped
 // store as Definition.Artifacts. Product middleware must not inject a second
 // process-local storage authority.
 type ToolArtifactStoreProvider interface {

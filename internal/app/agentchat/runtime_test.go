@@ -6,15 +6,15 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	agentexecution "denova/internal/agents/execution"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/analytics"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type activeViewTestHost struct{}

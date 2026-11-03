@@ -3,8 +3,8 @@ package chat
 import (
 	"strings"
 
-	"denova/internal/agents/prompts"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // styleRulesSystemInstruction 把工作区配置的「场景 → 文风参考」规则集作为 system prompt 片段。

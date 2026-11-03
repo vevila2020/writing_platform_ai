@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"slices"
 
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 // PreviewExtension adopts an already-frozen platform candidate, for developer

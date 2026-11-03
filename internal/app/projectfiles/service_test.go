@@ -9,9 +9,9 @@ import (
 	"slices"
 	"testing"
 
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func TestServiceResolvesBatchedBranchesAndSingleChildChains(t *testing.T) {

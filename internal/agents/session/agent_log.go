@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/agents/sessionjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // OpenStoreAgentLog resolves a validated product Session ID below its owning

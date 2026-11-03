@@ -2,16 +2,16 @@ package handlers
 
 import (
 	"context"
-	"denova/config"
 	"errors"
+	"github.com/vevila2020/writing_platform_ai/config"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/agents/conversationconfig"
-	agentruntime "denova/internal/agents/runtime"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	appsvc "denova/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 func (h *Handlers) HandleConversationConfigGet(ctx context.Context, c *app.RequestContext) {

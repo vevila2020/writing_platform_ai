@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
 	"github.com/google/uuid"
 )

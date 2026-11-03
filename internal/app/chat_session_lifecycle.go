@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // Sessions 返回当前 workspace 下的会话列表。

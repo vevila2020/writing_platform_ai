@@ -10,14 +10,14 @@ import (
 	"slices"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/skills"
-	"denova/internal/app/resourcecatalog"
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	"denova/internal/platform"
-	"denova/internal/style"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 type ExportResource struct {
@@ -280,7 +280,7 @@ func (s *Service) exportResource(ctx context.Context, ref LocalRef) (map[string]
 		if err != nil {
 			return nil, err
 		}
-		delete(files, ".denova-source.json")
+		delete(files, ".inkdock-source.json")
 		return files, nil
 	case "extension.plugin", "extension.game":
 		kind := platform.Kind(strings.TrimPrefix(ref.Kind, "extension."))

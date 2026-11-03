@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	apptask "denova/internal/app/task"
-	"denova/internal/automation"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 type automationInboxRunStarter func(context.Context, string, string, string, string, []automation.TriggerEvidence) (*apptask.Task, automation.RunRecord, error)

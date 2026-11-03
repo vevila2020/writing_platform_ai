@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/automation"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 type chapterBatchTriggerScope struct {

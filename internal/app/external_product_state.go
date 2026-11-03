@@ -1,10 +1,10 @@
 package app
 
 import (
-	"denova/config"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
 )
 
 func (a *App) agentSession(options agentrun.Options, native *agentexecution.Runtime) (*agentruntime.Session, error) {

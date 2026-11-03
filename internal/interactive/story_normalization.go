@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	imagepreset "denova/internal/image/preset"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
 )
 
 func defaultStoryTitle(stories []StorySummary) string {

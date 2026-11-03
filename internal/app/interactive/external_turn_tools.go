@@ -10,16 +10,16 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolruntime"
-	"denova/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publicresult "github.com/alfredxw/denova/agent/tool/result"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publicresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
 type externalGameCall struct {

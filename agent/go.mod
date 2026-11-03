@@ -1,4 +1,4 @@
-module github.com/alfredxw/denova/agent
+module github.com/vevila2020/writing_platform_ai/agent
 
 go 1.26.9
 

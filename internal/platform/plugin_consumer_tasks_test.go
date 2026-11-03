@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/canonicalstore"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/google/uuid"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // A page can finish its HTTP request while both paid image work and an Agent

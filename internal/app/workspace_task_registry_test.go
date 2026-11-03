@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func TestAppTaskReplayAdmissionIsSharedAcrossProducts(t *testing.T) {

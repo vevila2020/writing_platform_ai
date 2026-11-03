@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
-// CommandKind is the closed command vocabulary exposed by Denova's public
+// CommandKind is the closed command vocabulary exposed by InkDock's public
 // Agent adapter.
 type CommandKind string
 
@@ -57,7 +57,7 @@ func RequestSemanticFingerprint(request agentchat.ChatRequest) string {
 }
 
 // semanticJSONFingerprint provides versioned, deterministic identity for the
-// closed JSON-safe descriptors used by the Denova adapter.
+// closed JSON-safe descriptors used by the InkDock adapter.
 func semanticJSONFingerprint(scope string, value any) string {
 	encoded, err := json.Marshal(value)
 	if err != nil {
@@ -73,5 +73,5 @@ func semanticJSONFingerprint(scope string, value any) string {
 }
 
 func unsupportedCommand(kind CommandKind) error {
-	return fmt.Errorf("unsupported Denova public Agent command %q", kind)
+	return fmt.Errorf("unsupported InkDock public Agent command %q", kind)
 }

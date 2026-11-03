@@ -7,20 +7,20 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/session"
-	agentchatapp "denova/internal/app/agentchat"
-	interactiveapp "denova/internal/app/interactive"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	publicgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	publicgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const (

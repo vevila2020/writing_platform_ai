@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestAPIEnvironmentIsolatesCredentialsAndAuxiliaryModels(t *testing.T) {
@@ -30,7 +30,7 @@ func TestAPIEnvironmentIsolatesCredentialsAndAuxiliaryModels(t *testing.T) {
 		t.Fatal("custom headers lost")
 	}
 	noKey := strings.Join(apiEnvironment(base, config.ResolvedModelSettings{BaseURL: "http://localhost", Model: "local"}), "\n")
-	if !strings.Contains(noKey, "ANTHROPIC_AUTH_TOKEN=denova-local") {
+	if !strings.Contains(noKey, "ANTHROPIC_AUTH_TOKEN=inkdock-local") {
 		t.Fatal("unauthenticated endpoint could inherit subscription login")
 	}
 }

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {

@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"time"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // CommandReceipt identifies a command durably accepted by this Session.

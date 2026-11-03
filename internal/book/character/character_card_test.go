@@ -2,9 +2,9 @@ package character
 
 import (
 	"bytes"
-	"denova/internal/book/lore"
 	"encoding/base64"
 	"encoding/binary"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"image"
 	"image/png"
 	"os"

@@ -22,7 +22,7 @@ func TestWebSearchPreviewUsesDraftAndLocalizesFailures(t *testing.T) {
 	defer server.Close()
 	for _, locale := range []string{"en-US", "zh-CN"} {
 		request := app.NewContext(0)
-		request.Request.Header.Set("X-Denova-Locale", locale)
+		request.Request.Header.Set("X-InkDock-Locale", locale)
 		body, _ := json.Marshal(map[string]any{"query": "draft query", "settings": map[string]any{"searxng_base_url": server.URL}})
 		request.Request.SetBody(body)
 		(&Handlers{}).HandleWebSearchTest(context.Background(), request)

@@ -3,7 +3,7 @@ package session
 import (
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestAgentInstanceSessionIsolatesCustomAgentJournal(t *testing.T) {

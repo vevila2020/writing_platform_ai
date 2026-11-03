@@ -10,9 +10,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsvc "denova/internal/app"
-	automationapp "denova/internal/app/automation"
-	"denova/internal/automation"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	automationapp "github.com/vevila2020/writing_platform_ai/internal/app/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 func (h *Handlers) HandleAutomations(ctx context.Context, c *app.RequestContext) {

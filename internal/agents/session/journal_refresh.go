@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/conversationjournal"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // refreshCanonicalTailLocked materializes only physical transactions appended

@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 func TestStoryExtensionRecordsRecoverAndRejectStaleSources(t *testing.T) {

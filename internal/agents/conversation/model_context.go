@@ -7,14 +7,14 @@ import (
 	"log/slog"
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolresult"
-	"denova/internal/i18n"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 var ErrMissingAgentCycleIdentity = errors.New("session canonical write requires durable agent cycle identity")

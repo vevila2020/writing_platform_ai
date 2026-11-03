@@ -6,8 +6,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/config"
-	modelsapp "denova/internal/app/models"
+	"github.com/vevila2020/writing_platform_ai/config"
+	modelsapp "github.com/vevila2020/writing_platform_ai/internal/app/models"
 )
 
 // HandleModelCatalog returns executable protocols and optional provider

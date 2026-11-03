@@ -39,7 +39,7 @@ test('measures first Game entry for new and existing stories', async ({ page, re
     }
   }
   mkdirSync('test-results', { recursive: true })
-  const path = `test-results/game-startup-${process.env.DENOVA_PERFORMANCE_LABEL || 'current'}.json`
+  const path = `test-results/game-startup-${process.env.INKDOCK_PERFORMANCE_LABEL || 'current'}.json`
   writeFileSync(path, JSON.stringify(measurements, null, 2) + '\n')
   await testInfo.attach('game-startup', { path, contentType: 'application/json' })
 })

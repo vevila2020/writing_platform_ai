@@ -2,17 +2,17 @@ package app
 
 import (
 	"context"
-	"denova/config"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/config"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	compactionapp "denova/internal/app/compaction"
-	conversationapp "denova/internal/app/conversation"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	compactionapp "github.com/vevila2020/writing_platform_ai/internal/app/compaction"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
 )
 
 func (s *ChatAppService) executeWritingContextCompaction(ctx context.Context, requestedCommandID string) (agentcompaction.Result, error) {

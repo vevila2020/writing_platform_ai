@@ -31,7 +31,7 @@ export function LANAccessSettings({ draft, inherited, onChange }: {
     const patch: Partial<Settings> = { allow_lan_access: enabled }
     if (enabled ?? inherited.allow_lan_access) {
       if (!draft.remote_access_username?.trim()) {
-        patch.remote_access_username = inherited.remote_access_username?.trim() || `denova-${nanoid(6)}`
+        patch.remote_access_username = inherited.remote_access_username?.trim() || `inkdock-${nanoid(6)}`
       }
       if (!draft.remote_access_password?.trim() && !passwordSet) {
         patch.remote_access_password = nanoid(24)

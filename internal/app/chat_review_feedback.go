@@ -3,9 +3,9 @@ package app
 import (
 	"context"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	reviewapp "denova/internal/app/review"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	reviewapp "github.com/vevila2020/writing_platform_ai/internal/app/review"
 )
 
 func (service *ChatAppService) resolveReviewFeedback(ctx context.Context, runtime ideChatRuntime, request *agentchat.ChatRequest) error {

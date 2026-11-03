@@ -10,9 +10,9 @@ import (
 	"slices"
 	"strings"
 
-	"denova/internal/portablepath"
 	"github.com/Masterminds/semver/v3"
 	jsonschema "github.com/santhosh-tekuri/jsonschema/v6"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // Limits bound untrusted package metadata and individual capability inputs.
@@ -103,8 +103,8 @@ func validateManifest(kind Kind, files map[string][]byte) (Manifest, error) {
 		return data, nil
 	}
 	if backend := m.backend(); backend != nil {
-		if backend.Protocol != "denova-runtime-v1" || backend.Launch.Kind != "runtime" || backend.Launch.Runtime != "node" {
-			return m, failure("UNSUPPORTED", "Only the Node denova-runtime-v1 backend is supported")
+		if backend.Protocol != "inkdock-runtime-v1" || backend.Launch.Kind != "runtime" || backend.Launch.Runtime != "node" {
+			return m, failure("UNSUPPORTED", "Only the Node inkdock-runtime-v1 backend is supported")
 		}
 		if _, err := read(backend.Launch.Entry); err != nil {
 			return m, err

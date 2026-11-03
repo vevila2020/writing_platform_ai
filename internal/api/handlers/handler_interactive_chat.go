@@ -9,10 +9,10 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/api/sse"
-	novaApp "denova/internal/app"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 func (h *Handlers) HandleInteractiveChat(ctx context.Context, c *app.RequestContext) {

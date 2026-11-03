@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agentprofiles"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agentprofiles"
 )
 
 const (

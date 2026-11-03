@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // CombineContextSources preserves the declared order of independently owned

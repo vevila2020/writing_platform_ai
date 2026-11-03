@@ -1,4 +1,4 @@
-// Package delegation carries Denova's immutable child-Agent catalog between
+// Package delegation carries InkDock's immutable child-Agent catalog between
 // the builder and execution adapter. The builder owns child composition; the
 // execution adapter supplies the durable Agent opener for the parent Session.
 package delegation
@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 // Child is one fully composed delegated Agent. Identity describes the exact
@@ -27,7 +27,7 @@ type Child struct {
 	Identity    agentschema.CapabilityIdentity
 }
 
-// Config contains the Denova policy projection for the common delegation tools.
+// Config contains the InkDock policy projection for the common delegation tools.
 // These values affect the model-visible tool contract and are fingerprinted.
 type Config struct {
 	Capability         string
@@ -123,7 +123,7 @@ func (catalog *Catalog) Identity() agentschema.CapabilityIdentity {
 }
 
 func (catalog *Catalog) PrepareTools(context.Context, agenttool.ToolRequest) ([]agenttool.ToolDefinition, error) {
-	return nil, errors.New("Denova delegation Catalog is not bound to a durable Agent owner")
+	return nil, errors.New("InkDock delegation Catalog is not bound to a durable Agent owner")
 }
 
 func (catalog *Catalog) Children() []Child {
@@ -152,7 +152,7 @@ func (catalog *Catalog) MaxResultBytes() int {
 
 func (catalog *Catalog) Bind(executor publictools.TaskExecutor) (agenttool.Toolset, error) {
 	if catalog == nil || executor == nil {
-		return nil, errors.New("bind Denova delegation: Catalog and TaskExecutor are required")
+		return nil, errors.New("bind InkDock delegation: Catalog and TaskExecutor are required")
 	}
 	tasks := publictools.Tasks(executor)
 	return &boundCatalog{catalog: catalog, tasks: tasks}, nil
@@ -165,7 +165,7 @@ type boundCatalog struct {
 
 func (bound *boundCatalog) InitializeDefinition(ctx context.Context) error {
 	if bound == nil || bound.tasks == nil {
-		return errors.New("bound Denova delegation Catalog is incomplete")
+		return errors.New("bound InkDock delegation Catalog is incomplete")
 	}
 	if initializer, ok := bound.tasks.(agent.DefinitionInitializer); ok {
 		return initializer.InitializeDefinition(ctx)
@@ -182,7 +182,7 @@ func (bound *boundCatalog) Identity() agentschema.CapabilityIdentity {
 
 func (bound *boundCatalog) PrepareTools(ctx context.Context, request agenttool.ToolRequest) ([]agenttool.ToolDefinition, error) {
 	if bound == nil || bound.catalog == nil || bound.tasks == nil {
-		return nil, errors.New("Denova delegation Catalog binding is incomplete")
+		return nil, errors.New("InkDock delegation Catalog binding is incomplete")
 	}
 	base, err := bound.catalog.base.PrepareTools(ctx, request)
 	if err != nil {

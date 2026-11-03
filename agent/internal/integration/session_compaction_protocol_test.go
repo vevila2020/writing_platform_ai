@@ -8,11 +8,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openaichatcompletions"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openaichatcompletions"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type strictCompactionContext struct{}

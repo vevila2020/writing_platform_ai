@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"strings"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // MaintenanceRequest is admitted and held stable by lifecycle for the entire

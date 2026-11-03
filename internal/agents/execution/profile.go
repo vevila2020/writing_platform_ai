@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"strings"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // ProfileID is the stable product execution profile persisted in a durable
@@ -33,14 +33,14 @@ var (
 	ErrProfileNotFound  = errors.New("agent execution profile is not registered")
 )
 
-// Profile identifies one Denova product adapter that can rebuild a public
+// Profile identifies one InkDock product adapter that can rebuild a public
 // Agent Definition from durable host data.
 type Profile interface {
 	ID() ProfileID
 }
 
 // QueuedCycleProfile rebuilds process-local dependencies for any accepted or
-// cold-recovered cycle. Every registered Denova profile must implement it.
+// cold-recovered cycle. Every registered InkDock profile must implement it.
 type QueuedCycleProfile interface {
 	Profile
 	PrepareCycle(context.Context, CycleRestoreRequest) (Cycle, error)

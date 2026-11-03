@@ -3,8 +3,8 @@ package permission_test
 import (
 	"testing"
 
-	"github.com/alfredxw/denova/agent/tool/permission"
-	"github.com/alfredxw/denova/agent/tool/permission/permissiontest"
+	"github.com/vevila2020/writing_platform_ai/agent/tool/permission"
+	"github.com/vevila2020/writing_platform_ai/agent/tool/permission/permissiontest"
 )
 
 func TestCodingPolicyContract(t *testing.T) {

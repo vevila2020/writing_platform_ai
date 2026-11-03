@@ -6,12 +6,12 @@ import (
 	"context"
 	"fmt"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 type BuiltAgent struct {

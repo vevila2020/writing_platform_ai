@@ -8,35 +8,35 @@ import (
 	"fmt"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/agentprofile"
-	agentchat "denova/internal/agents/chat"
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentdelegation "denova/internal/agents/delegation"
-	agentinteractive "denova/internal/agents/interactive"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	producttools "denova/internal/agents/tools"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/agentprofile"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	"github.com/alfredxw/denova/agent"
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
-	agenttoolresult "github.com/alfredxw/denova/agent/tool/result"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
+	agenttoolresult "github.com/vevila2020/writing_platform_ai/agent/tool/result"
 )
 
-// ToolDefinition keeps application packages on Denova's Agent boundary rather
+// ToolDefinition keeps application packages on InkDock's Agent boundary rather
 // than importing the provider runtime directly.
 type ToolDefinition = agenttool.ToolDefinition
 type Definition = agent.Definition
@@ -65,7 +65,7 @@ func BuildDefinitionWithCompositionForHost(ctx context.Context, cfg *config.Conf
 	}
 	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
 		Kind:              config.AgentKindIDE,
-		Name:              "DenovaAgent",
+		Name:              "InkDockAgent",
 		Description:       "AI novel-writing assistant",
 		Composition:       composition,
 		ProjectState:      state,
@@ -88,7 +88,7 @@ func BuildGeneralDefinitionWithCompositionForHost(ctx context.Context, cfg *conf
 	}
 	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
 		Kind:              config.AgentKindGeneral,
-		Name:              "DenovaGeneralAgent",
+		Name:              "InkDockGeneralAgent",
 		Description:       "General-purpose project Agent",
 		Composition:       composition,
 		ProjectState:      state,
@@ -120,7 +120,7 @@ func BuildInteractiveStoryDefinitionWithCompositionForHost(
 	}
 	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
 		Kind:              config.AgentKindInteractiveStory,
-		Name:              "DenovaInteractiveStoryAgent",
+		Name:              "InkDockInteractiveStoryAgent",
 		Description:       "AI interactive-story narrator",
 		Composition:       composition,
 		ProjectState:      state,
@@ -142,7 +142,7 @@ func BuildImageDefinitionWithComposition(ctx context.Context, cfg *config.Config
 	}
 	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
 		Kind:              config.AgentKindImage,
-		Name:              "DenovaImageAgent",
+		Name:              "InkDockImageAgent",
 		Description:       "AI image-generation assistant",
 		Composition:       composition,
 		ProjectState:      state,
@@ -180,7 +180,7 @@ func buildAgentDefinition(ctx context.Context, cfg *config.Config, spec agentBui
 	return assembly.Definition, err
 }
 
-// buildAgentDefinitionWithComposition is Denova's public Agent composition
+// buildAgentDefinitionWithComposition is InkDock's public Agent composition
 // root. Root and delegated children are Definitions; execution always enters
 // through a durable Agent Session/Run owned by the execution adapter. The
 // returned composition is the exact post-capability prompt consumed by the
@@ -323,7 +323,7 @@ func buildAgentDefinitionWithComposition(ctx context.Context, cfg *config.Config
 		return agentDefinitionAssembly{}, err
 	}
 
-	middlewares := identifyDenovaMiddlewares(spec.Kind, cfg, assembly.Middlewares)
+	middlewares := identifyInkDockMiddlewares(spec.Kind, cfg, assembly.Middlewares)
 	compaction, err := agentcompaction.NewAgentManager(cfg, spec.Kind)
 	if err != nil {
 		return agentDefinitionAssembly{}, fmt.Errorf("create Agent Compaction manager kind=%s: %w", spec.Kind, err)
@@ -403,7 +403,7 @@ func buildAgentDefinitionWithComposition(ctx context.Context, cfg *config.Config
 	}, Composition: assembly.SystemPrompt}, nil
 }
 
-func identifyDenovaMiddlewares(kind string, cfg *config.Config, middlewares []agentmiddleware.Middleware) []agentmiddleware.Middleware {
+func identifyInkDockMiddlewares(kind string, cfg *config.Config, middlewares []agentmiddleware.Middleware) []agentmiddleware.Middleware {
 	identified := make([]agentmiddleware.Middleware, len(middlewares))
 	for index, middleware := range middlewares {
 		if _, ok := middleware.(agentmiddleware.IdentifiedMiddleware); ok {
@@ -638,7 +638,7 @@ func buildChildDefinition(cfg *config.Config, spec childDefinitionSpec) (agentde
 		Name: spec.Name, Description: spec.Description,
 		Model: spec.Model, ModelIdentity: spec.ModelIdentity,
 		Instructions: spec.Composition.Instruction(), Context: spec.Context, Tools: tools,
-		Middlewares: identifyDenovaMiddlewares(spec.ParentKind+".child."+spec.Name, cfg, spec.Middlewares),
+		Middlewares: identifyInkDockMiddlewares(spec.ParentKind+".child."+spec.Name, cfg, spec.Middlewares),
 		ResultProcessor: agenttoolresult.Standard(agenttoolresult.Policy{
 			MaxBytes:            toolresult.LimitBytes(cfg),
 			ContextWindowTokens: spec.ModelContextWindow,

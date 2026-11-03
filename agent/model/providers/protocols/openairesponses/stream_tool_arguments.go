@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/openai/openai-go/v3/responses"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // streamToolCalls tracks the function_call items of one Responses stream so tool

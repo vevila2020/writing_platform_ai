@@ -7,9 +7,9 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestDomainCommitContextSurvivesMessageWindowTrimming(t *testing.T) {

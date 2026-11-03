@@ -3,7 +3,7 @@ package agentruntime
 import (
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestConfigurationProjectionKeepsCustomEnginesIndependentAndSharedBudgetEditable(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
 
 	"github.com/cloudwego/hertz/pkg/app"
 )
@@ -20,12 +20,12 @@ func TestLocalUpdateUploadValidationUsesRequestLocale(t *testing.T) {
 	buildinfo.Version = "0.4.5"
 	t.Cleanup(func() { buildinfo.Version = previous })
 	for _, tc := range []struct{ locale, missing, invalid string }{
-		{"en-US", "Select a GitHub Release archive.", "The package is invalid or incomplete. Upload an unmodified Denova stable release archive without extracting or renaming it."},
-		{"zh-CN", "请选择 GitHub Release 安装包。", "安装包无效或不完整。请上传未经解压、重命名的 Denova 正式发布压缩包。"},
+		{"en-US", "Select a GitHub Release archive.", "The package is invalid or incomplete. Upload an unmodified InkDock stable release archive without extracting or renaming it."},
+		{"zh-CN", "请选择 GitHub Release 安装包。", "安装包无效或不完整。请上传未经解压、重命名的墨栈 AI 正式发布压缩包。"},
 	} {
 		t.Run(tc.locale, func(t *testing.T) {
 			c := app.NewContext(0)
-			c.Request.Header.Set("X-Denova-Locale", tc.locale)
+			c.Request.Header.Set("X-InkDock-Locale", tc.locale)
 			New(nil).HandleUpdateUpload(context.Background(), c)
 			var body map[string]any
 			if err := json.Unmarshal(c.Response.Body(), &body); err != nil {
@@ -81,7 +81,7 @@ func TestUpdateFailuresUseRequestLocale(t *testing.T) {
 	} {
 		t.Run(test.locale, func(t *testing.T) {
 			request := app.NewContext(0)
-			request.Request.Header.Set("X-Denova-Locale", test.locale)
+			request.Request.Header.Set("X-InkDock-Locale", test.locale)
 			handlers.HandleUpdateCheck(context.Background(), request)
 			var body map[string]any
 			if err := json.Unmarshal(request.Response.Body(), &body); err != nil {

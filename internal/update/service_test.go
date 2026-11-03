@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func TestUpdateCheckAndDownloadUseConfiguredProxy(t *testing.T) {
@@ -59,11 +59,11 @@ func TestUpdateCheckAndDownloadUseConfiguredProxy(t *testing.T) {
 func TestSelectAssetForPlatform(t *testing.T) {
 	assets := []githubAsset{
 		{Name: "checksums.txt"},
-		{Name: "denova-v0.1.11-darwin-arm64.tar.gz", DownloadURL: "asset-api-url"},
-		{Name: "denova-v0.1.11-linux-x64.tar.gz"},
+		{Name: "inkdock-v0.1.11-darwin-arm64.tar.gz", DownloadURL: "asset-api-url"},
+		{Name: "inkdock-v0.1.11-linux-x64.tar.gz"},
 	}
 	asset := selectAsset(assets, "darwin-arm64")
-	if asset == nil || asset.Name != "denova-v0.1.11-darwin-arm64.tar.gz" {
+	if asset == nil || asset.Name != "inkdock-v0.1.11-darwin-arm64.tar.gz" {
 		t.Fatalf("unexpected asset: %#v", asset)
 	}
 	if got := selectAsset(assets, "windows-x64"); got != nil {
@@ -89,7 +89,7 @@ func TestDefaultServiceUsesInkDockReleaseRepository(t *testing.T) {
 }
 
 func TestReleaseChecksumRequiresChecksumsAsset(t *testing.T) {
-	_, err := (&Service{}).releaseChecksum(context.Background(), githubRelease{}, "denova-v0.2.0-linux-x64.tar.gz")
+	_, err := (&Service{}).releaseChecksum(context.Background(), githubRelease{}, "inkdock-v0.2.0-linux-x64.tar.gz")
 	if err == nil || !strings.Contains(err.Error(), "checksums.txt") {
 		t.Fatalf("missing checksum asset: %v", err)
 	}
@@ -97,7 +97,7 @@ func TestReleaseChecksumRequiresChecksumsAsset(t *testing.T) {
 
 func TestValidateReleasePackageRequiresUpdater(t *testing.T) {
 	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "denova"), []byte("exe"), 0o755); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "inkdock"), []byte("exe"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.MkdirAll(filepath.Join(dir, "web"), 0o755); err != nil {
@@ -106,14 +106,14 @@ func TestValidateReleasePackageRequiresUpdater(t *testing.T) {
 	if err := os.MkdirAll(filepath.Join(dir, "skills"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := validateReleasePackage(dir, "denova", updaterExecutableName()); err == nil {
+	if err := validateReleasePackage(dir, "inkdock", updaterExecutableName()); err == nil {
 		t.Fatal("validateReleasePackage should fail when updater is missing")
 	}
 }
 
 func TestValidateReleasePackageRequiresBundledRipgrep(t *testing.T) {
 	dir := t.TempDir()
-	for _, name := range []string{"denova", updaterExecutableName()} {
+	for _, name := range []string{"inkdock", updaterExecutableName()} {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte(name), 0o755); err != nil {
 			t.Fatal(err)
 		}
@@ -123,14 +123,14 @@ func TestValidateReleasePackageRequiresBundledRipgrep(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if err := validateReleasePackage(dir, "denova", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "ripgrep") {
+	if err := validateReleasePackage(dir, "inkdock", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "ripgrep") {
 		t.Fatalf("release package without bundled ripgrep should fail, got %v", err)
 	}
 }
 
 func TestValidateReleasePackageRequiresRipgrepLicenses(t *testing.T) {
 	dir := t.TempDir()
-	for _, name := range []string{"denova", updaterExecutableName()} {
+	for _, name := range []string{"inkdock", updaterExecutableName()} {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte(name), 0o755); err != nil {
 			t.Fatal(err)
 		}
@@ -143,17 +143,17 @@ func TestValidateReleasePackageRequiresRipgrepLicenses(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "tools", hostruntime.RipgrepExecutableName()), []byte("ripgrep"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := validateReleasePackage(dir, "denova", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "license") {
+	if err := validateReleasePackage(dir, "inkdock", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "license") {
 		t.Fatalf("release package without ripgrep licenses should fail, got %v", err)
 	}
 }
 
 func TestInstallStagesUpdateWithCallerOwnedLifetime(t *testing.T) {
 	platform := platformKey(runtime.GOOS, runtime.GOARCH)
-	assetName := "denova-v0.2.0-" + platform + ".tar.gz"
+	assetName := "inkdock-v0.2.0-" + platform + ".tar.gz"
 	updaterName := updaterExecutableName()
-	archive := testReleaseArchive(t, "denova", map[string]string{
-		"denova":               "new executable",
+	archive := testReleaseArchive(t, "inkdock", map[string]string{
+		"inkdock":              "new executable",
 		updaterName:            "new updater",
 		"web/index.html":       "<html>new</html>",
 		"skills/demo/SKILL.md": "skill",
@@ -205,7 +205,7 @@ func TestInstallStagesUpdateWithCallerOwnedLifetime(t *testing.T) {
 	defer server.Close()
 
 	installDir := t.TempDir()
-	exePath := filepath.Join(installDir, "denova")
+	exePath := filepath.Join(installDir, "inkdock")
 	if err := os.WriteFile(exePath, []byte("old executable"), 0o755); err != nil {
 		t.Fatal(err)
 	}
@@ -248,7 +248,7 @@ func TestInstallStagesUpdateWithCallerOwnedLifetime(t *testing.T) {
 	if got, err := os.ReadFile(filepath.Join(installDir, "web", "index.html")); err != nil || string(got) != "old web" {
 		t.Fatalf("web assets should not be replaced before apply: %q err=%v", got, err)
 	}
-	if got, err := os.ReadFile(filepath.Join(result.StagedPath, "denova")); err != nil || string(got) != "new executable" {
+	if got, err := os.ReadFile(filepath.Join(result.StagedPath, "inkdock")); err != nil || string(got) != "new executable" {
 		t.Fatalf("staged executable missing: %q err=%v", got, err)
 	}
 	if got, err := os.ReadFile(filepath.Join(result.StagedPath, updaterName)); err != nil || string(got) != "new updater" {
@@ -257,11 +257,11 @@ func TestInstallStagesUpdateWithCallerOwnedLifetime(t *testing.T) {
 	if got, err := os.ReadFile(filepath.Join(result.StagedPath, "tools", hostruntime.RipgrepExecutableName())); err != nil || string(got) != "ripgrep" {
 		t.Fatalf("staged ripgrep missing: %q err=%v", got, err)
 	}
-	archivePath := filepath.Join(installDir, ".denova-updates", "downloads", hex.EncodeToString(sum[:]), assetName)
+	archivePath := filepath.Join(installDir, ".inkdock-updates", "downloads", hex.EncodeToString(sum[:]), assetName)
 	if _, err := os.Stat(archivePath); err != nil {
 		t.Fatalf("downloaded archive should be kept in install dir: %v", err)
 	}
-	manifestPath, err := readPendingManifestRef(filepath.Join(installDir, ".denova-updates"))
+	manifestPath, err := readPendingManifestRef(filepath.Join(installDir, ".inkdock-updates"))
 	if err != nil {
 		t.Fatalf("pending manifest ref missing: %v", err)
 	}
@@ -293,7 +293,7 @@ func testReleaseArchive(t *testing.T, exeName string, files map[string]string) [
 		if name == exeName || filepath.Base(name) == hostruntime.RipgrepExecutableName() {
 			mode = 0o755
 		}
-		path := filepath.ToSlash(filepath.Join("denova", name))
+		path := filepath.ToSlash(filepath.Join("inkdock", name))
 		if err := tw.WriteHeader(&tar.Header{
 			Name: path,
 			Mode: mode,

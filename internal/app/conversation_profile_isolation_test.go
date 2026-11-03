@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agentprofiles"
-	appsettings "denova/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agentprofiles"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
 )
 
 func TestModelSelectionPreservesUnrelatedAgentProfiles(t *testing.T) {

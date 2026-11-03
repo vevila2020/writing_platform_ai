@@ -5,17 +5,17 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type ContextAnalysis struct {

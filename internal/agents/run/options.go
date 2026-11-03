@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 )
 
 // RestoreData is bounded product-owned input required to rebuild a dynamic
@@ -146,13 +146,13 @@ func (o Options) Normalize(defaultWorkspace string) Options {
 func RootAgentName(kind string) string {
 	switch strings.TrimSpace(kind) {
 	case AgentKindGeneral:
-		return "DenovaGeneralAgent"
+		return "InkDockGeneralAgent"
 	case AgentKindIDE:
-		return "DenovaAgent"
+		return "InkDockAgent"
 	case AgentKindInteractiveStory:
-		return "DenovaInteractiveStoryAgent"
+		return "InkDockInteractiveStoryAgent"
 	case AgentKindImage:
-		return "DenovaImageAgent"
+		return "InkDockImageAgent"
 	default:
 		return ""
 	}

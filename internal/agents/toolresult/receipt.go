@@ -7,11 +7,11 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const (

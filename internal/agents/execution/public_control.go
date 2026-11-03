@@ -7,14 +7,14 @@ import (
 	"os"
 	"time"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func (backend *publicBackend) openSession(ctx context.Context, options agentrun.Options) (*agent.Session, agentrun.RuntimeBinding, error) {

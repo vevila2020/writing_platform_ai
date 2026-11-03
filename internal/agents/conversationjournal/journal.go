@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // Journal is a concurrency-safe handle to one canonical conversation file.

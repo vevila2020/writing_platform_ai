@@ -9,12 +9,12 @@ import (
 	"net/url"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agentprofiles"
-	contextcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/prompts"
-	appagentruntime "denova/internal/app/agentruntime"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agentprofiles"
+	contextcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // ErrProjectRequired means a Project-layer settings mutation was requested

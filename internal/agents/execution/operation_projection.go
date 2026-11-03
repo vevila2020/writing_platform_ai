@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
+	"github.com/vevila2020/writing_platform_ai/agent"
 )
 
 // OperationProjection reads one exact Agent Run, including runs outside bounded

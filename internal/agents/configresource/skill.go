@@ -6,8 +6,8 @@ import (
 	"path"
 	"strings"
 
-	"denova/config"
-	novaskills "denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/config"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 type skillConfigValue struct {
@@ -23,7 +23,7 @@ func newSkillConfigResource(cfg *config.Config) Adapter {
 	dirs := skillDirs(cfg)
 	return configResourceAdapter{
 		descriptor: Descriptor{
-			Name: "skill", Description: "Denova Skills stored in user or workspace scope.",
+			Name: "skill", Description: "InkDock Skills stored in user or workspace scope.",
 			Scopes: []string{string(novaskills.ScopeUser), string(novaskills.ScopeWorkspace)}, Operations: configCRUDOperations(),
 			RevisionField: "revision", Reference: "references/skill.md",
 		},

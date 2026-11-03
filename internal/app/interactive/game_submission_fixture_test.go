@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
 )
 
 // Output-boundary tests use a narrator-only model. Accept its fixture modules

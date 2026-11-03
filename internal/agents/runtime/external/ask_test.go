@@ -11,13 +11,13 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestResolveAskRoutesOnlyOwnedQuestions(t *testing.T) {

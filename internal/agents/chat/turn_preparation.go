@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/session"
-	novaskills "denova/internal/agents/skills"
-	"denova/internal/book"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // turnContextPreparationInput declares the turn-scoped sources needed to
@@ -46,7 +46,7 @@ type AgentContextPreparation struct {
 	ModelContext       agentcontext.ModelContextResult
 }
 
-// PrepareAgentContext preserves Denova's exact context projection and localized
+// PrepareAgentContext preserves InkDock's exact context projection and localized
 // rendering while leaving publication to the public Agent canonical fence.
 func PrepareAgentContext(
 	ctx context.Context,

@@ -8,15 +8,15 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	appagentruntime "denova/internal/app/agentruntime"
-	appsettings "denova/internal/app/settings"
-	imagepreset "denova/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
 )
 
 const (
@@ -105,7 +105,7 @@ func (service *Service) prepareAgentCycle(runtime *Runtime, request AgentGenerat
 }
 
 // PrepareCycle rebuilds Image-specific context from the bounded request kept in
-// Agent HostData. That product context remains Denova-owned and never enters
+// Agent HostData. That product context remains InkDock-owned and never enters
 // the reusable package's persistence schema.
 func (service *Service) PrepareCycle(
 	ctx context.Context,

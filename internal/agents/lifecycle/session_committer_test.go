@@ -4,14 +4,14 @@ import (
 	"context"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func TestSessionConversationBoundaryCommitsPublicHashesIdempotently(t *testing.T) {
@@ -25,7 +25,7 @@ func TestSessionConversationBoundaryCommitsPublicHashesIdempotently(t *testing.T
 	}
 	options := agentrun.Options{
 		AgentKind: agentrun.AgentKindIDE, SessionID: sess.ID, Workspace: "/book",
-		RootAgentName: "DenovaAgent",
+		RootAgentName: "InkDockAgent",
 	}
 	conversation := agentconversation.NewSessionConversationForAgent(sess, nil, options.AgentKind)
 	inputCallbacks := 0

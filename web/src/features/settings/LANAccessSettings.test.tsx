@@ -17,7 +17,7 @@ describe('LANAccessSettings', () => {
     await user.click(screen.getByRole('option', { name: 'On' }))
     expect(onChange).toHaveBeenCalledExactlyOnceWith({
       allow_lan_access: true,
-      remote_access_username: expect.stringMatching(/^denova-.+/),
+      remote_access_username: expect.stringMatching(/^inkdock-.+/),
       remote_access_password: expect.stringMatching(/^[\w-]{24}$/),
     })
     const patch = onChange.mock.calls[0][0]

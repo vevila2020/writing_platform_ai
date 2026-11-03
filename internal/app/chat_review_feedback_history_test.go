@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentreview "denova/internal/agents/review"
-	workspacechange "denova/internal/workspace/change"
-	"denova/internal/workspace/documentreview"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 func TestDocumentReviewFeedbackRetainsHistoricalQuotesAfterEdits(t *testing.T) {

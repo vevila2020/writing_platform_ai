@@ -44,7 +44,7 @@ never persist credentials, runtime ports or absolute host paths.
   Read /capabilities for implemented, granted, applicable and configured states.
 - Panel consumers own their asynchronous work. Report client.setState({busy, dirty})
   for close protection. Never share or persist connection tokens. Backend host
-  requests must forward X-Denova-Consumer; runtime.mjs does this automatically.
+  requests must forward X-InkDock-Consumer; runtime.mjs does this automatically.
 - A game owns its UI and interactions. Use game.storage.kind = "self" for
   independent state, or "story" to reuse the existing Story engine through
   /story and /story/commands. The host does not impose characters or presentation.

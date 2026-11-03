@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 func TestAPILeasesIsolateRoutingAndNeverProbeCLIAccount(t *testing.T) {

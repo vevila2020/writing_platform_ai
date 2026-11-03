@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 func (s *Service) Install(ctx context.Context) (InstallResult, error) {

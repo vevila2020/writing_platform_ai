@@ -29,7 +29,7 @@ type FilesystemReadGrant struct {
 }
 
 // FilesystemReadPlan is the provider-neutral access projection shared by the
-// local read/search executors and Denova's Permission Policy.
+// local read/search executors and InkDock's Permission Policy.
 type FilesystemReadPlan struct {
 	External []FilesystemReadGrant `json:"external,omitempty"`
 }

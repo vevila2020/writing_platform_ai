@@ -5,14 +5,14 @@ import (
 	"errors"
 	"strings"
 
-	"denova/config"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolresult"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type testTextToolEndpoint func(context.Context, string, ...sdktool.ToolOption) (string, error)
@@ -120,7 +120,7 @@ func (writer *processorArtifactWriter) Commit() (agentschema.ToolArtifactRef, er
 	}
 	return agentschema.ToolArtifactRef{
 		ID: "artifact-call-42", Purpose: purpose,
-		ReadablePath: ".denova/artifacts/session/call-42.log",
+		ReadablePath: ".inkdock/artifacts/session/call-42.log",
 		ContentType:  "text/plain; charset=utf-8", EstimatedBytes: int64(writer.store.content.Len()),
 		EstimatedTokens: (writer.store.content.Len() + 3) / 4, Complete: true,
 	}, nil

@@ -18,11 +18,11 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	"denova/internal/portablepath"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 const (

@@ -4,17 +4,17 @@ import (
 	"context"
 	"fmt"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
-	"denova/internal/interactive"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 type publicReplayConversationCommitter struct{}
@@ -76,7 +76,7 @@ func (conversation *interactiveReplayConversation) NewAgentConversationCommitter
 func publicReplayDefinition(model agentmodel.BaseChatModel, name string) agent.Definition {
 	return agent.Definition{
 		Key: "denova.test.public-replay", Name: name, Model: model,
-		ModelIdentity: agentschema.CapabilityIdentity{Kind: "model.denova.test.public-replay", Version: 1},
+		ModelIdentity: agentschema.CapabilityIdentity{Kind: "model.inkdock.test.public-replay", Version: 1},
 	}
 }
 

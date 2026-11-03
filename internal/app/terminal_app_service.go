@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"denova/config"
-	"denova/internal/terminal"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/terminal"
 )
 
 // terminalConfigFromAppConfig translates the layered settings into terminal runtime config.

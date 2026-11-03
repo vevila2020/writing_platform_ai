@@ -8,17 +8,17 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	productagents "denova/internal/agents"
-	"denova/internal/agents/delegation"
-	"denova/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	productagents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type pluginCallingModel struct{}
@@ -54,7 +54,7 @@ func pluginTestConfig(t *testing.T, m *Manager, projectID string) *config.Config
 	for _, item := range config.AgentToolCapabilityCatalogForGOOS("") {
 		disabled[item.Capability] = false
 	}
-	return &config.Config{ProjectID: projectID, Workspace: layout.ContentRoot, ProjectStoreDir: layout.StoreRoot, DenovaDir: m.root, OpenAIModel: "test-model", OpenAIBaseURL: "https://example.invalid", AgentApprovalMode: config.AgentApprovalAsk, AgentPluginScope: config.AgentPluginScope{SessionID: "writing"}, AgentTools: config.AgentToolSettings{Default: disabled}}
+	return &config.Config{ProjectID: projectID, Workspace: layout.ContentRoot, ProjectStoreDir: layout.StoreRoot, InkDockDir: m.root, OpenAIModel: "test-model", OpenAIBaseURL: "https://example.invalid", AgentApprovalMode: config.AgentApprovalAsk, AgentPluginScope: config.AgentPluginScope{SessionID: "writing"}, AgentTools: config.AgentToolSettings{Default: disabled}}
 }
 
 func TestPluginToolThroughWritingWorkbenchAndGameAgents(t *testing.T) {

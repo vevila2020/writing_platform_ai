@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/config"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 const portableDataBackupDirectory = "portable-data-v4"

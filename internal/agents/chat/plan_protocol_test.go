@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	agentplan "denova/internal/agents/plan"
-	agentrun "denova/internal/agents/run"
+	agentplan "github.com/vevila2020/writing_platform_ai/internal/agents/plan"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 func TestPlanProtocolParserExtractsProposalAcrossChunks(t *testing.T) {
@@ -86,8 +86,8 @@ func TestPlanProtocolToolCallPreservesLongInputContent(t *testing.T) {
 func TestPlanProtocolParserCarriesRunMetadata(t *testing.T) {
 	var events []agentrun.Event
 	parser := agentplan.NewParser(agentplan.Metadata{
-		AgentKind: agentrun.AgentKindIDE, RunID: "run-plan-1", AgentName: "DenovaAgent",
-		RootAgentName: "DenovaAgent", RunPath: []string{"DenovaAgent"},
+		AgentKind: agentrun.AgentKindIDE, RunID: "run-plan-1", AgentName: "InkDockAgent",
+		RootAgentName: "InkDockAgent", RunPath: []string{"InkDockAgent"},
 	}, planEventEmitter(func(ev agentrun.Event) { events = append(events, ev) }))
 
 	_ = parser.Push(`<proposed_plan># Plan</proposed_plan>`)
@@ -97,7 +97,7 @@ func TestPlanProtocolParserCarriesRunMetadata(t *testing.T) {
 	for _, event := range events {
 		if eventDataString(event.Data, "run_id") != "run-plan-1" ||
 			eventDataString(event.Data, "agent_kind") != agentrun.AgentKindIDE ||
-			eventDataString(event.Data, "agent_name") != "DenovaAgent" {
+			eventDataString(event.Data, "agent_name") != "InkDockAgent" {
 			t.Fatalf("plan event lost run metadata: %#v", event)
 		}
 	}

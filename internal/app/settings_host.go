@@ -5,14 +5,14 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	novaskills "denova/internal/agents/skills"
-	resourcecatalogapp "denova/internal/app/resourcecatalog"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
-	"denova/internal/concurrency"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	resourcecatalogapp "github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type resourceCatalogHost struct{ app *App }

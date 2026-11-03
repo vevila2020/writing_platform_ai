@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 )
 
 // BranchRuntimeConfig reads the complete durable selection without mutating a

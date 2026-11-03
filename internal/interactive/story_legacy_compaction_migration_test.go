@@ -88,7 +88,7 @@ func TestOpenStoryMigratesReleasedCompactionEvents(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	migratedStore := NewStoreWithNovaDir(root, dataRoot)
+	migratedStore := NewStoreWithDenovaDir(root, dataRoot)
 	migratedIndex, err := migratedStore.Index()
 	if err != nil {
 		t.Fatal(err)
@@ -139,7 +139,7 @@ func TestOpenStoryMigratesReleasedCompactionEvents(t *testing.T) {
 		t.Fatal(err)
 	}
 	beforeSecondOpen := append([]byte(nil), migratedRaw...)
-	reopened := NewStoreWithNovaDir(root, dataRoot)
+	reopened := NewStoreWithDenovaDir(root, dataRoot)
 	if _, err := reopened.StoryContext(story.ID, "main"); err != nil {
 		t.Fatal(err)
 	}
@@ -161,7 +161,7 @@ func TestOpenStoryMigratesReleasedCompactionEvents(t *testing.T) {
 		t.Fatalf("idempotent migration backups = %#v, want one", backups)
 	}
 
-	continued := NewStoreWithNovaDir(root, dataRoot)
+	continued := NewStoreWithDenovaDir(root, dataRoot)
 	t.Cleanup(func() { _ = continued.Close() })
 	third, err := continued.AppendTurn(story.ID, AppendTurnRequest{
 		BranchID: "main", User: "continue", Narrative: "Third turn after the v0.3.3 migration.",

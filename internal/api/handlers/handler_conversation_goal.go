@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsvc "denova/internal/app"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 func (h *Handlers) HandleConversationGoalGet(ctx context.Context, c *app.RequestContext) {

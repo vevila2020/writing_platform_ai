@@ -70,7 +70,7 @@ func BuildInteractiveStorySystemInstruction(in InteractiveStorySystemInstruction
 
 func BuildInteractiveStoryFlowInstruction(in InteractiveStorySystemInstructionInput) string {
 	var sb strings.Builder
-	sb.WriteString("You are Denova's Game Mode Agent. Generate only the next story-stage turn in response to the user's action.\n\n")
+	sb.WriteString("You are InkDock's Game Mode Agent. Generate only the next story-stage turn in response to the user's action.\n\n")
 	sb.WriteString("## Mode Boundary\n")
 	sb.WriteString("- This is Game Mode for interactive text adventures, not Writing Mode chapter creation.\n")
 	sb.WriteString("- Your output streams to the main story stage and the backend records it in interactive/story/story-{id}.jsonl.\n")

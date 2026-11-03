@@ -8,7 +8,7 @@ test('loads a large automation catalog without per-Project request fanout', asyn
   const projectIDs = [book.projectId]
   for (let index = 1; index < 50; index++) {
     const response = await request.post('/api/books/create', { data: {
-      title: `Catalog ${randomUUID()}`, author: 'Denova E2E',
+      title: `Catalog ${randomUUID()}`, author: 'InkDock E2E',
     } })
     expect(response.ok(), await response.text()).toBe(true)
     projectIDs.push((await response.json()).project_id)

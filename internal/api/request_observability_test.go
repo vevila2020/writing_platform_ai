@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/observability"
 	"github.com/cloudwego/hertz/pkg/app"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/ut"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 )
 
 func TestHTTPErrorDiagnosticsKeepCauseAndRequestContext(t *testing.T) {

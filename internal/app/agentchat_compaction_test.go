@@ -13,16 +13,16 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentruntime "denova/internal/agents/runtime"
-	agentchatapp "denova/internal/app/agentchat"
-	appagentruntime "denova/internal/app/agentruntime"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // The model waits after real Native compaction reaches the provider boundary.
@@ -82,7 +82,7 @@ func testAgentChatCompactionAdmission(t *testing.T, projectType projectdomain.Ty
 		t.Fatal(err)
 	}
 	application, err := New(t.Context(), &config.Config{
-		NovaDir: dataDir, Workspace: root,
+		DenovaDir: dataDir, Workspace: root,
 		OpenAIModel: "test-model", OpenAIAPIKey: "fixture-only", OpenAIBaseURL: server.URL + "/v1",
 	})
 	if err != nil {

@@ -7,11 +7,11 @@ import (
 	"sync/atomic"
 	"testing"
 
-	agents "denova/internal/agents"
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
-	interactivestate "denova/internal/interactive/state"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 )
 
 var testCycleSequence atomic.Uint64

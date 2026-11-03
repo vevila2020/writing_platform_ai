@@ -1,15 +1,15 @@
 package toolruntime_test
 
 import (
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	producttools "denova/internal/agents/tools"
-	"denova/internal/book"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 func TestVerifyPostRunMutationsAcceptsIllustrationFile(t *testing.T) {

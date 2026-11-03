@@ -4,18 +4,18 @@ import (
 	"context"
 	"fmt"
 
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentdelegation "denova/internal/agents/delegation"
-	agentlifecycle "denova/internal/agents/lifecycle"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
 
-	"github.com/alfredxw/denova/agent"
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentsession "github.com/alfredxw/denova/agent/session"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func (backend *publicBackend) bindDefinition(
@@ -61,7 +61,7 @@ func (backend *publicBackend) bindDefinition(
 	case agentlifecycle.ConversationCommitterProvider:
 		committer, err = conversation.NewAgentConversationCommitter(options)
 	default:
-		err = fmt.Errorf("Denova conversation %T has no public canonical committer", cycle.Conversation)
+		err = fmt.Errorf("InkDock conversation %T has no public canonical committer", cycle.Conversation)
 	}
 	if err != nil {
 		return agent.Definition{}, err

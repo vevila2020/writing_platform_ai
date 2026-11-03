@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	novaskills "denova/internal/agents/skills"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 func (s *Service) SkillSnapshot(ctx context.Context, target SkillTarget) (novaskills.Snapshot, error) {

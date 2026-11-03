@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strings"
 
-	"denova/internal/portablepath"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // An extension owns its installation, releases, settings and private data.

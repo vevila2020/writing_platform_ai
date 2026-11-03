@@ -20,7 +20,7 @@ func newTestManager(t *testing.T) *Manager {
 }
 
 func TestResolveShellFallsBackWhenConfiguredExecutableIsUnavailable(t *testing.T) {
-	configured := "denova-shell-that-does-not-exist"
+	configured := "inkdock-shell-that-does-not-exist"
 	if got, want := resolveShell(configured), platformDefaultShell(); got != want {
 		t.Fatalf("resolveShell(%q) = %q, want platform fallback %q", configured, got, want)
 	}
@@ -54,15 +54,15 @@ func collect(t *testing.T, history []byte, out <-chan []byte, want string) strin
 
 func TestManagerCreateRunsCommandAndStreamsOutput(t *testing.T) {
 	manager := newTestManager(t)
-	session, err := manager.Create(Spec{Command: "/bin/sh", Args: []string{"-c", "echo denova-terminal-ok"}, Cwd: t.TempDir()})
+	session, err := manager.Create(Spec{Command: "/bin/sh", Args: []string{"-c", "echo inkdock-terminal-ok"}, Cwd: t.TempDir()})
 	if err != nil {
 		t.Fatalf("create session: %v", err)
 	}
 	history, out, detach := session.Attach(16)
 	defer detach()
 
-	got := collect(t, history, out, "denova-terminal-ok")
-	if !strings.Contains(got, "denova-terminal-ok") {
+	got := collect(t, history, out, "inkdock-terminal-ok")
+	if !strings.Contains(got, "inkdock-terminal-ok") {
 		t.Fatalf("expected command output, got %q", got)
 	}
 

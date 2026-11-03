@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"slices"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // UpdateItem is a review decision for one independently replaceable content unit.

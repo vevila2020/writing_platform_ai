@@ -4,12 +4,12 @@ package conversationapp
 
 import (
 	"context"
-	"denova/config"
-	"denova/internal/agents/execution"
-	"denova/internal/agents/prompts"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // Runtime is an immutable project adapter snapshot. Request preparation may

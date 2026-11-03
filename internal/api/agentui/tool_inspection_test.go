@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 func TestToolInspectionPreservesRecordedInputInHistoryAndStream(t *testing.T) {

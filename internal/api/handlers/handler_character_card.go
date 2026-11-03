@@ -13,10 +13,10 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/app/resourceexchange"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book/character"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourceexchange"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book/character"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // MaxCharacterCardUploadBytes limits tavern character card uploads.
@@ -177,10 +177,10 @@ func (h *Handlers) importCharacterCardToNewBook(ctx context.Context, filename st
 	if err != nil {
 		return character.ImportResult{}, err
 	}
-	if layered.Paths.DenovaDir == "" {
-		return character.ImportResult{}, errors.New("Denova data directory is not configured")
+	if layered.Paths.InkDockDir == "" {
+		return character.ImportResult{}, errors.New("InkDock data directory is not configured")
 	}
-	created, err := h.app.CreateBook(ctx, layered.Paths.DenovaDir, fields.bookTitle, "", "", "")
+	created, err := h.app.CreateBook(ctx, layered.Paths.InkDockDir, fields.bookTitle, "", "", "")
 	if err != nil {
 		return character.ImportResult{}, err
 	}

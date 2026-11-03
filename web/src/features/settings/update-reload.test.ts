@@ -17,7 +17,7 @@ it('waits for the matching transaction and running version before refreshing', a
   expect(reload).not.toHaveBeenCalled()
   await vi.advanceTimersByTimeAsync(1000)
   expect(reload).toHaveBeenCalledOnce()
-  expect(reload.mock.calls[0][0]).toContain('language=zh&denova_reload=v0.5.2-')
+  expect(reload.mock.calls[0][0]).toContain('language=zh&inkdock_reload=v0.5.2-')
   expect(onError).not.toHaveBeenCalled()
   cancel()
 })

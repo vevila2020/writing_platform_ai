@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	agentmodeltask "denova/internal/agents/modeltask"
-	appsettings "denova/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentmodeltask "github.com/vevila2020/writing_platform_ai/internal/agents/modeltask"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
 )
 
 // InferNovelSplitRegex runs the model-only Tool Agent for novel import chapter splitting.

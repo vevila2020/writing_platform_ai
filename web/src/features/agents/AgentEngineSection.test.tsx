@@ -20,13 +20,13 @@ function Harness({ engine, onChange }: { engine: AgentEngineID; onChange: (value
 
 describe('AgentEngineSection model source', () => {
   for (const engine of ['codex', 'claude'] as const) {
-    it(`switches ${engine} inherited CLI settings to a Denova profile and back atomically`, async () => {
+    it(`switches ${engine} inherited CLI settings to an InkDock profile and back atomically`, async () => {
       mocks.fetchAgentEngines.mockResolvedValue({ items: [{ id: engine, name_key: `agentRuntime.${engine}`, status: 'ready' }] })
       mocks.fetchEngineModels.mockResolvedValue({ items: [{ id: 'cli-model', display_name: 'CLI model', efforts: ['high'] }], default_id: 'cli-model' })
       mocks.profiles = [{ id: 'profile:gateway', label: 'Gateway', modelLabel: 'Gateway' }]
       const onChange = vi.fn()
       render(<Harness engine={engine} onChange={onChange} />)
-      await userEvent.click(screen.getByRole('radio', { name: 'Denova 模型' }))
+      await userEvent.click(screen.getByRole('radio', { name: '墨栈 AI 模型' }))
       expect(onChange).toHaveBeenLastCalledWith({ selected: engine, [engine]: { profile_id: 'gateway', ...(engine === 'codex' ? { sandbox: 'read-only' } : {}) } })
       expect(screen.queryByRole('combobox', { name: '推理强度' })).not.toBeInTheDocument()
       await waitFor(() => expect(screen.getByRole('radio', { name: 'CLI 模型' })).toBeEnabled())
@@ -35,12 +35,12 @@ describe('AgentEngineSection model source', () => {
     })
   }
 
-  it('explains the required protocol when no compatible Denova model exists', async () => {
+  it('explains the required protocol when no compatible InkDock model exists', async () => {
     mocks.fetchAgentEngines.mockResolvedValue({ items: [{ id: 'claude', name_key: 'agentRuntime.claude', status: 'auth_required' }] })
     mocks.profiles = []
     const onChange = vi.fn()
     render(<Harness engine="claude" onChange={onChange} />)
-    expect(screen.getByRole('radio', { name: 'Denova 模型' })).toBeDisabled()
+    expect(screen.getByRole('radio', { name: '墨栈 AI 模型' })).toBeDisabled()
     expect(screen.getByText(/请在设置 → 模型中添加使用 Anthropic Messages/)).toBeVisible()
     expect(onChange).not.toHaveBeenCalled()
     await screen.findByText('需要登录')

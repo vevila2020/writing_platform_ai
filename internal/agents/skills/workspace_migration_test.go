@@ -7,7 +7,7 @@ import (
 )
 
 func TestWorkspaceSkillMigrationDistinguishesUserDataFromBookState(t *testing.T) {
-	for _, directory := range []string{".denova", ".nova"} {
+	for _, directory := range []string{".inkdock", ".denova"} {
 		for _, registry := range []string{"", "projects.json", "books.json"} {
 			t.Run(directory+"/"+registry, func(t *testing.T) {
 				workspace := t.TempDir()

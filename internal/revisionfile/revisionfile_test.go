@@ -96,7 +96,7 @@ func TestReplaceIfRevisionAtomicallyReplacesAndPreservesMode(t *testing.T) {
 	if string(data) != "after" {
 		t.Fatalf("persisted content = %q", data)
 	}
-	temps, err := filepath.Glob(filepath.Join(dir, ".settings.toml.denova-*"))
+	temps, err := filepath.Glob(filepath.Join(dir, ".settings.toml.inkdock-*"))
 	if err != nil {
 		t.Fatal(err)
 	}

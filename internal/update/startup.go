@@ -32,7 +32,7 @@ func PrepareStartup() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if m.State == PhaseStarting && os.Getenv("DENOVA_UPDATE_ID") == m.ID && os.Getenv("DENOVA_UPDATE_MANIFEST") == path {
+	if m.State == PhaseStarting && os.Getenv("INKDOCK_UPDATE_ID") == m.ID && os.Getenv("INKDOCK_UPDATE_MANIFEST") == path {
 		return false, nil
 	}
 	if m.State == PhaseStaged || m.State == PhaseSucceeded || m.State == PhaseFailed {
@@ -84,7 +84,7 @@ func PrepareStartup() (bool, error) {
 // transaction, after application initialization and listener startup both worked.
 // It does nothing on ordinary launches. The caller owns the goroutine boundary.
 func ConfirmReady(ctx context.Context, baseURL, version string) error {
-	path, id := os.Getenv("DENOVA_UPDATE_MANIFEST"), os.Getenv("DENOVA_UPDATE_ID")
+	path, id := os.Getenv("INKDOCK_UPDATE_MANIFEST"), os.Getenv("INKDOCK_UPDATE_ID")
 	if path == "" || id == "" {
 		return nil
 	}

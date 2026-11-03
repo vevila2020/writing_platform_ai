@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Include added files in the local modification check; a new script is a local
@@ -25,7 +25,7 @@ func (s *Service) skillLocalState(ctx context.Context, binding Binding) (string,
 		return "unavailable", err
 	}
 	for name, content := range files {
-		if strings.HasPrefix(name, ".denova-locks/") {
+		if strings.HasPrefix(name, ".inkdock-locks/") {
 			continue
 		}
 		if binding.Baseline[path.Join(prefix, name)] != revisionfile.Revision(content) {

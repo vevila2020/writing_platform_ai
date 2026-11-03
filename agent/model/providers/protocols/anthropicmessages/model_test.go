@@ -10,10 +10,10 @@ import (
 	"strings"
 	"testing"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/anthropics/anthropic-sdk-go"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestDeepSeekThinkingRequestAndSignedContinuationReplay(t *testing.T) {

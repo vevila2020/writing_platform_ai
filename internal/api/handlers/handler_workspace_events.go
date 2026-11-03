@@ -10,8 +10,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 
-	"denova/internal/api/sse"
-	"denova/internal/workspace/filewatch"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/filewatch"
 )
 
 const workspaceEventHeartbeatInterval = 15 * time.Second

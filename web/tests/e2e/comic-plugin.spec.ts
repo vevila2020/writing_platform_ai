@@ -6,15 +6,15 @@ import { modelControlURL } from '../support/model'
 
 // Cross-repository acceptance uses the actual index example, never a copied
 // product fixture that could drift independently from the distributed plugin.
-const source = process.env.DENOVA_TEST_COMIC_PLUGIN
+const source = process.env.INKDOCK_TEST_COMIC_PLUGIN
 
 test('comic plugin generates, edits, shares references and restores Project content', async ({ page, request, browserDiagnostics }) => {
-  test.skip(!source, 'Set DENOVA_TEST_COMIC_PLUGIN to the index comic plugin directory')
+  test.skip(!source, 'Set INKDOCK_TEST_COMIC_PLUGIN to the index comic plugin directory')
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fcomic.json/)
   // Episode settings are optional until a script or reference plan is saved.
   browserDiagnostics.allow(/console.error: Failed to load resource:.*404.*project-content\/file\?path=comic%2Fepisodes%2F[0-9a-f-]+%2Fepisode\.json/)
   const book = await createAndOpenBook(request, 'Comic acceptance')
-  const secondModel = { id: 'comic-second-image', name: 'Comic alternate image model with a long descriptive name', endpoint_id: 'e2e-image', model: 'denova-e2e-image' }
+  const secondModel = { id: 'comic-second-image', name: 'Comic alternate image model with a long descriptive name', endpoint_id: 'e2e-image', model: 'inkdock-e2e-image' }
   const settingsURL = "/api/settings"
   const originalSettings = await (await request.get(settingsURL)).json()
   const addedModel = await request.patch(settingsURL, { data: { layer: 'user', base_revision: originalSettings.revisions.user, changes: { image_api_profiles: [...originalSettings.user.image_api_profiles, secondModel] } } })

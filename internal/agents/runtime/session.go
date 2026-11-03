@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Session is the application control boundary for a bound product conversation.

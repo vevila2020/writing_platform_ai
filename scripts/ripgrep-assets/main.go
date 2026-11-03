@@ -1,5 +1,5 @@
 // Command ripgrep-assets downloads and verifies the platform-specific
-// ripgrep executable included in a Denova release package.
+// ripgrep executable included in an InkDock release package.
 package main
 
 import (
@@ -71,8 +71,8 @@ func main() {
 func run(ctx context.Context, args []string, stdout, stderr io.Writer, client *http.Client) error {
 	flags := flag.NewFlagSet("ripgrep-assets", flag.ContinueOnError)
 	flags.SetOutput(stderr)
-	target := flags.String("target", "", "Denova release target such as linux-x64")
-	destination := flags.String("destination", "", "Denova package directory")
+	target := flags.String("target", "", "InkDock release target such as linux-x64")
+	destination := flags.String("destination", "", "InkDock package directory")
 	baseURL := flags.String("base-url", ripgrepReleaseBaseURL, "ripgrep release asset base URL")
 	if err := flags.Parse(args); err != nil {
 		return err
@@ -97,7 +97,7 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer, client *h
 func resolveRipgrepAsset(target string) (ripgrepAsset, error) {
 	asset, ok := ripgrepAssets[strings.TrimSpace(target)]
 	if !ok {
-		return ripgrepAsset{}, fmt.Errorf("unsupported Denova release target %q", target)
+		return ripgrepAsset{}, fmt.Errorf("unsupported InkDock release target %q", target)
 	}
 	return asset, nil
 }
@@ -123,7 +123,7 @@ func downloadRipgrepArchive(ctx context.Context, client *http.Client, baseURL, a
 	if err != nil {
 		return nil, fmt.Errorf("create ripgrep download request: %w", err)
 	}
-	request.Header.Set("User-Agent", "denova-release-builder")
+	request.Header.Set("User-Agent", "inkdock-release-builder")
 	response, err := client.Do(request)
 	if err != nil {
 		return nil, fmt.Errorf("download ripgrep asset: %w", err)

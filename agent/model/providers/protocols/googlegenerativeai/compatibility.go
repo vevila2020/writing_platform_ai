@@ -1,12 +1,12 @@
 // Package googlegenerativeai adapts Google Generative AI endpoints to
-// Denova's provider-neutral agent model contract.
+// InkDock's provider-neutral agent model contract.
 package googlegenerativeai
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 type ThinkingMode string

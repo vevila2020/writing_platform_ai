@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 type catalogReadHost struct{ effectRecoveryHost }

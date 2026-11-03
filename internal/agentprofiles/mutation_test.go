@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/config"
-	"denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func profileTestStore(t *testing.T) (string, *workspacechange.Service) {

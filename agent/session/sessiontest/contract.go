@@ -8,7 +8,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type Factory func(testing.TB) session.Store

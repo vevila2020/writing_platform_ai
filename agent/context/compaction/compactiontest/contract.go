@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type Factory func(testing.TB) agentcompaction.CompactionManager

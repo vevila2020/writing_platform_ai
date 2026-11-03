@@ -6,9 +6,9 @@ import (
 	"math"
 	"os"
 
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 type sessionResourceManifest struct {

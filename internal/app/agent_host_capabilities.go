@@ -4,10 +4,10 @@ import (
 	"context"
 	"log/slog"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	producttools "denova/internal/agents/tools"
-	"denova/internal/agents/trajectory"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/trajectory"
 )
 
 // AgentHostCapabilities is the shared host surface for ordinary Writing,

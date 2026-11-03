@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/session"
-	"denova/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
 )
 
 const historyContentPageSize = 100

@@ -3,9 +3,9 @@ package app
 import (
 	"log/slog"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/analytics"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 )
 
 // StartAnalytics installs the optional host service at process startup. A

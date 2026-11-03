@@ -65,7 +65,7 @@ export default {
   'platform.github.installSource': '安装来源',
   'platform.github.local': '本地文件',
   'platform.github.repository': 'GitHub 仓库',
-  'platform.github.help': '从公开 GitHub 仓库安装插件或游戏。包目录需要包含 Denova 清单。',
+  'platform.github.help': '从公开 GitHub 仓库安装插件或游戏。包目录需要包含墨栈 AI 清单。',
   'platform.github.ref': '分支、标签或提交（可选）',
   'platform.github.path': '包所在子目录（可选）',
   'platform.github.defaultBranch': '默认分支',

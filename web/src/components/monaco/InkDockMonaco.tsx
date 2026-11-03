@@ -12,8 +12,8 @@ import { getContentFontScale, subscribeContentFontScale } from '@/features/setti
 const MonacoEditor = loadable(() => import('./monaco-runtime').then(module => ({ default: module.MonacoEditor })))
 const MonacoDiffEditor = loadable(() => import('./monaco-runtime').then(module => ({ default: module.MonacoDiffEditor })))
 
-export const DENOVA_MONACO_THEME_DARK = 'denova-dark'
-export const DENOVA_MONACO_THEME_LIGHT = 'denova-light'
+export const INKDOCK_MONACO_THEME_DARK = 'inkdock-dark'
+export const INKDOCK_MONACO_THEME_LIGHT = 'inkdock-light'
 
 const REQUIRED_ALLOWED_LOCALES = {
   'zh-hans': true,
@@ -23,9 +23,9 @@ const REQUIRED_ALLOWED_LOCALES = {
 
 /**
  * Keeps Monaco's spoofing protection enabled while treating Chinese and
- * Japanese typography as expected content in every Denova authoring surface.
+ * Japanese typography as expected content in every InkDock authoring surface.
  */
-export const DENOVA_MONACO_UNICODE_HIGHLIGHT = {
+export const INKDOCK_MONACO_UNICODE_HIGHLIGHT = {
   nonBasicASCII: false,
   invisibleCharacters: true,
   ambiguousCharacters: true,
@@ -36,16 +36,16 @@ export const DENOVA_MONACO_UNICODE_HIGHLIGHT = {
   },
 } satisfies editor.IUnicodeHighlightOptions
 
-type DenovaMonacoEditorProps = Omit<EditorProps, 'theme'>
-type DenovaMonacoDiffEditorProps = Omit<DiffEditorProps, 'theme'>
+type InkDockMonacoEditorProps = Omit<EditorProps, 'theme'>
+type InkDockMonacoDiffEditorProps = Omit<DiffEditorProps, 'theme'>
 
-/** Monaco editor with Denova's shared visual language and Unicode policy. */
-export function DenovaMonacoEditor({ beforeMount, options, ...props }: DenovaMonacoEditorProps) {
+/** Monaco editor with InkDock's shared visual language and Unicode policy. */
+export function InkDockMonacoEditor({ beforeMount, options, ...props }: InkDockMonacoEditorProps) {
   const { t } = useTranslation()
-  const theme = useDenovaMonacoTheme()
+  const theme = useInkDockMonacoTheme()
   const sourceEditorFontFamily = useSourceEditorFontFamily()
   const contentFontScale = useContentFontScale()
-  const handleBeforeMount = useDenovaBeforeMount(beforeMount)
+  const handleBeforeMount = useInkDockBeforeMount(beforeMount)
   const denovaOptions = useMemo<editor.IStandaloneEditorConstructionOptions>(() => ({
     ...options,
     fontFamily: options?.fontFamily || sourceEditorFontFamily,
@@ -65,12 +65,12 @@ export function DenovaMonacoEditor({ beforeMount, options, ...props }: DenovaMon
 }
 
 /** Monaco diff editor sharing the exact theme and safeguards of regular editors. */
-export function DenovaMonacoDiffEditor({ beforeMount, options, ...props }: DenovaMonacoDiffEditorProps) {
+export function InkDockMonacoDiffEditor({ beforeMount, options, ...props }: InkDockMonacoDiffEditorProps) {
   const { t } = useTranslation()
-  const theme = useDenovaMonacoTheme()
+  const theme = useInkDockMonacoTheme()
   const sourceEditorFontFamily = useSourceEditorFontFamily()
   const contentFontScale = useContentFontScale()
-  const handleBeforeMount = useDenovaBeforeMount(beforeMount)
+  const handleBeforeMount = useInkDockBeforeMount(beforeMount)
   const denovaOptions = useMemo<editor.IStandaloneDiffEditorConstructionOptions>(() => ({
     ...options,
     fontFamily: options?.fontFamily || sourceEditorFontFamily,
@@ -92,16 +92,16 @@ export function DenovaMonacoDiffEditor({ beforeMount, options, ...props }: Denov
 const installedMonacoInstances = new WeakSet<Monaco>()
 
 /** Installs both variants once because Monaco themes are global per runtime. */
-export function installDenovaMonacoThemes(monaco: Monaco) {
+export function installInkDockMonacoThemes(monaco: Monaco) {
   if (installedMonacoInstances.has(monaco)) return
   installedMonacoInstances.add(monaco)
-  monaco.editor.defineTheme(DENOVA_MONACO_THEME_DARK, createTheme(DARK_PALETTE))
-  monaco.editor.defineTheme(DENOVA_MONACO_THEME_LIGHT, createTheme(LIGHT_PALETTE))
+  monaco.editor.defineTheme(INKDOCK_MONACO_THEME_DARK, createTheme(DARK_PALETTE))
+  monaco.editor.defineTheme(INKDOCK_MONACO_THEME_LIGHT, createTheme(LIGHT_PALETTE))
 }
 
-function useDenovaMonacoTheme() {
+function useInkDockMonacoTheme() {
   const { resolvedTheme } = useTheme()
-  return resolvedTheme === 'light' ? DENOVA_MONACO_THEME_LIGHT : DENOVA_MONACO_THEME_DARK
+  return resolvedTheme === 'light' ? INKDOCK_MONACO_THEME_LIGHT : INKDOCK_MONACO_THEME_DARK
 }
 
 function useSourceEditorFontFamily() {
@@ -120,9 +120,9 @@ function useContentFontScale() {
   )
 }
 
-function useDenovaBeforeMount(beforeMount: ((monaco: Monaco) => void) | undefined) {
+function useInkDockBeforeMount(beforeMount: ((monaco: Monaco) => void) | undefined) {
   return useCallback((monaco: Monaco) => {
-    installDenovaMonacoThemes(monaco)
+    installInkDockMonacoThemes(monaco)
     beforeMount?.(monaco)
   }, [beforeMount])
 }
@@ -137,12 +137,12 @@ function denovaUnicodeHighlight(overrides: editor.IUnicodeHighlightOptions | und
     ambiguousCharacters: true,
     allowedLocales: {
       ...overrides?.allowedLocales,
-      ...DENOVA_MONACO_UNICODE_HIGHLIGHT.allowedLocales,
+      ...INKDOCK_MONACO_UNICODE_HIGHLIGHT.allowedLocales,
     },
   }
 }
 
-interface DenovaMonacoPalette {
+interface InkDockMonacoPalette {
   base: 'vs' | 'vs-dark'
   background: string
   gutter: string
@@ -181,7 +181,7 @@ interface DenovaMonacoPalette {
 
 // Monaco commonly renders dense 12–14 px text, so token and supporting-text
 // colors intentionally target at least 7:1 contrast against the canvas.
-const DARK_PALETTE: DenovaMonacoPalette = {
+const DARK_PALETTE: InkDockMonacoPalette = {
   base: 'vs-dark',
   background: '#0a0a0a',
   gutter: '#0a0a0a',
@@ -218,7 +218,7 @@ const DARK_PALETTE: DenovaMonacoPalette = {
   removedWord: '#62302a',
 }
 
-const LIGHT_PALETTE: DenovaMonacoPalette = {
+const LIGHT_PALETTE: InkDockMonacoPalette = {
   base: 'vs',
   background: '#ffffff',
   gutter: '#fafafa',
@@ -255,7 +255,7 @@ const LIGHT_PALETTE: DenovaMonacoPalette = {
   removedWord: '#efb7ad',
 }
 
-function createTheme(palette: DenovaMonacoPalette): editor.IStandaloneThemeData {
+function createTheme(palette: InkDockMonacoPalette): editor.IStandaloneThemeData {
   return {
     base: palette.base,
     inherit: true,

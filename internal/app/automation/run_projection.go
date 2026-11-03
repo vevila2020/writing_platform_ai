@@ -4,9 +4,9 @@ import (
 	"context"
 	"log/slog"
 
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/automation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 // These fields are API projections only. The trigger store strips them from

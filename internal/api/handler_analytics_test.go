@@ -1,7 +1,7 @@
 package api
 
 import (
-	"denova/internal/analytics"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 	"net/http"
 	"testing"
 )

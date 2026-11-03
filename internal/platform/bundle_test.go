@@ -7,7 +7,7 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"denova/internal/platform/assets"
+	"github.com/vevila2020/writing_platform_ai/internal/platform/assets"
 )
 
 func TestBundledPackageUsesNormalValidationAndExport(t *testing.T) {

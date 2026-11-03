@@ -1,8 +1,8 @@
 package interactive
 
 import (
-	interactivestate "denova/internal/interactive/state"
 	"encoding/json"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,7 +45,7 @@ func TestStructuredRuleStateChangeUsesExactFieldID(t *testing.T) {
 
 func TestLegacyStoryFreezesSchemaAfterBackupOnFirstLoad(t *testing.T) {
 	root := t.TempDir()
-	novaDir := filepath.Join(root, ".nova")
+	novaDir := filepath.Join(root, ".inkdock")
 	legacyStore := NewStore(root)
 	story, err := legacyStore.CreateStory(CreateStoryRequest{
 		Title: "旧故事",
@@ -69,7 +69,7 @@ func TestLegacyStoryFreezesSchemaAfterBackupOnFirstLoad(t *testing.T) {
 		t.Fatal("legacy fixture unexpectedly contains a frozen schema")
 	}
 
-	migratedStore := NewStoreWithNovaDir(root, novaDir)
+	migratedStore := NewStoreWithDenovaDir(root, novaDir)
 	snapshot, err := migratedStore.Snapshot(story.ID, "main")
 	if err != nil {
 		t.Fatal(err)
@@ -119,7 +119,7 @@ func TestLegacyStoryFreezesSchemaAfterBackupOnFirstLoad(t *testing.T) {
 
 func TestLegacyStoryReplaysFrozenInitialActorsWithoutRewritingHistory(t *testing.T) {
 	root := t.TempDir()
-	novaDir := filepath.Join(root, ".nova")
+	novaDir := filepath.Join(root, ".inkdock")
 	legacyStore := NewStore(root)
 	story, err := legacyStore.CreateStory(CreateStoryRequest{Title: "没有 Actor Delta 的旧故事"})
 	if err != nil {
@@ -130,7 +130,7 @@ func TestLegacyStoryReplaysFrozenInitialActorsWithoutRewritingHistory(t *testing
 		t.Fatal(err)
 	}
 
-	migratedStore := NewStoreWithNovaDir(root, novaDir)
+	migratedStore := NewStoreWithDenovaDir(root, novaDir)
 	snapshot, err := migratedStore.Snapshot(story.ID, "main")
 	if err != nil {
 		t.Fatal(err)

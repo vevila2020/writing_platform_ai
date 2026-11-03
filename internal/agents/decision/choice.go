@@ -12,8 +12,8 @@ import (
 	"net/http"
 	"time"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 const MaxRequestBytes = 1024 * 1024

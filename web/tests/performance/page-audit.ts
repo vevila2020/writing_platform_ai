@@ -94,6 +94,6 @@ export async function probe(request: APIRequestContext, path: string, attempts =
 
 export function saveAudit(name: string, result: unknown) {
   mkdirSync('test-results', { recursive: true })
-  const label = process.env.DENOVA_PERFORMANCE_LABEL?.replace(/[^a-zA-Z0-9_-]/g, '')
+  const label = process.env.INKDOCK_PERFORMANCE_LABEL?.replace(/[^a-zA-Z0-9_-]/g, '')
   writeFileSync(`test-results/page-audit-${label ? `${label}-` : ''}${name}.json`, JSON.stringify(result, null, 2) + '\n')
 }

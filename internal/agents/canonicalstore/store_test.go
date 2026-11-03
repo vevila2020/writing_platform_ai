@@ -10,15 +10,15 @@ import (
 	"strings"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func TestStoreEmbedsRootRecordsAndKeepsChildrenInProjectState(t *testing.T) {

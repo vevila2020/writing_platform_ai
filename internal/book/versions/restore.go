@@ -12,8 +12,8 @@ import (
 	"strings"
 	"syscall"
 
-	"denova/internal/assetstore"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 type restorePlanner struct {
@@ -399,7 +399,7 @@ func atomicWriteRestoreFile(root *os.Root, rel string, data []byte, mode os.File
 	if _, err := cryptorand.Read(random[:]); err != nil {
 		return err
 	}
-	tempRel := path.Join(parent, fmt.Sprintf(".%s.denova-%x.tmp", path.Base(rel), random[:]))
+	tempRel := path.Join(parent, fmt.Sprintf(".%s.inkdock-%x.tmp", path.Base(rel), random[:]))
 	tempPath := filepath.FromSlash(tempRel)
 	targetPath := filepath.FromSlash(rel)
 	file, err := root.OpenFile(tempPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, mode.Perm())
@@ -462,7 +462,7 @@ type protectedDirMove struct {
 }
 
 func (s *Service) withProtectedExcludedWorkspaceDirs(fn func() error) error {
-	temp, err := os.MkdirTemp(filepath.Dir(s.workspace), ".denova-version-restore-*")
+	temp, err := os.MkdirTemp(filepath.Dir(s.workspace), ".inkdock-version-restore-*")
 	if err != nil {
 		return err
 	}

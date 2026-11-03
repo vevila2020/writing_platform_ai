@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 type mutationStage string

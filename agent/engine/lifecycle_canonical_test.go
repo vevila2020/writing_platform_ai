@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/context/history"
-	"github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/context/history"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestCanonicalCheckpointDoesNotRepeatCommittedBodies(t *testing.T) {

@@ -14,15 +14,15 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 // Exercise the real feed, download, checksum and staging path. Automatic
 // preparation must neither need a browser nor replace an explicitly staged pack.
 func TestAutomaticUpdatePreparesOnlyWithDownloadConsent(t *testing.T) {
-	asset := "denova-v0.2.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + ".tar.gz"
-	archive := testReleaseArchive(t, "denova", map[string]string{
-		"denova": "new", updaterExecutableName(): "updater", "skills/example/SKILL.md": "skill",
+	asset := "inkdock-v0.2.0-" + platformKey(runtime.GOOS, runtime.GOARCH) + ".tar.gz"
+	archive := testReleaseArchive(t, "inkdock", map[string]string{
+		"inkdock": "new", updaterExecutableName(): "updater", "skills/example/SKILL.md": "skill",
 		"tools/" + hostruntime.RipgrepExecutableName(): "rg",
 		"licenses/ripgrep/LICENSE-MIT":                 "MIT", "licenses/ripgrep/UNLICENSE": "Unlicense",
 	})
@@ -45,7 +45,7 @@ func TestAutomaticUpdatePreparesOnlyWithDownloadConsent(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	s := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "denova"), githubAPIBase: server.URL + "/repos"}
+	s := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "inkdock"), githubAPIBase: server.URL + "/repos"}
 	ctx := context.Background()
 	if err := s.updateDue(ctx, Policy{Download: true}, time.Now()); err != nil {
 		t.Fatal(err)
@@ -110,7 +110,7 @@ func TestAutomaticUpdateRetriesAreBoundedAndShutdownCancels(t *testing.T) {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 	}))
 	defer server.Close()
-	s := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "denova"), githubAPIBase: server.URL}
+	s := &Service{repository: "owner/repo", currentVersion: "0.1.0", httpClient: server.Client(), executablePath: filepath.Join(t.TempDir(), "inkdock"), githubAPIBase: server.URL}
 	if err := s.updateDue(context.Background(), Policy{Check: true, Download: true}, time.Now()); err == nil {
 		t.Fatal("missing check failure")
 	}

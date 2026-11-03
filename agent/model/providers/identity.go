@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelIdentity returns the stable, credential-free identity used by durable

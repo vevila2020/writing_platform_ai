@@ -1,8 +1,8 @@
 package interactiveapp
 
 import (
-	agents "denova/internal/agents"
-	"denova/internal/interactive"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // ToolArtifactStore gives game conversations the same workspace-bounded,

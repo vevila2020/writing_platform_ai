@@ -12,7 +12,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // MaxDescriptionRunes caps the Book synopsis. The synopsis is injected into
@@ -48,8 +48,8 @@ type MetaStore struct {
 	legacyDir string
 }
 
-func NewMetaStore(denovaDir string) *MetaStore {
-	return &MetaStore{dataRoot: denovaDir, legacyDir: filepath.Join(denovaDir, "book_meta")}
+func NewMetaStore(inkdockDir string) *MetaStore {
+	return &MetaStore{dataRoot: inkdockDir, legacyDir: filepath.Join(inkdockDir, "book_meta")}
 }
 
 func (store *MetaStore) Read(contentRoot, stateRoot string) (BookMeta, error) {

@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"testing"
 
-	agentattachment "denova/internal/agents/attachment"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	apptask "denova/internal/app/task"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func TestExternalStreamPreservesPartialOutputAfterStop(t *testing.T) {

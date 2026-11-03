@@ -1,9 +1,9 @@
 package lifecycle
 
 import (
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 func publicCompactionMetrics(metrics agentengine.CompactionMetrics) agenthistory.CompactionMetrics {

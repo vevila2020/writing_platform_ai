@@ -3,8 +3,8 @@ package interactive
 import (
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
 )
 
 func TestCreateBranchPersistsSelectedCustomAgent(t *testing.T) {

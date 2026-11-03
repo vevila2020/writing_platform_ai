@@ -25,16 +25,16 @@ func TestStartupTemplatePreservesDataDirectorySelection(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Setenv("INKDOCK_DIR", "")
 	t.Setenv("DENOVA_DIR", "")
-	t.Setenv("NOVA_DIR", "")
 	for _, test := range []struct {
 		name string
 		dirs []string
 		want string
 	}{
-		{name: "fresh installation", want: ".denova"},
-		{name: "existing legacy data", dirs: []string{".nova"}, want: ".nova"},
-		{name: "current data takes precedence", dirs: []string{".nova", ".denova"}, want: ".denova"},
+		{name: "fresh installation", want: ".inkdock"},
+		{name: "existing legacy data", dirs: []string{".denova"}, want: ".denova"},
+		{name: "current data takes precedence", dirs: []string{".denova", ".inkdock"}, want: ".inkdock"},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			root := t.TempDir()
@@ -47,7 +47,7 @@ func TestStartupTemplatePreservesDataDirectorySelection(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			if got, want := startupNovaDir(), normalizePath(filepath.Join(root, test.want)); got != want {
+			if got, want := startupDataDir(), normalizePath(filepath.Join(root, test.want)); got != want {
 				t.Fatalf("startup data directory = %q, want %q", got, want)
 			}
 		})

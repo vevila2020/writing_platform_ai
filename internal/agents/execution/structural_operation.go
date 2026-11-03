@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"log/slog"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentstructural "denova/internal/agents/context/structural"
-	productsession "denova/internal/agents/session"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentstructural "github.com/vevila2020/writing_platform_ai/internal/agents/context/structural"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	"github.com/alfredxw/denova/agent"
-	sdkcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	sdkcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // ExecuteStructuralOperation applies one manual compaction mutation to the
@@ -39,14 +39,14 @@ type structuralDefinition struct {
 func resolveStructuralDefinition(ctx context.Context, request agent.PrepareRequest) (agent.Definition, error) {
 	prepared, ok := ctx.Value(structuralDefinitionContextKey{}).(structuralDefinition)
 	if !ok {
-		return agent.Definition{}, errors.New("Denova structural command has no prepared Definition")
+		return agent.Definition{}, errors.New("InkDock structural command has no prepared Definition")
 	}
 	key, err := agentsession.CanonicalKey(request.Session.Key)
 	if err != nil {
 		return agent.Definition{}, err
 	}
 	if prepared.session != key || prepared.commandID != request.Run.CommandID {
-		return agent.Definition{}, errors.New("Denova structural command Definition binding changed")
+		return agent.Definition{}, errors.New("InkDock structural command Definition binding changed")
 	}
 	return prepared.definition, nil
 }
@@ -69,7 +69,7 @@ func (backend *publicBackend) executeStructural(ctx context.Context, cycle Cycle
 		return agentstructural.Result{}, err
 	}
 	if cycle.Conversation == nil || cycle.Definition.Model == nil {
-		return agentstructural.Result{}, errors.New("Denova structural command requires a prepared product conversation and Definition")
+		return agentstructural.Result{}, errors.New("InkDock structural command requires a prepared product conversation and Definition")
 	}
 	if err := loadCanonicalMessages(ctx, session, cycle.Conversation); err != nil {
 		return agentstructural.Result{}, err

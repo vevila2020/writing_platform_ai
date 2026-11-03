@@ -9,21 +9,21 @@ import (
 )
 
 func TestRegistryLegacyMigrationRebasesManagedProjectFromForeignRoot(t *testing.T) {
-	denovaDir := t.TempDir()
-	workspace := filepath.Join(denovaDir, ContentDirectoryName, "portable-book")
-	if err := os.MkdirAll(filepath.Join(workspace, ".denova"), 0o755); err != nil {
+	inkdockDir := t.TempDir()
+	workspace := filepath.Join(inkdockDir, ContentDirectoryName, "portable-book")
+	if err := os.MkdirAll(filepath.Join(workspace, ".inkdock"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	foreignPath := `C:\old-root\Projects\portable-book`
 	if runtime.GOOS == "windows" {
 		foreignPath = "/Users/writer/old-root/Projects/portable-book"
 	}
-	writeLegacyBookRegistryForTest(t, denovaDir, legacyBookRegistry{
+	writeLegacyBookRegistryForTest(t, inkdockDir, legacyBookRegistry{
 		Current: foreignPath,
 		Books:   []legacyBookRecord{{Name: "Portable", Path: foreignPath}},
 	})
 
-	projects, err := NewRegistry(denovaDir).List(false)
+	projects, err := NewRegistry(inkdockDir).List(false)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestRegistryLegacyMigrationRebasesManagedProjectFromForeignRoot(t *testing.
 	if projects[0].WorkspacePath != resolvedTestPath(t, workspace) || projects[0].Status != StatusAvailable {
 		t.Fatalf("legacy managed Project was not rebased: %#v", projects[0])
 	}
-	all, err := NewRegistry(denovaDir).List(true)
+	all, err := NewRegistry(inkdockDir).List(true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,21 +46,21 @@ func TestRegistryLegacyMigrationRebasesManagedProjectFromForeignRoot(t *testing.
 }
 
 func TestRegistryLegacyMigrationRebasesRootBookFromForeignDataRoot(t *testing.T) {
-	denovaDir := t.TempDir()
-	workspace := filepath.Join(denovaDir, "Legacy Root Book")
-	if err := os.MkdirAll(filepath.Join(workspace, ".denova"), 0o755); err != nil {
+	inkdockDir := t.TempDir()
+	workspace := filepath.Join(inkdockDir, "Legacy Root Book")
+	if err := os.MkdirAll(filepath.Join(workspace, ".inkdock"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	foreignPath := `C:\old-root\.denova\LEGACY ROOT BOOK`
+	foreignPath := `C:\old-root\.inkdock\LEGACY ROOT BOOK`
 	if runtime.GOOS == "windows" {
-		foreignPath = "/Users/writer/.denova/LEGACY ROOT BOOK"
+		foreignPath = "/Users/writer/.inkdock/LEGACY ROOT BOOK"
 	}
-	writeLegacyBookRegistryForTest(t, denovaDir, legacyBookRegistry{
+	writeLegacyBookRegistryForTest(t, inkdockDir, legacyBookRegistry{
 		Current: foreignPath,
 		Books:   []legacyBookRecord{{Name: "Legacy title", Path: foreignPath}},
 	})
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	projects, err := registry.List(true)
 	if err != nil {
 		t.Fatal(err)
@@ -79,9 +79,9 @@ func TestRegistryLegacyMigrationRebasesRootBookFromForeignDataRoot(t *testing.T)
 }
 
 func TestRegistryMigrationKeepsOneManagedOwnerForDuplicatedLegacyPaths(t *testing.T) {
-	denovaDir := t.TempDir()
-	workspace := filepath.Join(denovaDir, ContentDirectoryName, "Portable Book")
-	if err := os.MkdirAll(filepath.Join(workspace, ".denova"), 0o755); err != nil {
+	inkdockDir := t.TempDir()
+	workspace := filepath.Join(inkdockDir, ContentDirectoryName, "Portable Book")
+	if err := os.MkdirAll(filepath.Join(workspace, ".inkdock"), 0o755); err != nil {
 		t.Fatal(err)
 	}
 	stalePath := `/old-root/projects/Portable Book`
@@ -104,11 +104,11 @@ func TestRegistryMigrationKeepsOneManagedOwnerForDuplicatedLegacyPaths(t *testin
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(denovaDir, "projects.json"), append(raw, '\n'), 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(inkdockDir, "projects.json"), append(raw, '\n'), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	for _, id := range []string{staleID, currentID} {
-		stateRoot := filepath.Join(denovaDir, storeDirectoryName, id)
+		stateRoot := filepath.Join(inkdockDir, storeDirectoryName, id)
 		if err := os.MkdirAll(stateRoot, 0o700); err != nil {
 			t.Fatal(err)
 		}
@@ -117,7 +117,7 @@ func TestRegistryMigrationKeepsOneManagedOwnerForDuplicatedLegacyPaths(t *testin
 		}
 	}
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	projects, err := registry.List(true)
 	if err != nil {
 		t.Fatal(err)
@@ -142,7 +142,7 @@ func TestRegistryMigrationKeepsOneManagedOwnerForDuplicatedLegacyPaths(t *testin
 		t.Fatalf("current Book path = %q, want %q", registry.CurrentBookPath(), workspace)
 	}
 	for _, record := range projects {
-		identityPath := filepath.Join(denovaDir, storeDirectoryName, record.StoreDirName, "identity.txt")
+		identityPath := filepath.Join(inkdockDir, storeDirectoryName, record.StoreDirName, "identity.txt")
 		if identity, err := os.ReadFile(identityPath); err != nil || string(identity) != record.ID {
 			t.Fatalf("Project %s state identity=%q err=%v", record.ID, identity, err)
 		}
@@ -150,16 +150,16 @@ func TestRegistryMigrationKeepsOneManagedOwnerForDuplicatedLegacyPaths(t *testin
 }
 
 func TestRegistryLegacyMigrationArchivesMissingAndHiddenBooks(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	available := filepath.Join(t.TempDir(), "available-book")
 	missing := filepath.Join(t.TempDir(), "missing-book")
-	hidden := filepath.Join(denovaDir, "projects", "hidden-book")
+	hidden := filepath.Join(inkdockDir, "projects", "hidden-book")
 	for _, path := range []string{available, hidden} {
-		if err := os.MkdirAll(filepath.Join(path, ".denova"), 0o755); err != nil {
+		if err := os.MkdirAll(filepath.Join(path, ".inkdock"), 0o755); err != nil {
 			t.Fatal(err)
 		}
 	}
-	writeLegacyBookRegistryForTest(t, denovaDir, legacyBookRegistry{
+	writeLegacyBookRegistryForTest(t, inkdockDir, legacyBookRegistry{
 		Current: missing,
 		Books: []legacyBookRecord{
 			{Name: "Available", Path: available},
@@ -168,7 +168,7 @@ func TestRegistryLegacyMigrationArchivesMissingAndHiddenBooks(t *testing.T) {
 		Hidden: []string{hidden},
 	})
 
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	active, err := registry.List(false)
 	if err != nil {
 		t.Fatal(err)
@@ -188,7 +188,7 @@ func TestRegistryLegacyMigrationArchivesMissingAndHiddenBooks(t *testing.T) {
 	}
 
 	var persisted registryData
-	readJSONFileForTest(t, filepath.Join(denovaDir, "projects.json"), &persisted)
+	readJSONFileForTest(t, filepath.Join(inkdockDir, "projects.json"), &persisted)
 	if persisted.Version != registryVersion {
 		t.Fatalf("registry version = %d, want %d", persisted.Version, registryVersion)
 	}
@@ -200,21 +200,21 @@ func TestRegistryLegacyMigrationArchivesMissingAndHiddenBooks(t *testing.T) {
 }
 
 func TestRegistryRejectsUnsupportedIntermediateVersion(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	raw, err := json.Marshal(registryData{Version: projectIDStoreDirectoryRegistryVersion - 1, Projects: []Record{}})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(denovaDir, "projects.json"), raw, 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(inkdockDir, "projects.json"), raw, 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := NewRegistry(denovaDir).List(true); err == nil {
+	if _, err := NewRegistry(inkdockDir).List(true); err == nil {
 		t.Fatal("registry accepted an unsupported intermediate schema")
 	}
 }
 
 func TestRegistryMigratesProjectIDStoreDirectoriesWithoutChangingIdentity(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	firstWorkspace := t.TempDir()
 	secondWorkspace := t.TempDir()
 	firstID := "project-first"
@@ -230,10 +230,10 @@ func TestRegistryMigratesProjectIDStoreDirectoriesWithoutChangingIdentity(t *tes
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(denovaDir, "projects.json"), append(raw, '\n'), 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(inkdockDir, "projects.json"), append(raw, '\n'), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	legacyState := filepath.Join(denovaDir, storeDirectoryName, firstID, "sessions")
+	legacyState := filepath.Join(inkdockDir, storeDirectoryName, firstID, "sessions")
 	if err := os.MkdirAll(legacyState, 0o700); err != nil {
 		t.Fatal(err)
 	}
@@ -241,7 +241,7 @@ func TestRegistryMigratesProjectIDStoreDirectoriesWithoutChangingIdentity(t *tes
 		t.Fatal(err)
 	}
 
-	projects, err := NewRegistry(denovaDir).List(true)
+	projects, err := NewRegistry(inkdockDir).List(true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -252,16 +252,16 @@ func TestRegistryMigratesProjectIDStoreDirectoriesWithoutChangingIdentity(t *tes
 	if byID[firstID].StoreDirName != "我的-项目" || byID[secondID].StoreDirName != "我的-项目-2" {
 		t.Fatalf("readable Store directory migration = %#v", byID)
 	}
-	if _, err := os.Stat(filepath.Join(denovaDir, storeDirectoryName, firstID)); !os.IsNotExist(err) {
+	if _, err := os.Stat(filepath.Join(inkdockDir, storeDirectoryName, firstID)); !os.IsNotExist(err) {
 		t.Fatalf("legacy ID Store directory still exists: %v", err)
 	}
-	migratedHistory := filepath.Join(denovaDir, storeDirectoryName, "我的-项目", "sessions", "history.jsonl")
+	migratedHistory := filepath.Join(inkdockDir, storeDirectoryName, "我的-项目", "sessions", "history.jsonl")
 	if data, err := os.ReadFile(migratedHistory); err != nil || string(data) != "history\n" {
 		t.Fatalf("migrated Project Store data=%q err=%v", data, err)
 	}
 
 	var persisted registryData
-	readJSONFileForTest(t, filepath.Join(denovaDir, "projects.json"), &persisted)
+	readJSONFileForTest(t, filepath.Join(inkdockDir, "projects.json"), &persisted)
 	if persisted.Version != registryVersion {
 		t.Fatalf("migrated registry version = %d, want %d", persisted.Version, registryVersion)
 	}
@@ -275,13 +275,13 @@ func TestRegistryMigratesProjectIDStoreDirectoriesWithoutChangingIdentity(t *tes
 	}
 }
 
-func writeLegacyBookRegistryForTest(t *testing.T, denovaDir string, data legacyBookRegistry) {
+func writeLegacyBookRegistryForTest(t *testing.T, inkdockDir string, data legacyBookRegistry) {
 	t.Helper()
 	raw, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(denovaDir, "books.json"), append(raw, '\n'), 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(inkdockDir, "books.json"), append(raw, '\n'), 0o600); err != nil {
 		t.Fatal(err)
 	}
 }

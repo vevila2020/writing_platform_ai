@@ -69,7 +69,7 @@ func resolvedTestPath(t *testing.T, path string) string {
 }
 
 func TestRegistryPreservesForeignExternalLocationVerbatim(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	foreignPath := `C:\Users\writer\Novel`
 	if runtime.GOOS == "windows" {
 		foreignPath = "/Users/writer/Novel"
@@ -84,11 +84,11 @@ func TestRegistryPreservesForeignExternalLocationVerbatim(t *testing.T) {
 			Location:     ProjectLocation{Kind: LocationExternal, Path: foreignPath},
 		}},
 	}
-	if err := NewRegistry(denovaDir).saveLocked(data); err != nil {
+	if err := NewRegistry(inkdockDir).saveLocked(data); err != nil {
 		t.Fatal(err)
 	}
 
-	record, err := NewRegistry(denovaDir).Get("project-external")
+	record, err := NewRegistry(inkdockDir).Get("project-external")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -96,14 +96,14 @@ func TestRegistryPreservesForeignExternalLocationVerbatim(t *testing.T) {
 		t.Fatalf("foreign external location was reinterpreted: %#v", record)
 	}
 	var persisted registryData
-	readJSONFileForTest(t, filepath.Join(denovaDir, "projects.json"), &persisted)
+	readJSONFileForTest(t, filepath.Join(inkdockDir, "projects.json"), &persisted)
 	if persisted.Projects[0].Location.Path != foreignPath || persisted.Projects[0].WorkspacePath != "" {
 		t.Fatalf("foreign external location changed on disk: %#v", persisted.Projects[0])
 	}
 }
 
 func TestRegistryKeepsStableProjectIdentityAcrossMetadataAndPathChanges(t *testing.T) {
-	denovaDir := t.TempDir()
+	inkdockDir := t.TempDir()
 	first := filepath.Join(t.TempDir(), "first")
 	second := filepath.Join(t.TempDir(), "second")
 	for _, path := range []string{first, second} {
@@ -111,7 +111,7 @@ func TestRegistryKeepsStableProjectIdentityAcrossMetadataAndPathChanges(t *testi
 			t.Fatal(err)
 		}
 	}
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	record, err := registry.Add(first, TypeGeneral, "General work")
 	if err != nil {
 		t.Fatal(err)
@@ -204,12 +204,12 @@ func TestRegistryAllocatesReadableUniqueStoreDirectories(t *testing.T) {
 }
 
 func TestEnsureAgentsRegistersOneManagedProject(t *testing.T) {
-	denovaDir := t.TempDir()
-	agentsRoot := filepath.Join(denovaDir, "agents")
+	inkdockDir := t.TempDir()
+	agentsRoot := filepath.Join(inkdockDir, "agents")
 	if err := os.MkdirAll(agentsRoot, 0o700); err != nil {
 		t.Fatal(err)
 	}
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	first, err := registry.EnsureAgents(agentsRoot)
 	if err != nil {
 		t.Fatal(err)
@@ -229,29 +229,29 @@ func TestEnsureAgentsRegistersOneManagedProject(t *testing.T) {
 	}
 }
 
-func TestRegistryDoesNotExposeDenovaRootUnlessExplicitlyAdded(t *testing.T) {
-	denovaDir := t.TempDir()
-	registry := NewRegistry(denovaDir)
+func TestRegistryDoesNotExposeInkDockRootUnlessExplicitlyAdded(t *testing.T) {
+	inkdockDir := t.TempDir()
+	registry := NewRegistry(inkdockDir)
 	projects, err := registry.List(false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, project := range projects {
-		if project.WorkspacePath == denovaDir {
-			t.Fatalf("Denova root was exposed implicitly: %#v", project)
+		if project.WorkspacePath == inkdockDir {
+			t.Fatalf("InkDock root was exposed implicitly: %#v", project)
 		}
 	}
 
-	added, err := registry.Add(denovaDir, TypeGeneral, "Denova data")
+	added, err := registry.Add(inkdockDir, TypeGeneral, "InkDock data")
 	if err != nil {
 		t.Fatal(err)
 	}
-	canonicalDenovaDir, err := canonicalDirectory(denovaDir, true)
+	canonicalInkDockDir, err := canonicalDirectory(inkdockDir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if added.WorkspacePath != canonicalDenovaDir || added.Type != TypeGeneral {
-		t.Fatalf("explicit Denova root should be treated like any folder: %#v", added)
+	if added.WorkspacePath != canonicalInkDockDir || added.Type != TypeGeneral {
+		t.Fatalf("explicit InkDock root should be treated like any folder: %#v", added)
 	}
 }
 
@@ -285,12 +285,12 @@ func TestRegistryManualOrderUsesStableIDs(t *testing.T) {
 }
 
 func TestRegistryDiscoveryDoesNotDuplicateCanonicalPathAliases(t *testing.T) {
-	denovaDir := t.TempDir()
-	workspace := filepath.Join(denovaDir, "workspace")
-	if err := os.MkdirAll(filepath.Join(workspace, ".denova"), 0o755); err != nil {
+	inkdockDir := t.TempDir()
+	workspace := filepath.Join(inkdockDir, "workspace")
+	if err := os.MkdirAll(filepath.Join(workspace, ".inkdock"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	registry := NewRegistry(denovaDir)
+	registry := NewRegistry(inkdockDir)
 	created, err := registry.EnsureBook(workspace)
 	if err != nil {
 		t.Fatal(err)

@@ -25,7 +25,7 @@ describe('runtime telemetry content boundary', () => {
     const payload = JSON.stringify(vi.mocked(requestJSON).mock.calls)
     expect(payload).not.toContain('private')
     expect(payload).not.toContain('secret-key')
-    expect(localStorage.getItem('nova.runtime.logs')).toContain('private manuscript')
+    expect(localStorage.getItem('inkdock.runtime.logs')).toContain('private manuscript')
   })
 
   it('leaves an exporter failure as an optional rejected request without another telemetry event', async () => {

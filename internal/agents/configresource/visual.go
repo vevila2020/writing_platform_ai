@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/style"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func newStyleReferenceResource(novaDir string) Adapter {

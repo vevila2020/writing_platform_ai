@@ -1,10 +1,10 @@
 package interactive
 
 import (
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // AgentMessagesFromModelContext is the common persisted Game message codec.

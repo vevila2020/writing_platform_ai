@@ -11,7 +11,7 @@ import (
 	"sort"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 const (
@@ -22,7 +22,7 @@ const (
 )
 
 // ComfyUIWorkflowSummary reports whether one saved UI workflow has a fresh
-// API-format execution snapshot that Denova can reuse.
+// API-format execution snapshot that InkDock can reuse.
 type ComfyUIWorkflowSummary struct {
 	Name       string `json:"name"`
 	Path       string `json:"path"`

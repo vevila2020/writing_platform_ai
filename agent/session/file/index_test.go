@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent/lifecycle"
-	"github.com/alfredxw/denova/agent/session"
-	sessionfile "github.com/alfredxw/denova/agent/session/file"
+	"github.com/vevila2020/writing_platform_ai/agent/lifecycle"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
+	sessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
 )
 
 type countedRecovery struct {

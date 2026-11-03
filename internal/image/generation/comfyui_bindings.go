@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // ComfyUIInputCandidate is transient discovery metadata used to repair an
@@ -17,7 +17,7 @@ type ComfyUIInputCandidate struct {
 }
 
 // ComfyUIBindingCandidates contains only workflow inputs that can implement
-// Denova's public image-generation contract. Static workflow values never
+// InkDock's public image-generation contract. Static workflow values never
 // leave the imported graph as editable settings.
 type ComfyUIBindingCandidates struct {
 	Prompt []ComfyUIInputCandidate `json:"prompt,omitempty"`

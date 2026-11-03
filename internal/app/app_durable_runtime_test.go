@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestNewRequiresDurableAgentDataDirectory(t *testing.T) {

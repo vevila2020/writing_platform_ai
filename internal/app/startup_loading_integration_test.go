@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestStartupDoesNotPrepareUnusedProjectContentOrStore(t *testing.T) {
@@ -36,7 +36,7 @@ func TestStartupDoesNotPrepareUnusedProjectContentOrStore(t *testing.T) {
 	if err := os.WriteFile(receipt, []byte("unreadable migration receipt"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	application, err := New(context.Background(), &config.Config{DenovaDir: root, OpenAIModel: "test-model"})
+	application, err := New(context.Background(), &config.Config{InkDockDir: root, OpenAIModel: "test-model"})
 	if err != nil {
 		t.Fatalf("unused Project blocked startup: %v", err)
 	}

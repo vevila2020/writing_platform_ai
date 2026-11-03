@@ -28,7 +28,7 @@ const home = {
   'home.descriptionPlaceholder': '简介（选填）',
   'home.descriptionTooLong': '简介不能超过 {{limit}} 字',
   'home.editInfo': '编辑信息',
-  'home.empty': '当前 Denova 数据目录下还没有书籍',
+  'home.empty': '当前墨栈 AI 数据目录下还没有书籍',
   'home.emptyDescription': '请先新建一本书，或导入现有小说/角色卡创建书籍。创建后再进入写作、互动、Agent 和自动化工作流。',
   'home.exportError': '导出失败',
   'home.exporting': '导出中',
@@ -37,7 +37,7 @@ const home = {
   'home.importCard': '导入酒馆角色卡',
   'home.importNovel': '导入现有小说',
   'home.generateCover': '生成封面',
-  'home.novaDirLoading': 'Denova 数据目录加载中...',
+  'home.dataDirLoading': '墨栈 AI 数据目录加载中...',
   'home.saveError': '保存失败',
   'home.sortLabel': '书籍排序',
   'home.sortManual': '手动排序',
@@ -52,7 +52,7 @@ const home = {
   'home.unnamedBook': '未命名书籍',
   'home.uploadCover': '上传封面',
   'home.coverUploadPending': '封面已选择，创建书籍时保存',
-  'home.waitNovaDir': 'Denova 数据目录未就绪，请稍后重试',
+  'home.waitDataDir': '墨栈 AI 数据目录未就绪，请稍后重试',
 } as const
 
 export default home

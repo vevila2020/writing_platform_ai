@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestSharedContentUsesProjectPackageIdentityAndRevisionedDocuments(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // NestedToolCall is the only public request accepted by the in-execution tool

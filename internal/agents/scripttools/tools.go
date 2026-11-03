@@ -1,4 +1,4 @@
-// Package scripttools assembles Denova's immediate Script Tool definitions.
+// Package scripttools assembles InkDock's immediate Script Tool definitions.
 // JavaScript execution itself remains in the reusable agent module.
 package scripttools
 
@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
-	agentscript "github.com/alfredxw/denova/agent/tool/script"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
+	agentscript "github.com/vevila2020/writing_platform_ai/agent/tool/script"
 )
 
 // Immediate constructs the model-visible script entry point.

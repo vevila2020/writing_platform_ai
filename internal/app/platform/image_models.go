@@ -3,9 +3,9 @@ package platform
 import (
 	"context"
 
-	"denova/config"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/config"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 // ImageModels resolves the same Project configuration used for generation.

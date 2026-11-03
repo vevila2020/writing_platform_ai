@@ -5,9 +5,9 @@ import (
 	"errors"
 	"log/slog"
 
-	"denova/internal/book"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 func (h *Handlers) HandleBookStructure(ctx context.Context, c *app.RequestContext) {

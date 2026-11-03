@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 type Verification struct {

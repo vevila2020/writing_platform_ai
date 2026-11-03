@@ -6,12 +6,12 @@ package platform
 import (
 	"context"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	apptask "denova/internal/app/task"
-	booklore "denova/internal/book/lore"
-	"denova/internal/interactive"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // Lease pins a foreground workspace until Release. ProjectLease additionally

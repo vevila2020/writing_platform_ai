@@ -8,17 +8,17 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	agents "denova/internal/agents"
-	agentcontext "denova/internal/agents/context"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	novaskills "denova/internal/agents/skills"
-	agenttools "denova/internal/agents/tools"
-	apptask "denova/internal/app/task"
-	imageasset "denova/internal/image/asset"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	agenttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
 )
 
 type AgentGenerateRequest struct {

@@ -5,9 +5,9 @@ package openaiclient
 import (
 	"sort"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/internal/llmhttp"
 	"github.com/openai/openai-go/v3/option"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/internal/llmhttp"
 )
 
 // Options returns deterministic client options. Explicit headers are applied

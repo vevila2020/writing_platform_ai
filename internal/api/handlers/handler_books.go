@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"context"
-	"denova/internal/analytics"
 	"encoding/json"
 	"errors"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 	"io"
 	"net/url"
 	"os"
@@ -14,11 +14,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	bookapp "denova/internal/app/book"
-	imageapp "denova/internal/app/image"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
+	bookapp "github.com/vevila2020/writing_platform_ai/internal/app/book"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 const MaxBookCoverUploadBytes int64 = 16 * 1024 * 1024
@@ -57,11 +57,11 @@ func (h *Handlers) HandleCreateBook(ctx context.Context, c *app.RequestContext) 
 		writeError(c, consts.StatusInternalServerError, err.Error())
 		return
 	}
-	if layered.Paths.DenovaDir == "" {
+	if layered.Paths.InkDockDir == "" {
 		writeErrorKey(c, consts.StatusInternalServerError, "api.books.novaDirMissing")
 		return
 	}
-	created, err := h.app.CreateBook(ctx, layered.Paths.DenovaDir, req.Title, req.Author, req.Description, req.Structure)
+	created, err := h.app.CreateBook(ctx, layered.Paths.InkDockDir, req.Title, req.Author, req.Description, req.Structure)
 	if errors.Is(err, book.ErrDescriptionTooLong) {
 		writeErrorKey(c, consts.StatusBadRequest, "api.books.descriptionTooLong", "limit", book.MaxDescriptionRunes)
 		return

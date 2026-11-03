@@ -2,7 +2,7 @@ package app
 
 import (
 	"context"
-	statisticsapp "denova/internal/app/statistics"
+	statisticsapp "github.com/vevila2020/writing_platform_ai/internal/app/statistics"
 	"time"
 )
 

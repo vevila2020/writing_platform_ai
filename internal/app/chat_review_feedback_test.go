@@ -8,20 +8,20 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/agents"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentreview "denova/internal/agents/review"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	workspacelayout "denova/internal/workspace"
-	workspacechange "denova/internal/workspace/change"
-	"denova/internal/workspace/documentreview"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 )
 
 func bookReviewRuntime(workspace string, sess *session.Session) ideChatRuntime {

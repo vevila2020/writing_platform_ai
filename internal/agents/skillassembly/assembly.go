@@ -6,13 +6,13 @@ import (
 	"context"
 	"fmt"
 
-	"denova/config"
-	"denova/internal/agents/prompts"
-	novaskills "denova/internal/agents/skills"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Assembly contains the three runtime surfaces derived from one effective

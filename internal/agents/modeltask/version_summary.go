@@ -6,12 +6,12 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // GenerateVersionSummary 根据版本变更上下文生成一行中文版本说明。
@@ -35,7 +35,7 @@ func GenerateVersionSummary(ctx context.Context, cfg *config.Config, instruction
 		return "", fmt.Errorf("create version-summary model: %w", err)
 	}
 	slog.InfoContext(ctx, fmt.Sprintf("[version-summary-agent] generate begin instruction=%s", prompts.PartSummary(instruction)))
-	composition, err := prompts.ComposeBuiltinSystemInstruction(cfg, config.AgentKindVersionSummary, "version_summary", cfg.Workspace, "builtin_base", "Version Summary Generation Rules", "define the version summary task and output constraint", "You are Denova's version-summary generator. Infer the core creative change in this save from the file changes. Output exactly one Chinese version summary of 10 to 30 Han characters. Do not include numbering, quotation marks, a colon, a final period, or any explanation.")
+	composition, err := prompts.ComposeBuiltinSystemInstruction(cfg, config.AgentKindVersionSummary, "version_summary", cfg.Workspace, "builtin_base", "Version Summary Generation Rules", "define the version summary task and output constraint", "You are InkDock's version-summary generator. Infer the core creative change in this save from the file changes. Output exactly one Chinese version summary of 10 to 30 Han characters. Do not include numbering, quotation marks, a colon, a final period, or any explanation.")
 	if err != nil {
 		runErr = err
 		return "", err

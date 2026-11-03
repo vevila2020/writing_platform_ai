@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"sync"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ErrSessionUnavailable is valid only before a provider admits new work.
@@ -24,7 +24,7 @@ var ErrSessionUnavailable = errors.New("runtime session cache is unavailable")
 var ErrSuspended = errors.New("external execution suspended")
 var ErrSteered = errors.New("external execution redirected")
 
-// Runtime owns disposable provider sessions at the Denova application boundary.
+// Runtime owns disposable provider sessions at the InkDock application boundary.
 // It neither constructs nor runs a Native Agent. The product controller owns
 // admission, tools, controls and canonical acceptance through Host.
 type Runtime struct {

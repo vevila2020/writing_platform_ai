@@ -6,14 +6,14 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentdelegation "denova/internal/agents/delegation"
-	agentexecution "denova/internal/agents/execution"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentrun "denova/internal/agents/run"
-	appagentruntime "denova/internal/app/agentruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
 
-	"github.com/alfredxw/denova/agent"
+	"github.com/vevila2020/writing_platform_ai/agent"
 )
 
 func (a *App) prepareChildDefinition(

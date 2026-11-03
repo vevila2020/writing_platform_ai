@@ -10,8 +10,8 @@ import (
 	"net"
 	"time"
 
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelOutputState distinguishes a failed preview from a complete response.

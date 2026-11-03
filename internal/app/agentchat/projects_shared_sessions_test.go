@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/session"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestProjectsAndHistoryShareEveryProjectSession(t *testing.T) {

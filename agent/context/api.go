@@ -1,8 +1,8 @@
 package context
 
 import (
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	"github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	"github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type ClearState = agenthistory.ClearState

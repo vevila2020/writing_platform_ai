@@ -25,7 +25,7 @@ func TestProjectStoreKeepsAutomationStateOutsideContentDirectory(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(stateRoot, "automations", "tasks.json")); err != nil {
 		t.Fatalf("central Project task file missing: %v", err)
 	}
-	if _, err := os.Stat(filepath.Join(workspace, ".denova")); !os.IsNotExist(err) {
+	if _, err := os.Stat(filepath.Join(workspace, ".inkdock")); !os.IsNotExist(err) {
 		t.Fatalf("automation state leaked into content directory: %v", err)
 	}
 

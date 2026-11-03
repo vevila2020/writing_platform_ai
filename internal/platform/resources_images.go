@@ -11,9 +11,9 @@ import (
 	"slices"
 	"strings"
 
-	imagegen "denova/internal/image/generation"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // ImageModel is a credential-free projection of a configured image profile.

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 func TestStoryHistoryPagesUseBoundedIndexedRangesWithoutDuplicates(t *testing.T) {

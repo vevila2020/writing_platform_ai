@@ -4,16 +4,16 @@ import (
 	"context"
 	"strings"
 
-	agentconversation "denova/internal/agents/conversation"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
-// ResolveAsk adapts Denova's stable transport shape to the public Interaction
+// ResolveAsk adapts InkDock's stable transport shape to the public Interaction
 // response vocabulary. Only the owning Agent journal accepts the answer.
 func (runtime *Runtime) ResolveAsk(
 	ctx context.Context,

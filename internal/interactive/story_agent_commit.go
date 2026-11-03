@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/sessionjournal"
-	interactivestate "denova/internal/interactive/state"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ErrAgentTurnIdentityConflict means one durable Agent command attempted to

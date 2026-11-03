@@ -9,15 +9,15 @@ import (
 	"fmt"
 	"sync"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/modelio"
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	"github.com/alfredxw/denova/agent"
-	sdkcontext "github.com/alfredxw/denova/agent/context"
-	publiccompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	sdkcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	publiccompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // denovaManager applies the same product visibility policy to the selected
@@ -30,7 +30,7 @@ type denovaManager struct {
 	initializeErr     error
 }
 
-func newDenovaManager(delegate publiccompaction.CompactionManager, policy toolresult.ContextPolicy) publiccompaction.CompactionManager {
+func newInkDockManager(delegate publiccompaction.CompactionManager, policy toolresult.ContextPolicy) publiccompaction.CompactionManager {
 	if delegate == nil {
 		return nil
 	}
@@ -41,7 +41,7 @@ func newDenovaManager(delegate publiccompaction.CompactionManager, policy toolre
 
 func (manager *denovaManager) InitializeDefinition(ctx context.Context) error {
 	if manager == nil || manager.delegate == nil {
-		return errors.New("Denova Compaction manager delegate is required")
+		return errors.New("InkDock Compaction manager delegate is required")
 	}
 	manager.initializeOnce.Do(func() {
 		if initializer, ok := manager.delegate.(agent.DefinitionInitializer); ok {
@@ -93,9 +93,9 @@ func (manager *denovaManager) Compact(
 	return manager.delegate.Compact(ctx, request)
 }
 
-// NewAgentManager adapts Denova's context policy and model to the public Agent
+// NewAgentManager adapts InkDock's context policy and model to the public Agent
 // Compaction capability. Agent owns checkpoint durability and recovery; this
-// package owns only Denova's planning configuration and summary semantics.
+// package owns only InkDock's planning configuration and summary semantics.
 func NewAgentManager(
 	cfg *config.Config,
 	agentKind string,
@@ -114,7 +114,7 @@ func NewAgentManagerForModel(
 	contextWindowTokens int,
 ) (publiccompaction.CompactionManager, error) {
 	if contextWindowTokens <= 0 {
-		return nil, errors.New("Denova Compaction context window must be positive")
+		return nil, errors.New("InkDock Compaction context window must be positive")
 	}
 	settings := config.ResolveAgentContext(cfg, policyKind)
 	hardLimit := settings.MaxProviderInputBytes
@@ -138,7 +138,7 @@ func NewAgentManagerForModel(
 		RecoveryBand:        config.DefaultContextCompactionRecoveryBand,
 		MinimumChangeTokens: max(256, contextWindowTokens/100),
 	})
-	return newDenovaManager(manager, toolresult.ResolveContextPolicy(cfg, policyKind)), nil
+	return newInkDockManager(manager, toolresult.ResolveContextPolicy(cfg, policyKind)), nil
 }
 
 // NewElisionPolicyForModel is the cheap first stage of automatic context

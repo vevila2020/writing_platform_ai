@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	projectdomain "denova/internal/project"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 
 	git "github.com/go-git/go-git/v5"
 )
@@ -20,7 +20,7 @@ func TestAddCodeProjectWithUserDataDirectory(t *testing.T) {
 		}
 		t.Run(name, func(t *testing.T) {
 			workspace, dataRoot := t.TempDir(), t.TempDir()
-			userData := filepath.Join(workspace, ".denova")
+			userData := filepath.Join(workspace, ".inkdock")
 			for relative, content := range map[string]string{
 				"projects.json":          `{"version":5,"projects":[]}`,
 				"config.toml":            "global configuration",

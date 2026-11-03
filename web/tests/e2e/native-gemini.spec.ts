@@ -6,7 +6,7 @@ import { unlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 test('uses native Gemini tools, image results and restored signatures in Writing and Game', async ({ page, request }, testInfo) => {
-  const modelBase = `http://127.0.0.1:${process.env.DENOVA_E2E_MODEL_PORT || '18081'}`
+  const modelBase = `http://127.0.0.1:${process.env.INKDOCK_E2E_MODEL_PORT || '18081'}`
   const current = await (await request.get('/api/settings')).json()
   const saved = await request.patch('/api/settings', { data: { layer: 'user', base_revision: current.revisions.user, changes: {
     model_endpoints: [...current.user.model_endpoints, { id: 'native-gemini', name: 'Native Gemini', provider: 'google', protocol: 'google-generative-ai', base_url: modelBase, api_key: 'test-key' }],

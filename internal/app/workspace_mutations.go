@@ -7,9 +7,9 @@ import (
 	"log/slog"
 	"strings"
 
-	projectfilesapp "denova/internal/app/projectfiles"
-	"denova/internal/book"
-	"denova/internal/workspace/autosave"
+	projectfilesapp "github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/autosave"
 )
 
 // workspaceMutationRuntime is a workspace-scoped snapshot of the services
@@ -117,7 +117,7 @@ func (a *App) MoveWorkspaceItem(ctx context.Context, from, to string) error {
 }
 
 // RecordAutosaveConflict durably preserves every side of a merge conflict in
-// the process-wide Denova data directory before a caller resolves it.
+// the process-wide InkDock data directory before a caller resolves it.
 func (a *App) RecordAutosaveConflict(ctx context.Context, input autosave.Input) (autosave.AppendResult, error) {
 	if a == nil {
 		return autosave.AppendResult{}, fmt.Errorf("record autosave conflict: app is nil")
@@ -129,7 +129,7 @@ func (a *App) RecordAutosaveConflict(ctx context.Context, input autosave.Input) 
 	}
 	a.mu.RUnlock()
 	if dataDir == "" {
-		return autosave.AppendResult{}, fmt.Errorf("record autosave conflict: Denova data directory is not configured")
+		return autosave.AppendResult{}, fmt.Errorf("record autosave conflict: InkDock data directory is not configured")
 	}
 	result, err := autosave.NewStore(dataDir).Append(ctx, input)
 	if err != nil {

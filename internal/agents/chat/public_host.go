@@ -3,18 +3,18 @@ package chat
 import (
 	"context"
 
-	agentrun "denova/internal/agents/run"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	producttools "denova/internal/agents/tools"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
 )
 
-// PublicHostMiddleware installs Denova-only trace, review scope, and plan-mode
+// PublicHostMiddleware installs InkDock-only trace, review scope, and plan-mode
 // context around the public Agent lifecycle. Interaction and artifact storage
 // are bound through their dedicated Definition capabilities; the Agent package
-// remains independent from Denova session types.
+// remains independent from InkDock session types.
 type PublicHostMiddleware struct {
 	*agentmiddleware.BaseMiddleware
 	request ChatRequest
@@ -22,7 +22,7 @@ type PublicHostMiddleware struct {
 	trace   PublicRunTraceBinder
 }
 
-// PublicRunTraceBinder attaches the Denova run ledger to the generic Agent
+// PublicRunTraceBinder attaches the InkDock run ledger to the generic Agent
 // context after the public lifecycle has assigned its durable Run ID.
 type PublicRunTraceBinder interface {
 	BindPublicRunTrace(context.Context, string) context.Context

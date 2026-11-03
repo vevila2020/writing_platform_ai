@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	agentchatapp "denova/internal/app/agentchat"
-	appsettings "denova/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentchatapp "github.com/vevila2020/writing_platform_ai/internal/app/agentchat"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
 )
 
 func TestAutomationAdmissionKeepsNativeWhenForegroundDefaultIsCodex(t *testing.T) {

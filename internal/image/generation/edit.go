@@ -11,7 +11,7 @@ import (
 	"image/png"
 	"math"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 	_ "golang.org/x/image/webp"
 )
 

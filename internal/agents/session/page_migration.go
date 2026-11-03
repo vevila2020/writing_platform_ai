@@ -13,8 +13,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // migratePageConversations retires the unreleased page-owned Agent journals.

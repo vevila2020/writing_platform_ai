@@ -3,17 +3,17 @@ package chat
 import (
 	"strings"
 
-	agentinteractive "denova/internal/agents/interactive"
-	agentrun "denova/internal/agents/run"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // interactiveContentReclassifiedEvent retracts provisional Game narrative
 // after a non-submission tool proves that the prose was reasoning. It is a
-// Denova display projection event, not part of the reusable Agent lifecycle.
+// InkDock display projection event, not part of the reusable Agent lifecycle.
 const interactiveContentReclassifiedEvent = "interactive_content_reclassified"
 
 // publicInteractiveOutput owns Game's provisional narrative classification at
-// the Denova projection seam. The reusable Agent package publishes facts about
+// the InkDock projection seam. The reusable Agent package publishes facts about
 // assistant text and tool input; only the product knows that prose preceding a
 // non-submission tool is reasoning rather than canonical story narrative.
 type publicInteractiveOutput struct {

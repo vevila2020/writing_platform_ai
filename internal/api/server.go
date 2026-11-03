@@ -10,10 +10,10 @@ import (
 	hertzconfig "github.com/cloudwego/hertz/pkg/common/config"
 	hertzgzip "github.com/hertz-contrib/gzip"
 
-	"denova/config"
-	"denova/internal/api/sse"
-	"denova/internal/app"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	"github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 // Release uploads need multipart overhead above the archive limit. Hertz spills

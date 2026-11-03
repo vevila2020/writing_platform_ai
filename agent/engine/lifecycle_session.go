@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type inputEnvelope struct {

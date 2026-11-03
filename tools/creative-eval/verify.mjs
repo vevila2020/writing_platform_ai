@@ -7,11 +7,11 @@ import os from 'node:os'
 import path from 'node:path'
 import { stringify } from 'smol-toml'
 import { evaluateCreative, toolDirectory } from './run.mjs'
-import DenovaProvider from './provider.mjs'
+import InkDockProvider from './provider.mjs'
 
 // Explicit integration verification with a real product backend and local
 // model fixture. No development server, real credentials, or paid APIs.
-const temporary = await mkdtemp(path.join(os.tmpdir(), 'denova-eval-verify-'))
+const temporary = await mkdtemp(path.join(os.tmpdir(), 'inkdock-eval-verify-'))
 let calls = 0
 let cancelNextRequest
 const controller = new AbortController()
@@ -90,15 +90,15 @@ try {
     agent_models: { default: { profile_id: 'fixture', thinking_level: 'off' } },
   }
   await writeFile(settingsFile, stringify(modelSettings))
-  process.env.DENOVA_EVAL_FIXTURE_GRADER_KEY = secret
+  process.env.INKDOCK_EVAL_FIXTURE_GRADER_KEY = secret
   const configPath = path.join(temporary, 'run.json')
   const configuration = { settings_file: settingsFile,
     variants: [{ label: 'fixture', profile_id: 'fixture' }],
     grader: { profile_id: 'fixture-grader' },
   }
   await writeFile(configPath, JSON.stringify(configuration))
-  const executable = path.join(temporary, process.platform === 'win32' ? 'denova.exe' : 'denova')
-  const build = spawn('go', ['build', '-o', executable, './cmd/denova'], { cwd: path.resolve(toolDirectory, '../..'), stdio: 'inherit', signal: controller.signal })
+  const executable = path.join(temporary, process.platform === 'win32' ? 'inkdock.exe' : 'inkdock')
+  const build = spawn('go', ['build', '-o', executable, './cmd/inkdock'], { cwd: path.resolve(toolDirectory, '../..'), stdio: 'inherit', signal: controller.signal })
   assert.equal((await once(build, 'exit'))[0], 0)
   const positive = await evaluateCreative({ configPath, binary: executable, signal: controller.signal })
   assert.equal(positive.summary.stats.successes, 4, JSON.stringify(positive.summary.results.map(item => ({ description: item.testCase?.description, error: item.error, reason: item.gradingResult?.reason }))))
@@ -109,12 +109,12 @@ try {
   assert.ok((await readFile(path.join(positive.outputDirectory, 'report.html'), 'utf8')).includes('writing-scoped-edit'))
   for (const entry of await readdir(positive.outputDirectory, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue
-    await assert.rejects(readFile(path.join(positive.outputDirectory, entry.name, '.denova/config.toml')), { code: 'ENOENT' })
-    const remaining = await readdir(path.join(positive.outputDirectory, entry.name, '.denova'))
+    await assert.rejects(readFile(path.join(positive.outputDirectory, entry.name, '.inkdock/config.toml')), { code: 'ENOENT' })
+    const remaining = await readdir(path.join(positive.outputDirectory, entry.name, '.inkdock'))
     assert.ok(!remaining.some(file => file.startsWith('config.toml')), 'Temporary credential backup was retained')
   }
   configuration.variants = [{ label: 'baseline', profile_id: 'fixture' }, { label: 'candidate', profile_id: 'fixture-bad' }]
-  configuration.grader = { id: 'openai:chat:fixture-grader', config: { apiBaseUrl: baseURL, apiKeyEnvar: 'DENOVA_EVAL_FIXTURE_GRADER_KEY' } }
+  configuration.grader = { id: 'openai:chat:fixture-grader', config: { apiBaseUrl: baseURL, apiKeyEnvar: 'INKDOCK_EVAL_FIXTURE_GRADER_KEY' } }
   await writeFile(configPath, JSON.stringify(configuration))
   const negative = await evaluateCreative({ configPath, binary: executable, filter: 'writing-scoped-edit', signal: controller.signal })
   assert.equal(negative.summary.stats.successes, 1)
@@ -123,7 +123,7 @@ try {
   const cancellation = new AbortController()
   cancelNextRequest = () => cancellation.abort(new Error('Verification requested cancellation'))
   const scenario = JSON.parse(await readFile(new URL('./cases.json', import.meta.url), 'utf8'))[0]
-  const cancelled = await new DenovaProvider({ label: 'cancelled', variant: { profile_id: 'fixture' },
+  const cancelled = await new InkDockProvider({ label: 'cancelled', variant: { profile_id: 'fixture' },
     settings: modelSettings, binary: executable, skillsDirectory: path.resolve(toolDirectory, '../../skills'),
     outputDirectory: positive.outputDirectory }).callApi(scenario.prompt, { vars: { scenario } }, { abortSignal: cancellation.signal })
   assert.equal(cancelNextRequest, undefined, 'Cancellation never reached an in-flight model request')
@@ -131,7 +131,7 @@ try {
   const cancelledDirectory = path.dirname(cancelled.metadata.evidence_path)
   const cancelledEvidence = JSON.parse(await readFile(cancelled.metadata.evidence_path, 'utf8'))
   assert.notEqual(cancelledEvidence.complete, true)
-  assert.ok(!(await readdir(path.join(cancelledDirectory, '.denova'))).some(file => file.startsWith('config.toml')))
+  assert.ok(!(await readdir(path.join(cancelledDirectory, '.inkdock'))).some(file => file.startsWith('config.toml')))
   console.log('[creative-eval] Verified four product scenarios, two-variant regression detection, report export, credential cleanup, and in-flight cancellation')
 } finally {
   fixture.closeAllConnections()

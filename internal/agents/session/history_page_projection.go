@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"denova/internal/agents/conversationjournal"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 )
 
 const historyPageMaxBytes = 8 << 20

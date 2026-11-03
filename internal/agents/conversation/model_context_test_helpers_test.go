@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 var modelContextTestCycle atomic.Uint64

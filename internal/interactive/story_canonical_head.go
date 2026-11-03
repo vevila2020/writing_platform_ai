@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // CanonicalHistoryHead identifies an append-only branch lane without loading

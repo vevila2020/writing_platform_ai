@@ -9,7 +9,7 @@ import (
 	"time"
 	_ "time/tzdata" // Keep viewer date boundaries available in native release binaries.
 
-	statisticsapp "denova/internal/app/statistics"
+	statisticsapp "github.com/vevila2020/writing_platform_ai/internal/app/statistics"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"

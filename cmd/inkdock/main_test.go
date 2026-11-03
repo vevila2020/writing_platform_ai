@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestFrontendPortProbeRejectsOccupiedPort(t *testing.T) {

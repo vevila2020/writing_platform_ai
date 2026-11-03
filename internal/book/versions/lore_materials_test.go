@@ -7,8 +7,8 @@ import (
 	"slices"
 	"testing"
 
-	"denova/internal/assetstore"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 func TestLoreRestoreRetainsNewMediaAndRestoresDependencies(t *testing.T) {

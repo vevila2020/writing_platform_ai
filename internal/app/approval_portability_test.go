@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestPortableApprovalRulesUseProjectIDForManagedProjects(t *testing.T) {
@@ -36,7 +36,7 @@ func TestPortableApprovalRulesUseProjectIDForManagedProjects(t *testing.T) {
 	}
 
 	managedRule := portableApprovalTestRule("managed", managed.ID, managedRoot)
-	legacyRoot := `Z:\moved\.denova\` + strings.ReplaceAll(managed.Location.Path, "/", `\`)
+	legacyRoot := `Z:\moved\.inkdock\` + strings.ReplaceAll(managed.Location.Path, "/", `\`)
 	legacyRule := portableApprovalTestRule("legacy", "", legacyRoot)
 	externalRule := portableApprovalTestRule("external", external.ID, externalRoot)
 	rules, changed := portableApprovalRules(records, []config.AgentApprovalRule{managedRule, legacyRule, externalRule})

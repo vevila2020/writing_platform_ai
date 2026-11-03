@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/canonicalstore"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestPrivateGameAgentUsesSelectedPluginWithWriteGrant(t *testing.T) {

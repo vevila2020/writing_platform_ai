@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type checkpointBody struct {

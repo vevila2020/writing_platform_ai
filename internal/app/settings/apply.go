@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // RefreshProject reloads the user and project layers for one immutable runtime
@@ -78,8 +78,8 @@ func ApplyLayered(cfg *config.Config, layered config.LayeredSettings) {
 	if cfg.SkillsDir == "" && effective.SkillsDir != "" {
 		cfg.SkillsDir = effective.SkillsDir
 	}
-	if cfg.DataDir() == "" && layered.Paths.DenovaDir != "" {
-		cfg.SetDataDir(layered.Paths.DenovaDir)
+	if cfg.DataDir() == "" && layered.Paths.InkDockDir != "" {
+		cfg.SetDataDir(layered.Paths.InkDockDir)
 	}
 	if effective.BackendPort != nil {
 		cfg.BackendPort = positiveInt(effective.BackendPort, 7789)
@@ -214,7 +214,7 @@ func ApplyLayer(cfg *config.Config, settings config.Settings) {
 	if settings.DefaultImageAgentID != nil {
 		cfg.DefaultImageAgentID = config.NormalizeCustomAgentID(*settings.DefaultImageAgentID)
 	}
-	if settings.SkillsDir != "" && os.Getenv("DENOVA_SKILLS_DIR") == "" && os.Getenv("NOVA_SKILLS_DIR") == "" {
+	if settings.SkillsDir != "" && os.Getenv("INKDOCK_SKILLS_DIR") == "" && os.Getenv("DENOVA_SKILLS_DIR") == "" {
 		cfg.SkillsDir = settings.SkillsDir
 	}
 	if settings.AllowLANAccess != nil {

@@ -7,15 +7,15 @@ import (
 )
 
 const (
-	updateDataDirName      = ".denova-updates"
-	releasePackageRootName = "denova"
+	updateDataDirName      = ".inkdock-updates"
+	releasePackageRootName = "inkdock"
 )
 
 func updaterExecutableName() string {
 	if runtime.GOOS == "windows" {
-		return "denova-updater.exe"
+		return "inkdock-updater.exe"
 	}
-	return "denova-updater"
+	return "inkdock-updater"
 }
 
 func relaunchArgs(args []string, executable string) []string {

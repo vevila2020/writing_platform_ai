@@ -12,9 +12,9 @@ import (
 	"strings"
 	"testing"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func newTestModel(ctx context.Context, config *providers.ModelConfig) (agentmodel.ToolCallingChatModel, error) {
@@ -219,7 +219,7 @@ func TestDeepSeekThinkingRequestUsesV4WireFormat(t *testing.T) {
 					ToolCalls: []agentschema.ToolCall{{ID: "call-1", Type: "function", Function: agentschema.FunctionCall{Name: "lookup", Arguments: `{}`}}},
 				},
 				{Role: agentschema.ToolRole, ToolCallID: "call-1", ToolName: "lookup", Content: "result"},
-				// This is the shape produced when Denova has already executed and
+				// This is the shape produced when InkDock has already executed and
 				// projected a tool pair but retains the assistant turn. DeepSeek
 				// still requires its reasoning_content on the next request.
 				{Role: agentschema.Assistant, Content: "task started", ReasoningContent: "follow-up reasoning"},

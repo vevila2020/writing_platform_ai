@@ -1,16 +1,16 @@
 package app
 
 import (
-	agentattachment "denova/internal/agents/attachment"
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/agents/skills"
-	projectdomain "denova/internal/project"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // These aliases are the deliberately shared contract values exposed by App.

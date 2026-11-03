@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/attachment"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 type summaryCapture struct {
@@ -25,7 +25,7 @@ type summaryCapture struct {
 // The test binary stands in for the CLI so the real launch and stream encoder
 // run without account credentials or external model requests.
 func TestSummaryCLIProcess(t *testing.T) {
-	path := os.Getenv("DENOVA_SUMMARY_CLI_CAPTURE")
+	path := os.Getenv("INKDOCK_SUMMARY_CLI_CAPTURE")
 	if path == "" {
 		return
 	}
@@ -54,7 +54,7 @@ func TestImageSummaryLaunchesWithoutToolsAndEncodesNativePixels(t *testing.T) {
 	}
 	capture := filepath.Join(t.TempDir(), "requests.jsonl")
 	client := &Client{launch: hostruntime.ClaudeLaunch{Executable: exe, Args: []string{"-test.run=^TestSummaryCLIProcess$", "--"}},
-		env: append(os.Environ(), "DENOVA_SUMMARY_CLI_CAPTURE="+capture), active: map[*exec.Cmd]context.CancelFunc{}, version: "fixture"}
+		env: append(os.Environ(), "INKDOCK_SUMMARY_CLI_CAPTURE="+capture), active: map[*exec.Cmd]context.CancelFunc{}, version: "fixture"}
 	const url = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aKX0AAAAASUVORK5CYII="
 	files, err := attachment.Materialize(t.TempDir(), attachment.SessionScope("summary"), "images", []attachment.Upload{{Name: "map.png", DataURL: url}})
 	if err != nil {

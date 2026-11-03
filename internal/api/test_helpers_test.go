@@ -8,15 +8,15 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/ut"
 
-	"denova/config"
-	runtimeapp "denova/internal/app"
+	"github.com/vevila2020/writing_platform_ai/config"
+	runtimeapp "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 func newTestApplication(t *testing.T) *runtimeapp.App {
 	t.Helper()
 	root := t.TempDir()
 	application, err := runtimeapp.New(context.Background(), &config.Config{
-		OpenAIModel: "test-model", NovaDir: root, Workspace: root, ResumeLastWorkspace: false,
+		OpenAIModel: "test-model", DenovaDir: root, Workspace: root, ResumeLastWorkspace: false,
 		OpenAIBaseURL: "http://127.0.0.1:1/v1",
 	})
 	if err != nil {

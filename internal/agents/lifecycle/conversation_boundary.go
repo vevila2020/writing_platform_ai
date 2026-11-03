@@ -6,21 +6,21 @@ import (
 	"fmt"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentcontext "denova/internal/agents/context"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	sdkcontext "github.com/alfredxw/denova/agent/context"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	sdkcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // ConversationCommitter keeps product persistence outside the reusable Agent
 // package while the Boundary guarantees that canonical input and context use
-// the same pure Denova preparation. Implementations must make each commit
+// the same pure InkDock preparation. Implementations must make each commit
 // idempotent by the supplied identity and Agent hash.
 type ConversationCommitter interface {
 	// MaterializeInput must persist the accepted user input without assembling
@@ -40,7 +40,7 @@ type ConversationContextCommitter interface {
 	CommitContext(context.Context, agentcanonical.ContextCommitRequest) (agentcanonical.CommitReceipt, error)
 }
 
-// ConversationCommitterProvider is implemented by Denova-owned conversation
+// ConversationCommitterProvider is implemented by InkDock-owned conversation
 // types whose product store cannot be imported by the generic execution host.
 // It keeps game/lore persistence in the application package while exposing
 // only the canonical lifecycle contract.
@@ -48,7 +48,7 @@ type ConversationCommitterProvider interface {
 	NewAgentConversationCommitter(agentrun.Options) (ConversationCommitter, error)
 }
 
-// ConversationBoundaryConfig declares one exact Denova product turn. The
+// ConversationBoundaryConfig declares one exact InkDock product turn. The
 // caller owns app-specific persistence; the Boundary owns ordering, shared
 // preparation, and the public ContextSource/CanonicalAdapter contracts.
 type ConversationBoundaryConfig struct {
@@ -87,10 +87,10 @@ type conversationBoundaryCanonicalContext struct{ conversationBoundaryCanonical 
 // this exact cycle; transient preparation failures remain retryable.
 func NewConversationBoundary(config ConversationBoundaryConfig) (*ConversationBoundary, error) {
 	if config.Conversation == nil {
-		return nil, errors.New("Denova Conversation Boundary requires a conversation")
+		return nil, errors.New("InkDock Conversation Boundary requires a conversation")
 	}
 	if config.Committer == nil {
-		return nil, errors.New("Denova Conversation Boundary requires a product committer")
+		return nil, errors.New("InkDock Conversation Boundary requires a product committer")
 	}
 	if err := validateBoundaryIdentity("Context", config.ContextIdentity); err != nil {
 		return nil, err
@@ -104,7 +104,7 @@ func NewConversationBoundary(config ConversationBoundaryConfig) (*ConversationBo
 
 func validateBoundaryIdentity(name string, identity agentschema.CapabilityIdentity) error {
 	if identity.Kind == "" || identity.Version == 0 {
-		return fmt.Errorf("Denova Conversation Boundary requires a stable %s identity", name)
+		return fmt.Errorf("InkDock Conversation Boundary requires a stable %s identity", name)
 	}
 	return nil
 }
@@ -180,7 +180,7 @@ func (boundary *ConversationBoundary) materializeContext(
 
 func (boundary *ConversationBoundary) materializeInput(ctx context.Context, request agentcanonical.InputCommitRequest) (agentcanonical.CommitReceipt, error) {
 	if request.Identity.Stage != agentcanonical.CommitInput {
-		return agentcanonical.CommitReceipt{}, errors.New("Denova Conversation Boundary received a non-input materialization")
+		return agentcanonical.CommitReceipt{}, errors.New("InkDock Conversation Boundary received a non-input materialization")
 	}
 	run := agentschema.RunView{ID: request.Identity.RunID, CommandID: request.Identity.CommandID, Cycle: request.Identity.Cycle}
 	if err := bindConversationCycle(boundary.config.Conversation, boundary.config.Options.AgentKind, run); err != nil {
@@ -191,7 +191,7 @@ func (boundary *ConversationBoundary) materializeInput(ctx context.Context, requ
 
 func (boundary *ConversationBoundary) commitOutput(ctx context.Context, request agentcanonical.OutputCommitRequest) (agentcanonical.OutputCommitReceipt, error) {
 	if request.Identity.Stage != agentcanonical.CommitOutput {
-		return agentcanonical.OutputCommitReceipt{}, errors.New("Denova Conversation Boundary received a non-output commit")
+		return agentcanonical.OutputCommitReceipt{}, errors.New("InkDock Conversation Boundary received a non-output commit")
 	}
 	run := agentschema.RunView{ID: request.Identity.RunID, CommandID: request.Identity.CommandID, Cycle: request.Identity.Cycle}
 	prepared, err := boundary.prepareOutput(run)
@@ -202,7 +202,7 @@ func (boundary *ConversationBoundary) commitOutput(ctx context.Context, request 
 	if boundary.config.ProjectOutput != nil {
 		message, projectedTranscript := boundary.config.ProjectOutput(&request.Message)
 		if message == nil {
-			return agentcanonical.OutputCommitReceipt{}, errors.New("Denova Conversation Boundary output projector returned no canonical message")
+			return agentcanonical.OutputCommitReceipt{}, errors.New("InkDock Conversation Boundary output projector returned no canonical message")
 		}
 		request.Message = *message
 		transcript = projectedTranscript
@@ -227,7 +227,7 @@ func (boundary *ConversationBoundary) prepareOutput(run agentschema.RunView) (ag
 	defer boundary.mu.Unlock()
 	if boundary.prepared != nil {
 		if boundary.run.ID != run.ID || boundary.run.CommandID != run.CommandID || boundary.run.Cycle != run.Cycle {
-			return agentchat.AgentContextPreparation{}, errors.New("Denova Conversation Boundary was reused across Agent cycles")
+			return agentchat.AgentContextPreparation{}, errors.New("InkDock Conversation Boundary was reused across Agent cycles")
 		}
 		return *boundary.prepared, nil
 	}
@@ -242,7 +242,7 @@ func (boundary *ConversationBoundary) prepareOutput(run agentschema.RunView) (ag
 
 func (boundary *ConversationBoundary) commitContext(ctx context.Context, request agentcanonical.ContextCommitRequest) (agentcanonical.CommitReceipt, error) {
 	if request.Identity.Stage != agentcanonical.CommitContext {
-		return agentcanonical.CommitReceipt{}, errors.New("Denova Conversation Boundary received a non-context commit")
+		return agentcanonical.CommitReceipt{}, errors.New("InkDock Conversation Boundary received a non-context commit")
 	}
 	if err := agentcanonical.ValidateContextCommit(request); err != nil {
 		return agentcanonical.CommitReceipt{}, err
@@ -264,7 +264,7 @@ func (boundary *ConversationBoundary) prepare(
 	contextRevision string,
 ) (agentchat.AgentContextPreparation, error) {
 	if boundary == nil || boundary.config.Conversation == nil {
-		return agentchat.AgentContextPreparation{}, errors.New("Denova Conversation Boundary is unavailable")
+		return agentchat.AgentContextPreparation{}, errors.New("InkDock Conversation Boundary is unavailable")
 	}
 	if err := bindConversationCycle(boundary.config.Conversation, boundary.config.Options.AgentKind, run); err != nil {
 		return agentchat.AgentContextPreparation{}, err
@@ -277,7 +277,7 @@ func (boundary *ConversationBoundary) prepare(
 		// Run/command/cycle tuple, so compare that durable identity rather than
 		// requiring callers to reconstruct incidental preparation metadata.
 		if boundary.run.ID != run.ID || boundary.run.CommandID != run.CommandID || boundary.run.Cycle != run.Cycle {
-			return agentchat.AgentContextPreparation{}, errors.New("Denova Conversation Boundary was reused across Agent cycles")
+			return agentchat.AgentContextPreparation{}, errors.New("InkDock Conversation Boundary was reused across Agent cycles")
 		}
 		if contextRevision == "" || boundary.contextRevision == contextRevision {
 			return *boundary.prepared, nil
@@ -296,7 +296,7 @@ func (boundary *ConversationBoundary) prepare(
 	}
 	if !agentexecution.IsInspection(ctx) {
 		if err := boundary.config.Committer.ApplyPreparedContext(ctx, prepared); err != nil {
-			return agentchat.AgentContextPreparation{}, fmt.Errorf("apply prepared Denova context: %w", err)
+			return agentchat.AgentContextPreparation{}, fmt.Errorf("apply prepared InkDock context: %w", err)
 		}
 	}
 	boundary.prepared = &prepared

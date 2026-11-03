@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func TestComfyUIWorkflowDiscoveryAndLoad(t *testing.T) {

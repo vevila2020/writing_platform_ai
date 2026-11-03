@@ -2,9 +2,9 @@ package automationapp
 
 import (
 	"crypto/sha256"
-	agentrun "denova/internal/agents/run"
 	"encoding/hex"
 	"fmt"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"strings"
 )
 

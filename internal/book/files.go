@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // ErrFileRevisionConflict 表示保存时文件已被其他来源更新，调用方应重新读取后再写入。

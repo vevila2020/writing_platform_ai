@@ -4,7 +4,7 @@ import (
 	"net"
 	"net/http"
 
-	"denova/internal/publicnet"
+	"github.com/vevila2020/writing_platform_ai/internal/publicnet"
 )
 
 func isPublicFetchPolicyError(err error) bool {

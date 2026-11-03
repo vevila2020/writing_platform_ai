@@ -17,8 +17,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alfredxw/denova/agent/model/providers"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 type collector struct {

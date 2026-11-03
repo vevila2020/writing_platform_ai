@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strings"
 
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 func (c *Client) Status() external.ConnectionState {

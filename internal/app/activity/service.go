@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/automation"
-	"denova/internal/messages"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/messages"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 const maxAutomationNotificationMessages = 200

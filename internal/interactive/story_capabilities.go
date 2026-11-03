@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/agents/sessionjournal"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 )
 
 // LoadCapability reads a branch's runtime state from the Story journal.

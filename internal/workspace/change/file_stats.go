@@ -7,7 +7,7 @@ import (
 
 // FileStats describes the complete text file after a successful mutation.
 // Characters counts Unicode code points including whitespace, while
-// NonWhitespaceCharacters matches Denova's language-neutral writing count.
+// NonWhitespaceCharacters matches InkDock's language-neutral writing count.
 type FileStats struct {
 	Bytes                   int `json:"bytes"`
 	Characters              int `json:"characters"`

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestHostPresentationSelectionReducesSubmissionSchema(t *testing.T) {

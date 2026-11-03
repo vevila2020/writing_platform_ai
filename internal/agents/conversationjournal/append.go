@@ -8,7 +8,7 @@ import (
 	"log/slog"
 	"os"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // Append durably publishes one transaction. The reducer is updated only after

@@ -14,10 +14,10 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 type coverFakeGenerator struct {

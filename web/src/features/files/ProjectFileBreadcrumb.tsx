@@ -4,7 +4,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from '@/lib/toast'
 import { FileTreeMenu, FileTreeMenuItem, FileTreeMenuSeparator } from '@/components/file-tree/FileTreeMenu'
-import { NovaFileTree } from '@/components/file-tree/NovaFileTree'
+import { InkDockFileTree } from '@/components/file-tree/InkDockFileTree'
 import { applicationFileTreePath, canonicalFileTreePath, writeClipboardText } from '@/components/file-tree/paths'
 import {
   Breadcrumb,
@@ -280,7 +280,7 @@ function ProjectBreadcrumbTree({
 
   return (
     <>
-      <NovaFileTree
+      <InkDockFileTree
         ref={treeRef}
         paths={projection.paths}
         presorted

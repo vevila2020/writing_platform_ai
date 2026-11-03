@@ -6,11 +6,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"denova/config"
-	"denova/internal/agents/modelio"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/modelio"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func (resolver Models) Resolve(ctx context.Context, profileID string) (agentmodel.BaseChatModel, agentschema.CapabilityIdentity, error) {

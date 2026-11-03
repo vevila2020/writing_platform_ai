@@ -4,11 +4,11 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
-	"denova/internal/app/resourcecatalog"
-	"denova/internal/book/character"
-	"denova/internal/platform"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/app/resourcecatalog"
+	"github.com/vevila2020/writing_platform_ai/internal/book/character"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type Service struct {

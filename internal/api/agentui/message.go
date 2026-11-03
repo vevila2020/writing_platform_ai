@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	agentattachment "denova/internal/agents/attachment"
-	appsvc "denova/internal/app"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 )
 
 const (

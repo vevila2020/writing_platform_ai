@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-// Resolve an explicitly selected Denova profile for grading without persisting
+// Resolve an explicitly selected InkDock profile for grading without persisting
 // its credential in promptfoo's configuration, reports, or local history.
 export function profileGrader(settings, profileID) {
   const profile = settings.model_profiles?.find(item => item.id === profileID && item.enabled !== false)
@@ -14,7 +14,7 @@ export function profileGrader(settings, profileID) {
   if (!protocol || Object.keys(endpoint.headers || {}).length || Object.keys(endpoint.protocol_options || {}).length) {
     throw new Error(`Grading profile ${profileID} requires an explicit promptfoo grader configuration`)
   }
-  const keyVariable = `DENOVA_EVAL_GRADER_${randomUUID().replaceAll('-', '_')}`
+  const keyVariable = `INKDOCK_EVAL_GRADER_${randomUUID().replaceAll('-', '_')}`
   process.env[keyVariable] = endpoint.api_key || 'not-required'
   return {
     provider: { id: `${protocol}:${profile.model}`, config: {

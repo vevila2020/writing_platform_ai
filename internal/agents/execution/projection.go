@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	"github.com/alfredxw/denova/agent"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // ErrRuntimeProjectionUnavailable means this Service has no live Agent owner.
@@ -34,7 +34,7 @@ func (s *Runtime) RuntimeStatusProjection(ctx context.Context, options agentrun.
 	return s.public.status(ctx, options)
 }
 
-// Goal returns the public Agent-owned Goal state for one exact Denova binding.
+// Goal returns the public Agent-owned Goal state for one exact InkDock binding.
 func (s *Runtime) Goal(ctx context.Context, options agentrun.Options) (agentgoal.GoalState, bool, error) {
 	if s == nil || s.public == nil {
 		return agentgoal.GoalState{}, false, ErrRuntimeProjectionUnavailable

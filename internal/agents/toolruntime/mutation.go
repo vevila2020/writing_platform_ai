@@ -1,11 +1,11 @@
 package toolruntime
 
 import (
-	"denova/internal/agents/run"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"strings"
 
-	agenttool "denova/internal/agents/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 )
 
 func ApplyMutationWarnings(options agentrun.Options, verification agenttool.Verification, warnings []string) agenttool.Verification {

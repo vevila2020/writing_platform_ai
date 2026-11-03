@@ -6,11 +6,11 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestAgentManagerSummaryLimitUsesTightestTargetContextLimit(t *testing.T) {

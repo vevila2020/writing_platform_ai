@@ -5,13 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/toolresult"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func TestToolDescriptorDeclaresExecutionAndRecoveryPolicy(t *testing.T) {
@@ -54,7 +54,7 @@ func TestStructuredToolResultKeepsRecoveryContractOutOfModelText(t *testing.T) {
 	if filtered.Result.ModelContent != "ok" {
 		t.Fatalf("model content was polluted: %#v", filtered)
 	}
-	if strings.Contains(filtered.Result.ModelContent, "Denova tool result metadata") || strings.Contains(filtered.Result.ModelContent, "recovery:") {
+	if strings.Contains(filtered.Result.ModelContent, "[InkDock tool result metadata]") || strings.Contains(filtered.Result.ModelContent, "recovery:") {
 		t.Fatalf("descriptor leaked into model text: %q", filtered.Result.ModelContent)
 	}
 	if filtered.Manifest.Execution != sdktool.ToolExecutionWorkspaceExclusive ||

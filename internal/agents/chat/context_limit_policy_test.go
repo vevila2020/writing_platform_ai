@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/book"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 const minimumCompleteAgentContextBytes = 128 * 1024

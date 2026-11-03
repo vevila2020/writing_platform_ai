@@ -1,7 +1,7 @@
 package interactive
 
 import (
-	interactivestate "denova/internal/interactive/state"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"testing"
 )
 

@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // Use the real native journal for receipts so closing/reopening the Store in

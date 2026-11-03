@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/sessionjournal"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 )
 
 const controlReceiptPrefix = "denova.external.receipt.v1/"

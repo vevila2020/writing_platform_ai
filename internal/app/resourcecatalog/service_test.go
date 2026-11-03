@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 )
 
 func TestServiceUsesUnifiedPresetLayoutForSharedAndGameCatalogs(t *testing.T) {

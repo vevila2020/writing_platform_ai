@@ -7,8 +7,8 @@ import (
 	"log/slog"
 	"strings"
 
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/automation"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 func automationCompletionMutationPaths(mutations []agenttool.Mutation) []string {

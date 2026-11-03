@@ -11,8 +11,8 @@ import (
 	"regexp"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/invopop/jsonschema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ToolOption is reserved for per-invocation, provider-neutral tool settings.

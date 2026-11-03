@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 var powerShellProviderPath = regexp.MustCompile(`(?i)^[a-z][a-z0-9.+-]*:`)

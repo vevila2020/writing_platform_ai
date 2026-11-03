@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func loadSession(filePath string) (*Session, error) {

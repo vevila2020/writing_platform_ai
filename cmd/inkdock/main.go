@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"context"
-	agentrun "denova/internal/agents/run"
 	"flag"
 	"fmt"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 	"io"
 	"log/slog"
 	"net"
@@ -16,12 +16,12 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/api"
-	"denova/internal/app"
-	"denova/internal/buildinfo"
-	"denova/internal/observability"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/api"
+	"github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func main() {
@@ -96,7 +96,7 @@ func main() {
 	if workspace != "" {
 		cfg.Workspace = workspace
 		cfg.ResumeLastWorkspace = false
-	} else if workspaceEnv := envCompat("DENOVA_WORKSPACE", "NOVA_WORKSPACE"); workspaceEnv != "" {
+	} else if workspaceEnv := envCompat("INKDOCK_WORKSPACE", "DENOVA_WORKSPACE"); workspaceEnv != "" {
 		cfg.Workspace = workspaceEnv
 		cfg.ResumeLastWorkspace = false
 	}
@@ -122,7 +122,7 @@ func main() {
 	// 打印启动信息
 	url := fmt.Sprintf("http://localhost:%s", port)
 	frontendURL := fmt.Sprintf("http://localhost:%s", frontendPort)
-	fmt.Printf("\n  Denova AI Creation Tool\n")
+	fmt.Printf("\n  InkDock AI Creation Tool\n")
 	fmt.Printf("  ─────────────────────\n")
 	fmt.Printf("  Backend: %s\n", url)
 	if dev {
@@ -225,8 +225,8 @@ func startViteDev(port, host, backendPort string) {
 }
 
 func viteDevEnv(base []string, frontendPort, backendPort string) []string {
-	env := setEnvValue(base, "DENOVA_BACKEND_PORT", backendPort)
-	env = setEnvValue(env, "DENOVA_FRONTEND_PORT", frontendPort)
+	env := setEnvValue(base, "INKDOCK_BACKEND_PORT", backendPort)
+	env = setEnvValue(env, "INKDOCK_FRONTEND_PORT", frontendPort)
 	return env
 }
 
@@ -387,7 +387,7 @@ func resolveSkillsDir(configured string) string {
 	if dir := existingDir(configured); dir != "" {
 		return dir
 	}
-	if configured != "" && envCompat("DENOVA_SKILLS_DIR", "NOVA_SKILLS_DIR") != "" {
+	if configured != "" && envCompat("INKDOCK_SKILLS_DIR", "DENOVA_SKILLS_DIR") != "" {
 		return configured
 	}
 	candidates := []string{

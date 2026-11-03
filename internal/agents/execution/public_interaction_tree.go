@@ -3,8 +3,8 @@ package execution
 import (
 	"context"
 
-	"github.com/alfredxw/denova/agent"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // taskSessions discovers only exact descendants of this product Session.

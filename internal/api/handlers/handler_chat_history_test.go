@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alfredxw/denova/agent"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func TestChatPreparationRejectsInvalidHistoryLocally(t *testing.T) {
@@ -37,7 +37,7 @@ func TestChatPreparationRejectsInvalidHistoryLocally(t *testing.T) {
 	} {
 		t.Run(locale, func(t *testing.T) {
 			request := app.NewContext(0)
-			request.Request.Header.Set("X-Denova-Locale", locale)
+			request.Request.Header.Set("X-InkDock-Locale", locale)
 			(&Handlers{}).writeChatPreparationError(request, fmt.Errorf("prepare conversation: %w", err))
 			var body agentRuntimeErrorResponse
 			if decodeErr := json.Unmarshal(request.Response.Body(), &body); decodeErr != nil {

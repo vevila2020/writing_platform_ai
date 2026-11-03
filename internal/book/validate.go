@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // ValidateNewName 校验重命名目标文件名，避免通过文件名逃逸目录。

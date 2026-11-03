@@ -10,15 +10,15 @@ import (
 	"sync"
 	"time"
 
-	agentattachment "denova/internal/agents/attachment"
-	agentrun "denova/internal/agents/run"
-	externaljournal "denova/internal/agents/runtime/external/journal"
-	"denova/internal/agents/session"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/i18n"
-	"denova/internal/observability"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/i18n"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // Operation is one accepted command. Wait executes at most once and must run

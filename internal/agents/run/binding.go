@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const (
@@ -30,7 +30,7 @@ const (
 // workspace lifecycle.
 const ModeAgentChat = bindingProfileAgentChat
 
-// RuntimeBinding is Denova's product identity adapter for the reusable public
+// RuntimeBinding is InkDock's product identity adapter for the reusable public
 // Agent Session. ProjectID is the durable owner; Workspace is runtime-only
 // environment metadata and never enters the public SessionKey.
 type RuntimeBinding struct {
@@ -47,8 +47,8 @@ type RuntimeBinding struct {
 }
 
 // SessionStorageScope is the stable Project and product-journal scope carried
-// by a Denova Agent Session selector. It lets storage route constrained catalog
-// reads without exposing Denova's private identity labels to other packages.
+// by a InkDock Agent Session selector. It lets storage route constrained catalog
+// reads without exposing InkDock's private identity labels to other packages.
 type SessionStorageScope struct {
 	ProjectID string
 	SessionID string
@@ -97,7 +97,7 @@ func StorageScopeFromSessionSelector(selector agentsession.Selector) (SessionSto
 	return scope, true
 }
 
-// bindingIdentity is the private Denova mapping from product identity to one
+// bindingIdentity is the private InkDock mapping from product identity to one
 // public Agent Session namespace. It is not a second runtime identity or a
 // persistence contract.
 type bindingIdentity struct {
@@ -178,7 +178,7 @@ func (binding RuntimeBinding) identity() (bindingIdentity, error) {
 	return identity, nil
 }
 
-// ProfileID returns the Denova execution profile selected by this binding.
+// ProfileID returns the InkDock execution profile selected by this binding.
 // The value chooses a product Definition builder; it is not an Agent runtime
 // type and never enters the public Session Store.
 func (binding RuntimeBinding) ProfileID() (string, error) {
@@ -189,7 +189,7 @@ func (binding RuntimeBinding) ProfileID() (string, error) {
 	return identity.profile, nil
 }
 
-// BindingSelector returns a bounded public Session selector for one Denova
+// BindingSelector returns a bounded public Session selector for one InkDock
 // agent kind and optional stable Project owner.
 func BindingSelector(agentKind, projectID string) (agentsession.Selector, error) {
 	selector := agentsession.Selector{}
@@ -216,7 +216,7 @@ func BindingSelector(agentKind, projectID string) (agentsession.Selector, error)
 	return validatedBindingSelector(selector)
 }
 
-// SessionBindingSelector selects one session-backed Denova Agent Session.
+// SessionBindingSelector selects one session-backed InkDock Agent Session.
 func SessionBindingSelector(agentKind, projectID, sessionID string) (agentsession.Selector, error) {
 	projectID = strings.TrimSpace(projectID)
 	if projectID == "" {

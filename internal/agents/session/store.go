@@ -12,10 +12,10 @@ import (
 	"strings"
 	"sync"
 
-	agentattachment "denova/internal/agents/attachment"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/conversationjournal"
-	"denova/internal/localfs"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 const maxResidentSessions = 32

@@ -2,8 +2,8 @@ package toolruntime
 
 import (
 	"context"
-	"denova/internal/agents/tool"
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 	"path/filepath"
 	"strings"
 	"sync"

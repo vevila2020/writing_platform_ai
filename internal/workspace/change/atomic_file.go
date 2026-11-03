@@ -37,7 +37,7 @@ func (s *Service) atomicWriteVisibleFile(rel string, content []byte, requestedMo
 	if _, err := cryptorand.Read(random[:]); err != nil {
 		return result, err
 	}
-	tempRel := path.Join(parent, fmt.Sprintf(".%s.denova-%x.tmp", path.Base(rel), random[:]))
+	tempRel := path.Join(parent, fmt.Sprintf(".%s.inkdock-%x.tmp", path.Base(rel), random[:]))
 	tempPath := filepath.FromSlash(tempRel)
 	targetPath := filepath.FromSlash(rel)
 	file, err := root.OpenFile(tempPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, mode)

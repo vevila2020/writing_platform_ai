@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // ArgumentsHash returns a stable digest for one complete tool input. JSON

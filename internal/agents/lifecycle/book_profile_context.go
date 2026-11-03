@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const bookProfileResource = "book profile"

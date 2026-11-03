@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestPreviewCatalogIsolationAndManagedDataRelocation(t *testing.T) {

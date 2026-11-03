@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"log/slog"
 
-	agentreview "denova/internal/agents/review"
-	workspacechange "denova/internal/workspace/change"
-	"denova/internal/workspace/documentreview"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 // reviewFeedbackResolver abstracts one review-feedback source (workspace-change

@@ -5,14 +5,14 @@ import (
 	"os"
 	"strings"
 
-	"denova/config"
-	agentinteractive "denova/internal/agents/interactive"
-	agentrun "denova/internal/agents/run"
-	producttools "denova/internal/agents/tools"
-	"denova/internal/hostruntime"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
 )
 
 // NewCatalog is the only bridge from Agent orchestration into concrete

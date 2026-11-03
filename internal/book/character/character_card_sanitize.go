@@ -1,7 +1,7 @@
 package character
 
 import (
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"regexp"
 	"strings"
 	"unicode/utf8"

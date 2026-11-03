@@ -54,7 +54,7 @@ func TestSharedLibraryOptInAppliesToAllAgentPaths(t *testing.T) {
 	}
 	entries, err := os.ReadDir(shared)
 	if err != nil || len(entries) != 2 {
-		t.Fatalf("Denova wrote into shared directory: %v %v", entries, err)
+		t.Fatalf("InkDock wrote into shared directory: %v %v", entries, err)
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 )
 
 // ModelLimits contains documented limits for model identities whose provider
-// defaults are too small or ambiguous for Denova's tool-heavy workloads.
+// defaults are too small or ambiguous for InkDock's tool-heavy workloads.
 // Unknown and custom models intentionally stay unbounded here so their
 // endpoint or explicit profile configuration remains authoritative.
 type ModelLimits struct {

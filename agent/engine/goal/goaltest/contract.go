@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alfredxw/denova/agent"
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type Factory func(testing.TB) agentgoal.GoalManager

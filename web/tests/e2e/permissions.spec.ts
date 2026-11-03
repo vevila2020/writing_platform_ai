@@ -23,7 +23,7 @@ for (const scenario of [
     const session = await createAgentChatSession(request, project.id, `Permission ${scenario.label} Session`)
     const modelStatus = await getModelStatus(request)
     await mkdir(path.dirname(modelStatus.external_secret_path), { recursive: true })
-    await writeFile(modelStatus.external_secret_path, 'DENOVA_E2E_EXTERNAL_SECRET\n', 'utf8')
+    await writeFile(modelStatus.external_secret_path, 'INKDOCK_E2E_EXTERNAL_SECRET\n', 'utf8')
     await setAgentChatApprovalMode(request, project.id, session.id, scenario.mode)
 
     await page.goto('/')

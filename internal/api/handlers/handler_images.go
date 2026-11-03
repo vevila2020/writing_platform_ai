@@ -2,15 +2,15 @@ package handlers
 
 import (
 	"context"
-	"denova/internal/analytics"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/config"
-	novaApp "denova/internal/app"
-	imageapp "denova/internal/app/image"
-	imagegen "denova/internal/image/generation"
+	"github.com/vevila2020/writing_platform_ai/config"
+	novaApp "github.com/vevila2020/writing_platform_ai/internal/app"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 // HandleImagePing validates an inline, potentially unsaved image profile with

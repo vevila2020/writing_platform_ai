@@ -3,7 +3,7 @@ package agentruntime
 import (
 	"time"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // IdleTimeout resolves the optional per-Agent idle timeout. Zero means no

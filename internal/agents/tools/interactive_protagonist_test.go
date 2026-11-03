@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestInteractiveProtagonistToolSelectsAnyEnabledCharacterID(t *testing.T) {

@@ -3,8 +3,8 @@ package goal_test
 import (
 	"testing"
 
-	"github.com/alfredxw/denova/agent/engine/goal"
-	"github.com/alfredxw/denova/agent/engine/goal/goaltest"
+	"github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	"github.com/vevila2020/writing_platform_ai/agent/engine/goal/goaltest"
 )
 
 func TestStandardManagerContract(t *testing.T) {

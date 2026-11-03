@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	"denova/internal/buildinfo"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func main() {

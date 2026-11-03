@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentrun "denova/internal/agents/run"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // Maintain serializes explicit context maintenance with task admission and

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 // ErrUnsupportedBookExportFormat indicates that the requested export format is not implemented.

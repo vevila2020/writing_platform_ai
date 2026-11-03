@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 
-	imageapp "denova/internal/app/image"
-	booklore "denova/internal/book/lore"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 var ErrNoWorkspace = errors.New("no workspace is selected")

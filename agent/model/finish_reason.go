@@ -3,7 +3,7 @@ package model
 import (
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ModelFinishReasonClass is the provider-neutral meaning of a raw model finish

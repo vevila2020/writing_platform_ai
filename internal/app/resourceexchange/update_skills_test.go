@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/skills"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func TestUpdateDependenciesAndSkillReplacementGuards(t *testing.T) {

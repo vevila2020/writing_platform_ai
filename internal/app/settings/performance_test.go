@@ -1,7 +1,7 @@
 package settings
 
 import (
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ func BenchmarkSettingsSnapshot(b *testing.B) {
 	if err := config.EnsureAgentProfiles(root); err != nil {
 		b.Fatal(err)
 	}
-	service := NewService(&reloadTestHost{runtime: Runtime{Config: config.Config{DenovaDir: root, NovaDir: root, RuntimeWebPort: 18080}}})
+	service := NewService(&reloadTestHost{runtime: Runtime{Config: config.Config{InkDockDir: root, DenovaDir: root, RuntimeWebPort: 18080}}})
 	b.ReportAllocs()
 	b.ResetTimer()
 	for range b.N {

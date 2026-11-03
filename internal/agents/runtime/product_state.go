@@ -4,13 +4,13 @@ import (
 	"context"
 	"encoding/json"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/agents/sessionjournal"
-	"denova/internal/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	publicgoal "github.com/alfredxw/denova/agent/engine/goal"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	publicgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ProductState gives a selected peer runtime access to the same journal and

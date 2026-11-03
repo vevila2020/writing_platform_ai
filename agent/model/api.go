@@ -3,7 +3,7 @@ package model
 import (
 	"context"
 
-	agentretry "github.com/alfredxw/denova/agent/internal/retry"
+	agentretry "github.com/vevila2020/writing_platform_ai/agent/internal/retry"
 )
 
 type ModelOutputState = agentretry.ModelOutputState

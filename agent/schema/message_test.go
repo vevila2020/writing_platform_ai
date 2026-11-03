@@ -54,7 +54,7 @@ func TestMessageFullWireRoundTripAndClone(t *testing.T) {
 			},
 			ArtifactPersistence: &ToolArtifactPersistence{Attempted: true, Complete: true},
 			Artifacts: []ToolArtifactRef{{
-				ID: "artifact-1", ReadablePath: "/workspace/.denova/sessions/artifact.log",
+				ID: "artifact-1", ReadablePath: "/workspace/.inkdock/sessions/artifact.log",
 				ContentType: "text/plain", EstimatedBytes: 12, SHA256: strings.Repeat("a", 64),
 			}},
 		},
@@ -118,7 +118,7 @@ func TestMessageFullWireRoundTripAndClone(t *testing.T) {
 	clone.ResponseMeta.InputEstimate.Tokens = 99
 	if message.MultiContent[0][0] == '[' || message.ToolCalls[0].Function.Name != "lookup" ||
 		message.ToolCalls[0].Extra["provider"] != "p" ||
-		message.ToolResult.Artifacts[0].ReadablePath != "/workspace/.denova/sessions/artifact.log" ||
+		message.ToolResult.Artifacts[0].ReadablePath != "/workspace/.inkdock/sessions/artifact.log" ||
 		message.ToolResult.ContextHints.Recovery.Reference["path"] != "chapter.md" ||
 		!message.ToolResult.ArtifactPersistence.Complete ||
 		message.Extra["nested"].(map[string]any)["items"].([]any)[0] != "a" ||

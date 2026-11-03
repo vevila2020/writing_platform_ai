@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 func normalizeManagedLocationPath(value string) (string, error) {
@@ -31,7 +31,7 @@ func (registry *Registry) locationForWorkspace(workspace string) (ProjectLocatio
 	if err != nil {
 		return ProjectLocation{}, err
 	}
-	root, err := canonicalDirectory(registry.denovaDir, false)
+	root, err := canonicalDirectory(registry.inkdockDir, false)
 	if err != nil {
 		return ProjectLocation{}, err
 	}
@@ -53,7 +53,7 @@ func (registry *Registry) resolveLocation(location ProjectLocation) (string, err
 		if err != nil {
 			return "", err
 		}
-		root, err := filepath.Abs(registry.denovaDir)
+		root, err := filepath.Abs(registry.inkdockDir)
 		if err != nil {
 			return "", err
 		}

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const (
@@ -18,7 +18,7 @@ const (
 
 // ParentAttributes freezes the exact public parent Session identity in a
 // child key. The encoded canonical key remains privacy-safe provider-side:
-// Denova's cache-key adapter hashes the public identity before model use.
+// InkDock's cache-key adapter hashes the public identity before model use.
 func ParentAttributes(parent agentsession.Key) (map[string]string, error) {
 	return agent.ChildSessionAttributes(parent)
 }

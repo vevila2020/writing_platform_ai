@@ -25,7 +25,7 @@ test('generates usable LAN credentials in one save and preserves existing creden
   expect(saved.user.remote_access_password).toBeFalsy()
   const generatedUsername = await username.inputValue()
   const generatedPassword = await password.inputValue()
-  expect(generatedUsername).toMatch(/^denova-.+/)
+  expect(generatedUsername).toMatch(/^inkdock-.+/)
   expect(generatedPassword).toMatch(/^[\w-]{24}$/)
   const login = await request.post('/api/auth/login', {
     headers: { 'X-Forwarded-For': '192.168.1.8' },

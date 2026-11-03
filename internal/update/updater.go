@@ -31,8 +31,8 @@ type replaceEntry struct {
 	Optional bool
 }
 
-// RunUpdater applies a staged update and relaunches Denova. It is the entrypoint
-// used by cmd/denova-updater.
+// RunUpdater applies a staged update and relaunches InkDock. It is the entrypoint
+// used by cmd/inkdock-updater.
 func RunUpdater(ctx context.Context, manifestPath string, options UpdaterOptions) (resultErr error) {
 	manifest, err := readManifest(manifestPath)
 	if err != nil {
@@ -154,7 +154,7 @@ func updaterLogger(logPath string, extra io.Writer) (*slog.Logger, func(), error
 		writers = append(writers, os.Stdout)
 	}
 	handler := slog.NewTextHandler(io.MultiWriter(writers...), &slog.HandlerOptions{AddSource: true, Level: slog.LevelInfo})
-	return slog.New(handler).With("component", "denova-updater"), closeLog, nil
+	return slog.New(handler).With("component", "inkdock-updater"), closeLog, nil
 }
 
 func waitForProcessExit(ctx context.Context, pid int, options UpdaterOptions, logger *slog.Logger) error {
@@ -316,16 +316,16 @@ func startRelaunch(ctx context.Context, manifestPath string, manifest ApplyManif
 	if len(args) == 0 {
 		args = []string{manifest.TargetExecutable, "--no-open"}
 	}
-	logger.InfoContext(ctx, "updater_starting_denova", "executable", manifest.TargetExecutable, "args", len(args))
+	logger.InfoContext(ctx, "updater_starting_inkdock", "executable", manifest.TargetExecutable, "args", len(args))
 	env := slices.DeleteFunc(os.Environ(), func(item string) bool {
 		key, _, _ := strings.Cut(item, "=")
-		return strings.EqualFold(key, "DENOVA_UPDATE_MANIFEST") || strings.EqualFold(key, "DENOVA_UPDATE_ID") || strings.EqualFold(key, "DENOVA_UPDATE_FROM_VERSION")
+		return strings.EqualFold(key, "INKDOCK_UPDATE_MANIFEST") || strings.EqualFold(key, "INKDOCK_UPDATE_ID") || strings.EqualFold(key, "INKDOCK_UPDATE_FROM_VERSION")
 	})
 	if manifest.State == PhaseStarting {
 		// Origin is a launch-only compatibility hint, not a user port override.
 		// v0.5.1 did not record its effective port; the new app must resolve its
 		// settings with that release's default before reserving a listener.
-		env = append(env, "DENOVA_UPDATE_MANIFEST="+manifestPath, "DENOVA_UPDATE_ID="+manifest.ID, "DENOVA_UPDATE_FROM_VERSION="+manifest.PreviousVersion)
+		env = append(env, "INKDOCK_UPDATE_MANIFEST="+manifestPath, "INKDOCK_UPDATE_ID="+manifest.ID, "INKDOCK_UPDATE_FROM_VERSION="+manifest.PreviousVersion)
 	}
 	return start(manifest.TargetExecutable, args, env)
 }

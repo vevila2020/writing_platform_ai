@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 func pluginPanelCandidate(t *testing.T, m *Manager, projectID, id string) Candidate {
@@ -92,7 +92,7 @@ func TestPluginPanelsCommandsAndProjectRevocation(t *testing.T) {
 	}
 	request, _ := http.NewRequest("GET", opened.Connection.BaseURL+"/context", nil)
 	request.Header.Set("Authorization", "Bearer "+opened.Connection.Token)
-	request.Header.Set("X-Denova-Consumer", first.ConsumerID)
+	request.Header.Set("X-InkDock-Consumer", first.ConsumerID)
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		t.Fatal(err)

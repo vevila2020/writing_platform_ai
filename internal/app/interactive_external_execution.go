@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	"denova/internal/agents/runtime/external"
-	interactiveapp "denova/internal/app/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
 )
 
 func (s *InteractiveAppService) externalGameFactory(initial *interactiveAgentCycle, taskID string) agentruntime.ExternalCycleFactory {

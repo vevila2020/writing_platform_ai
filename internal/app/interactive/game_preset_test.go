@@ -3,7 +3,7 @@ package interactiveapp
 import (
 	"testing"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestStoryDirectorForSnapshotKeepsDisabledRuleSystemOff(t *testing.T) {

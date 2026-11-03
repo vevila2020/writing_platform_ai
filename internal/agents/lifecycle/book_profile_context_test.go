@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func writeStoredBookMeta(t *testing.T, storeRoot string, meta book.BookMeta) {

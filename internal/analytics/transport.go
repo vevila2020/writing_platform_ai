@@ -36,7 +36,7 @@ func (s *Service) send(item queuedEvent) {
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "Denova/"+s.version)
+	req.Header.Set("User-Agent", "InkDock/"+s.version)
 	response, err := s.client.Do(req)
 	if err != nil {
 		if ctx.Err() == nil {

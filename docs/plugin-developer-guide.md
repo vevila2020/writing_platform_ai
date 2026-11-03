@@ -1,4 +1,4 @@
-# Denova 插件开发手册
+# InkDock 插件开发手册
 
 更新：2026-10-10，v0.6.0 工作区实现。接口以当前代码和运行实例的 OpenAPI 为准。
 
@@ -48,7 +48,7 @@ Project 界面修改模型、发行设置或依赖后，已有运行继续使用
 
 面板和 Agent 工具共同编辑的作品数据使用 `/assets/document` 与 `/assets/upload`，保存于 `stores/<store_dir>/extensions/<pluginId>/content/`。JSON 写入必须提供上次读取的 revision；冲突保留本地内容，让用户重读处理，不自动覆盖。文档由插件声明自己的格式版本；`dataDir` 是执行范围数据，不能替代跨会话共享的项目内容。
 
-项目插件菜单提供「导出插件内容」和「导入插件内容」：ZIP 只包含该插件的 JSON 与媒体，导入同身份插件的空内容目录，已有内容或正在运行时明确拒绝。它不包含代码、设置、模型密钥或 Agent/Story journal，也不冒充整本书/整个 Project 的导出。复制完整 `.denova` 时，稳定 ProjectID、不可变 Store 目录和相对资产引用共同保证可移动性。卸载和升级不删除作品内容。
+项目插件菜单提供「导出插件内容」和「导入插件内容」：ZIP 只包含该插件的 JSON 与媒体，导入同身份插件的空内容目录，已有内容或正在运行时明确拒绝。它不包含代码、设置、模型密钥或 Agent/Story journal，也不冒充整本书/整个 Project 的导出。复制完整 `.inkdock` 时，稳定 ProjectID、不可变 Store 目录和相对资产引用共同保证可移动性。卸载和升级不删除作品内容。
 
 ## 在 App 中开发
 
@@ -84,7 +84,7 @@ Agent 操作完成后宿主发送 `denova:refresh`，页面重读作品。会话
 
 ## 从 GitHub 安装与更新
 
-「资源中心 → 添加资源 → GitHub」接受公开的 `https://github.com/owner/repository` 地址，可填写分支、标签、完整 commit 和包所在子目录；默认使用默认分支和仓库根目录。每个包目录恰有一种 Denova 清单。同仓库的游戏与插件分别定位、检查和安装。
+「资源中心 → 添加资源 → GitHub」接受公开的 `https://github.com/owner/repository` 地址，可填写分支、标签、完整 commit 和包所在子目录；默认使用默认分支和仓库根目录。每个包目录恰有一种 InkDock 清单。同仓库的游戏与插件分别定位、检查和安装。
 
 检查先解析并固定 commit，再下载源码归档，按 `distribution.files` 收集安装文件并冻结候选包。安装只使用已检查字节。安装无需系统 Git，也不创建 Project；源码归档不包含 Git 历史。下载与展开各不超过 256 MiB，归档不超过 10000 项、单文件不超过 16 MiB；拒绝不符合跨系统规则的路径、大小写冲突、符号链接和特殊文件。暂不支持私有仓库认证、SSH 或自动拉取子模块、Git LFS 内容。
 
@@ -139,7 +139,7 @@ ID 为 example.text-tools 的参考示例公开六个工具：count-characters�
 清单使用 denova.plugin.json，至少声明 manifestVersion: 1、id、严格语义版本 version、apiMajor: 1、minHostVersion: "0.6.0"、中英文 name、permissions 和 contributes。最低宿主版本与 API 主版本分别校验，不兼容时在检查与激活阶段拒绝。包及其他贡献 ID 使用小写字母、数字、点和连字符；builtin、local 保留。工具 ID 遵循上述模型工具名规则。一个产物根只能有一种清单。
 
 - distribution.files 是文件或目录白名单；未列出的依赖、入口或定义会使检查失败。
-- runtime.backend 支持 protocol: denova-runtime-v1 与 launch.kind: runtime、runtime: node、entry、args。
+- runtime.backend 支持 protocol: inkdock-runtime-v1 与 launch.kind: runtime、runtime: node、entry、args。
 - 插件图像调用优先使用 `/images/models` 和显式 `modelId`，模型选择及作品状态属于插件。已有 image 槽位仍可用于声明式启动配置；插件文本对话复用宿主创作 Agent，不声明私有 text 槽。游戏仍可声明 text/image 私有模型槽。槽位 titleKey 必须存在于中英 locale 文件，不公开 provider 配置。
 - settings 引用分发内的 JSON Schema 与 defaults TOML，可选 uiSchema 提供声明式布局；字段必须有中英文标题。详见[扩展设置标准](extension-settings.md)。
 - requires 声明插件 ID、语义版本范围和所需贡献。运行时使用准确发行，不按加载顺序替换。
@@ -159,15 +159,15 @@ ID 为 example.text-tools 的参考示例公开六个工具：count-characters�
 
 ## 后端启动协议
 
-宿主以 Node 22 或更高版本启动已冻结入口，通过 stdin 的一行 JSON 发送 type: bootstrap、protocol、context、connection、packageDir、dataDir、tempDir、hostToken。纯静态面板无需 Node。路径仅是当前宿主运行时投影，不应写入业务身份。平台凭证和内部服务凭证分别使用，均不得写入 URL、argv、日志或发行包。处理工具请求时，调用宿主 API 必须转发 `X-Denova-Consumer`，将异步任务归属原页面/命令；`runtime.mjs` 的 requestHost 已处理转发。
+宿主以 Node 22 或更高版本启动已冻结入口，通过 stdin 的一行 JSON 发送 type: bootstrap、protocol、context、connection、packageDir、dataDir、tempDir、hostToken。纯静态面板无需 Node。路径仅是当前宿主运行时投影，不应写入业务身份。平台凭证和内部服务凭证分别使用，均不得写入 URL、argv、日志或发行包。处理工具请求时，调用宿主 API 必须转发 `X-InkDock-Consumer`，将异步任务归属原页面/命令；`runtime.mjs` 的 requestHost 已处理转发。
 
 提供器监听独立 loopback 端口，stdout 第一行返回：
 
 ```json
-{ "type": "ready", "protocol": "denova-runtime-v1", "port": 42000 }
+{ "type": "ready", "protocol": "inkdock-runtime-v1", "port": 42000 }
 ```
 
-宿主再使用 hostToken 验证 GET /__denova/ready 返回 denova-runtime-v1。后台其他入口也必须验证该凭证。启动等待有基础设施超时；Agent 运行没有固定总时长或迭代上限。stderr 和后续 stdout 进入本地日志。
+宿主再使用 hostToken 验证 GET /__inkdock/ready 返回 inkdock-runtime-v1。后台其他入口也必须验证该凭证。启动等待有基础设施超时；Agent 运行没有固定总时长或迭代上限。stderr 和后续 stdout 进入本地日志。
 
 stdin 收到 shutdown 或关闭后停止服务。Windows 通过 Job Object 管理进程树；其他桌面系统使用进程组。当前变更在 Windows 原生验证；macOS 与 Linux/WSL 仍需目标平台验证。
 

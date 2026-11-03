@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 // DetectType classifies a newly added content directory using the same markers

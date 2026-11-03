@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 // This archive contains only one plugin's Project content. It never carries

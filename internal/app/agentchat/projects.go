@@ -11,10 +11,10 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	"denova/internal/agents/session"
-	projectdomain "denova/internal/project"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 // ProjectSessionsLimit bounds the returned recent-session window. Running

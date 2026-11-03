@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"strings"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/internal/openaiclient"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/openaichatcompletions/internal/compat"
 	sdk "github.com/openai/openai-go/v3"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/internal/openaiclient"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/openaichatcompletions/internal/compat"
 )
 
 // Adapter constructs models that speak OpenAI Chat Completions.

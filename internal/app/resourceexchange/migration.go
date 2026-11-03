@@ -10,12 +10,12 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/skills"
-	"denova/internal/platform"
-	"denova/internal/portablepath"
-	"denova/internal/project"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // MigrateSources runs before update workers. Each old source file is backed up
@@ -62,7 +62,7 @@ func (s *Service) MigrateSources(ctx context.Context) error {
 				continue
 			}
 			skillDir := filepath.Join(directory, entry.Name())
-			metadata := FileTarget{ProjectID: target.ProjectID, Path: path.Join(target.Path, entry.Name(), ".denova-source.json")}
+			metadata := FileTarget{ProjectID: target.ProjectID, Path: path.Join(target.Path, entry.Name(), ".inkdock-source.json")}
 			if err := portablepath.CheckPath(base, metadata.Path); err != nil {
 				return err
 			}
@@ -98,7 +98,7 @@ func (s *Service) MigrateSources(ctx context.Context) error {
 			if err != nil {
 				return err
 			}
-			delete(files, ".denova-source.json")
+			delete(files, ".inkdock-source.json")
 			baseline := map[string]string{}
 			for name, raw := range files {
 				digest := revisionfile.Revision(raw)
@@ -116,7 +116,7 @@ func (s *Service) MigrateSources(ctx context.Context) error {
 				sourceDigest = "unknown:" + state.Digest
 			}
 			now := time.Now().UTC()
-			item := Installation{ID: uuid.NewSHA1(uuid.NameSpaceURL, []byte("denova-skill:"+target.ProjectID+":"+entry.Name())).String(), Package: PackageInfo{ID: "skill-" + entry.Name(), Name: entry.Name()}, Source: origin, ProjectID: target.ProjectID, Tracking: "tracked", UpdateMode: mode, CreatedAt: now, UpdatedAt: now, CheckedAt: state.CheckedAt, Bindings: []Binding{{ResourceID: "skill", Local: local, Ownership: "owned", SourceDigest: sourceDigest, Baseline: baseline}}}
+			item := Installation{ID: uuid.NewSHA1(uuid.NameSpaceURL, []byte("inkdock-skill:"+target.ProjectID+":"+entry.Name())).String(), Package: PackageInfo{ID: "skill-" + entry.Name(), Name: entry.Name()}, Source: origin, ProjectID: target.ProjectID, Tracking: "tracked", UpdateMode: mode, CreatedAt: now, UpdatedAt: now, CheckedAt: state.CheckedAt, Bindings: []Binding{{ResourceID: "skill", Local: local, Ownership: "owned", SourceDigest: sourceDigest, Baseline: baseline}}}
 			content, err := json.Marshal(item)
 			if err != nil {
 				return err
@@ -146,7 +146,7 @@ func (s *Service) MigrateSources(ctx context.Context) error {
 				source.Path = ""
 			}
 			now := time.Now().UTC()
-			item := Installation{ID: uuid.NewSHA1(uuid.NameSpaceURL, []byte("denova-extension:"+string(kind)+":"+installed.ID)).String(), Package: PackageInfo{ID: "ext-" + strings.ReplaceAll(installed.ID, ".", "-"), Name: installed.ID}, Source: Source{Kind: "github", URL: source.URL, Ref: source.Ref, Path: source.Path, Commit: source.Commit}, Tracking: "tracked", UpdateMode: "manual", CreatedAt: now, UpdatedAt: now, Bindings: []Binding{{ResourceID: "extension", Local: LocalRef{Kind: "extension." + string(kind), Scope: "global", ID: installed.ID}, Ownership: "owned", SourceDigest: installed.CurrentRelease, Baseline: map[string]string{}}}}
+			item := Installation{ID: uuid.NewSHA1(uuid.NameSpaceURL, []byte("inkdock-extension:"+string(kind)+":"+installed.ID)).String(), Package: PackageInfo{ID: "ext-" + strings.ReplaceAll(installed.ID, ".", "-"), Name: installed.ID}, Source: Source{Kind: "github", URL: source.URL, Ref: source.Ref, Path: source.Path, Commit: source.Commit}, Tracking: "tracked", UpdateMode: "manual", CreatedAt: now, UpdatedAt: now, Bindings: []Binding{{ResourceID: "extension", Local: LocalRef{Kind: "extension." + string(kind), Scope: "global", ID: installed.ID}, Ownership: "owned", SourceDigest: installed.CurrentRelease, Baseline: map[string]string{}}}}
 			// Release digest is carried separately from the container's byte digest.
 			for _, release := range installed.Releases {
 				if release.Digest == installed.CurrentRelease {

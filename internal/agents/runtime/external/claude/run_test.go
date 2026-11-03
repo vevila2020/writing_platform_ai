@@ -20,14 +20,14 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type testHost struct {
@@ -111,9 +111,9 @@ func TestInstalledClaudeToolLoop(t *testing.T) {
 }
 
 func testInstalledClaudeToolLoop(t *testing.T, source string) {
-	exe := os.Getenv("DENOVA_TEST_CLAUDE_EXE")
+	exe := os.Getenv("INKDOCK_TEST_CLAUDE_EXE")
 	if exe == "" {
-		t.Skip("set DENOVA_TEST_CLAUDE_EXE to exercise the installed CLI against a local model fixture")
+		t.Skip("set INKDOCK_TEST_CLAUDE_EXE to exercise the installed CLI against a local model fixture")
 	}
 	personal := t.TempDir()
 	t.Setenv("HOME", personal)
@@ -156,7 +156,7 @@ func testInstalledClaudeToolLoop(t *testing.T, source string) {
 		requests++
 		raw, _ := json.Marshal(request)
 		if strings.Contains(string(raw), "ambient-skill-must-not-bypass-library") {
-			t.Error("CLI injected an ambient Skill outside the Denova library")
+			t.Error("CLI injected an ambient Skill outside the InkDock library")
 		}
 		if strings.Contains(string(raw), `"media_type":"image/png"`) {
 			imageSeen = true

@@ -96,7 +96,7 @@ function App() {
   const [developerMode, setDeveloperMode] = useState<boolean | null>(null)
   const [motionIntensity, setMotionIntensity] = useState('system')
   const [agentTraceDisplay, setAgentTraceDisplay] = useState<AgentTraceDisplay>('compact')
-  const [novaDir, setNovaDir] = useState('')
+  const [dataDir, setDataDir] = useState('')
   const [sidebarView, setSidebarView] = useState<SidebarView>('outline')
   const [editorSearchIntent, setEditorSearchIntent] = useState<{ path: string; query: string; line: number; nonce: number } | null>(null)
   const [characterCardDialogOpen, setCharacterCardDialogOpen] = useState(false)
@@ -312,7 +312,7 @@ function App() {
       setEditorAutoSaveEnabled(effective?.auto_save_enabled ?? AUTO_SAVE_ENABLED_FALLBACK)
       setEditorAutoSaveDelayMs(normalizeAutoSaveDelayMs(effective?.auto_save_interval_ms))
       setDeveloperMode(effective?.labs?.developer_mode === true)
-      setNovaDir(data.paths?.denova_dir || data.paths?.nova_dir || '')
+      setDataDir(data.paths?.inkdock_dir || data.paths?.denova_dir || '')
       setConfiguredLocale(effective?.language)
       setTheme(normalizeAppTheme(effective?.theme))
       setMotionIntensity(normalizeMotionIntensity(effective?.motion_intensity))
@@ -880,7 +880,7 @@ function App() {
         settingsOpen={settingsOpen}
         developerMode={developerMode === true}
         interactiveRightVisible={interactiveRightVisible}
-        novaDir={novaDir}
+        dataDir={dataDir}
         books={books}
         bookSortMode={bookSortMode}
         tree={tree}
@@ -998,7 +998,7 @@ function App() {
         open={characterCardDialogOpen}
         workspace={workspace}
         currentBookName={currentBookName}
-        novaDir={novaDir}
+        dataDir={dataDir}
         file={characterCardFile}
         preview={characterCardPreview}
         targetMode={characterCardTargetMode}

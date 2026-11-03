@@ -14,12 +14,12 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/agents/runtime/external/claude"
-	"denova/internal/agents/runtime/external/codex"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/claude"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/codex"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 )
 
 type runtimeProtocolTrace struct {
@@ -52,9 +52,9 @@ func (*runtimeObservationHost) CallTool(context.Context, external.ToolCall) (ext
 func TestInstalledRuntimeSessionContinuity(t *testing.T) {
 	for _, kind := range []config.RuntimeID{config.RuntimeCodex, config.RuntimeClaude} {
 		t.Run(string(kind), func(t *testing.T) {
-			executable := os.Getenv("DENOVA_TEST_" + strings.ToUpper(string(kind)) + "_EXE")
+			executable := os.Getenv("INKDOCK_TEST_" + strings.ToUpper(string(kind)) + "_EXE")
 			if executable == "" {
-				t.Skip("set DENOVA_TEST runtime executable")
+				t.Skip("set INKDOCK_TEST runtime executable")
 			}
 			ctx, cancel := context.WithTimeout(t.Context(), 90*time.Second)
 			defer cancel()

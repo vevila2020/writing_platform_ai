@@ -7,14 +7,14 @@ import (
 	"strings"
 	"sync"
 
-	"denova/config"
-	agentattachment "denova/internal/agents/attachment"
-	"denova/internal/agents/conversationconfig"
-	agentrun "denova/internal/agents/run"
-	interactiveapp "denova/internal/app/interactive"
-	appsettings "denova/internal/app/settings"
-	apptask "denova/internal/app/task"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // InteractiveAppService owns stories, branches, Game Planning, and Game Agent tasks.

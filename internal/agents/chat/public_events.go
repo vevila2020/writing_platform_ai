@@ -9,24 +9,24 @@ import (
 	"sync"
 	"time"
 
-	agentattachment "denova/internal/agents/attachment"
-	agentplan "denova/internal/agents/plan"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
+	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
+	agentplan "github.com/vevila2020/writing_platform_ai/internal/agents/plan"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	"github.com/alfredxw/denova/agent"
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentinteraction "github.com/alfredxw/denova/agent/lifecycle/interaction"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentinteraction "github.com/vevila2020/writing_platform_ai/agent/lifecycle/interaction"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // PublicEventProjector converts the reusable Agent event vocabulary into the
-// established Denova task/SSE and display transcript projection.
+// established InkDock task/SSE and display transcript projection.
 type PublicEventProjector struct {
 	mu                      sync.Mutex
 	conversation            Conversation
@@ -122,16 +122,16 @@ func (projector *PublicEventProjector) projectLocked(event agentevent.Event, inh
 	switch payload := event.Payload.(type) {
 	case agentevent.NestedEvent:
 		child := payload.Child
-		// Denova display remains attached to the parent operation while the
+		// InkDock display remains attached to the parent operation while the
 		// typed NestedEvent retains the exact child Run identity for observers.
 		child.RunID = event.RunID
 		projector.projectLocked(child, inheritedEventSource(payload.Source, inherited), firstNonEmpty(payload.ParentCallID, parentCallID))
 	case agentevent.RunAccepted:
 		// Acceptance is already represented by the task transport and the
-		// Denova-specific agent_cycle_started edge.
+		// InkDock-specific agent_cycle_started edge.
 	case agentevent.RunStarted:
 		// The execution host owns command delivery and calls ProjectRunStarted
-		// with the durable cycle plus Denova-only command metadata.
+		// with the durable cycle plus InkDock-only command metadata.
 	case agentevent.AssistantDelta:
 		meta = projector.metadata(event.RunID, inheritedEventSource(payload.Source, inherited), parentCallID)
 		meta.ResponseOrdinal = payload.ResponseOrdinal
@@ -567,7 +567,7 @@ func (projector *PublicEventProjector) projectLocked(event agentevent.Event, inh
 			"consecutive_failures": payload.ConsecutiveFailures, "failure_fuse_open": payload.FailureFuseOpen,
 		}, payload.Metrics))})
 	case agentevent.SessionCleared:
-		// Clear commands are initiated by Denova endpoints, which own UI refresh.
+		// Clear commands are initiated by InkDock endpoints, which own UI refresh.
 	case agentevent.ContextLimitReached:
 		// The following RunSettled result carries the terminal, user-visible
 		// error without publishing two competing terminal events.
@@ -730,7 +730,7 @@ func appendToolDescriptorProjection(data map[string]any, descriptor *agenttool.T
 	}
 }
 
-// ProjectRunStarted restores Denova's product cycle edge from the public
+// ProjectRunStarted restores InkDock's product cycle edge from the public
 // lifecycle. Command delivery and accepted input remain host-owned metadata;
 // the public Agent event supplies the durable Run and cycle identity.
 func (projector *PublicEventProjector) ProjectRunStarted(runID string, cycle int, commandID, delivery string, startedAt time.Time) {
@@ -748,7 +748,7 @@ func (projector *PublicEventProjector) ProjectRunStarted(runID string, cycle int
 		projector.runStartedAt = startedAt.UTC()
 	}
 	delivery = strings.TrimSpace(delivery)
-	// Agent names the reusable runtime delivery "start" while Denova's public
+	// Agent names the reusable runtime delivery "start" while InkDock's public
 	// command contract calls the same product action "start_turn".
 	if delivery == "start" {
 		delivery = "start_turn"
@@ -946,7 +946,7 @@ func (projector *PublicEventProjector) TerminalProjected() bool {
 }
 
 // ProjectCanonicalOutput turns the raw final Agent message into the output
-// already approved by Denova's public projection. Plan protocol tags stay
+// already approved by InkDock's public projection. Plan protocol tags stay
 // display-only, while Game commits the narrative accumulated across model and
 // tool steps instead of trusting only the final provider message.
 func (projector *PublicEventProjector) ProjectCanonicalOutput(message *agentschema.Message) (*agentschema.Message, *agentcanonical.OutputProjection) {

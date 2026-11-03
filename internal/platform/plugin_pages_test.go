@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/internal/app/projectfiles"
-	imagegen "denova/internal/image/generation"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	imagegen "github.com/vevila2020/writing_platform_ai/internal/image/generation"
 )
 
 type pageContentTestHost struct {

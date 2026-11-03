@@ -1,6 +1,6 @@
 package configresource
 
-import "denova/internal/automation"
+import "github.com/vevila2020/writing_platform_ai/internal/automation"
 
 // automationTaskWriteInput is the user-editable definition surface. Runtime
 // identity, timestamps, trigger state, and run history never enter config_apply.

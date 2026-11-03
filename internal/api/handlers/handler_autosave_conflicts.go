@@ -7,7 +7,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/workspace/autosave"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/autosave"
 )
 
 // HandleAutosaveConflictCreate stores an immutable recovery record. Request

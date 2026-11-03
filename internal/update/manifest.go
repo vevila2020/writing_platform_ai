@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 const (
@@ -17,8 +17,8 @@ const (
 	applyLogFileName       = "apply.log"
 )
 
-// ApplyManifest is the updater contract written by Denova and consumed by
-// denova-updater. Only transaction data is persisted; runtime paths are derived
+// ApplyManifest is the updater contract written by InkDock and consumed by
+// inkdock-updater. Only transaction data is persisted; runtime paths are derived
 // from the manifest's location, so the whole installation remains portable.
 type ApplyManifest struct {
 	// State is the single durable update transaction. Empty state is the v0.5.1

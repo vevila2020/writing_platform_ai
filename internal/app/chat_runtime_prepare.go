@@ -4,11 +4,11 @@ import (
 	"context"
 	"strings"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	appconversation "denova/internal/app/conversation"
-	"denova/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appconversation "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 // agentOptions is the single foreground Writing runtime route. ProjectID is

@@ -5,9 +5,9 @@ import (
 	"errors"
 	"log/slog"
 
-	"denova/internal/book"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // BookStructure resolves by stable Project ID, never by the foreground book.

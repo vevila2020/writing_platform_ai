@@ -18,8 +18,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 func ErrorResponse(err error) (int, *Error) {
@@ -117,13 +117,13 @@ func (r *Runtime) ServeHTTP(w http.ResponseWriter, request *http.Request) {
 	}
 	if request.Method == "OPTIONS" {
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-		w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, Last-Event-ID, X-Denova-Consumer")
+		w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type, Last-Event-ID, X-InkDock-Consumer")
 		w.WriteHeader(204)
 		return
 	}
 	var caller *activation
 	token := strings.TrimPrefix(request.Header.Get("Authorization"), "Bearer ")
-	consumerID := request.Header.Get("X-Denova-Consumer")
+	consumerID := request.Header.Get("X-InkDock-Consumer")
 	for _, provider := range r.providers {
 		if subtle.ConstantTimeCompare([]byte(token), []byte(provider.connection.Token)) == 1 {
 			caller = provider
@@ -524,7 +524,7 @@ func (r *Runtime) invokeTool(ctx context.Context, caller *activation, providerID
 		request.Header.Set("Content-Type", "application/json")
 		request.Header.Set("Authorization", "Bearer "+provider.process.token)
 		if consumer, ok := ctx.Value(consumerContextKey{}).(consumerRequest); ok {
-			request.Header.Set("X-Denova-Consumer", consumer.id)
+			request.Header.Set("X-InkDock-Consumer", consumer.id)
 		}
 		response, err := localHTTPClient.Do(request)
 		if err != nil {

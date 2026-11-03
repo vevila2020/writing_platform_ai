@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	"github.com/alfredxw/denova/agent/model/providers/protocols/internal/openaiclient"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers/protocols/internal/openaiclient"
 )
 
 // ListModels implements the optional OpenAI-compatible model discovery seam.

@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"strings"
 
-	agentinteractive "denova/internal/agents/interactive"
-	agenttool "denova/internal/agents/tool"
-	producttools "denova/internal/agents/tools"
-	workspacechange "denova/internal/workspace/change"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func applyInteractiveTurnReceiptToExecutionRecord(record *agenttool.ExecutionRecord, result agentschema.ToolResult) {

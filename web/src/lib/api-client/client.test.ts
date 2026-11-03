@@ -35,7 +35,7 @@ describe('api client backend availability toast', () => {
     expect(toast.error).not.toHaveBeenCalled()
     await vi.advanceTimersByTimeAsync(1500)
 
-    expect(toast.error).toHaveBeenCalledWith('无法连接 Denova', expect.objectContaining({
+    expect(toast.error).toHaveBeenCalledWith('无法连接墨栈 AI', expect.objectContaining({
       id: 'nova-backend-unavailable',
       duration: Infinity, closeButton: true,
     }))
@@ -50,7 +50,7 @@ describe('api client backend availability toast', () => {
     expect(toast.error).not.toHaveBeenCalled()
     await vi.advanceTimersByTimeAsync(1500)
 
-    expect(toast.error).toHaveBeenCalledWith('无法连接 Denova', expect.objectContaining({
+    expect(toast.error).toHaveBeenCalledWith('无法连接墨栈 AI', expect.objectContaining({
       id: 'nova-backend-unavailable',
       duration: Infinity, closeButton: true,
     }))
@@ -185,7 +185,7 @@ describe('api client backend availability toast', () => {
   it('revalidates authentication for a server cookie challenge', async () => {
     const invalidate = vi.spyOn(queryClient, 'invalidateQueries').mockResolvedValue()
     vi.stubGlobal('fetch', vi.fn(async () => new Response('auth required', {
-      status: 401, headers: { 'X-Denova-Auth': 'required' },
+      status: 401, headers: { 'X-InkDock-Auth': 'required' },
     })))
     await expect(requestJSON('/api/settings')).rejects.toThrow('auth required')
     expect(invalidate).toHaveBeenCalledWith({ queryKey: ['remote-access'] })

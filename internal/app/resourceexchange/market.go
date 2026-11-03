@@ -16,10 +16,10 @@ import (
 	"sync"
 	"time"
 
-	"denova/config"
-	"denova/internal/hostruntime"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 const CatalogURL = config.DefaultMarketRegistryURL

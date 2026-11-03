@@ -9,9 +9,9 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
-	"denova/internal/book"
-	imageprompting "denova/internal/image/prompting"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	imageprompting "github.com/vevila2020/writing_platform_ai/internal/image/prompting"
 )
 
 const (
@@ -150,7 +150,7 @@ func buildImageBuiltinInstruction(cfg *config.Config, state *book.State, systemP
 		}
 	}
 	parts := []string{
-		"You are Denova's general Image Agent. Convert bounded context supplied by the caller into an image-generation request.",
+		"You are InkDock's general Image Agent. Convert bounded context supplied by the caller into an image-generation request.",
 		"Understand purpose, source_context, the caller's system prompt, and loaded Skills before calling generate_image.",
 		"Generate only images and image metadata. Do not modify story prose, chapter prose, lore, configuration, or other workspace content.",
 		"Author one complete final prompt for the selected image model. Use natural language only when the selected model's prompt guide does not require another syntax.",
@@ -165,7 +165,7 @@ func buildImageBuiltinInstruction(cfg *config.Config, state *book.State, systemP
 	return strings.Join(parts, "\n\n"), workspace
 }
 
-const versionSummarySystemInstruction = "You are Denova's version-summary generator. Infer the core creative change in this save from the file changes. Output exactly one Chinese version summary of 10 to 30 Han characters. Do not include numbering, quotation marks, a colon, a final period, or any explanation."
+const versionSummarySystemInstruction = "You are InkDock's version-summary generator. Infer the core creative change in this save from the file changes. Output exactly one Chinese version summary of 10 to 30 Han characters. Do not include numbering, quotation marks, a colon, a final period, or any explanation."
 
 // BuiltinAgentPrompts returns the default system prompts shown in the Agents
 // settings page. The result is read-only display data; persisted overrides
@@ -253,14 +253,14 @@ func builtinPromptSourceList(cfg *config.Config, agentKind, flow string, extraSo
 	sources = append(sources, config.AgentPromptSource{
 		ID:      "runtime_contract",
 		Title:   "Runtime Contract",
-		Source:  "Denova runtime",
+		Source:  "InkDock runtime",
 		Content: runtimeContractForAgent(cfg, agentKind),
 	})
 	if outputProtocol := strings.TrimSpace(outputProtocolForAgent(agentKind)); outputProtocol != "" {
 		sources = append(sources, config.AgentPromptSource{
 			ID:      "output_protocol",
 			Title:   "Output Protocol",
-			Source:  "Denova runtime",
+			Source:  "InkDock runtime",
 			Content: outputProtocol,
 		})
 	}
@@ -272,7 +272,7 @@ func builtinPromptSourceList(cfg *config.Config, agentKind, flow string, extraSo
 	sources = append(sources, config.AgentPromptSource{
 		ID:       "flow",
 		Title:    "Workflow Rules",
-		Source:   "Denova built-in",
+		Source:   "InkDock built-in",
 		Content:  editablePromptFlowForAgent(agentKind, flow),
 		Editable: true,
 		Field:    "flow_prompt",

@@ -2,20 +2,20 @@ package app
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/conversationconfig"
-	agentexecution "denova/internal/agents/execution"
-	"denova/internal/analytics"
-	apptask "denova/internal/app/task"
 	"fmt"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	agentrun "denova/internal/agents/run"
-	agentruntime "denova/internal/agents/runtime"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // StartInteractiveTask 启动游戏模式 Agent 任务，输出写回 interactive/story。

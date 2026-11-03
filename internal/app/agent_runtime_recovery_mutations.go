@@ -2,10 +2,10 @@ package app
 
 import (
 	"context"
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
 	"fmt"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 	"log/slog"
 )
 

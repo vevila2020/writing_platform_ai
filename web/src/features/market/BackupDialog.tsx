@@ -110,7 +110,7 @@ export function BackupDialog({
                         const url = URL.createObjectURL(await response.blob())
                         const link = document.createElement('a')
                         link.href = url
-                        link.download = `denova-backup-${backup.backup_id}.zip`
+                        link.download = `inkdock-backup-${backup.backup_id}.zip`
                         link.click()
                         setTimeout(() => URL.revokeObjectURL(url), 1000)
                       })

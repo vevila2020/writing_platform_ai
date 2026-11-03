@@ -25,7 +25,7 @@ x-titleKey/x-descriptionKey; reuse the existing JSON Schema form subset.
 Static views need no Node; backends require Node 22+. Plugin named model slots
 are image-only; text uses builtin/assistant. Project plugin settings bind model
 profiles and local disablement. A shared Project activation owns separate panel
-and command consumers. Forward connection.consumerId as X-Denova-Consumer on
+and command consumers. Forward connection.consumerId as X-InkDock-Consumer on
 host requests (SDKs do this); closing a consumer cancels its asynchronous work
 and revokes its token. Last close stops the runtime. Report busy/dirty via
 client.setState for close protection. Hide/navigation does not change Project.
@@ -64,10 +64,10 @@ it, put it in a URL, or call trusted `/api/platform/manage` routes from a packag
 `context` contains source, scope, locale, theme, environment, settings and optional setup.
 Handle `denova:appearance` for changes to the single displayed language and theme.
 
-Node backends use `runtime.mjs` and the `denova-runtime-v1` bootstrap protocol.
+Node backends use `runtime.mjs` and the `inkdock-runtime-v1` bootstrap protocol.
 The host sends bootstrap JSON through stdin, including `packageDir`, `dataDir`,
 `tempDir`, connection and `hostToken`. Authenticate every backend endpoint using
-that token. Print the ready protocol/port response, support `/__denova/ready`, and
+that token. Print the ready protocol/port response, support `/__inkdock/ready`, and
 stop on shutdown or stdin closure. Node code runs with the current OS account's
 permissions. Scope credentials are not an OS sandbox.
 

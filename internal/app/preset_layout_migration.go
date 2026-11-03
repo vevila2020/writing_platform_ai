@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 )
 
 const (

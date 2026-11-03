@@ -10,12 +10,12 @@ import (
 	"runtime"
 	"strings"
 
-	"denova/internal/revisionfile"
-	"denova/internal/style"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 
-	"github.com/alfredxw/denova/agent/model/providers"
 	toml "github.com/pelletier/go-toml/v2"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 // Settings 是用户设置的持久化模型。工作区文件只会从中取出 Agent 定制字段。
@@ -58,8 +58,8 @@ type Settings struct {
 
 	// 路径
 	SkillsDir    string `toml:"skills_dir,omitempty" json:"skills_dir,omitempty"`
+	InkDockDir   string `toml:"inkdock_dir,omitempty" json:"inkdock_dir,omitempty"`
 	DenovaDir    string `toml:"denova_dir,omitempty" json:"denova_dir,omitempty"`
-	NovaDir      string `toml:"nova_dir,omitempty" json:"nova_dir,omitempty"`
 	BackendPort  *int   `toml:"backend_port,omitempty" json:"backend_port,omitempty"`
 	FrontendPort *int   `toml:"frontend_port,omitempty" json:"frontend_port,omitempty"`
 
@@ -188,7 +188,7 @@ func DefaultSettings() Settings {
 	// Only the v0.5.1 updater handoff needs the former default. Keep this in
 	// the lowest configuration layer so explicit ports still win. The updater
 	// scopes this origin to one launch and clears it before subsequent updates.
-	if os.Getenv("DENOVA_UPDATE_ID") != "" && strings.TrimPrefix(os.Getenv("DENOVA_UPDATE_FROM_VERSION"), "v") == "0.5.1" {
+	if os.Getenv("INKDOCK_UPDATE_ID") != "" && strings.TrimPrefix(os.Getenv("INKDOCK_UPDATE_FROM_VERSION"), "v") == "0.5.1" {
 		backendPort = 8080
 	}
 	return Settings{
@@ -198,8 +198,8 @@ func DefaultSettings() Settings {
 		ImageAPIEndpoints:           []ImageAPIEndpointSettings{DefaultImageAPIEndpoint()},
 		ImageAPIProfiles:            []ImageAPIProfileSettings{DefaultImageAPIProfile()},
 		SkillsDir:                   "./skills",
+		InkDockDir:                  "./" + workspacelayout.DataDirName,
 		DenovaDir:                   "./" + workspacelayout.DataDirName,
-		NovaDir:                     "./" + workspacelayout.DataDirName,
 		BackendPort:                 intPtr(backendPort),
 		FrontendPort:                intPtr(7788),
 		AllowLANAccess:              boolPtr(false),
@@ -324,13 +324,13 @@ func Merge(parent, child Settings) Settings {
 	if child.SkillsDir != "" {
 		out.SkillsDir = child.SkillsDir
 	}
-	if child.NovaDir != "" {
-		out.DenovaDir = child.NovaDir
-		out.NovaDir = child.NovaDir
-	}
 	if child.DenovaDir != "" {
+		out.InkDockDir = child.DenovaDir
 		out.DenovaDir = child.DenovaDir
-		out.NovaDir = child.DenovaDir
+	}
+	if child.InkDockDir != "" {
+		out.InkDockDir = child.InkDockDir
+		out.DenovaDir = child.InkDockDir
 	}
 	if child.BackendPort != nil {
 		out.BackendPort = child.BackendPort
@@ -518,7 +518,7 @@ func Merge(parent, child Settings) Settings {
 }
 
 const (
-	// UserConfigFilename 是用户级配置文件名（位于 DenovaDir 下）。
+	// UserConfigFilename 是用户级配置文件名（位于 InkDockDir 下）。
 	UserConfigFilename = "config.toml"
 	// WorkspaceConfigDir 是工作区级 Agent 定制目录（相对于 workspace）。
 	WorkspaceConfigDir = workspacelayout.DataDirName
@@ -566,8 +566,8 @@ var (
 
 // SettingsPaths 是设置页只读展示的真实配置路径。
 type SettingsPaths struct {
+	InkDockDir      string `json:"inkdock_dir"`
 	DenovaDir       string `json:"denova_dir"`
-	NovaDir         string `json:"nova_dir"`
 	UserConfig      string `json:"user_config"`
 	WorkspaceConfig string `json:"workspace_config"`
 }
@@ -578,7 +578,7 @@ type SettingsRevisions struct {
 	Workspace string `json:"workspace"`
 }
 
-// SettingsAccess exposes the Denova entry addresses users can open in browsers.
+// SettingsAccess exposes the InkDock entry addresses users can open in browsers.
 type SettingsAccess struct {
 	LocalURL string `json:"local_url"`
 	LANURL   string `json:"lan_url"`
@@ -753,12 +753,12 @@ func SettingsFileRevision(path string) (string, error) {
 	return snapshot.Revision, nil
 }
 
-// UserConfigPath 计算用户级配置路径。novaDir 已经过 normalizePath 处理。
-func UserConfigPath(novaDir string) string {
-	if novaDir == "" {
-		novaDir = normalizePath(defaultNovaDir())
+// UserConfigPath 计算用户级配置路径。dataDir 已经过 normalizePath 处理。
+func UserConfigPath(dataDir string) string {
+	if dataDir == "" {
+		dataDir = normalizePath(defaultDataDir())
 	}
-	return filepath.Join(novaDir, UserConfigFilename)
+	return filepath.Join(dataDir, UserConfigFilename)
 }
 
 // WorkspaceConfigPath 计算工作区级 Agent 定制路径。
@@ -777,31 +777,31 @@ func ProjectConfigPath(projectStoreRoot string) string {
 }
 
 // LoadLayered 读取用户设置 + 工作区 Agent 定制并与默认值合并。
-// novaDir 为空时使用默认 ./.denova（后端运行目录下），已有 ./.nova 时兼容沿用。
-func LoadLayered(novaDir, workspace string) (LayeredSettings, error) {
-	return LoadLayeredWithGlobal(novaDir, workspace, Settings{})
+// dataDir 为空时使用默认 ./.inkdock（后端运行目录下），已有 ./.denova 时兼容沿用。
+func LoadLayered(dataDir, workspace string) (LayeredSettings, error) {
+	return LoadLayeredWithGlobal(dataDir, workspace, Settings{})
 }
 
 // LoadLayeredWithGlobal 读取用户设置 + 工作区 Agent 定制，并加入全局启动配置层。
-func LoadLayeredWithGlobal(novaDir, workspace string, global Settings) (LayeredSettings, error) {
-	return LoadLayeredWithGlobalAt(novaDir, workspace, "", global)
+func LoadLayeredWithGlobal(dataDir, workspace string, global Settings) (LayeredSettings, error) {
+	return LoadLayeredWithGlobalAt(dataDir, workspace, "", global)
 }
 
 // LoadLayeredWithGlobalAt is the Project-aware settings boundary. The content
 // workspace remains available to runtime consumers while its user-owned Agent
 // configuration is read from projectConfigPath.
-func LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath string, global Settings) (LayeredSettings, error) {
-	if strings.TrimSpace(novaDir) == "" {
-		novaDir = normalizePath(defaultNovaDir())
+func LoadLayeredWithGlobalAt(dataDir, workspace, projectConfigPath string, global Settings) (LayeredSettings, error) {
+	if strings.TrimSpace(dataDir) == "" {
+		dataDir = normalizePath(defaultDataDir())
 	} else {
-		novaDir = normalizePath(novaDir)
+		dataDir = normalizePath(dataDir)
 	}
 	global.AgentToolResultLimitKB = normalizeAgentToolResultLimitKB(global.AgentToolResultLimitKB)
 	global.AgentToolParallelism = normalizeAgentToolParallelism(global.AgentToolParallelism)
 	global.AgentSubAgentParallelism = normalizeAgentSubAgentParallelism(global.AgentSubAgentParallelism)
 	global.AgentScriptTimeoutSeconds = normalizeAgentScriptTimeoutSeconds(global.AgentScriptTimeoutSeconds)
 	global.ProjectFileTreeEntryLimit = normalizeProjectFileTreeEntryLimit(global.ProjectFileTreeEntryLimit)
-	user, err := loadUserSettingsWithProfiles(novaDir)
+	user, err := loadUserSettingsWithProfiles(dataDir)
 	if err != nil {
 		return LayeredSettings{}, err
 	}
@@ -818,16 +818,16 @@ func LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath string, globa
 		ws = workspaceAgentSettings(ws)
 	}
 	def := DefaultSettings()
-	def.DenovaDir = novaDir
-	def.NovaDir = novaDir
-	globalDir := firstNonEmpty(global.DenovaDir, global.NovaDir)
+	def.InkDockDir = dataDir
+	def.DenovaDir = dataDir
+	globalDir := firstNonEmpty(global.InkDockDir, global.DenovaDir)
 	if globalDir == "" {
-		global.DenovaDir = novaDir
-		global.NovaDir = novaDir
+		global.InkDockDir = dataDir
+		global.DenovaDir = dataDir
 	} else {
 		globalDir = normalizePath(globalDir)
+		global.InkDockDir = globalDir
 		global.DenovaDir = globalDir
-		global.NovaDir = globalDir
 	}
 	eff := Merge(Merge(Merge(def, global), user), ws)
 	// Creation defaults are Project-owned, never inherited from another book
@@ -861,8 +861,8 @@ func LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath string, globa
 	}
 	backendPort := settingsInt(eff.BackendPort, 7789)
 	revisions := SettingsRevisions{}
-	userConfigPath := UserConfigPath(novaDir)
-	if rev, err := UserSettingsRevision(novaDir); err == nil {
+	userConfigPath := UserConfigPath(dataDir)
+	if rev, err := UserSettingsRevision(dataDir); err == nil {
 		revisions.User = rev
 	} else {
 		return LayeredSettings{}, err
@@ -882,8 +882,8 @@ func LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath string, globa
 		Inherited: inherited,
 		Effective: eff,
 		Paths: SettingsPaths{
-			DenovaDir:       novaDir,
-			NovaDir:         novaDir,
+			InkDockDir:      dataDir,
+			DenovaDir:       dataDir,
 			UserConfig:      userConfigPath,
 			WorkspaceConfig: workspaceConfigPath,
 		},
@@ -955,9 +955,9 @@ func sanitizeEditableSettings(s Settings) Settings {
 	s = preserveTerminalCommandRegistryPresence(s)
 	s, _ = migrateModelEndpointSettings(s)
 	s, _ = migrateImageAPIEndpointSettings(s)
-	// denova_dir/nova_dir 是启动级定位参数，不能由用户级/工作区级配置反向修改自身位置。
+	// inkdock_dir/denova_dir 是启动级定位参数，不能由用户级/工作区级配置反向修改自身位置。
+	s.InkDockDir = ""
 	s.DenovaDir = ""
-	s.NovaDir = ""
 	s.BackendPort = normalizePort(s.BackendPort)
 	s.FrontendPort = normalizePort(s.FrontendPort)
 	s.RemoteAccessUsername = strings.TrimSpace(s.RemoteAccessUsername)

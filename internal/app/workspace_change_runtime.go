@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // ErrWorkspaceChanged means a mutation was submitted for a workspace that is

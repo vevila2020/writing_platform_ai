@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/webfs"
 	"github.com/cloudwego/hertz/pkg/common/ut"
+	"github.com/vevila2020/writing_platform_ai/internal/webfs"
 )
 
 func TestReleaseRoutesIgnoreStaleDiskFrontend(t *testing.T) {
@@ -24,7 +24,7 @@ func TestReleaseRoutesIgnoreStaleDiskFrontend(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(stale, "index.html"), []byte("obsolete frontend"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("DENOVA_WEB_DIR", stale)
+	t.Setenv("INKDOCK_WEB_DIR", stale)
 	t.Chdir(root)
 	server := NewServer(newTestApplication(t), "0")
 	expected := httptest.NewRecorder()

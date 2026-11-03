@@ -5,9 +5,9 @@ import (
 	"errors"
 	"strings"
 
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func userInput(input external.Input) ([]map[string]any, error) {

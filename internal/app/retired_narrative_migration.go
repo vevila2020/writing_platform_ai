@@ -8,8 +8,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/internal/presetlayout"
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // migrateRetiredNarrativeStyle runs under the startup lease, after preset layout

@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (c *Conversation) ReadCanonicalWindow(ctx context.Context, count int, archive *agenthistory.HistoryArchive) ([]*agentschema.Message, error) {

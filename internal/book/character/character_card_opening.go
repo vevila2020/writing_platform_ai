@@ -2,11 +2,11 @@ package character
 
 import (
 	"bytes"
-	"denova/internal/book"
-	"denova/internal/book/lore"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"os"
 	"path/filepath"
 	"strings"

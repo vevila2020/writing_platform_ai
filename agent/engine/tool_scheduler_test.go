@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 type schedulerTool struct {

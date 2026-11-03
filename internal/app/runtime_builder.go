@@ -6,16 +6,16 @@ import (
 	"os"
 	"path/filepath"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/session"
-	appconversation "denova/internal/app/conversation"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/book"
-	"denova/internal/interactive"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appconversation "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 type ProjectType = projectdomain.Type
@@ -97,7 +97,7 @@ func buildRuntime(ctx context.Context, cfg *config.Config, layout ProjectLayout)
 	if err != nil {
 		return nil, fmt.Errorf("create conversation session: %w", err)
 	}
-	interactiveStore := interactive.NewStoreWithNovaDir(absWorkspace, runtimeCfg.DataDir())
+	interactiveStore := interactive.NewStoreWithDenovaDir(absWorkspace, runtimeCfg.DataDir())
 	runtime := &runtimeState{
 		projectID:        layout.ProjectID,
 		projectStoreRoot: layout.StoreRoot,

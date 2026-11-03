@@ -52,7 +52,7 @@ type ComfyUIInputBinding struct {
 	InputName string `toml:"input_name" json:"input_name"`
 }
 
-// ComfyUIBindings is the complete public control surface Denova projects onto
+// ComfyUIBindings is the complete public control surface InkDock projects onto
 // a discovered workflow. Width and height form the optional size capability;
 // random seed handling remains an adapter policy rather than a user binding.
 type ComfyUIBindings struct {
@@ -173,13 +173,13 @@ func ApplyImageAPIEnvironment(cfg *Config) {
 	if cfg == nil {
 		return
 	}
-	provider := strings.TrimSpace(os.Getenv("DENOVA_IMAGE_PROVIDER"))
-	protocol := strings.TrimSpace(os.Getenv("DENOVA_IMAGE_PROTOCOL"))
+	provider := strings.TrimSpace(os.Getenv("INKDOCK_IMAGE_PROVIDER"))
+	protocol := strings.TrimSpace(os.Getenv("INKDOCK_IMAGE_PROTOCOL"))
 	allowLegacyOpenAI := (provider == "" || normalizeImageAPIProvider(provider) == ImageProviderOpenAI) &&
 		(protocol == "" || normalizeImageAPIProtocol(protocol) == ImageProtocolOpenAI)
-	apiKey, legacyKey := imageEnvironmentValue("DENOVA_IMAGE_API_KEY", "OPENAI_IMAGE_API_KEY", allowLegacyOpenAI)
-	baseURL, legacyBaseURL := imageEnvironmentValue("DENOVA_IMAGE_BASE_URL", "OPENAI_IMAGE_BASE_URL", allowLegacyOpenAI)
-	model, legacyModel := imageEnvironmentValue("DENOVA_IMAGE_MODEL", "OPENAI_IMAGE_MODEL", allowLegacyOpenAI)
+	apiKey, legacyKey := imageEnvironmentValue("INKDOCK_IMAGE_API_KEY", "OPENAI_IMAGE_API_KEY", allowLegacyOpenAI)
+	baseURL, legacyBaseURL := imageEnvironmentValue("INKDOCK_IMAGE_BASE_URL", "OPENAI_IMAGE_BASE_URL", allowLegacyOpenAI)
+	model, legacyModel := imageEnvironmentValue("INKDOCK_IMAGE_MODEL", "OPENAI_IMAGE_MODEL", allowLegacyOpenAI)
 	if legacyKey || legacyBaseURL || legacyModel {
 		if provider == "" {
 			provider = ImageProviderOpenAI

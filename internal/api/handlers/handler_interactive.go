@@ -10,12 +10,12 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	appsvc "denova/internal/app"
-	imageapp "denova/internal/app/image"
-	imagepreset "denova/internal/image/preset"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func (h *Handlers) HandleInteractiveStories(ctx context.Context, c *app.RequestContext) {

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"sort"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // DeleteSessions closes matching in-process handles, then removes their

@@ -21,14 +21,14 @@ import (
 // locks, process handles, executable replacement or the shutdown handoff.
 func TestUpdaterProcessHandoffAndRecovery(t *testing.T) {
 	root := t.TempDir()
-	exeName := "denova"
+	exeName := "inkdock"
 	if runtime.GOOS == "windows" {
 		exeName += ".exe"
 	}
 	fixture := filepath.Join(root, "fixture"+filepath.Ext(exeName))
 	updater := filepath.Join(root, updaterExecutableName())
-	for _, build := range []struct{ target, pkg string }{{fixture, "./testdata/app"}, {updater, "../../cmd/denova-updater"}} {
-		cmd := exec.Command("go", "build", "-ldflags", "-X denova/internal/buildinfo.Version=0.2.0", "-o", build.target, build.pkg)
+	for _, build := range []struct{ target, pkg string }{{fixture, "./testdata/app"}, {updater, "../../cmd/inkdock-updater"}} {
+		cmd := exec.Command("go", "build", "-ldflags", "-X github.com/vevila2020/writing_platform_ai/internal/buildinfo.Version=0.2.0", "-o", build.target, build.pkg)
 		if output, err := cmd.CombinedOutput(); err != nil {
 			t.Fatalf("build process fixture: %v\n%s", err, output)
 		}
@@ -61,7 +61,7 @@ func TestUpdaterProcessHandoffAndRecovery(t *testing.T) {
 			recovering := scenario.phase == PhaseApplying
 			completed := scenario.phase == PhaseSucceeded
 			install := t.TempDir()
-			source := filepath.Join(updateDataDir(install), "pending-test", "denova")
+			source := filepath.Join(updateDataDir(install), "pending-test", "inkdock")
 			writeUpdateTestPackage(t, install, updateTestPackageContents{Skill: "old skill"})
 			writeUpdateTestPackage(t, source, updateTestPackageContents{Skill: "new skill"})
 			target := filepath.Join(install, exeName)
@@ -133,7 +133,7 @@ func TestUpdaterProcessHandoffAndRecovery(t *testing.T) {
 			if scenario.legacy {
 				cmd = exec.Command(m.UpdaterExecutable, "--manifest", path)
 			}
-			cmd.Env = append(os.Environ(), "DENOVA_UPDATE_TEST_ROOT="+install)
+			cmd.Env = append(os.Environ(), "INKDOCK_UPDATE_TEST_ROOT="+install)
 			cmd.Dir = install
 			cmd.Stdout, cmd.Stderr = log, log
 			if err := cmd.Start(); err != nil {

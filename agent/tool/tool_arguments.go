@@ -12,9 +12,9 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/invopop/jsonschema"
 	"github.com/kaptinlin/jsonrepair"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ToolArgumentIssue is one machine-readable reason a tool call could not be

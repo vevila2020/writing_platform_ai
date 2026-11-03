@@ -8,7 +8,7 @@ VERSION="${1:-${GITHUB_REF_NAME:-}}"
 TARGET="${2:-all}"
 # CI owns verification. Packaging consumes its exact-revision frontend artifact;
 # standalone builds prepare the frontend once but do not rerun the test suites.
-FRONTEND_DIR="${DENOVA_RELEASE_FRONTEND_DIR:-${ROOT_DIR}/web/dist}"
+FRONTEND_DIR="${INKDOCK_RELEASE_FRONTEND_DIR:-${ROOT_DIR}/web/dist}"
 
 if [[ -z "${VERSION}" ]]; then
   if git -C "${ROOT_DIR}" describe --tags --exact-match >/dev/null 2>&1; then
@@ -19,11 +19,11 @@ if [[ -z "${VERSION}" ]]; then
 fi
 
 TARGETS=(
-  "darwin-arm64:darwin:arm64:denova:denova-updater:tar.gz"
-  "darwin-x64:darwin:amd64:denova:denova-updater:tar.gz"
-  "linux-arm64:linux:arm64:denova:denova-updater:tar.gz"
-  "linux-x64:linux:amd64:denova:denova-updater:tar.gz"
-  "windows-x64:windows:amd64:denova.exe:denova-updater.exe:zip"
+  "darwin-arm64:darwin:arm64:inkdock:inkdock-updater:tar.gz"
+  "darwin-x64:darwin:amd64:inkdock:inkdock-updater:tar.gz"
+  "linux-arm64:linux:arm64:inkdock:inkdock-updater:tar.gz"
+  "linux-x64:linux:amd64:inkdock:inkdock-updater:tar.gz"
+  "windows-x64:windows:amd64:inkdock.exe:inkdock-updater.exe:zip"
 )
 
 require_command() {
@@ -139,18 +139,18 @@ macOS / Linux one-command install / 一键安装：
 curl -fsSL https://github.com/vevila2020/writing_platform_ai/releases/latest/download/install.sh | sh
 ```
 
-Or download the archive for your platform, verify it against `checksums.txt`, extract it, and run the `denova` executable from the extracted archive.
+Or download the archive for your platform, verify it against `checksums.txt`, extract it, and run the `inkdock` executable from the extracted archive.
 
-也可以下载对应平台压缩包，使用 `checksums.txt` 校验后解压，并运行其中的 `denova` 程序：
+也可以下载对应平台压缩包，使用 `checksums.txt` 校验后解压，并运行其中的 `inkdock` 程序：
 
 ```bash
-./denova
+./inkdock
 ```
 
 Windows:
 
 ```powershell
-denova.exe
+inkdock.exe
 ```
 
 Checksum example / 校验示例：
@@ -185,7 +185,7 @@ fi
 echo "==> Building GitHub Release assets version=${VERSION} target=${TARGET}"
 cd "${ROOT_DIR}"
 validate_release_metadata
-if [[ -z "${DENOVA_RELEASE_FRONTEND_DIR:-}" ]]; then
+if [[ -z "${INKDOCK_RELEASE_FRONTEND_DIR:-}" ]]; then
   echo "==> Preparing frontend (run CI separately before publishing)"
   run_pnpm -C "${ROOT_DIR}/web" install --frozen-lockfile
   run_pnpm -C "${ROOT_DIR}/web" check:i18n
@@ -206,17 +206,17 @@ cp -R "${FRONTEND_DIR}" "${ROOT_DIR}/internal/webfs/dist"
 echo "==> Compiling and packaging"
 for target in "${TARGETS[@]}"; do
   IFS=":" read -r key goos goarch exe updater_exe archive_type <<<"${target}"
-  package_name="denova-${VERSION}-${key}"
-  package_dir="${BUILD_DIR}/${package_name}/denova"
+  package_name="inkdock-${VERSION}-${key}"
+  package_dir="${BUILD_DIR}/${package_name}/inkdock"
   rm -rf "${BUILD_DIR}/${package_name}"
   mkdir -p "${package_dir}"
 
   echo "  -> ${key}"
   binary_version="${VERSION#v}"
   CGO_ENABLED=0 GOOS="${goos}" GOARCH="${goarch}" \
-    go build -tags embedweb -trimpath -ldflags "-s -w -X denova/internal/buildinfo.Version=${binary_version}" -o "${package_dir}/${exe}" ./cmd/denova
+    go build -tags embedweb -trimpath -ldflags "-s -w -X github.com/vevila2020/writing_platform_ai/internal/buildinfo.Version=${binary_version}" -o "${package_dir}/${exe}" ./cmd/inkdock
   CGO_ENABLED=0 GOOS="${goos}" GOARCH="${goarch}" \
-    go build -trimpath -ldflags "-s -w -X denova/internal/buildinfo.Version=${binary_version}" -o "${package_dir}/${updater_exe}" ./cmd/denova-updater
+    go build -trimpath -ldflags "-s -w -X github.com/vevila2020/writing_platform_ai/internal/buildinfo.Version=${binary_version}" -o "${package_dir}/${updater_exe}" ./cmd/inkdock-updater
 
   go run ./scripts/ripgrep-assets \
     -target "${key}" \
@@ -242,11 +242,11 @@ for target in "${TARGETS[@]}"; do
     (
       cd "${BUILD_DIR}/${package_name}"
       if command -v zip >/dev/null 2>&1; then
-        zip -qr "${DIST_DIR}/${package_name}.zip" denova
+        zip -qr "${DIST_DIR}/${package_name}.zip" inkdock
       elif command -v python3 >/dev/null 2>&1; then
-        python3 -m zipfile -c "${DIST_DIR}/${package_name}.zip" denova
+        python3 -m zipfile -c "${DIST_DIR}/${package_name}.zip" inkdock
       elif command -v python >/dev/null 2>&1; then
-        python -m zipfile -c "${DIST_DIR}/${package_name}.zip" denova
+        python -m zipfile -c "${DIST_DIR}/${package_name}.zip" inkdock
       else
         echo "Error: zip or Python is required to create the Windows archive" >&2
         exit 1
@@ -255,14 +255,14 @@ for target in "${TARGETS[@]}"; do
   else
     (
       cd "${BUILD_DIR}/${package_name}"
-      tar -czf "${DIST_DIR}/${package_name}.tar.gz" denova
+      tar -czf "${DIST_DIR}/${package_name}.tar.gz" inkdock
     )
   fi
 done
 
 echo "==> Writing checksums.txt"
 : > "${DIST_DIR}/checksums.txt"
-for file in "${DIST_DIR}"/denova-"${VERSION}"-*; do
+for file in "${DIST_DIR}"/inkdock-"${VERSION}"-*; do
   checksum_file "${file}" >> "${DIST_DIR}/checksums.txt"
 done
 

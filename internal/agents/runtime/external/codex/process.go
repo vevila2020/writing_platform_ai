@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/hostruntime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 
 	"github.com/Masterminds/semver/v3"
 )
@@ -37,7 +37,7 @@ type ProcessOptions struct {
 
 // Connect starts one owned App Server using the user's Codex configuration.
 // The empty working directory and per-process tool policy keep Project writes
-// on Denova's journalled tool path; account and network settings remain shared.
+// on InkDock's journalled tool path; account and network settings remain shared.
 func Connect(ctx context.Context, options ProcessOptions) (*Client, error) {
 	if !filepath.IsAbs(options.Executable) || !filepath.IsAbs(options.Home) {
 		return nil, errors.New("App Server executable and shared home must be absolute paths")
@@ -57,11 +57,11 @@ func Connect(ctx context.Context, options ProcessOptions) (*Client, error) {
 	if err := os.MkdirAll(options.Home, 0o700); err != nil {
 		return nil, err
 	}
-	cwd, err := os.MkdirTemp("", "denova-engine-")
+	cwd, err := os.MkdirTemp("", "inkdock-engine-")
 	if err != nil {
 		return nil, err
 	}
-	// Denova supplies its filtered Skill catalog and loader. Ambient discovery
+	// InkDock supplies its filtered Skill catalog and loader. Ambient discovery
 	// must not inject a second catalog that bypasses the library's opt-in.
 	args := []string{"app-server", "-c", `web_search="disabled"`, "-c", "project_doc_max_bytes=0", "-c", "skills.include_instructions=false"}
 	for _, feature := range []string{"shell_tool", "unified_exec", "apply_patch_freeform", "multi_agent", "apps", "browser_use", "browser_use_external", "computer_use", "in_app_browser", "image_generation", "plugins", "hooks", "goals", "memories", "workspace_dependencies", "shell_snapshot"} {

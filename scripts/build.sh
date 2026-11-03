@@ -6,7 +6,7 @@ cd "${ROOT_DIR}"
 
 OUTPUT_DIR="output"
 # Source builds use the development contract; release packaging injects its tag.
-VERSION="${DENOVA_VERSION:-${NOVA_VERSION:-dev}}"
+VERSION="${INKDOCK_VERSION:-${DENOVA_VERSION:-dev}}"
 
 echo "==> 清理 output 目录"
 rm -rf "${OUTPUT_DIR}"
@@ -29,14 +29,14 @@ if [ -d "web" ]; then
     cp -r web/dist internal/webfs/dist
     EMBED_TAG="-tags embedweb"
 else
-    echo "警告: web/ 目录不存在，跳过前端构建（denova 将不含内嵌前端）"
+    echo "警告: web/ 目录不存在，跳过前端构建（InkDock 将不含内嵌前端）"
 fi
 
-echo "==> 编译 denova"
-go build ${EMBED_TAG} -ldflags "-X denova/internal/buildinfo.Version=${VERSION}" -o "${OUTPUT_DIR}/denova" ./cmd/denova/
+echo "==> 编译 inkdock"
+go build ${EMBED_TAG} -ldflags "-X github.com/vevila2020/writing_platform_ai/internal/buildinfo.Version=${VERSION}" -o "${OUTPUT_DIR}/inkdock" ./cmd/inkdock/
 
-echo "==> 编译 denova-updater"
-go build -ldflags "-X denova/internal/buildinfo.Version=${VERSION}" -o "${OUTPUT_DIR}/denova-updater" ./cmd/denova-updater/
+echo "==> 编译 inkdock-updater"
+go build -ldflags "-X github.com/vevila2020/writing_platform_ai/internal/buildinfo.Version=${VERSION}" -o "${OUTPUT_DIR}/inkdock-updater" ./cmd/inkdock-updater/
 
 echo "==> 打包内置 ripgrep"
 RIPGREP_GOOS="$(go env GOOS)"
@@ -50,8 +50,8 @@ case "${RIPGREP_GOOS}-${RIPGREP_GOARCH}" in
     linux-amd64) RIPGREP_TARGET="linux-x64" ;;
     windows-amd64) RIPGREP_TARGET="windows-x64" ;;
     *)
-        echo "错误: 当前平台没有 Denova 内置 ripgrep 产物: ${RIPGREP_GOOS}-${RIPGREP_GOARCH}" >&2
-        echo "Error: no bundled Denova ripgrep asset is available for ${RIPGREP_GOOS}-${RIPGREP_GOARCH}" >&2
+        echo "错误: 当前平台没有 InkDock 内置 ripgrep 产物: ${RIPGREP_GOOS}-${RIPGREP_GOARCH}" >&2
+        echo "Error: no bundled InkDock ripgrep asset is available for ${RIPGREP_GOOS}-${RIPGREP_GOARCH}" >&2
         exit 1
         ;;
 esac
@@ -81,4 +81,4 @@ echo "  输出目录: ${OUTPUT_DIR}/"
 ls -la "${OUTPUT_DIR}/"
 echo ""
 echo "使用方式:"
-echo "  cd ${OUTPUT_DIR} && ./denova --workspace /path/to/my-novel"
+echo "  cd ${OUTPUT_DIR} && ./inkdock --workspace /path/to/my-novel"

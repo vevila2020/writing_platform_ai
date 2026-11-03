@@ -13,12 +13,12 @@ import (
 	"strings"
 	"sync"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func (c *Client) Run(ctx context.Context, input external.Input, host external.Host) (result external.Result, runErr error) {
@@ -96,7 +96,7 @@ func (c *Client) Run(ctx context.Context, input external.Input, host external.Ho
 	dir := input.Directory
 	if dir == "" {
 		var err error
-		dir, err = os.MkdirTemp("", "denova-claude-")
+		dir, err = os.MkdirTemp("", "inkdock-claude-")
 		if err != nil {
 			return result, err
 		}
@@ -172,7 +172,7 @@ func (c *Client) Run(ctx context.Context, input external.Input, host external.Ho
 	// The SDK interrupt protocol lets the engine finish its terminal result.
 	// WaitDelay is an infrastructure bound for an unresponsive process only.
 	cmd.Cancel = func() error {
-		return write([]byte("{\"type\":\"control_request\",\"request_id\":\"denova-interrupt\",\"request\":{\"subtype\":\"interrupt\"}}\n"))
+		return write([]byte("{\"type\":\"control_request\",\"request_id\":\"inkdock-interrupt\",\"request\":{\"subtype\":\"interrupt\"}}\n"))
 	}
 	reader, err := cmd.StdoutPipe()
 	if err != nil {

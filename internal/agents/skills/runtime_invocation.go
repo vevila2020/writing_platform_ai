@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 )
 
 // Invocation is a Skill deterministically resolved from an explicit
@@ -68,6 +68,6 @@ func (invocation Invocation) ModelContent() string {
 }
 
 func runtimeNotice(name string) string {
-	return "[Denova runtime] The user explicitly selected /" + name + ", so the runtime loaded this Skill before the first model request. " +
+	return "[InkDock runtime] The user explicitly selected /" + name + ", so the runtime loaded this Skill before the first model request. " +
 		"Do not call the `skill` tool only to load the same Skill again; follow the instructions below and continue."
 }

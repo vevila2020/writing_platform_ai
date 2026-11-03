@@ -7,7 +7,7 @@ agent: general,ide
 
 # Configuration
 
-Manage every supported configuration resource through the stable `config_read` and `config_apply` tools. Never edit Denova configuration files or internal JSON storage directly.
+Manage every supported configuration resource through the stable `config_read` and `config_apply` tools. Never edit InkDock configuration files or internal JSON storage directly.
 
 ## Required workflow
 

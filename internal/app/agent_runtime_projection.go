@@ -2,20 +2,20 @@ package app
 
 import (
 	"context"
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	apptask "denova/internal/app/task"
 	"errors"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 	"log/slog"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	appagentruntime "denova/internal/app/agentruntime"
-	interactiveapp "denova/internal/app/interactive"
-	"denova/internal/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	interactiveapp "github.com/vevila2020/writing_platform_ai/internal/app/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 type WritingAgentActiveView struct {

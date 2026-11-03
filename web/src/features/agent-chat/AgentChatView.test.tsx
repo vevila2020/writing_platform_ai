@@ -145,7 +145,7 @@ describe('AgentChatView project workbenches', () => {
         composerSettings={{} as never}
         tellers={[]}
         imagePresets={[]}
-        novaDir="/nova"
+        dataDir="/nova"
         renderPage={() => null}
         renderReview={() => null}
         onBeforeCreateBook={onBeforeCreateBook}

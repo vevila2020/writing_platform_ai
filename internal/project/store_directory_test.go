@@ -34,11 +34,11 @@ func TestStoreDirNameValidationUsesCaseInsensitiveCollisionKeys(t *testing.T) {
 }
 
 func TestProjectIDStoreDirectoryMigrationNeverMergesExistingStores(t *testing.T) {
-	denovaDir := t.TempDir()
-	registry := NewRegistry(denovaDir)
+	inkdockDir := t.TempDir()
+	registry := NewRegistry(inkdockDir)
 	record := Record{ID: "project-one", Type: TypeGeneral, StoreDirName: "Book"}
-	source := filepath.Join(denovaDir, storeDirectoryName, record.ID)
-	destination := filepath.Join(denovaDir, storeDirectoryName, record.StoreDirName)
+	source := filepath.Join(inkdockDir, storeDirectoryName, record.ID)
+	destination := filepath.Join(inkdockDir, storeDirectoryName, record.StoreDirName)
 	for _, path := range []string{source, destination} {
 		if err := os.MkdirAll(path, 0o700); err != nil {
 			t.Fatal(err)

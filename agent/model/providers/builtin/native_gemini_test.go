@@ -3,7 +3,7 @@ package builtin
 import (
 	"testing"
 
-	"github.com/alfredxw/denova/agent/model/providers"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
 )
 
 func TestGoogleNativeProtocolIsSelectableWithoutChangingExistingDefaults(t *testing.T) {

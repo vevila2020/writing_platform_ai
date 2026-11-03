@@ -15,7 +15,7 @@ import (
 
 var installHertzLogger sync.Once
 
-// configureHertzLogging routes framework diagnostics through Denova's
+// configureHertzLogging routes framework diagnostics through InkDock's
 // process-wide slog handler. It must run before Hertz starts registering
 // routes because hlog's global logger is not safe to replace concurrently.
 func configureHertzLogging() {

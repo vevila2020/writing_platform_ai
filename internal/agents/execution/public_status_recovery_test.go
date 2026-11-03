@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"denova/internal/agents/canonicalstore"
-	agentrun "denova/internal/agents/run"
-	productsession "denova/internal/agents/session"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/canonicalstore"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	productsession "github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 
-	"github.com/alfredxw/denova/agent"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 type statusCountingStore struct {

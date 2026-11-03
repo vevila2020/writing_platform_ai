@@ -1,8 +1,8 @@
 package interactive
 
 import (
-	interactivestate "denova/internal/interactive/state"
 	"encoding/json"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
 	"reflect"
 	"strings"
 	"testing"

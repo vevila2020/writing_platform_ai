@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"denova/internal/agents/sessionjournal"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 )
 
 // LoadCapability reads product-owned runtime state without creating an Agent.

@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"denova/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
 )
 
 func TestPackageMetadataSurvivesPreviewInstallAndExport(t *testing.T) {

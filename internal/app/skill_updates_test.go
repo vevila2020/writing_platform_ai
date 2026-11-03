@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	"denova/internal/agents/skills"
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestSkillUpdateScanDoesNotMigrateInactiveProjects(t *testing.T) {
@@ -23,7 +23,7 @@ func TestSkillUpdateScanDoesNotMigrateInactiveProjects(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	legacy := filepath.Join(workspace, ".nova", "skills", "legacy", skills.SkillFileName)
+	legacy := filepath.Join(workspace, ".denova", "skills", "legacy", skills.SkillFileName)
 	content := skills.DefaultContent("legacy", "Local Skill")
 	if err := os.MkdirAll(filepath.Dir(legacy), 0o755); err != nil {
 		t.Fatal(err)
@@ -31,7 +31,7 @@ func TestSkillUpdateScanDoesNotMigrateInactiveProjects(t *testing.T) {
 	if err := os.WriteFile(legacy, []byte(content), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	application := &App{cfg: &config.Config{DenovaDir: data}, projectRegistry: registry}
+	application := &App{cfg: &config.Config{InkDockDir: data}, projectRegistry: registry}
 	application.ResourceExchange().UpdateDue(context.Background(), time.Now(), application.ApplyResourcePlan)
 	for _, path := range []string{filepath.Join(workspace, "skills"), layout.StoreRoot} {
 		if _, err := os.Stat(path); !os.IsNotExist(err) {

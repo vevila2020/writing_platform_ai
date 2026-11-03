@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 const StoryEventTypeExtensionRecord = "extension_record"

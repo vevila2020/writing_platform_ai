@@ -207,7 +207,7 @@ export function WorkbenchAppSidebar({
 }
 
 export function WorkbenchBrandIcon() {
-  return <img src="/favicon.svg" alt="Denova" className="size-6 shrink-0 rounded-[7px]" draggable={false} />
+  return <img src="/favicon.svg" alt="InkDock" className="size-6 shrink-0 rounded-[7px]" draggable={false} />
 }
 
 /** Keeps the brand and the primary-menu toggle on one stable icon grid. */
@@ -241,7 +241,7 @@ function ActivityBarBrandRow({
     return (
       <div className="grid h-8 grid-cols-[2rem_minmax(0,1fr)_2rem] items-center gap-2">
         <span className="flex size-8 items-center justify-center"><WorkbenchBrandIcon /></span>
-        <span className="truncate text-xs font-semibold tracking-wide text-[var(--nova-text)]">Denova</span>
+        <span className="truncate text-xs font-semibold tracking-wide text-[var(--nova-text)]">InkDock</span>
         {toggle}
       </div>
     )

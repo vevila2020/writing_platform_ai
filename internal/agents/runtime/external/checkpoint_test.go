@@ -6,9 +6,9 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestExternalCheckpointCoversLargeCanonicalMessageAndReusesVerifiedPrefix(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // AppendDisplayEvent 追加仅用于前端展示的事件，不进入 Agent 有效上下文。

@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/presetlayout"
-	"denova/internal/revisionfile"
-	"denova/internal/revisionjson"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionjson"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 const (

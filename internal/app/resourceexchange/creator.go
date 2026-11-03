@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"denova/config"
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 func validateCreator(raw []byte) error {

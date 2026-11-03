@@ -11,8 +11,8 @@ import (
 
 	"github.com/Masterminds/semver/v3"
 
-	"denova/internal/messages"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/messages"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 var ErrUpdateNotesRange = errors.New("invalid update notes version range")

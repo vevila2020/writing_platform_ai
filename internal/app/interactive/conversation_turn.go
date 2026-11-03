@@ -6,18 +6,18 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentinteractive "denova/internal/agents/interactive"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	"denova/internal/agents/toolresult"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agentcontext "github.com/alfredxw/denova/agent/context"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentcontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 func (c *Conversation) PrepareInteractiveTurn(ctx context.Context, request interactive.TurnCheckRequest) (interactive.RuleResolution, error) {
@@ -489,7 +489,7 @@ func (c *Conversation) stageAssistantOutput(content, thinking string, metadata s
 }
 
 // CommitAgentCanonicalOutput publishes the exact public Agent output through
-// the existing atomic game-turn transaction and preserves Denova's post-commit
+// the existing atomic game-turn transaction and preserves InkDock's post-commit
 // Director/version callbacks.
 func (c *Conversation) CommitAgentCanonicalOutput(
 	ctx context.Context,

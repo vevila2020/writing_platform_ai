@@ -3,7 +3,7 @@ package platform
 import (
 	"io/fs"
 
-	"denova/internal/platform/assets"
+	"github.com/vevila2020/writing_platform_ai/internal/platform/assets"
 )
 
 // PreviewBundled freezes a trusted, embedded extension using normal package

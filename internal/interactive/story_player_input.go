@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 var ErrPlayerInputIdentityConflict = errors.New("player input identity conflict")

@@ -1,8 +1,8 @@
 package resourcecatalog
 
 import (
-	"denova/internal/interactive/teller"
-	"denova/internal/style"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 )
 
 func (s *Service) Tellers() ([]teller.Definition, error) {

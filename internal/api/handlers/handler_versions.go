@@ -2,14 +2,14 @@ package handlers
 
 import (
 	"context"
-	"denova/internal/analytics"
 	"errors"
+	"github.com/vevila2020/writing_platform_ai/internal/analytics"
 	"strconv"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
 )
 
 type versionRestoreRequest struct {

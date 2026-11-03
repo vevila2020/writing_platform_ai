@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/workspace/filewatch"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/filewatch"
 )
 
 func TestWriteProjectFileEvent(t *testing.T) {

@@ -2,7 +2,7 @@ import { toast } from '@/lib/toast'
 import { errorMessage } from '@/lib/error-diagnostics'
 import { reportClientError } from '@/features/analytics/api'
 
-const RUNTIME_LOG_KEY = 'nova.runtime.logs'
+const RUNTIME_LOG_KEY = 'inkdock.runtime.logs'
 const MAX_LOGS = 80
 
 type RuntimeLogType = 'react_error' | 'window_error' | 'unhandled_rejection' | 'white_screen' | 'startup'

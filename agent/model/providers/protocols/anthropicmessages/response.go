@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const (

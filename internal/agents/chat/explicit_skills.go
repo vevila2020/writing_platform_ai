@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentcontext "denova/internal/agents/context"
-	novaskills "denova/internal/agents/skills"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 func explicitSkillFragments(invocations []novaskills.Invocation) []agentcontext.Fragment {

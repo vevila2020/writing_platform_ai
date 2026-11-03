@@ -1,17 +1,17 @@
 package interactiveapp
 
 import (
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/toolresult"
 	"encoding/json"
 	"fmt"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 	"strings"
 
-	agents "denova/internal/agents"
-	agentcontext "denova/internal/agents/context"
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/book/lore"
-	"denova/internal/interactive/teller"
+	agents "github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
 )
 
 // interactiveContextSource is a transient description of one domain fragment.

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	agenttool "denova/internal/agents/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestAgentToolMutationEffectRoundTripsCommittedReceipt(t *testing.T) {

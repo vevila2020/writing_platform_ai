@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	agenttool "denova/internal/agents/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const AgentToolMutationEffectKind = "denova.tool_mutation.v1"
@@ -17,7 +17,7 @@ type agentToolMutationEffect struct {
 	Mutation agenttool.Mutation `json:"mutation"`
 }
 
-// AgentToolMutationEffect converts a Denova mutation receipt into Agent's
+// AgentToolMutationEffect converts a InkDock mutation receipt into Agent's
 // canonical effect format. The trusted Adapter adds product identity.
 func AgentToolMutationEffect(record agenttool.ExecutionRecord) (agentschema.Effect, bool, error) {
 	mutation, ok := agenttool.MutationFromExecutionRecord(record)
@@ -26,21 +26,21 @@ func AgentToolMutationEffect(record agenttool.ExecutionRecord) (agentschema.Effe
 	}
 	payload, err := json.Marshal(agentToolMutationEffect{Version: 1, Mutation: mutation})
 	if err != nil {
-		return agentschema.Effect{}, false, fmt.Errorf("encode Denova Agent Tool mutation effect: %w", err)
+		return agentschema.Effect{}, false, fmt.Errorf("encode InkDock Agent Tool mutation effect: %w", err)
 	}
 	return agentschema.Effect{Kind: AgentToolMutationEffectKind, Data: payload}, true, nil
 }
 
 func DecodeAgentToolMutationEffect(effect agentschema.Effect) (agenttool.Mutation, error) {
 	if strings.TrimSpace(effect.Kind) != AgentToolMutationEffectKind {
-		return agenttool.Mutation{}, fmt.Errorf("unsupported Denova Agent Tool effect %q", effect.Kind)
+		return agenttool.Mutation{}, fmt.Errorf("unsupported InkDock Agent Tool effect %q", effect.Kind)
 	}
 	var payload agentToolMutationEffect
 	if err := json.Unmarshal(effect.Data, &payload); err != nil {
-		return agenttool.Mutation{}, fmt.Errorf("decode Denova Agent Tool mutation effect: %w", err)
+		return agenttool.Mutation{}, fmt.Errorf("decode InkDock Agent Tool mutation effect: %w", err)
 	}
 	if payload.Version != 1 || strings.TrimSpace(payload.Mutation.ToolName) == "" {
-		return agenttool.Mutation{}, fmt.Errorf("invalid Denova Agent Tool mutation effect")
+		return agenttool.Mutation{}, fmt.Errorf("invalid InkDock Agent Tool mutation effect")
 	}
 	payload.Mutation.LoreItemIDs = append([]string(nil), payload.Mutation.LoreItemIDs...)
 	payload.Mutation.DeletedLoreItemIDs = append([]string(nil), payload.Mutation.DeletedLoreItemIDs...)

@@ -1,6 +1,6 @@
 package resourcecatalog
 
-import imagepreset "denova/internal/image/preset"
+import imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
 
 func (s *Service) ImagePresets() ([]imagepreset.Preset, error) {
 	if err := s.ready(); err != nil {

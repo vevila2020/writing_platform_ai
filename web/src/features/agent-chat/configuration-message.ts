@@ -28,7 +28,7 @@ export function buildConfigurationAgentMessage(message: string, page: Configurat
   }
 
   const metadata = {
-    source: 'Denova configuration page',
+    source: 'InkDock configuration page',
     purpose: 'Manage the configuration resource currently visible to the user.',
     origin: page.origin.trim(),
     ...(page.resourceId?.trim() ? { resource_id: page.resourceId.trim() } : {}),

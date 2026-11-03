@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 // CurrentProjection reduces only Agent lifecycle facts for read-only status.

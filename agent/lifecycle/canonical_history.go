@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 
-	agentengine "github.com/alfredxw/denova/agent/engine"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
+	agentengine "github.com/vevila2020/writing_platform_ai/agent/engine"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
 )
 
 // LoadCanonicalHistory reuses an aligned active checkpoint or reconstructs it

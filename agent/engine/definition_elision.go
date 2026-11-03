@@ -5,10 +5,10 @@ import (
 	"errors"
 	"sort"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // prepareElision is a side-effect-free maintenance stage. It uses canonical

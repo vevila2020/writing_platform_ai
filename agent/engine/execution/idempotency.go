@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alfredxw/denova/agent/internal/protocol"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	"github.com/vevila2020/writing_platform_ai/agent/internal/protocol"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ValidateIdempotencyKey applies the Agent command-identity boundary.

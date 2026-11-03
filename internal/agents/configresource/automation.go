@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 func newAutomationResource(novaDir, projectID, workspace, projectStoreDir string) Adapter {

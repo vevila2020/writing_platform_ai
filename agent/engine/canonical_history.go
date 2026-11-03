@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	agenthistory "github.com/alfredxw/denova/agent/context/history"
+	agenthistory "github.com/vevila2020/writing_platform_ai/agent/context/history"
 )
 
 // encodeCanonicalWindow retains only the bodies needed by the accepted

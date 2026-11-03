@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	agentasync "github.com/alfredxw/denova/agent/internal/async"
+	agentasync "github.com/vevila2020/writing_platform_ai/agent/internal/async"
 )
 
 // definitionEngineControls is the single control consumer for an Engine Run.

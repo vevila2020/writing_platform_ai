@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	agentrun "denova/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 func TestCodexHostPermissionsControlActualWrites(t *testing.T) {

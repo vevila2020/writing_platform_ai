@@ -10,9 +10,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	projectfilesapp "denova/internal/app/projectfiles"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	projectfilesapp "github.com/vevila2020/writing_platform_ai/internal/app/projectfiles"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 func (h *Handlers) HandleProjectFileTreeResolve(ctx context.Context, c *app.RequestContext) {

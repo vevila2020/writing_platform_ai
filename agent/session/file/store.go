@@ -20,9 +20,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/alfredxw/denova/agent/internal/localfs"
-	"github.com/alfredxw/denova/agent/session"
 	"github.com/gofrs/flock"
+	"github.com/vevila2020/writing_platform_ai/agent/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const (

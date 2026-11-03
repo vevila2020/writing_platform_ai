@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func testManager(t *testing.T) (*Manager, string) {
@@ -74,7 +74,7 @@ func testRequest(t *testing.T, connection Connection, method, route, origin stri
 	}
 	req.Header.Set("Authorization", "Bearer "+connection.Token)
 	if connection.ConsumerID != "" {
-		req.Header.Set("X-Denova-Consumer", connection.ConsumerID)
+		req.Header.Set("X-InkDock-Consumer", connection.ConsumerID)
 	}
 	if origin != "" {
 		req.Header.Set("Origin", origin)

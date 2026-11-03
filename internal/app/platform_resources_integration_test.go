@@ -3,13 +3,13 @@ package app
 import (
 	"bytes"
 	"context"
-	"denova/config"
-	platformapp "denova/internal/app/platform"
-	booklore "denova/internal/book/lore"
-	"denova/internal/platform"
-	"denova/internal/project"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/vevila2020/writing_platform_ai/config"
+	platformapp "github.com/vevila2020/writing_platform_ai/internal/app/platform"
+	booklore "github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 	"image"
 	"image/png"
 	"net/http"
@@ -53,7 +53,7 @@ func TestPlatformResourcesReuseScopedLibraryAndImageProvider(t *testing.T) {
 		t.Fatal(err)
 	}
 	application, err := New(ctx, &config.Config{
-		DenovaDir: root, OpenAIModel: "test-text-model",
+		InkDockDir: root, OpenAIModel: "test-text-model",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -153,7 +153,7 @@ func TestPlatformImageOptionsUseNativeDefaultsAndValidation(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	application, err := New(ctx, &config.Config{DenovaDir: root, OpenAIModel: "test-text-model"})
+	application, err := New(ctx, &config.Config{InkDockDir: root, OpenAIModel: "test-text-model"})
 	if err != nil {
 		t.Fatal(err)
 	}

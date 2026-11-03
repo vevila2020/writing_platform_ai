@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
-	agentscript "github.com/alfredxw/denova/agent/tool/script"
 	"github.com/invopop/jsonschema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	agentscript "github.com/vevila2020/writing_platform_ai/agent/tool/script"
 )
 
 const (

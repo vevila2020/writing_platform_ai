@@ -10,11 +10,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	workspacechange "denova/internal/workspace/change"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 const ignoredDeleteEditsWarning = `Deletion succeeded. Ignored "edits" because operation="delete" takes precedence. Do not retry.`
@@ -32,7 +32,7 @@ type WorkspaceMetadataProvider func(context.Context) workspacechange.ChangeMetad
 type workspaceChangeScopeKey struct{}
 
 // WorkspaceChangeScope binds one product Run to the durable change journal.
-// It is installed by Denova's public Agent host and inherited by delegated
+// It is installed by InkDock's public Agent host and inherited by delegated
 // tools so every workspace mutation remains discoverable from the owning
 // conversation and Diff review thread.
 type WorkspaceChangeScope struct {
@@ -53,7 +53,7 @@ func ContextWithWorkspaceChangeScope(ctx context.Context, scope WorkspaceChangeS
 	return context.WithValue(ctx, workspaceChangeScopeKey{}, scope)
 }
 
-// WorkspaceChangeScopeFromContext returns the Denova review identity inherited
+// WorkspaceChangeScopeFromContext returns the InkDock review identity inherited
 // by the current workspace mutation tool call.
 func WorkspaceChangeScopeFromContext(ctx context.Context) WorkspaceChangeScope {
 	if ctx == nil {
@@ -80,7 +80,7 @@ func (adapter *workspaceMutationAdapter) Identity() agentschema.CapabilityIdenti
 }
 
 // newWorkspaceMutationAdapter bridges the reusable write/edit Interface to
-// Denova's durable review and optimistic-concurrency implementation.
+// InkDock's durable review and optimistic-concurrency implementation.
 func newWorkspaceMutationAdapter(changes workspaceChangeService, metadataProviders ...WorkspaceMetadataProvider) (agenttools.MutationAdapter, error) {
 	if changes == nil {
 		return nil, fmt.Errorf("workspace change service is nil")

@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"denova/internal/portablepath"
-	workspacelayout "denova/internal/workspace"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 // repairIncompleteBookRegistrations corrects only failed registrations caused
@@ -49,10 +49,10 @@ func (registry *Registry) repairIncompleteBookRegistrations(data *registryData, 
 	}
 	digest := sha256.Sum256(original)
 	relative := fmt.Sprintf("backups/project-classification-v1/projects-%x.json", digest[:8])
-	if err := portablepath.CheckPath(registry.denovaDir, relative); err != nil {
+	if err := portablepath.CheckPath(registry.inkdockDir, relative); err != nil {
 		return false, err
 	}
-	backup := filepath.Join(registry.denovaDir, filepath.FromSlash(relative))
+	backup := filepath.Join(registry.inkdockDir, filepath.FromSlash(relative))
 	if existing, err := os.ReadFile(backup); errors.Is(err, os.ErrNotExist) {
 		if err := writeFileAtomic(backup, original, 0o600); err != nil {
 			return false, fmt.Errorf("back up Project Registry before classification repair: %w", err)

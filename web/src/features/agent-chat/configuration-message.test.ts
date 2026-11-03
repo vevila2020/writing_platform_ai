@@ -24,7 +24,7 @@ describe('buildConfigurationAgentMessage', () => {
       page_context: Record<string, string>
     }
     expect(metadata).toMatchObject({
-      source: 'Denova configuration page',
+      source: 'InkDock configuration page',
       origin: 'skills',
       resource_id: 'demo',
     })
@@ -48,7 +48,7 @@ describe('buildConfigurationAgentMessage', () => {
     expect(message).toContain('/extension-development')
     expect(message).not.toContain('/configuration\n')
     const metadata = JSON.parse(message.slice(message.indexOf('{')))
-    expect(metadata.source).toBe('Denova workbench')
+    expect(metadata.source).toBe('InkDock workbench')
     expect(metadata.source_directory).toBe('.')
     expect(metadata.latest_development_feedback).toMatch(/^\[Earlier output omitted\]/)
     expect(metadata.latest_development_feedback).toMatch(/latest failure$/)

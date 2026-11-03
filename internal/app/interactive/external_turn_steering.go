@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 
-	agentchat "denova/internal/agents/chat"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/interactive"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func (turn *ExternalTurn) PrepareSteer(ctx context.Context, guidance external.Guidance) (external.PreparedSteer, error) {

@@ -65,7 +65,7 @@ export default {
   'platform.github.installSource': 'Installation source',
   'platform.github.local': 'Local files',
   'platform.github.repository': 'GitHub repository',
-  'platform.github.help': 'Install a plugin or game from a public GitHub repository. Its package directory must contain a Denova manifest.',
+  'platform.github.help': 'Install a plugin or game from a public GitHub repository. Its package directory must contain an InkDock manifest.',
   'platform.github.ref': 'Branch, tag or commit (optional)',
   'platform.github.path': 'Package subdirectory (optional)',
   'platform.github.defaultBranch': 'Default branch',

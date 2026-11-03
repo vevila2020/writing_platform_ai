@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { ChevronDown, Search } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { editor } from 'monaco-editor'
-import { DenovaMonacoEditor } from '@/components/monaco/DenovaMonaco'
+import { InkDockMonacoEditor } from '@/components/monaco/InkDockMonaco'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Button } from '@/components/ui/button'
@@ -42,7 +42,7 @@ export function ToolRawData({ title, source, emptyLabel, preview = false }: { ti
       </div>
       <CollapsibleContent className="min-h-0 flex-1" data-nova-tool-raw={title}>
         {source ? (
-          <DenovaMonacoEditor
+          <InkDockMonacoEditor
             value={value}
             language={formatted.language}
             loading={<div className="p-3 text-sm text-muted-foreground">{t('common.loading')}</div>}

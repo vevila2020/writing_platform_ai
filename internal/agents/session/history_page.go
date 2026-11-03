@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 var errHistoryWindowComplete = errors.New("history window complete")

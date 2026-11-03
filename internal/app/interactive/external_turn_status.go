@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // ExternalTurnReplacement restores the existing operation's replacement

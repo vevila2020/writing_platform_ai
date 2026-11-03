@@ -23,14 +23,14 @@ func TestToolMessagePersistsNewResultContextContract(t *testing.T) {
 	result.ResultRetention = ToolResultEagerCandidate
 	result.ContextHints = &ToolResultContextHints{
 		Recovery: ToolResultRecoveryHint{
-			Kind: ToolResultRecoveryArtifact, ArtifactPath: ".denova/artifacts/session/call.log",
+			Kind: ToolResultRecoveryArtifact, ArtifactPath: ".inkdock/artifacts/session/call.log",
 			EstimatedBytes: 8192, EstimatedTokens: 2048,
 		},
 		ContextValue: ToolResultContextDiscardable, SupersessionKey: "read:chapter.md",
 	}
 	result.Metadata.ArtifactPersistence = &ToolArtifactPersistence{Attempted: true, Complete: true}
 	result.Artifacts = []ToolArtifactRef{{
-		ID: "artifact", ReadablePath: ".denova/artifacts/session/call.log",
+		ID: "artifact", ReadablePath: ".inkdock/artifacts/session/call.log",
 		ContentType: "text/plain", EstimatedBytes: 8192, EstimatedTokens: 2048, Complete: true,
 	}}
 
@@ -39,13 +39,13 @@ func TestToolMessagePersistsNewResultContextContract(t *testing.T) {
 	result.Metadata.ArtifactPersistence.Complete = false
 	restored := message.EffectiveToolResult()
 	if restored.ResultRetention != ToolResultEagerCandidate || restored.ContextHints == nil ||
-		restored.ContextHints.Recovery.ArtifactPath != ".denova/artifacts/session/call.log" ||
+		restored.ContextHints.Recovery.ArtifactPath != ".inkdock/artifacts/session/call.log" ||
 		restored.Metadata.ArtifactPersistence == nil || !restored.Metadata.ArtifactPersistence.Complete ||
 		len(restored.Artifacts) != 1 || !restored.Artifacts[0].Complete {
 		t.Fatalf("restored result = %#v", restored)
 	}
 	restored.ContextHints.Recovery.ArtifactPath = "mutated"
-	if message.ToolResult.ContextHints.Recovery.ArtifactPath != ".denova/artifacts/session/call.log" {
+	if message.ToolResult.ContextHints.Recovery.ArtifactPath != ".inkdock/artifacts/session/call.log" {
 		t.Fatal("EffectiveToolResult shared context hints with persisted message")
 	}
 }

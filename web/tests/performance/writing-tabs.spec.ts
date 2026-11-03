@@ -38,7 +38,7 @@ test('measures repeated chapter and Lore tab presentation with long documents', 
     new MutationObserver(() => requestAnimationFrame(sample)).observe(document, { subtree: true, childList: true, attributes: true })
   })
   const timings: Record<string, number[]> = { alpha: [], beta: [], '设定': [] }
-  const profiler = process.env.DENOVA_PROFILE_TABS ? await page.context().newCDPSession(page) : null
+  const profiler = process.env.INKDOCK_PROFILE_TABS ? await page.context().newCDPSession(page) : null
   if (profiler) {
     await profiler.send('Profiler.enable')
     await profiler.send('Profiler.start')
@@ -56,7 +56,7 @@ test('measures repeated chapter and Lore tab presentation with long documents', 
     writeFileSync('test-results/writing-tabs.cpuprofile', JSON.stringify(profile))
     await profiler.detach()
   }
-  const path = `test-results/writing-tabs-${process.env.DENOVA_PERFORMANCE_LABEL || 'current'}.json`
+  const path = `test-results/writing-tabs-${process.env.INKDOCK_PERFORMANCE_LABEL || 'current'}.json`
   writeFileSync(path, JSON.stringify(timings, null, 2) + '\n')
   await testInfo.attach('writing-tabs', { path, contentType: 'application/json' })
 })

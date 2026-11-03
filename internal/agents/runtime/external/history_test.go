@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 func TestPreparedHistoryKeepsOnlyInterruptedAncestorEffectsInOrder(t *testing.T) {

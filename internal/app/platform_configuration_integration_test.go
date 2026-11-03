@@ -2,14 +2,14 @@ package app
 
 import (
 	"context"
-	"denova/config"
-	platformapp "denova/internal/app/platform"
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
-	"denova/internal/platform"
-	"denova/internal/project"
-	"denova/internal/style"
 	"encoding/json"
+	"github.com/vevila2020/writing_platform_ai/config"
+	platformapp "github.com/vevila2020/writing_platform_ai/internal/app/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/style"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -48,7 +48,7 @@ func newPlatformStateTestHost(t *testing.T) (platformTestStoryHost, platform.Sco
 	if err != nil {
 		t.Fatal(err)
 	}
-	a := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: record.ID, NovaDir: root}, interactive: store}
+	a := &App{projectRegistry: registry, workspace: workspace, cfg: &config.Config{ProjectID: record.ID, DenovaDir: root}, interactive: store}
 	return newPlatformTestStoryHost(a), platform.Scope{ProjectID: record.ID, StoryID: story.ID, InstanceID: "test-state"}, store
 }
 

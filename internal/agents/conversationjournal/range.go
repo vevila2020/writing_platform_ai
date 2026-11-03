@@ -11,7 +11,7 @@ import (
 	"os"
 	"slices"
 
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 )
 
 // ReadRange reads a stable physical range without touching the domain

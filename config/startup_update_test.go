@@ -24,13 +24,13 @@ func TestUpdateStartupPortPreservesConfigurationPrecedence(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			root := t.TempDir()
 			t.Chdir(root)
-			dataDir := filepath.Join(root, ".denova")
-			t.Setenv("DENOVA_DIR", dataDir)
-			t.Setenv("NOVA_DIR", "")
-			t.Setenv("DENOVA_BACKEND_PORT", test.portEnv)
-			t.Setenv("NOVA_BACKEND_PORT", test.legacyPortEnv)
-			t.Setenv("DENOVA_UPDATE_FROM_VERSION", test.fromVersion)
-			t.Setenv("DENOVA_UPDATE_ID", test.updateID)
+			dataDir := filepath.Join(root, ".inkdock")
+			t.Setenv("INKDOCK_DIR", dataDir)
+			t.Setenv("DENOVA_DIR", "")
+			t.Setenv("INKDOCK_BACKEND_PORT", test.portEnv)
+			t.Setenv("DENOVA_BACKEND_PORT", test.legacyPortEnv)
+			t.Setenv("INKDOCK_UPDATE_FROM_VERSION", test.fromVersion)
+			t.Setenv("INKDOCK_UPDATE_ID", test.updateID)
 			if err := os.MkdirAll(dataDir, 0o755); err != nil {
 				t.Fatal(err)
 			}

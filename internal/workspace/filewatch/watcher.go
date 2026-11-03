@@ -233,7 +233,7 @@ func (w *workspaceWatcher) normalizeEvent(event fsnotify.Event, resync func(erro
 	}
 
 	// Chmod-only notifications are deliberately ignored. They are noisy on
-	// macOS and do not change the canonical file content shown by Denova.
+	// macOS and do not change the canonical file content shown by InkDock.
 	return nil
 }
 

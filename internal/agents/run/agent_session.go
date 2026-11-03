@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 const agentSessionNamespacePrefix = "denova."
@@ -35,12 +35,12 @@ func RuntimeBindingFromAgentSessionKey(key agentsession.Key) (RuntimeBinding, er
 	}
 	namespace := normalized.Namespace
 	if !strings.HasPrefix(namespace, agentSessionNamespacePrefix) {
-		return RuntimeBinding{}, fmt.Errorf("%w: invalid Denova Agent Session namespace %q", ErrInvalidBinding, namespace)
+		return RuntimeBinding{}, fmt.Errorf("%w: invalid InkDock Agent Session namespace %q", ErrInvalidBinding, namespace)
 	}
 	remainder := strings.TrimPrefix(namespace, agentSessionNamespacePrefix)
 	separator := strings.LastIndexByte(remainder, '.')
 	if separator <= 0 || separator == len(remainder)-1 {
-		return RuntimeBinding{}, fmt.Errorf("%w: invalid Denova Agent Session namespace %q", ErrInvalidBinding, namespace)
+		return RuntimeBinding{}, fmt.Errorf("%w: invalid InkDock Agent Session namespace %q", ErrInvalidBinding, namespace)
 	}
 	kind, profile := remainder[:separator], remainder[separator+1:]
 	attribute := func(name string) string { return normalized.Attributes[name] }
@@ -65,7 +65,7 @@ func RuntimeBindingFromAgentSessionKey(key agentsession.Key) (RuntimeBinding, er
 	case kind == bindingKindWriting && profile == bindingProfileImage:
 		binding.AgentKind = AgentKindImage
 	default:
-		return RuntimeBinding{}, fmt.Errorf("%w: unsupported Denova Session namespace %q", ErrInvalidBinding, namespace)
+		return RuntimeBinding{}, fmt.Errorf("%w: unsupported InkDock Session namespace %q", ErrInvalidBinding, namespace)
 	}
 	encoded, err := binding.AgentSessionKey()
 	if err != nil {
@@ -74,7 +74,7 @@ func RuntimeBindingFromAgentSessionKey(key agentsession.Key) (RuntimeBinding, er
 	want, wantErr := agentsession.CanonicalKey(normalized)
 	got, gotErr := agentsession.CanonicalKey(encoded)
 	if wantErr != nil || gotErr != nil || want != got {
-		return RuntimeBinding{}, fmt.Errorf("%w: Agent Session ID or attributes do not match Denova identity", ErrInvalidBinding)
+		return RuntimeBinding{}, fmt.Errorf("%w: Agent Session ID or attributes do not match InkDock identity", ErrInvalidBinding)
 	}
 	return binding, nil
 }

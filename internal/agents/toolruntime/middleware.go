@@ -6,21 +6,21 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"denova/config"
-	agentrun "denova/internal/agents/run"
-	agenttool "denova/internal/agents/tool"
-	"denova/internal/agents/toolresult"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	sdktool "github.com/alfredxw/denova/agent/tool"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const maxToolErrorDiagnosticBytes = 4 * 1024
 
-// OrchestratorMiddleware is Denova's single product-level tool seam. It
+// OrchestratorMiddleware is InkDock's single product-level tool seam. It
 // preserves product tool settings, workspace coordination, lifecycle receipts,
 // and result projection without owning permission or batch scheduling.
 type OrchestratorMiddleware struct {
@@ -195,7 +195,7 @@ func (m *OrchestratorMiddleware) WrapToolCall(
 
 		// Lossless materialization and protected receipts are owned by the
 		// public Loop's fixed ResultProcessor stage. This middleware persists
-		// only Denova's product mutation/audit projection; it must never truncate
+		// only InkDock's product mutation/audit projection; it must never truncate
 		// or artifact-process the result first.
 		prepared := toolresult.PrepareStructured(toolName(toolCtx), decision.Descriptor, args, result)
 		// The execution ledger receives a separately bounded audit projection.

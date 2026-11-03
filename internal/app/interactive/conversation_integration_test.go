@@ -8,20 +8,20 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents"
-	agentcontext "denova/internal/agents/context"
-	"denova/internal/agents/session"
-	"denova/internal/book/lore"
-	"denova/internal/interactive"
-	interactivestate "denova/internal/interactive/state"
-	"denova/internal/presetlayout"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	interactivestate "github.com/vevila2020/writing_platform_ai/internal/interactive/state"
+	"github.com/vevila2020/writing_platform_ai/internal/presetlayout"
 
-	"github.com/alfredxw/denova/agent"
-	publiccontext "github.com/alfredxw/denova/agent/context"
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentsession "github.com/alfredxw/denova/agent/session"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	publiccontext "github.com/vevila2020/writing_platform_ai/agent/context"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
 func TestInteractiveConversationBuildsHistoryAndPersistsAssistantToStory(t *testing.T) {
@@ -352,7 +352,7 @@ func TestGamePlanningProjectsEnabledEventCardsIntoPlanningGuide(t *testing.T) {
 
 func TestInteractiveConversationPersistsRuleResolution(t *testing.T) {
 	workspace := t.TempDir()
-	novaDir := filepath.Join(workspace, ".nova")
+	novaDir := filepath.Join(workspace, ".inkdock")
 	store, actorState := newInteractiveStoreWithHPTestActorState(t, workspace, novaDir)
 	story, err := store.CreateStory(interactive.CreateStoryRequest{
 		Title:         "规则审计",
@@ -464,7 +464,7 @@ func newInteractiveStoreWithHPTestActorState(t *testing.T, workspace, novaDir st
 	if err != nil {
 		t.Fatalf("create hp actor state failed: %v", err)
 	}
-	return interactive.NewStoreWithNovaDir(workspace, novaDir), actorState
+	return interactive.NewStoreWithDenovaDir(workspace, novaDir), actorState
 }
 
 func TestInteractiveConversationPersistsDisplayEventTimeline(t *testing.T) {

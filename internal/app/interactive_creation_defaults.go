@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"slices"
 
-	"denova/config"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 // Creation choices outrank book defaults, then the book's last selected Story.

@@ -42,7 +42,7 @@ func startBackend(runtime *Runtime, owner *activation) (*backendProcess, error) 
 	if versionErr != nil || parseErr != nil || version.Major() < 22 {
 		return nil, failure("NOT_CONFIGURED", "Node.js 22 or newer is required to run %s", owner.release.Manifest.ID)
 	}
-	tempDir, err := os.MkdirTemp("", "denova-runtime-")
+	tempDir, err := os.MkdirTemp("", "inkdock-runtime-")
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func startBackend(runtime *Runtime, owner *activation) (*backendProcess, error) 
 		DataDir    string         `json:"dataDir"`
 		TempDir    string         `json:"tempDir"`
 		HostToken  string         `json:"hostToken"`
-	}{"bootstrap", "denova-runtime-v1", owner.context, owner.connection, process.command.Dir, owner.dataDir, tempDir, process.token}
+	}{"bootstrap", "inkdock-runtime-v1", owner.context, owner.connection, process.command.Dir, owner.dataDir, tempDir, process.token}
 	ready := make(chan struct {
 		Port     int    `json:"port"`
 		Protocol string `json:"protocol"`
@@ -151,7 +151,7 @@ func startBackend(runtime *Runtime, owner *activation) (*backendProcess, error) 
 	defer timer.Stop()
 	select {
 	case response := <-ready:
-		if response.Type != "ready" || response.Protocol != "denova-runtime-v1" || response.Port < 1 || response.Port > 65535 {
+		if response.Type != "ready" || response.Protocol != "inkdock-runtime-v1" || response.Port < 1 || response.Port > 65535 {
 			return nil, failure("RUNTIME_FAILED", "Invalid readiness response from %s", owner.release.Manifest.ID)
 		}
 		process.baseURL = fmt.Sprintf("http://127.0.0.1:%d", response.Port)
@@ -164,7 +164,7 @@ func startBackend(runtime *Runtime, owner *activation) (*backendProcess, error) 
 	}
 	ctx, cancel := context.WithTimeout(runtime.ctx, 5*time.Second)
 	defer cancel()
-	request, _ := http.NewRequestWithContext(ctx, "GET", process.baseURL+"/__denova/ready", nil)
+	request, _ := http.NewRequestWithContext(ctx, "GET", process.baseURL+"/__inkdock/ready", nil)
 	request.Header.Set("Authorization", "Bearer "+process.token)
 	response, err := localHTTPClient.Do(request)
 	if err != nil {
@@ -172,7 +172,7 @@ func startBackend(runtime *Runtime, owner *activation) (*backendProcess, error) 
 	}
 	defer response.Body.Close()
 	proof, err := io.ReadAll(io.LimitReader(response.Body, 1024))
-	if err != nil || response.StatusCode != 200 || !bytes.Equal(proof, []byte("denova-runtime-v1")) {
+	if err != nil || response.StatusCode != 200 || !bytes.Equal(proof, []byte("inkdock-runtime-v1")) {
 		return nil, failure("RUNTIME_FAILED", "Backend readiness verification failed")
 	}
 	started = true

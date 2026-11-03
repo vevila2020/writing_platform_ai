@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	workspacechange "denova/internal/workspace/change"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 type recordingWorkspaceChangeService struct {

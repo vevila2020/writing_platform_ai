@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 
-	agenttools "github.com/alfredxw/denova/agent/tool/builtin"
+	agenttools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
 )
 
 func TestRunResourcePaginatesAndReconstructsLLMInputs(t *testing.T) {

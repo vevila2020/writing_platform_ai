@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/agents/toolresult"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // Agent orchestration uses the public runtime vocabulary directly; these
@@ -27,7 +27,7 @@ const (
 	ToolSourceRead  = agenttool.ToolSourceRead
 	ToolSourceWrite = agenttool.ToolSourceWrite
 	ToolSourceShell = agenttool.ToolSourceShell
-	// ToolSourceLore is Denova's product-specific lore capability. Public Agent
+	// ToolSourceLore is InkDock's product-specific lore capability. Public Agent
 	// tool vocabulary intentionally remains product-neutral.
 	ToolSourceLore    = agenttool.ToolSource("denova.lore")
 	ToolSourceHistory = agenttool.ToolSourceHistory

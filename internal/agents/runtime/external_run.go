@@ -8,12 +8,12 @@ import (
 	"log/slog"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	"denova/internal/observability"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/observability"
 
-	agentgoal "github.com/alfredxw/denova/agent/engine/goal"
+	agentgoal "github.com/vevila2020/writing_platform_ai/agent/engine/goal"
 )
 
 // ExternalRun drains journaled inputs on the product task goroutine. Pausing

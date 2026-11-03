@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"denova/internal/book"
-	"denova/internal/book/lore"
-	"denova/internal/workspace/documentreview"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 // targetResolver is the application-level adapter between the

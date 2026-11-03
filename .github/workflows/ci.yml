@@ -52,6 +52,8 @@ jobs:
         run: node .github/scripts/ci-plan.mjs
       - run: node --test .github/scripts/*.test.mjs
       - run: bash .github/scripts/require-full-ci_test.sh
+      - name: Check module paths
+        run: node --test scripts/module-paths.test.mjs && node scripts/module-paths.mjs
 
   go:
     name: Go (${{ matrix.module }})
@@ -142,7 +144,7 @@ jobs:
       # Packaged mode includes production-only tests without starting servers.
       - run: pnpm --dir web exec playwright test --list
         env:
-          DENOVA_E2E_PACKAGE_DIR: ${{ github.workspace }}/output
+          INKDOCK_E2E_PACKAGE_DIR: ${{ github.workspace }}/output
       - run: pnpm --dir web check:i18n
         if: needs.changes.outputs.unit == 'true'
       - run: pnpm --dir web test:unit --reporter=default --reporter=junit --outputFile=test-results/unit.xml
@@ -197,8 +199,8 @@ jobs:
       matrix:
         shard: ${{ fromJSON(needs.changes.outputs.browser_shards) }}
     env:
-      DENOVA_E2E_PACKAGE_DIR: ${{ github.workspace }}/output
-      DENOVA_CI_SUITE: ${{ needs.changes.outputs.full == 'true' && 'full' || 'smoke' }}
+      INKDOCK_E2E_PACKAGE_DIR: ${{ github.workspace }}/output
+      INKDOCK_CI_SUITE: ${{ needs.changes.outputs.full == 'true' && 'full' || 'smoke' }}
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-web

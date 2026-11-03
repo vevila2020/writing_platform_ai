@@ -1,4 +1,4 @@
-import { DenovaMonacoDiffEditor } from '@/components/monaco/DenovaMonaco'
+import { InkDockMonacoDiffEditor } from '@/components/monaco/InkDockMonaco'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
 export type ChapterDiffViewProps = {
@@ -21,7 +21,7 @@ export function ChapterDiffView({
 
   return (
     <div className={`h-full min-h-[360px] w-full overflow-hidden bg-[var(--nova-bg)] ${className}`}>
-      <DenovaMonacoDiffEditor
+      <InkDockMonacoDiffEditor
         height="100%"
         language={language}
         original={original}

@@ -1,5 +1,5 @@
 // Package browser provides the isolated, stateful page-session boundary behind
-// Denova's model-visible browser tool. The Session owns named tabs; Driver and
+// InkDock's model-visible browser tool. The Session owns named tabs; Driver and
 // Page keep the browser engine replaceable for tests and future runtimes.
 package browser
 

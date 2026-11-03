@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"sync"
 
-	agentchat "denova/internal/agents/chat"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 const externalControlCapability = "denova.external.control.v1"
@@ -33,7 +33,7 @@ type ExternalCycle interface {
 }
 type ExternalCycleFactory func(context.Context, ExternalCycleInput, func(agentrun.Event), func(context.Context, *external.RuntimeSession) error) (ExternalCycle, error)
 
-// ExternalController orders commands for one peer runtime at the Denova layer.
+// ExternalController orders commands for one peer runtime at the InkDock layer.
 // The product journal is authoritative; live handles only cancel and emit.
 type ExternalController struct {
 	mu      sync.Mutex

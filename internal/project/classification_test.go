@@ -32,7 +32,7 @@ func TestClassificationRepairRequiresRegistryBackup(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	userData := filepath.Join(workspace, ".denova")
+	userData := filepath.Join(workspace, ".inkdock")
 	if err := os.Mkdir(userData, 0o700); err != nil {
 		t.Fatal(err)
 	}
@@ -64,11 +64,11 @@ func TestDetectTypeDistinguishesUserDataFromBookState(t *testing.T) {
 		book     bool
 		want     Type
 	}{
-		{name: "current user data", stateDir: ".denova", registry: "projects.json", want: TypeGeneral},
-		{name: "released user data", stateDir: ".nova", registry: "books.json", want: TypeGeneral},
-		{name: "current Book state", stateDir: ".denova", want: TypeBook},
-		{name: "released Book state", stateDir: ".nova", want: TypeBook},
-		{name: "Book with user data", stateDir: ".denova", registry: "projects.json", book: true, want: TypeBook},
+		{name: "current user data", stateDir: ".inkdock", registry: "projects.json", want: TypeGeneral},
+		{name: "released user data", stateDir: ".denova", registry: "books.json", want: TypeGeneral},
+		{name: "current Book state", stateDir: ".inkdock", want: TypeBook},
+		{name: "released Book state", stateDir: ".denova", want: TypeBook},
+		{name: "Book with user data", stateDir: ".inkdock", registry: "projects.json", book: true, want: TypeBook},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			workspace := t.TempDir()
@@ -109,7 +109,7 @@ func TestClassificationRepairKeepsCompletedBooksAndBookContent(t *testing.T) {
 			} else if err := os.Mkdir(filepath.Join(workspace, "chapters"), 0o700); err != nil {
 				t.Fatal(err)
 			}
-			userData := filepath.Join(workspace, ".denova")
+			userData := filepath.Join(workspace, ".inkdock")
 			if err := os.MkdirAll(userData, 0o700); err != nil {
 				t.Fatal(err)
 			}

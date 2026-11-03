@@ -2,20 +2,20 @@ package app
 
 import (
 	"context"
-	agentexecution "denova/internal/agents/execution"
 	"errors"
 	"fmt"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
 	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"denova/internal/agents/session"
-	"denova/internal/book"
-	"denova/internal/interactive"
-	"denova/internal/portablepath"
-	projectdomain "denova/internal/project"
-	"denova/internal/workspace/filewatch"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/filewatch"
 )
 
 // workspaceService coordinates the active workspace, Book catalog, versions,
@@ -327,8 +327,8 @@ func (s *workspaceService) CreateBook(ctx context.Context, parentDir, title, aut
 		return BookCreationResult{}, fmt.Errorf("目录已存在: %s", dir)
 	}
 	if novaDir != "" {
-		if absNovaDir, err := filepath.Abs(novaDir); err == nil && absParent == filepath.Join(absNovaDir, projectdomain.ContentDirectoryName) {
-			legacyDir := filepath.Join(absNovaDir, title)
+		if absDenovaDir, err := filepath.Abs(novaDir); err == nil && absParent == filepath.Join(absDenovaDir, projectdomain.ContentDirectoryName) {
+			legacyDir := filepath.Join(absDenovaDir, title)
 			legacyType, detectErr := projectdomain.DetectType(legacyDir)
 			if legacyDir != dir && detectErr == nil && legacyType == projectdomain.TypeBook {
 				return BookCreationResult{}, fmt.Errorf("目录已存在: %s", legacyDir)

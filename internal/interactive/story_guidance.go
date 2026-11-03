@@ -3,8 +3,8 @@ package interactive
 import (
 	"strings"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 const userGuidanceKey = "denova.user_guidance"

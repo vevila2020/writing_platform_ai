@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/agents/skills"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 )
 
 func TestFileUpdatePreservesRemoteTrackingAndLocalEdits(t *testing.T) {

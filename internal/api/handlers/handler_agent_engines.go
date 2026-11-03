@@ -5,11 +5,11 @@ import (
 	"errors"
 	"log/slog"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	agentruntime "denova/internal/agents/runtime"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
 )
 
 func (h *Handlers) HandleAgentEngines(_ context.Context, c *app.RequestContext) {

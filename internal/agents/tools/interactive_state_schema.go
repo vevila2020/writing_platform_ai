@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 const initializeStoryStateSchemaToolName = "initialize_story_state_schema"

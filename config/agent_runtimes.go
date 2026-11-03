@@ -21,7 +21,7 @@ var ErrInvalidAgentRuntime = errors.New("invalid Agent runtime configuration")
 // CodexRuntimeSettings is one complete model and execution selection. Model-specific effort
 // availability is checked by the internal runtime model catalog at execution.
 type CodexRuntimeSettings struct {
-	// ProfileID selects a Denova API model instead of a CLI-owned Model.
+	// ProfileID selects a InkDock API model instead of a CLI-owned Model.
 	ProfileID string `toml:"profile_id,omitempty" json:"profile_id,omitempty"`
 	Model     string `toml:"model,omitempty" json:"model,omitempty"`
 	Effort    string `toml:"effort,omitempty" json:"effort,omitempty"`

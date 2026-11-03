@@ -14,10 +14,10 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/agents/sessionjournal"
-	"denova/internal/localfs"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/sessionjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/localfs"
 
-	agentcompaction "github.com/alfredxw/denova/agent/context/compaction"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/agent/context/compaction"
 )
 
 const releasedProductCompactionBackupDirectory = "product-session-v0.3.3-compaction"

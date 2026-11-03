@@ -14,10 +14,10 @@ import (
 	"strings"
 	"testing"
 
-	externaljournal "denova/internal/agents/runtime/external/journal"
+	externaljournal "github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external/journal"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func checkpointImage(t *testing.T, compression png.CompressionLevel) agentschema.Attachment {

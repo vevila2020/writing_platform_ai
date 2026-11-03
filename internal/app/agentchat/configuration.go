@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/conversationconfig"
-	agentruntime "denova/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
 )
 
 func (service *Service) ConversationConfig(ctx context.Context, binding Binding) (conversationconfig.Snapshot, error) {

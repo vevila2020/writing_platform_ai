@@ -1,10 +1,10 @@
 package resourceexchange
 
 import (
-	"denova/internal/portablepath"
-	"denova/internal/project"
 	"encoding/json"
 	"fmt"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 	"os"
 	"path"
 	"path/filepath"

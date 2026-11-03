@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 // recentStoryCommitLocked resolves the only commit window that can still

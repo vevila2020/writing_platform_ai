@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
-	apptask "denova/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 func TestExternalPlanSurvivesInterruptedGameDraft(t *testing.T) {

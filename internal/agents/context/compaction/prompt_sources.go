@@ -3,8 +3,8 @@ package compaction
 import (
 	"strings"
 
-	"denova/config"
-	agentcontext "denova/internal/agents/context"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentcontext "github.com/vevila2020/writing_platform_ai/internal/agents/context"
 )
 
 const (
@@ -34,9 +34,9 @@ func compactionPromptSourceList(agentKind string) config.AgentPromptSourceList {
 		compactionEvidenceRequirements,
 	}, "\n")
 	return config.AgentPromptSourceList{Sources: []config.AgentPromptSource{
-		{ID: "runtime_contract", Title: "Checkpoint Runtime Contract", Source: "Denova runtime", Content: runtimeContract},
-		{ID: "checkpoint_schema", Title: "Checkpoint Output Schema", Source: "Denova runtime", Content: strings.TrimSpace(agentcontext.CompactionCheckpointSchema())},
-		{ID: "domain_rules", Title: "Agent Domain Rules", Source: "Denova runtime", Content: compactionDomainRequirements(agentKind)},
+		{ID: "runtime_contract", Title: "Checkpoint Runtime Contract", Source: "InkDock runtime", Content: runtimeContract},
+		{ID: "checkpoint_schema", Title: "Checkpoint Output Schema", Source: "InkDock runtime", Content: strings.TrimSpace(agentcontext.CompactionCheckpointSchema())},
+		{ID: "domain_rules", Title: "Agent Domain Rules", Source: "InkDock runtime", Content: compactionDomainRequirements(agentKind)},
 	}}
 }
 

@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // GlobRequest describes one bounded local filesystem path discovery call.
@@ -24,7 +24,7 @@ type GlobRequest struct {
 }
 
 // GrepRequest describes one bounded, command-shaped ripgrep search. Command
-// uses Denova's literal rg grammar; it is never passed through a shell.
+// uses InkDock's literal rg grammar; it is never passed through a shell.
 type GrepRequest struct {
 	Command string
 	Cursor  string
@@ -443,7 +443,7 @@ func grepCommandFingerprint(command compiledGrepCommand) string {
 func advanceGrepPrefix(prefix string, entries []string) string {
 	for _, entry := range entries {
 		hash := sha256.New()
-		_, _ = fmt.Fprintf(hash, "denova-grep-prefix-v1\x00%s\x00%d:", prefix, len(entry))
+		_, _ = fmt.Fprintf(hash, "inkdock-grep-prefix-v1\x00%s\x00%d:", prefix, len(entry))
 		_, _ = hash.Write([]byte(entry))
 		prefix = hex.EncodeToString(hash.Sum(nil)[:16])
 	}

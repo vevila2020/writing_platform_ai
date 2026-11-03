@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 var ErrDefaultBackground = errors.New("default background must be an enabled associated local image")

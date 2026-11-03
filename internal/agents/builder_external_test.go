@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 
-	"denova/config"
-	agentinteractive "denova/internal/agents/interactive"
-	"denova/internal/agents/prompts"
-	producttools "denova/internal/agents/tools"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentinteractive "github.com/vevila2020/writing_platform_ai/internal/agents/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	producttools "github.com/vevila2020/writing_platform_ai/internal/agents/tools"
 
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 func TestExternalAssembliesExcludeNativeCoordination(t *testing.T) {
@@ -21,7 +21,7 @@ func TestExternalAssembliesExcludeNativeCoordination(t *testing.T) {
 		for _, kind := range config.SubAgentParentKinds() {
 			t.Run(string(runtime.Kind)+"/"+kind, func(t *testing.T) {
 				cfg := &config.Config{
-					Workspace: t.TempDir(), DenovaDir: t.TempDir(),
+					Workspace: t.TempDir(), InkDockDir: t.TempDir(),
 					ActiveAgentRuntime: &runtime,
 					// Saved Native delegation must stay dormant for external engines.
 					AgentTools: config.AgentToolSettings{
@@ -73,7 +73,7 @@ func TestExternalAssembliesExcludeNativeCoordination(t *testing.T) {
 						t.Errorf("external instruction leaked Native coordination guidance %q", marker)
 					}
 				}
-				for _, required := range []string{"Denova Runtime Contract", "## Output Protocol", "## Language Alignment"} {
+				for _, required := range []string{"InkDock Runtime Contract", "## Output Protocol", "## Language Alignment"} {
 					if !strings.Contains(instruction, required) {
 						t.Errorf("external instruction lost shared product rules %q", required)
 					}

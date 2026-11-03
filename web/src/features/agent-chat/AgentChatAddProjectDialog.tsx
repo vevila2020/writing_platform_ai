@@ -15,7 +15,7 @@ import type { BookRecord } from '@/lib/api'
 
 interface AgentChatAddProjectDialogProps {
   open: boolean
-  novaDir: string
+  dataDir: string
   imagePresets: ImagePreset[]
   defaultImagePresetId: string
   onOpenChange: (open: boolean) => void
@@ -28,7 +28,7 @@ interface AgentChatAddProjectDialogProps {
 /** Separates the Project entry decision from the existing, full-featured Book creation flow. */
 export function AgentChatAddProjectDialog({
   open,
-  novaDir,
+  dataDir,
   imagePresets,
   defaultImagePresetId,
   onOpenChange,
@@ -110,7 +110,7 @@ export function AgentChatAddProjectDialog({
         open={open && step === 'book'}
         mode="create"
         book={null}
-        novaDir={novaDir}
+        dataDir={dataDir}
         imagePresetOptions={presetOptions}
         defaultImagePresetId={defaultImagePresetId}
         coverVersion={(book: Pick<BookRecord, 'path' | 'cover_updated_at'>) => (

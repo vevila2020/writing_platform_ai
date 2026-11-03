@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"denova/config"
-	"denova/internal/book"
-	imageasset "denova/internal/image/asset"
-	imagepreset "denova/internal/image/preset"
-	projectdomain "denova/internal/project"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	imageasset "github.com/vevila2020/writing_platform_ai/internal/image/asset"
+	imagepreset "github.com/vevila2020/writing_platform_ai/internal/image/preset"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 type CoverGenerateRequest struct {
@@ -118,8 +118,8 @@ func (service *Service) coverConfig(workspace string) (config.Config, error) {
 		DefaultImageAPIProfileID: effective.DefaultImageAPIProfileID,
 		ImageAPIEndpoints:        effective.ImageAPIEndpoints,
 		ImageAPIProfiles:         effective.ImageAPIProfiles,
-		DenovaDir:                layered.Paths.DenovaDir,
-		NovaDir:                  layered.Paths.DenovaDir,
+		InkDockDir:               layered.Paths.InkDockDir,
+		DenovaDir:                layered.Paths.InkDockDir,
 		Workspace:                workspace,
 		IDEImagePresetID:         effective.IDEImagePresetID,
 	}

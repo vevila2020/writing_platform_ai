@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"denova/config"
-	agentconversation "denova/internal/agents/conversation"
-	"denova/internal/agents/session"
-	appsettings "denova/internal/app/settings"
-	"denova/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
 )
 
 func TestManualModelSelectionPersistsAcrossRestartAndProjects(t *testing.T) {

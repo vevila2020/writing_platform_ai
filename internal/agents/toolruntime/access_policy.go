@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agenttool "github.com/alfredxw/denova/agent/tool"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agenttool "github.com/vevila2020/writing_platform_ai/agent/tool"
 )
 
 // ToolAccessMode is a turn-scoped restriction layered on top of the Agent's

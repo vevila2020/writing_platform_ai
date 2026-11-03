@@ -12,29 +12,29 @@ import (
 	"testing"
 	"time"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentlifecycle "denova/internal/agents/lifecycle"
-	agentprompts "denova/internal/agents/prompts"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
-	novaskills "denova/internal/agents/skills"
-	agenttool "denova/internal/agents/tool"
-	agenttoolruntime "denova/internal/agents/toolruntime"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentlifecycle "github.com/vevila2020/writing_platform_ai/internal/agents/lifecycle"
+	agentprompts "github.com/vevila2020/writing_platform_ai/internal/agents/prompts"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
+	agenttool "github.com/vevila2020/writing_platform_ai/internal/agents/tool"
+	agenttoolruntime "github.com/vevila2020/writing_platform_ai/internal/agents/toolruntime"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 
-	"github.com/alfredxw/denova/agent"
-	agentmiddleware "github.com/alfredxw/denova/agent/engine/middleware"
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	"github.com/alfredxw/denova/agent/model/providers"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
-	agentcanonical "github.com/alfredxw/denova/agent/session/canonical"
-	agentsessionfile "github.com/alfredxw/denova/agent/session/file"
-	sdktool "github.com/alfredxw/denova/agent/tool"
-	publictools "github.com/alfredxw/denova/agent/tool/builtin"
-	agentpermission "github.com/alfredxw/denova/agent/tool/permission"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentmiddleware "github.com/vevila2020/writing_platform_ai/agent/engine/middleware"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
+	agentcanonical "github.com/vevila2020/writing_platform_ai/agent/session/canonical"
+	agentsessionfile "github.com/vevila2020/writing_platform_ai/agent/session/file"
+	sdktool "github.com/vevila2020/writing_platform_ai/agent/tool"
+	publictools "github.com/vevila2020/writing_platform_ai/agent/tool/builtin"
+	agentpermission "github.com/vevila2020/writing_platform_ai/agent/tool/permission"
 )
 
 type publicBackendTestModel struct {
@@ -610,7 +610,7 @@ func publicBackendPersistedSkillNames(history []session.HistoryEntry) []string {
 	return result
 }
 
-func TestAgentRuntimeCommitsARealDenovaSessionAndFinalizesDisplay(t *testing.T) {
+func TestAgentRuntimeCommitsARealInkDockSessionAndFinalizesDisplay(t *testing.T) {
 	ctx := context.Background()
 	workspace := t.TempDir()
 	store, err := session.NewStore(t.TempDir())
@@ -778,7 +778,7 @@ func TestAgentRuntimeLoadsExplicitSkillsBeforeFirstModelCallAndPersistsCards(t *
 	writePublicBackendSkillFixture(t, skillsDir, "alpha", "ALPHA_BODY")
 	writePublicBackendSkillFixture(t, skillsDir, "beta", "BETA_BODY")
 	workspace := t.TempDir()
-	cfg := &config.Config{SkillsDir: skillsDir, Workspace: workspace, DenovaDir: t.TempDir()}
+	cfg := &config.Config{SkillsDir: skillsDir, Workspace: workspace, InkDockDir: t.TempDir()}
 	store, err := session.NewStore(t.TempDir())
 	if err != nil {
 		t.Fatal(err)

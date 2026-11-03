@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"path"
 
-	"denova/config"
-	"denova/internal/book/lore"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 // The same path is used by Lore export and default-background references.

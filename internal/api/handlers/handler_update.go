@@ -9,9 +9,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/api/sse"
-	"denova/internal/app/activity"
-	"denova/internal/update"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	"github.com/vevila2020/writing_platform_ai/internal/app/activity"
+	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
 
 func (h *Handlers) HandleUpdateNotes(ctx context.Context, c *app.RequestContext) {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	agentcompaction "denova/internal/agents/context/compaction"
-	"denova/internal/agents/session"
+	agentcompaction "github.com/vevila2020/writing_platform_ai/internal/agents/context/compaction"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 )
 
 // CompactSession performs maintenance without admitting a user or assistant

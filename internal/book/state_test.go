@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 	"time"
 )
 
@@ -53,8 +53,8 @@ func TestInitWorkspaceCreatesIdeasMarkdown(t *testing.T) {
 
 func TestInitWorkspaceMigratesLegacyLoreIntoPublicSettingDirectory(t *testing.T) {
 	dir := t.TempDir()
-	currentLore := filepath.Join(dir, ".denova", "lore", "items.json")
-	legacyLore := filepath.Join(dir, ".nova", "lore", "items.json")
+	currentLore := filepath.Join(dir, ".inkdock", "lore", "items.json")
+	legacyLore := filepath.Join(dir, ".denova", "lore", "items.json")
 	if err := os.MkdirAll(filepath.Dir(currentLore), 0o755); err != nil {
 		t.Fatal(err)
 	}

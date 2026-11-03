@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/concurrency"
-	projectdomain "denova/internal/project"
-	workspacechange "denova/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/concurrency"
+	projectdomain "github.com/vevila2020/writing_platform_ai/internal/project"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
 )
 
 // ErrForegroundProject protects the open Writing runtime from being detached
@@ -76,7 +76,7 @@ func (a *App) initializeLifecycleLocked() error {
 		return concurrency.ErrClosed
 	}
 	if a.rootScope == nil {
-		a.rootScope = concurrency.NewRoot("denova-app")
+		a.rootScope = concurrency.NewRoot("inkdock-app")
 	}
 	if a.workspaceScopes == nil {
 		a.workspaceScopes = make(map[string]*concurrency.Scope)

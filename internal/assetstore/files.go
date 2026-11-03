@@ -13,9 +13,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 type Directory string

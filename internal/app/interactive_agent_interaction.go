@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	agentrun "denova/internal/agents/run"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
 )
 
 // ResolveInteractiveAsk uses the exact Story branch binding even while its

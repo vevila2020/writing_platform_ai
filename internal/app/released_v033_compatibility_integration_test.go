@@ -10,23 +10,23 @@ import (
 	"sync"
 	"testing"
 
-	"denova/config"
-	agentchat "denova/internal/agents/chat"
-	agentconversation "denova/internal/agents/conversation"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/session"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentconversation "github.com/vevila2020/writing_platform_ai/internal/agents/conversation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/session"
 
-	agentmodel "github.com/alfredxw/denova/agent/model"
-	agentstream "github.com/alfredxw/denova/agent/model/stream"
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
+	agentstream "github.com/vevila2020/writing_platform_ai/agent/model/stream"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func TestReleasedV033WritingSessionMigratesAndContinues(t *testing.T) {
 	ctx := context.Background()
 	dataRoot := t.TempDir()
 	workspace := filepath.Join(dataRoot, "projects", "Released v0.3.3 Book")
-	legacySessionsDir := filepath.Join(workspace, ".denova", "sessions")
+	legacySessionsDir := filepath.Join(workspace, ".inkdock", "sessions")
 	if err := os.MkdirAll(legacySessionsDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
@@ -48,7 +48,7 @@ func TestReleasedV033WritingSessionMigratesAndContinues(t *testing.T) {
 		`{"type":"context_message","created_at":"2026-01-01T00:04:00Z","message":{"role":"assistant","content":"","tool_calls":[{"id":"call-v033-read","type":"function","function":{"name":"read_file","arguments":"{\"path\":\"chapters/ch0001.md\"}"}}]}}`,
 		`{"type":"context_message","created_at":"2026-01-01T00:05:00Z","message":{"role":"tool","content":"门边放着一把蓝色钥匙。","tool_call_id":"call-v033-read","tool_name":"read_file"}}`,
 		`{"type":"display","id":"thinking-v033","role":"thinking","content":"正在整理旧版工具结果","created_at":"2026-01-01T00:06:00Z"}`,
-		`{"type":"message","created_at":"2026-01-01T00:07:00Z","message":{"role":"assistant","content":"第一章的钥匙线索已经找到。"},"run_id":"run-v033","agent_kind":"ide","agent_name":"DenovaAgent","root_agent_name":"DenovaAgent","run_path":["DenovaAgent"]}`,
+		`{"type":"message","created_at":"2026-01-01T00:07:00Z","message":{"role":"assistant","content":"第一章的钥匙线索已经找到。"},"run_id":"run-v033","agent_kind":"ide","agent_name":"InkDockAgent","root_agent_name":"InkDockAgent","run_path":["InkDockAgent"]}`,
 		`{"type":"context_compaction","id":"compact-v033","agent_kind":"ide","epoch":1,"summary":"旧版摘要：第一章的钥匙线索已经找到。","source_start_index":0,"source_end_index":3,"source_message_count":4,"retained_turns":1,"tokens_before":1200,"tokens_after":180,"context_window_tokens":128000,"threshold":0.9,"created_at":"2026-01-01T00:08:00Z"}`,
 		"",
 	}, "\n")
@@ -82,7 +82,7 @@ func TestReleasedV033WritingSessionMigratesAndContinues(t *testing.T) {
 	}
 
 	application, err := New(ctx, &config.Config{
-		OpenAIModel: "test-model", DenovaDir: dataRoot, ResumeLastWorkspace: true,
+		OpenAIModel: "test-model", InkDockDir: dataRoot, ResumeLastWorkspace: true,
 	})
 	if err != nil {
 		t.Fatal(err)

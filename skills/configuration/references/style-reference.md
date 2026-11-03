@@ -1,6 +1,6 @@
 # Style reference (`style_reference`)
 
-Shared Markdown prose references are available to Writing and Game modes. They are stored in `user` scope and addressed by the exact `display_path` returned by `config_read`, normally `.denova/styles/<file>.md`.
+Shared Markdown prose references are available to Writing and Game modes. They are stored in `user` scope and addressed by the exact `display_path` returned by `config_read`, normally `.inkdock/styles/<file>.md`.
 
 ## Mutation semantics
 
@@ -44,14 +44,14 @@ config_apply({
 })
 ```
 
-The receipt ID may be `.denova/styles/tense-close-third.md`. Read that exact ID before attaching it elsewhere:
+The receipt ID may be `.inkdock/styles/tense-close-third.md`. Read that exact ID before attaching it elsewhere:
 
 ```text
 config_read({
   "operation": "get",
   "resource": "style_reference",
   "scope": "user",
-  "ids": [".denova/styles/tense-close-third.md"]
+  "ids": [".inkdock/styles/tense-close-third.md"]
 })
 ```
 
@@ -64,7 +64,7 @@ config_apply({
   "operation": "update",
   "resource": "style_reference",
   "scope": "user",
-  "id": ".denova/styles/tense-close-third.md",
+  "id": ".inkdock/styles/tense-close-third.md",
   "revision": "REVISION_FROM_GET",
   "value": {
     "content": "# Tense close third person\n\nUse concrete sensory details and compressed sentences under pressure. Keep every observation inside the viewpoint character's knowledge.\n"

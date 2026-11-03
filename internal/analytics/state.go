@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/revisionfile"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Preferences is the public host-level settings projection. Identity and
@@ -47,7 +47,7 @@ func hostStatePath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(dir, "Denova", "analytics.json"), nil
+	return filepath.Join(dir, "InkDock", "analytics.json"), nil
 }
 
 func loadState(path string) (state, error) {

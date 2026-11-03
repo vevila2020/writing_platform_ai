@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"strings"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 func logToolCall(name, id string, argsBytes int, source string) {

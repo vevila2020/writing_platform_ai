@@ -1,4 +1,4 @@
-// Package observability owns Denova's process-wide structured logging and
+// Package observability owns InkDock's process-wide structured logging and
 // correlation metadata. Domain packages should log with slog's context-aware
 // methods so request-scoped fields can be attached without plumbing them into
 // every log call manually.
@@ -44,7 +44,7 @@ func RequestID(ctx context.Context) string {
 	return requestID
 }
 
-// ConfigureStructuredLogging installs Denova's process-wide slog logger.
+// ConfigureStructuredLogging installs InkDock's process-wide slog logger.
 // The context handler adds correlation fields at emission time, which keeps
 // logger instances reusable and prevents request data leaking across calls.
 func ConfigureStructuredLogging(output io.Writer) {

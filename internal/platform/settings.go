@@ -7,8 +7,8 @@ import (
 	"slices"
 	"time"
 
-	"denova/internal/revisionfile"
 	toml "github.com/pelletier/go-toml/v2"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // Permissions are host policy, separate from extension-defined configuration.

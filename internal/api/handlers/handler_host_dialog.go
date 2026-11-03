@@ -9,11 +9,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/internal/hostdialog"
+	"github.com/vevila2020/writing_platform_ai/internal/hostdialog"
 )
 
 // HandleDirectoryPicker opens a native folder chooser on the machine running
-// Denova. The API layer registers this handler behind a local-client guard.
+// InkDock. The API layer registers this handler behind a local-client guard.
 func (h *Handlers) HandleDirectoryPicker(ctx context.Context, c *app.RequestContext) {
 	var request struct {
 		InitialPath string `json:"initial_path"`
@@ -41,7 +41,7 @@ func (h *Handlers) HandleDirectoryPicker(ctx context.Context, c *app.RequestCont
 }
 
 // HandleProjectFileReveal opens the native file manager for one scoped project
-// item. The route is guarded so only a browser on the Denova host may call it.
+// item. The route is guarded so only a browser on the InkDock host may call it.
 func (h *Handlers) HandleProjectFileReveal(ctx context.Context, c *app.RequestContext) {
 	scope, ok := requireProjectScope(c)
 	if !ok {

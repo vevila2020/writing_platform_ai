@@ -1,9 +1,9 @@
 package character
 
 import (
-	"denova/internal/assetstore"
-	"denova/internal/book"
-	"denova/internal/book/lore"
+	"github.com/vevila2020/writing_platform_ai/internal/assetstore"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	"github.com/vevila2020/writing_platform_ai/internal/book/lore"
 )
 
 const tavernCardCoverPath = assetstore.CoverPath
@@ -59,7 +59,7 @@ type Preview struct {
 	UncertainTypeCount    int                 `json:"uncertain_type_count"`
 }
 
-// CompatibilityReport reports Denova capabilities rather than
+// CompatibilityReport reports InkDock capabilities rather than
 // exposing Tavern's runtime field vocabulary to users.
 type CompatibilityReport struct {
 	Capabilities        []string `json:"capabilities"`

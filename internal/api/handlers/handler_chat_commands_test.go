@@ -6,17 +6,17 @@ import (
 	"fmt"
 	"testing"
 
-	"denova/config"
-	"denova/internal/agents/conversationconfig"
-	appsvc "denova/internal/app"
-	"denova/internal/project"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationconfig"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/project"
 )
 
 func TestAgentChatOnlySessionDeletionIsLocalizedClientError(t *testing.T) {
 	root := t.TempDir()
 	application, err := appsvc.New(context.Background(), &config.Config{
-		OpenAIModel: "test-model", NovaDir: root, Workspace: root,
+		OpenAIModel: "test-model", DenovaDir: root, Workspace: root,
 		OpenAIBaseURL: "http://127.0.0.1:1/v1",
 	})
 	if err != nil {
@@ -31,7 +31,7 @@ func TestAgentChatOnlySessionDeletionIsLocalizedClientError(t *testing.T) {
 		t.Run(locale, func(t *testing.T) {
 			request := app.NewContext(0)
 			request.Request.Header.Set("Content-Type", "application/json")
-			request.Request.Header.Set("X-Denova-Locale", locale)
+			request.Request.Header.Set("X-InkDock-Locale", locale)
 			request.Request.SetBodyString(fmt.Sprintf(`{"session_id":%q}`, application.Session().ID))
 			request.Set(projectScopeContextKey, project.Layout{ProjectID: application.ProjectID()})
 			handler.HandleAgentChatSessionDelete(context.Background(), request)
@@ -53,7 +53,7 @@ func TestAgentCommandUnsupportedCapabilityIsLocalizedClientError(t *testing.T) {
 	} {
 		t.Run(locale, func(t *testing.T) {
 			c := app.NewContext(0)
-			c.Request.Header.Set("X-Denova-Locale", locale)
+			c.Request.Header.Set("X-InkDock-Locale", locale)
 			h := &Handlers{}
 			h.writeAgentCommandError(context.Background(), c, fmt.Errorf("suspend: %w", conversationconfig.ErrRuntimeCapabilityUnsupported), "external-test")
 			var body agentRuntimeErrorResponse

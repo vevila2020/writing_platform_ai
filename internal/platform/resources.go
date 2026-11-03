@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	"denova/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 )
 
 const MaxAssetBytes = 32 << 20

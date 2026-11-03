@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	agentschema "github.com/alfredxw/denova/agent/schema"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 // ToolArtifactRequest describes one immutable output stream stored outside
@@ -83,7 +83,7 @@ func (storage identifiedToolArtifactStorage) ResolveToolArtifactPath(ctx context
 	resolver, ok := storage.ToolArtifactBackend.(ToolArtifactPathResolver)
 	if !ok {
 		// Backends that already publish a provider-readable path do not need a
-		// projection hook. Denova's Project Store implements the hook for
+		// projection hook. InkDock's Project Store implements the hook for
 		// owner-relative durable references.
 		return path, nil
 	}
@@ -126,7 +126,7 @@ func toolArtifactsFromContext(ctx context.Context) toolArtifactContext {
 }
 
 // ContextWithToolArtifactStore binds run-scoped artifact persistence without
-// coupling reusable tools to Denova's session storage implementation.
+// coupling reusable tools to InkDock's session storage implementation.
 func ContextWithToolArtifactStore(ctx context.Context, store ToolArtifactStore) context.Context {
 	if ctx == nil {
 		ctx = context.Background()

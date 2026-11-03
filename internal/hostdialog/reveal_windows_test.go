@@ -8,8 +8,8 @@ import (
 
 // This opt-in integration test opens Explorer and requires an interactive desktop.
 func TestWindowsRevealPath(t *testing.T) {
-	if os.Getenv("DENOVA_TEST_WINDOWS_REVEAL") != "1" {
-		t.Skip("set DENOVA_TEST_WINDOWS_REVEAL=1 to verify native file selection")
+	if os.Getenv("INKDOCK_TEST_WINDOWS_REVEAL") != "1" {
+		t.Skip("set INKDOCK_TEST_WINDOWS_REVEAL=1 to verify native file selection")
 	}
 	directory := filepath.Join(t.TempDir(), "project 中文, with spaces")
 	if err := os.Mkdir(directory, 0o700); err != nil {

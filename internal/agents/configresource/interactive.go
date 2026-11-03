@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/internal/interactive"
-	"denova/internal/interactive/teller"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive"
+	"github.com/vevila2020/writing_platform_ai/internal/interactive/teller"
 )
 
 type jsonConfigResource[T any] struct {

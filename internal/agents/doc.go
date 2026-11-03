@@ -1,4 +1,4 @@
-// Package agents is Denova's Agent composition boundary. It wires product
+// Package agents is InkDock's Agent composition boundary. It wires product
 // builders while exposing the stable message facade used by the app layer.
 //
 // Chat execution, durable coordination, one-shot model tasks, context,

@@ -6,7 +6,7 @@ import (
 )
 
 // ContentDirectoryName is the default parent for project content stored under
-// the Denova data directory. User-selected external parents remain unchanged.
+// the InkDock data directory. User-selected external parents remain unchanged.
 const ContentDirectoryName = "projects"
 
 // Books returns available, non-archived Book projects in the registry's shared
@@ -81,18 +81,18 @@ func (registry *Registry) ReorderBooks(paths []string) error {
 }
 
 // BookCreationParent resolves the parent used when creating a Book. Selecting
-// the Denova data directory places content beneath its dedicated projects
+// the InkDock data directory places content beneath its dedicated projects
 // directory; selecting any other directory preserves the user's choice.
-func BookCreationParent(parentDir, denovaDir string) (string, error) {
+func BookCreationParent(parentDir, inkdockDir string) (string, error) {
 	parent, err := filepath.Abs(parentDir)
 	if err != nil {
 		return "", err
 	}
-	denovaDir = strings.TrimSpace(denovaDir)
-	if denovaDir == "" {
+	inkdockDir = strings.TrimSpace(inkdockDir)
+	if inkdockDir == "" {
 		return parent, nil
 	}
-	dataRoot, err := filepath.Abs(denovaDir)
+	dataRoot, err := filepath.Abs(inkdockDir)
 	if err == nil && parent == dataRoot {
 		return filepath.Join(parent, ContentDirectoryName), nil
 	}

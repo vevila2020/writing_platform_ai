@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"denova/internal/agents/runtime/external"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 )
 
 // Models asks the CLI's native initialization protocol. Discovery does not
@@ -16,7 +16,7 @@ import (
 func (c *Client) Models(ctx context.Context) (external.Models, error) {
 	ctx, cancel := context.WithTimeout(ctx, infrastructureTimeout)
 	defer cancel()
-	dir, err := os.MkdirTemp("", "denova-claude-models-")
+	dir, err := os.MkdirTemp("", "inkdock-claude-models-")
 	if err != nil {
 		return external.Models{}, err
 	}

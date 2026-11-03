@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	workspacelayout "denova/internal/workspace"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
 )
 
 // StructureTitles supplies localized names only for containers absent in the

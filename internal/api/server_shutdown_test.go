@@ -12,8 +12,8 @@ import (
 
 	hertzapp "github.com/cloudwego/hertz/pkg/app"
 
-	"denova/internal/api/sse"
-	apptask "denova/internal/app/task"
+	"github.com/vevila2020/writing_platform_ai/internal/api/sse"
+	apptask "github.com/vevila2020/writing_platform_ai/internal/app/task"
 )
 
 func TestServerShutdownDrainsSubscriptionsAndFinishesRequests(t *testing.T) {

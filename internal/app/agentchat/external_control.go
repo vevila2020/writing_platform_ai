@@ -2,8 +2,8 @@ package agentchat
 
 import (
 	"context"
-	"denova/config"
-	agentruntime "denova/internal/agents/runtime"
+	"github.com/vevila2020/writing_platform_ai/config"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
 )
 
 func (service *Service) agentSession(ctx context.Context, binding Binding, taskID string) (*agentruntime.Session, error) {

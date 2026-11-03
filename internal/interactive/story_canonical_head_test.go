@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"denova/internal/agents/conversationjournal"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/conversationjournal"
 )
 
 func TestCanonicalHistoryHeadTracksAppendsEditsAndIndexRebuild(t *testing.T) {

@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
+	"github.com/vevila2020/writing_platform_ai/config"
 
-	agentsession "github.com/alfredxw/denova/agent/session"
+	agentsession "github.com/vevila2020/writing_platform_ai/agent/session"
 )
 
-const sessionKeyPrefix = "denova-"
+const sessionKeyPrefix = "inkdock-"
 
 // SessionKeyForAgentSession derives an opaque, stable provider cache-routing
 // key from one public Agent Session identity. Raw workspace and product

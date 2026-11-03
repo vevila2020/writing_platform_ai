@@ -15,7 +15,7 @@ func TestInteractiveStoryStructureBusyErrorUsesRequestLocale(t *testing.T) {
 	for locale, want := range tests {
 		t.Run(locale, func(t *testing.T) {
 			ctx := app.NewContext(0)
-			ctx.Request.Header.Set("X-Denova-Locale", locale)
+			ctx.Request.Header.Set("X-InkDock-Locale", locale)
 			writeErrorKey(ctx, 409, "api.interactive.storyStructureBusy")
 
 			var body map[string]string

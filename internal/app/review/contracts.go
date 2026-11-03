@@ -2,7 +2,7 @@
 // and atomic cross-ledger consumption for writing and project Agent chats.
 package reviewapp
 
-import "denova/internal/book"
+import "github.com/vevila2020/writing_platform_ai/internal/book"
 
 // Runtime is an immutable Project snapshot shared by Book and General conversations.
 type Runtime struct {

@@ -94,7 +94,7 @@ type StyleRule struct {
 func StyleRulesInstruction(rules []StyleRule) string {
 	var sb strings.Builder
 	sb.WriteString("## Prose Style References\n\n")
-	sb.WriteString("The current narrative style provides the following prose-style reference index. References are shared Markdown files stored under `.denova/styles/`; the index provides only name, description, and path, not full content.\n")
+	sb.WriteString("The current narrative style provides the following prose-style reference index. References are shared Markdown files stored under `.inkdock/styles/`; the index provides only name, description, and path, not full content.\n")
 	wrote := 0
 	for _, rule := range rules {
 		scene := strings.TrimSpace(rule.Scene)

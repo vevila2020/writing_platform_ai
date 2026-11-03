@@ -9,10 +9,10 @@ import (
 	"slices"
 	"time"
 
-	"denova/internal/platform"
-	"denova/internal/portablepath"
-	"denova/internal/revisionfile"
 	"github.com/google/uuid"
+	"github.com/vevila2020/writing_platform_ai/internal/platform"
+	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
+	"github.com/vevila2020/writing_platform_ai/internal/revisionfile"
 )
 
 // ExportDefinition records a reusable selection, never another copy of content.

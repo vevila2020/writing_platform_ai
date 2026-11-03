@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	agentchat "denova/internal/agents/chat"
-	agentreview "denova/internal/agents/review"
-	agentrun "denova/internal/agents/run"
-	"denova/internal/book"
-	workspacelayout "denova/internal/workspace"
-	workspacechange "denova/internal/workspace/change"
-	"denova/internal/workspace/documentreview"
+	agentchat "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentreview "github.com/vevila2020/writing_platform_ai/internal/agents/review"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/book"
+	workspacelayout "github.com/vevila2020/writing_platform_ai/internal/workspace"
+	workspacechange "github.com/vevila2020/writing_platform_ai/internal/workspace/change"
+	"github.com/vevila2020/writing_platform_ai/internal/workspace/documentreview"
 )
 
 func TestReviewInputEffectConvergesAfterOneLedgerCommittedBeforeCrash(t *testing.T) {

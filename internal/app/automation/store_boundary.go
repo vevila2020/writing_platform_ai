@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"denova/internal/automation"
+	"github.com/vevila2020/writing_platform_ai/internal/automation"
 )
 
 func (s *Service) RunDue(ctx context.Context, now time.Time) []automation.RunResult {

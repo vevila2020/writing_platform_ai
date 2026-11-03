@@ -9,11 +9,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 
-	"denova/config"
-	"denova/internal/agentprofiles"
-	agentruntime "denova/internal/agents/runtime"
-	appsvc "denova/internal/app"
-	appsettings "denova/internal/app/settings"
+	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/agentprofiles"
+	agentruntime "github.com/vevila2020/writing_platform_ai/internal/agents/runtime"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
+	appsettings "github.com/vevila2020/writing_platform_ai/internal/app/settings"
 )
 
 // HandleSettingsGet returns persisted layers and their resolved runtime view.

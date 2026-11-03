@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	chatagent "denova/internal/agents/chat"
-	agentdelegation "denova/internal/agents/delegation"
-	agentexecution "denova/internal/agents/execution"
-	agentrun "denova/internal/agents/run"
-	appagentruntime "denova/internal/app/agentruntime"
-	conversationapp "denova/internal/app/conversation"
+	chatagent "github.com/vevila2020/writing_platform_ai/internal/agents/chat"
+	agentdelegation "github.com/vevila2020/writing_platform_ai/internal/agents/delegation"
+	agentexecution "github.com/vevila2020/writing_platform_ai/internal/agents/execution"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	appagentruntime "github.com/vevila2020/writing_platform_ai/internal/app/agentruntime"
+	conversationapp "github.com/vevila2020/writing_platform_ai/internal/app/conversation"
 
-	"github.com/alfredxw/denova/agent"
+	"github.com/vevila2020/writing_platform_ai/agent"
 )
 
 func (service *Service) PrepareChildDefinition(

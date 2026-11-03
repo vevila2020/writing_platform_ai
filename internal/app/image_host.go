@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"denova/config"
-	imageapp "denova/internal/app/image"
+	"github.com/vevila2020/writing_platform_ai/config"
+	imageapp "github.com/vevila2020/writing_platform_ai/internal/app/image"
 )
 
 // imageHost is the narrow workspace-generation boundary used by the shared

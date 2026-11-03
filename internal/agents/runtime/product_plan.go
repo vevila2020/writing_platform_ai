@@ -4,15 +4,15 @@ import (
 	"context"
 	"encoding/json"
 
-	agentrun "denova/internal/agents/run"
-	"denova/internal/agents/runtime/external"
+	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
 
-	agentexecution "github.com/alfredxw/denova/agent/engine/execution"
-	agentevent "github.com/alfredxw/denova/agent/lifecycle/event"
+	agentexecution "github.com/vevila2020/writing_platform_ai/agent/engine/execution"
+	agentevent "github.com/vevila2020/writing_platform_ai/agent/lifecycle/event"
 )
 
 // Plan is a recovery projection of the selected runtime's plan. Only provider
-// observations replace it; Denova does not execute a second Todo state machine.
+// observations replace it; InkDock does not execute a second Todo state machine.
 func (store ProductState) Plan(ctx context.Context) ([]agentevent.TodoItem, error) {
 	raw, present, err := store.Read(ctx, agentexecution.TodoCapability)
 	var state agentevent.TodoState

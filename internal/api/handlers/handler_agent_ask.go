@@ -6,13 +6,13 @@ import (
 	"log/slog"
 	"strings"
 
-	"denova/internal/agents/runtime/external"
-	appsvc "denova/internal/app"
+	"github.com/vevila2020/writing_platform_ai/internal/agents/runtime/external"
+	appsvc "github.com/vevila2020/writing_platform_ai/internal/app"
 
-	"github.com/alfredxw/denova/agent"
-	agentschema "github.com/alfredxw/denova/agent/schema"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/vevila2020/writing_platform_ai/agent"
+	agentschema "github.com/vevila2020/writing_platform_ai/agent/schema"
 )
 
 type askAnswerRequest struct {
