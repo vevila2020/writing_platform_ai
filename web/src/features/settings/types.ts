@@ -256,6 +256,8 @@ export interface ModelInfo {
   id: string
   display_name?: string
   owned_by?: string
+  /** Provider Unix creation timestamp; zero or absent means unknown. */
+  created?: number
 }
 
 export interface ModelDiscoveryResult {

@@ -38,6 +38,7 @@ type ModelInfo struct {
 	ID          string `json:"id"`
 	DisplayName string `json:"display_name,omitempty"`
 	OwnedBy     string `json:"owned_by,omitempty"`
+	Created     int64  `json:"created,omitempty"`
 }
 
 type ListResult struct {
@@ -108,6 +109,7 @@ func (service *Service) List(ctx context.Context, endpoint config.ModelEndpointS
 			ID:          model.ID,
 			DisplayName: model.DisplayName,
 			OwnedBy:     model.OwnedBy,
+			Created:     model.Created,
 		})
 	}
 	return ListResult{

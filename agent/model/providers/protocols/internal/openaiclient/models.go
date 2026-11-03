@@ -2,6 +2,7 @@ package openaiclient
 
 import (
 	"context"
+	"encoding/json"
 	"sort"
 	"strings"
 
@@ -29,10 +30,28 @@ func ListModels(ctx context.Context, config providers.ModelConfig) ([]providers.
 		}
 		seen[id] = struct{}{}
 		models = append(models, providers.ModelInfo{
-			ID:      id,
-			OwnedBy: strings.TrimSpace(candidate.OwnedBy),
+			ID:          id,
+			DisplayName: extraDisplayName(candidate.RawJSON()),
+			OwnedBy:     strings.TrimSpace(candidate.OwnedBy),
+			Created:     candidate.Created,
 		})
 	}
 	sort.Slice(models, func(i, j int) bool { return models[i].ID < models[j].ID })
 	return models, nil
+}
+
+// extraDisplayName reads display_name, which relays commonly add beyond the
+// OpenAI model schema. The SDK keeps the raw object even when it does not
+// surface an extension field.
+func extraDisplayName(raw string) string {
+	if raw == "" {
+		return ""
+	}
+	var extension struct {
+		DisplayName string `json:"display_name"`
+	}
+	if err := json.Unmarshal([]byte(raw), &extension); err != nil {
+		return ""
+	}
+	return strings.TrimSpace(extension.DisplayName)
 }

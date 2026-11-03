@@ -38,6 +38,8 @@ const INHERIT_VALUE = '__inherit__'
 const PROVIDER_DEFAULT_PROTOCOL = '__provider_default__'
 const PROVIDER_DEFAULT_SESSION_KEY_MAPPING = '__provider_default__'
 const EMPTY_MODEL_CATALOG: ModelCatalog = { providers: [], protocols: FALLBACK_MODEL_PROTOCOLS }
+// The recommended relay stays an ordinary compatible endpoint.
+const ELIAS_API_BASE_URL = 'https://subapi.elias.kdns.fr/v1'
 
 interface ModelProfilesEditorProps {
   endpoints: ModelEndpointSettings[]
@@ -159,12 +161,55 @@ export function ModelProfilesEditor({
     }
   }
 
+  // The recommended relay is an ordinary OpenAI-compatible endpoint. Keeping it
+  // as a prefilled draft reuses the full key, discovery, save, and agent-routing
+  // flow instead of adding a second provisioning path.
+  const addEliasAPIEndpoint = () => {
+    onEndpointsChange([...endpoints, {
+      id: uniqueID('eliasapi', endpoints.map(modelEndpointID)),
+      name: 'EliasApi',
+      provider: MODEL_PROVIDER_OPENAI_COMPATIBLE,
+      protocol: MODEL_PROTOCOL_RESPONSES,
+      base_url: ELIAS_API_BASE_URL,
+    }])
+  }
+
   return (
     <div className="nova-settings-row rounded-md px-2 py-1.5">
       <div className="mb-1.5 text-[var(--nova-text-muted)]">{t('settings.model.modelProfiles')}</div>
       <div className="mb-2 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-2.5 py-2 text-[11px] leading-5 text-[var(--nova-text-faint)]">
         {t('settings.model.endpointRoutingHint')}
       </div>
+      {endpoints.length === 0 && effectiveEndpoints.length === 0 && (
+        <div className="mb-2 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-3 py-2.5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 text-xs font-medium text-[var(--nova-text)]">
+                <span>EliasApi</span>
+                <span className="rounded border border-[var(--nova-border)] px-1 py-px text-[10px] font-normal text-[var(--nova-text-muted)]">
+                  {t('settings.model.eliasApiRecommended')}
+                </span>
+              </div>
+              <p className="mt-1 max-w-[42rem] text-[11px] leading-5 text-[var(--nova-text-faint)]">
+                {t('settings.model.eliasApiDescription')}
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <a
+                className="text-[11px] text-[var(--nova-text-muted)] underline-offset-2 hover:underline"
+                href="https://subapi.elias.kdns.fr/register"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t('settings.model.eliasApiRegister')}
+              </a>
+              <Button type="button" variant="outline" size="sm" onClick={addEliasAPIEndpoint}>
+                <Plus data-icon="inline-start" />{t('settings.model.eliasApiConnect')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-2">
         <ModelProfileField label={t('settings.model.defaultProfile')}>
           <Select value={defaultProfileID || INHERIT_VALUE} onValueChange={(value) => onDefaultProfileChange(value === INHERIT_VALUE ? '' : value)}>
@@ -256,7 +301,12 @@ export function ModelProfilesEditor({
                 <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                   <span className="text-[11px] font-medium text-[var(--nova-text-muted)]">{t('settings.model.endpointModels', { count: endpointProfiles.length })}</span>
                   <div className="flex flex-wrap gap-2">
-                    <ModelDiscoveryPicker endpoint={endpoint} defaultProtocol={defaultProtocol} existingModels={endpointProfiles.map(({ profile }) => profile.model ?? '')} onAdd={(models) => addModels(endpoint, models)} />
+                    <ModelDiscoveryPicker
+                      endpoint={endpoint}
+                      defaultProtocol={defaultProtocol}
+                      existingModels={endpointProfiles.map(({ profile }) => profile.model ?? '')}
+                      onAdd={(models) => addModels(endpoint, models)}
+                    />
                     <Button type="button" variant="outline" size="sm" onClick={() => onProfilesChange([...profiles, {
                       endpoint_id: endpointID,
                       context_window_tokens: DEFAULT_CONTEXT_WINDOW_TOKENS,

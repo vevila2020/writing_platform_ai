@@ -39,10 +39,13 @@ type ProtocolAdapter interface {
 
 // ModelInfo is one provider-advertised model that can be offered as a
 // suggestion. Callers must continue accepting model IDs not present here.
+// Created is the provider's Unix creation timestamp when it advertises one;
+// zero means the provider did not supply a reliable value.
 type ModelInfo struct {
 	ID          string `json:"id"`
 	DisplayName string `json:"display_name,omitempty"`
 	OwnedBy     string `json:"owned_by,omitempty"`
+	Created     int64  `json:"created,omitempty"`
 }
 
 // ModelListingAdapter is an optional protocol capability. An adapter should

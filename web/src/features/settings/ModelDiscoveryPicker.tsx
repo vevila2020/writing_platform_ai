@@ -21,6 +21,24 @@ type DiscoveryState =
   | { status: 'success'; models: ModelInfo[] }
   | { status: 'error'; models: ModelInfo[]; message: string }
 
+// Language endpoints occasionally advertise image, embedding, audio, and
+// internal variants alongside chat models. Keep them selectable, but never
+// auto-recommend one for the writing agent.
+const NON_CHAT_MODEL = /(?:^|[-_.])(image|embedding|embed|whisper|tts|audio|moderation|reserve|compact|review)(?:$|[-_.])/i
+
+function isChatCandidate(model: ModelInfo): boolean {
+  return !NON_CHAT_MODEL.test(model.id)
+}
+
+function rankModels(models: ModelInfo[]): ModelInfo[] {
+  return [...models].sort((left, right) => {
+    const chat = Number(isChatCandidate(right)) - Number(isChatCandidate(left))
+    if (chat !== 0) return chat
+    const created = (right.created ?? 0) - (left.created ?? 0)
+    return created !== 0 ? created : left.id.localeCompare(right.id)
+  })
+}
+
 export function ModelDiscoveryPicker({ endpoint, defaultProtocol, existingModels, onAdd }: {
   endpoint: ModelEndpointSettings
   defaultProtocol?: string
@@ -38,13 +56,24 @@ export function ModelDiscoveryPicker({ endpoint, defaultProtocol, existingModels
     || protocol === MODEL_PROTOCOL_RESPONSES
     || protocol === MODEL_PROTOCOL_ANTHROPIC_MESSAGES
     || protocol === MODEL_PROTOCOL_GOOGLE_GENERATIVE_AI
-  const routeFingerprint = useMemo(() => JSON.stringify({ ...endpoint, protocol }), [endpoint, protocol])
+  // Reset discovery only when the request route changes. Secret material and
+  // display-only fields may be rewritten by settings autosave while the picker
+  // is open; including them would close the popover mid-request.
+  const routeFingerprint = useMemo(
+    () => JSON.stringify({ id: endpoint.id, provider: endpoint.provider, protocol, base_url: endpoint.base_url }),
+    [endpoint.base_url, endpoint.id, endpoint.provider, protocol],
+  )
   const existing = useMemo(() => new Set(existingModels.map((model) => model.trim()).filter(Boolean)), [existingModels])
+  const rankedModels = useMemo(() => rankModels(state.models), [state.models])
+  const recommendedID = useMemo(
+    () => rankedModels.find((model) => !existing.has(model.id) && isChatCandidate(model))?.id,
+    [existing, rankedModels],
+  )
   const visibleModels = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase()
-    if (!normalized) return state.models
-    return state.models.filter((model) => `${model.display_name ?? ''}\n${model.id}\n${model.owned_by ?? ''}`.toLocaleLowerCase().includes(normalized))
-  }, [query, state.models])
+    if (!normalized) return rankedModels
+    return rankedModels.filter((model) => `${model.display_name ?? ''}\n${model.id}\n${model.owned_by ?? ''}`.toLocaleLowerCase().includes(normalized))
+  }, [query, rankedModels])
 
   useEffect(() => {
     requestRef.current?.abort()
@@ -147,7 +176,14 @@ export function ModelDiscoveryPicker({ endpoint, defaultProtocol, existingModels
                   })}
                 >
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate" title={model.display_name || model.id}>{model.display_name || model.id}</span>
+                    <span className="flex min-w-0 items-center gap-1.5" title={model.display_name || model.id}>
+                      <span className="truncate">{model.display_name || model.id}</span>
+                      {model.id === recommendedID && !alreadyAdded && (
+                        <span className="shrink-0 rounded border border-[var(--nova-border)] px-1 py-px text-[10px] text-[var(--nova-text-muted)]">
+                          {t('settings.model.discoveryRecommended')}
+                        </span>
+                      )}
+                    </span>
                     {model.display_name && <span className="block truncate font-mono text-[10px] text-[var(--nova-text-faint)]">{model.id}</span>}
                   </span>
                   {alreadyAdded ? <span className="shrink-0 text-[10px] text-[var(--nova-text-faint)]">{t('settings.model.discoveryAdded')}</span> : checked && <Check />}
