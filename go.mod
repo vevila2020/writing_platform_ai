@@ -7,7 +7,6 @@ require (
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/Masterminds/semver/v3 v3.5.0
 	github.com/PuerkitoBio/goquery v1.12.0
-	github.com/vevila2020/writing_platform_ai/agent v0.0.0
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be
 	github.com/cavaliergopher/grab/v3 v3.0.1
 	github.com/charmbracelet/x/xpty v0.1.3
@@ -30,6 +29,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.4.0
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
 	github.com/sergi/go-diff v1.4.0
+	github.com/vevila2020/writing_platform_ai/agent v0.0.0
 	golang.org/x/crypto v0.57.0
 	golang.org/x/image v0.45.0
 	golang.org/x/net v0.60.0
