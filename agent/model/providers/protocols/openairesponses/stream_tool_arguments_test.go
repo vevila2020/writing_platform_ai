@@ -147,6 +147,48 @@ func TestStreamRecoversParallelToolArgumentsWithoutDeltas(t *testing.T) {
 	}
 }
 
+func TestStreamIgnoresProviderSideWebSearchItems(t *testing.T) {
+	frames := []map[string]any{
+		{"type": "response.created", "response": map[string]any{"id": "resp_web", "object": "response", "created_at": 1, "status": "in_progress", "model": "m", "output": []any{}}},
+		{"type": "response.output_item.added", "output_index": 0, "item": map[string]any{
+			"id": "ws_1", "type": "web_search_call", "status": "in_progress",
+		}},
+		{"type": "response.web_search_call.in_progress", "item_id": "ws_1", "output_index": 0},
+		{"type": "response.web_search_call.searching", "item_id": "ws_1", "output_index": 0},
+		{"type": "response.web_search_call.completed", "item_id": "ws_1", "output_index": 0},
+		{"type": "response.output_item.done", "output_index": 0, "item": map[string]any{
+			"id": "ws_1", "type": "web_search_call", "status": "completed",
+		}},
+		{"type": "response.output_text.annotation.added", "item_id": "msg_1", "output_index": 1, "content_index": 0, "annotation_index": 0, "annotation": map[string]any{
+			"type": "url_citation", "url": "https://example.com", "title": "Example",
+		}},
+		{"type": "response.output_text.delta", "item_id": "msg_1", "output_index": 1, "content_index": 0, "delta": "研究结果"},
+		{"type": "response.completed", "response": map[string]any{
+			"id": "resp_web", "object": "response", "created_at": 1, "status": "completed", "model": "m",
+			"output": []any{
+				map[string]any{"id": "ws_1", "type": "web_search_call", "status": "completed"},
+				map[string]any{
+					"id": "msg_1", "type": "message", "role": "assistant", "status": "completed",
+					"content": []any{map[string]any{"type": "output_text", "text": "研究结果", "annotations": []any{}}},
+				},
+			},
+		}},
+	}
+	merged, err := streamFrames(t, frames)
+	if err != nil {
+		t.Fatalf("stream: %v", err)
+	}
+	if merged.Content != "研究结果" {
+		t.Fatalf("content = %q, want 研究结果", merged.Content)
+	}
+	if len(merged.ToolCalls) != 0 {
+		t.Fatalf("provider-side web search must not surface a client tool call: %#v", merged.ToolCalls)
+	}
+	if _, ok := merged.Extra[providers.ExtraKeyContinuation]; !ok {
+		t.Fatal("continuation payload should retain the raw web search item")
+	}
+}
+
 func TestStreamRejectsToolArgumentsThatContradictStreamedDeltas(t *testing.T) {
 	call := parallelCalls[0]
 	frames := []map[string]any{

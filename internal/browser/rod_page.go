@@ -224,7 +224,10 @@ func (page *rodPage) Close(context.Context) error {
 			<-page.routerDone
 		}
 		if page.page != nil {
-			if err := page.page.Close(); err != nil {
+			// Page control inherits the Agent lifetime context. Invocation cleanup
+			// runs after that context is canceled, so close through a fresh context
+			// instead of reporting "context canceled" for a successful run.
+			if err := page.page.Context(context.Background()).Close(); err != nil {
 				closeErrors = append(closeErrors, err)
 			}
 		}

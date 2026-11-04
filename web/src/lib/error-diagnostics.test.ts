@@ -15,4 +15,17 @@ describe('screenshot diagnostics', () => {
     expect(diagnosticText('Authorization: Bearer private-token')).not.toContain('private-token')
     expect(diagnosticText('{"Authorization":"Bearer private-token"}')).not.toContain('private-token')
   })
+
+  it('keeps the provider body when an endpoint path ends with /messages', () => {
+    const detail = 'Invalid message sequence: tool_use and tool_result blocks must be correctly paired and ordered.'
+    const text = `provider API error (status 400): POST "https://subapi.example.fr/v1/messages": 400 Bad Request {"error":{"message":"${detail}","type":"upstream_error"}}`
+    const sanitized = diagnosticText(text)
+    expect(sanitized).toContain(detail)
+    expect(sanitized).not.toContain('[redacted]')
+  })
+
+  it('still redacts body and messages fields', () => {
+    expect(diagnosticText('body: {"text":"private prose"}')).not.toContain('private prose')
+    expect(diagnosticText('{"messages":[{"content":"private prose"}]}')).not.toContain('private prose')
+  })
 })

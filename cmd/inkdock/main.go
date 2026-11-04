@@ -20,6 +20,7 @@ import (
 	"github.com/vevila2020/writing_platform_ai/internal/api"
 	"github.com/vevila2020/writing_platform_ai/internal/app"
 	"github.com/vevila2020/writing_platform_ai/internal/buildinfo"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 	"github.com/vevila2020/writing_platform_ai/internal/observability"
 	"github.com/vevila2020/writing_platform_ai/internal/update"
 )
@@ -65,6 +66,10 @@ func main() {
 	flag.Parse()
 
 	cfg.DevMode = dev || devMode
+	executablePath, _ := os.Executable()
+	if reportMissingRipgrep(os.Stderr, cfg.DevMode, executablePath, os.Environ()) {
+		slog.WarnContext(ctx, "[startup] ripgrep not found; grep and glob tools will fail until it is installed or bundled")
+	}
 	agentrun.SetModelInputLoggingEnabled(cfg.DevMode && cfg.LLMInputLogEnabled)
 	agentrun.SetTraceRuntimeConfig(cfg.TraceCaptureLevel, cfg.TraceExporter, cfg.TraceRetentionRuns)
 	agentrun.SetTraceContentCaptureEnabled(cfg.Labs.DeveloperMode)
@@ -178,6 +183,24 @@ func runBackground(scope string, run func()) {
 			run()
 		}
 	}()
+}
+
+// reportMissingRipgrep turns a missing development dependency into an
+// actionable startup notice instead of a failed grep or glob tool call inside a
+// conversation. Release packages ship tools/rg beside the executable, but
+// source runs execute from a temporary build directory and depend on an
+// installed ripgrep. It reports whether the notice was printed.
+func reportMissingRipgrep(output io.Writer, devMode bool, executablePath string, environment []string) bool {
+	if !devMode {
+		return false
+	}
+	if hostruntime.DiscoverForExecutableWithEnvironment(executablePath, environment, "").Ripgrep != "" {
+		return false
+	}
+	fmt.Fprintln(output, "Warning: ripgrep (rg) was not found; the grep and glob tools will fail.")
+	fmt.Fprintln(output, "  Install ripgrep (for example: winget install BurntSushi.ripgrep.MSVC) or place it in tools/ next to the InkDock executable,")
+	fmt.Fprintln(output, "  then restart the terminal and InkDock.")
+	return true
 }
 
 func hasVersionArg(args []string) bool {

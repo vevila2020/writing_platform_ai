@@ -9,8 +9,9 @@ import (
 	"strings"
 )
 
-// Set contains host-owned executable paths. Empty fields deliberately let
-// consumers decide whether absence is fatal or supports a local fallback.
+// Set contains host-owned executable paths. Ripgrep prefers the release-bundled
+// copy and falls back to the host PATH; empty fields deliberately let consumers
+// decide whether absence is fatal or supports a local fallback.
 type Executables struct {
 	Ripgrep string
 	Bash    string
@@ -18,7 +19,7 @@ type Executables struct {
 }
 
 // DiscoverForExecutable returns the bundled tools beside executablePath and
-// resolves host-provided shells once at the application boundary.
+// resolves host-provided tools and shells once at the application boundary.
 func DiscoverForExecutable(executablePath string) Executables {
 	return DiscoverForExecutableWithEnvironment(executablePath, os.Environ(), "")
 }
@@ -32,13 +33,26 @@ func DiscoverForExecutableWithEnvironment(executablePath string, environment []s
 		bashCandidates = append([]string{bashOverride}, bashCandidates...)
 	}
 	return Executables{
-		Ripgrep: discoverBundledRipgrep(executablePath),
+		Ripgrep: discoverRipgrep(executablePath, environment),
 		Bash:    discoverExecutable(environment, bashCandidates...),
 		Pwsh:    discoverExecutable(environment, "pwsh", "pwsh.exe", "powershell", "powershell.exe"),
 	}
 }
 
-func discoverBundledRipgrep(executablePath string) string {
+// discoverRipgrep prefers the bundled copy so a release package never executes
+// an unrelated rg from the host PATH. Source runs carry no tools directory and
+// therefore rely on an installed ripgrep, resolved against the same
+// environment the tools receive.
+func discoverRipgrep(executablePath string, environment []string) string {
+	if bundled := BundledRipgrep(executablePath); bundled != "" {
+		return bundled
+	}
+	return discoverExecutable(environment, "rg", RipgrepExecutableName())
+}
+
+// BundledRipgrep returns the ripgrep shipped beside executablePath, or "" when
+// the runtime is not a release package layout.
+func BundledRipgrep(executablePath string) string {
 	if strings.TrimSpace(executablePath) == "" {
 		return ""
 	}

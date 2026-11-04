@@ -216,7 +216,9 @@ func validateReleasePackage(packageRoot, exeName, updaterName string) error {
 			return fmt.Errorf("update package entry %s is not a directory", name)
 		}
 	}
-	if runtimeExecutables := hostruntime.DiscoverForExecutable(filepath.Join(packageRoot, exeName)); runtimeExecutables.Ripgrep == "" {
+	// A release package must ship its own ripgrep; the host PATH is irrelevant
+	// here because the installed app must not depend on developer tooling.
+	if hostruntime.BundledRipgrep(filepath.Join(packageRoot, exeName)) == "" {
 		return fmt.Errorf("update package is missing executable bundled ripgrep")
 	}
 	for _, name := range []string{"LICENSE-MIT", "UNLICENSE"} {

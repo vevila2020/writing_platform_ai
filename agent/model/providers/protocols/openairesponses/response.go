@@ -206,6 +206,13 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 			}
 			return state.toolCallMessage([]agentschema.ToolCall{call}), nil
 		default:
+			// Built-in provider-side tools (web search, file search, code interpreter,
+			// MCP, ...) execute inside the provider and never need a client tool call.
+			// Their items still belong in the continuation payload, so only the
+			// streaming signal is dropped here.
+			if passiveOutputItem(added.Item.Type) {
+				return nil, nil
+			}
 			return nil, fmt.Errorf("openai responses stream: unsupported output item type %q", added.Item.Type)
 		}
 	case "response.function_call_arguments.delta":
@@ -282,12 +289,45 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 	case "response.in_progress", "response.queued", "response.metadata",
 		"response.content_part.added", "response.content_part.done",
 		"response.output_text.done", "response.refusal.done",
+		"response.output_text.annotation.added",
 		"response.reasoning_summary_part.added", "response.reasoning_summary_part.done",
-		"response.reasoning_summary_text.done", "response.reasoning_text.done":
+		"response.reasoning_summary_text.done", "response.reasoning_text.done",
+		"response.web_search_call.in_progress", "response.web_search_call.searching",
+		"response.web_search_call.completed",
+		"response.file_search_call.in_progress", "response.file_search_call.searching",
+		"response.file_search_call.completed",
+		"response.image_generation_call.in_progress", "response.image_generation_call.generating",
+		"response.image_generation_call.partial_image", "response.image_generation_call.completed",
+		"response.code_interpreter_call.in_progress", "response.code_interpreter_call.interpreting",
+		"response.code_interpreter_call.completed", "response.code_interpreter_call_code.delta",
+		"response.code_interpreter_call_code.done",
+		"response.mcp_call.in_progress", "response.mcp_call.completed", "response.mcp_call.failed",
+		"response.mcp_call_arguments.delta", "response.mcp_call_arguments.done",
+		"response.mcp_list_tools.in_progress", "response.mcp_list_tools.completed",
+		"response.mcp_list_tools.failed",
+		"response.audio.delta", "response.audio.done",
+		"response.audio.transcript.delta", "response.audio.transcript.done":
 		return nil, nil
 	default:
 		return nil, fmt.Errorf("openai responses stream: unsupported event type %q", event.Type)
 	}
+}
+
+// passiveOutputItem reports whether an OpenAI Responses output item is produced
+// entirely by a provider-side built-in tool. These items carry no client tool
+// call, so streaming ignores them while continuation replay keeps the raw item.
+func passiveOutputItem(itemType string) bool {
+	switch itemType {
+	case "file_search_call", "web_search_call", "computer_call", "computer_call_output",
+		"program", "program_output", "tool_search_call", "tool_search_output",
+		"additional_tools", "compaction", "image_generation_call", "code_interpreter_call",
+		"local_shell_call", "local_shell_call_output", "shell_call", "shell_call_output",
+		"apply_patch_call", "apply_patch_call_output", "mcp_call", "mcp_list_tools",
+		"mcp_approval_request", "mcp_approval_response", "custom_tool_call",
+		"custom_tool_call_output", "function_call_output":
+		return true
+	}
+	return false
 }
 
 func (state *streamState) toolCallMessage(calls []agentschema.ToolCall) *agentschema.Message {

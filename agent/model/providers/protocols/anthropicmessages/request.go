@@ -62,14 +62,22 @@ func requestMessages(input []*agentschema.Message, config providers.ModelConfig)
 	system := make([]anthropic.TextBlockParam, 0)
 	messages := make([]anthropic.MessageParam, 0, len(input))
 	imageCount := providers.NativeImageCount(input)
-	for index, message := range input {
+	// Anthropic requires every tool_result for one assistant turn to live in a
+	// single user message, ordered like the corresponding tool_use blocks.
+	// Malformed histories are rejected upstream with a 400, so keep the batch
+	// identity from the previous assistant turn while grouping results.
+	var pendingToolOrder []string
+	for index := 0; index < len(input); index++ {
+		message := input[index]
 		if message == nil {
 			return nil, nil, fmt.Errorf("anthropic messages input %d: nil message", index)
 		}
 		switch message.Role {
 		case agentschema.System:
+			pendingToolOrder = nil
 			system = append(system, anthropic.TextBlockParam{Text: message.Content})
 		case agentschema.User:
+			pendingToolOrder = nil
 			blocks := []anthropic.ContentBlockParamUnion{anthropic.NewTextBlock(agentschema.ModelUserContent(message))}
 			for _, attachment := range message.Attachments {
 				if !agentschema.IsNativeImageMediaType(attachment.MediaType) {
@@ -88,26 +96,109 @@ func requestMessages(input []*agentschema.Message, config providers.ModelConfig)
 				return nil, nil, fmt.Errorf("anthropic messages input %d: %w", index, err)
 			}
 			messages = append(messages, anthropic.NewAssistantMessage(blocks...))
+			pendingToolOrder = toolCallOrder(message.ToolCalls)
 		case agentschema.ToolRole:
-			if strings.TrimSpace(message.ToolCallID) == "" {
-				return nil, nil, fmt.Errorf("anthropic messages input %d: tool result requires tool call id", index)
+			results, next, err := toolResultBlocks(input, index, config, imageCount)
+			if err != nil {
+				return nil, nil, err
 			}
-			isError := message.ToolResult != nil && message.ToolResult.Status == agentschema.ToolResultError
-			result := anthropic.NewToolResultBlock(message.ToolCallID, message.Content, isError)
-			for _, attachment := range message.Attachments {
-				prepared, err := config.PrepareImage(attachment, imageCount)
-				if err != nil {
-					return nil, nil, fmt.Errorf("anthropic messages input %d: %w", index, err)
-				}
-				image := anthropic.NewImageBlockBase64(prepared.MediaType, prepared.Base64)
-				result.OfToolResult.Content = append(result.OfToolResult.Content, anthropic.ToolResultBlockParamContentUnion{OfImage: image.OfImage})
+			if len(pendingToolOrder) > 0 {
+				results = orderToolResults(results, pendingToolOrder)
 			}
-			messages = append(messages, anthropic.NewUserMessage(result))
+			pendingToolOrder = nil
+			messages = append(messages, anthropic.NewUserMessage(results...))
+			index = next - 1
 		default:
 			return nil, nil, fmt.Errorf("anthropic messages input %d: unsupported role %q", index, message.Role)
 		}
 	}
 	return system, messages, nil
+}
+
+// toolResultBlocks converts the consecutive tool messages starting at start
+// into one user-turn batch. It returns the index of the first message after the
+// batch so the caller never emits multiple user messages for one assistant turn.
+func toolResultBlocks(input []*agentschema.Message, start int, config providers.ModelConfig, imageCount int) ([]anthropic.ContentBlockParamUnion, int, error) {
+	results := make([]anthropic.ContentBlockParamUnion, 0, 1)
+	index := start
+	for index < len(input) {
+		message := input[index]
+		if message == nil {
+			return nil, index, fmt.Errorf("anthropic messages input %d: nil message", index)
+		}
+		if message.Role != agentschema.ToolRole {
+			break
+		}
+		if strings.TrimSpace(message.ToolCallID) == "" {
+			return nil, index, fmt.Errorf("anthropic messages input %d: tool result requires tool call id", index)
+		}
+		isError := message.ToolResult != nil && message.ToolResult.Status == agentschema.ToolResultError
+		result := anthropic.NewToolResultBlock(message.ToolCallID, message.Content, isError)
+		for _, attachment := range message.Attachments {
+			prepared, err := config.PrepareImage(attachment, imageCount)
+			if err != nil {
+				return nil, index, fmt.Errorf("anthropic messages input %d: %w", index, err)
+			}
+			image := anthropic.NewImageBlockBase64(prepared.MediaType, prepared.Base64)
+			result.OfToolResult.Content = append(result.OfToolResult.Content, anthropic.ToolResultBlockParamContentUnion{OfImage: image.OfImage})
+		}
+		results = append(results, result)
+		index++
+	}
+	return results, index, nil
+}
+
+func toolCallOrder(calls []agentschema.ToolCall) []string {
+	if len(calls) == 0 {
+		return nil
+	}
+	order := make([]string, 0, len(calls))
+	for _, call := range calls {
+		if id := strings.TrimSpace(call.ID); id != "" {
+			order = append(order, id)
+		}
+	}
+	if len(order) == 0 {
+		return nil
+	}
+	return order
+}
+
+// orderToolResults matches the provider's ordering contract: the result blocks
+// follow the tool_use blocks of the preceding assistant message. Results whose
+// call is not part of that batch keep their relative order at the end, matching
+// the normalization invariants but staying defensive for persisted history.
+func orderToolResults(results []anthropic.ContentBlockParamUnion, order []string) []anthropic.ContentBlockParamUnion {
+	if len(results) < 2 {
+		return results
+	}
+	positions := make(map[string]int, len(order))
+	for index, id := range order {
+		positions[id] = index
+	}
+	ordered := append([]anthropic.ContentBlockParamUnion(nil), results...)
+	sort.SliceStable(ordered, func(left, right int) bool {
+		leftIndex, leftOK := positions[toolResultCallID(ordered[left])]
+		rightIndex, rightOK := positions[toolResultCallID(ordered[right])]
+		switch {
+		case leftOK && rightOK:
+			return leftIndex < rightIndex
+		case leftOK:
+			return true
+		case rightOK:
+			return false
+		default:
+			return false
+		}
+	})
+	return ordered
+}
+
+func toolResultCallID(block anthropic.ContentBlockParamUnion) string {
+	if block.OfToolResult == nil {
+		return ""
+	}
+	return strings.TrimSpace(block.OfToolResult.ToolUseID)
 }
 
 func assistantBlocks(message *agentschema.Message, config providers.ModelConfig) ([]anthropic.ContentBlockParamUnion, error) {

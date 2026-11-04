@@ -121,14 +121,20 @@ func (driver *RodDriver) Close(context.Context) error {
 	}
 	driver.closed = true
 	var closeErrors []error
+	// Invocation cleanup runs after the run context is canceled. Rod control calls
+	// inherit the browser lifetime context, so closing through the original handles
+	// would report "context canceled" even though the run itself succeeded. Clone
+	// the handles with a fresh context; the process teardown below is independent
+	// of the Agent lifetime.
+	closeCtx := context.Background()
 	if driver.incognito != nil {
-		if err := driver.incognito.Close(); err != nil {
+		if err := driver.incognito.Context(closeCtx).Close(); err != nil {
 			closeErrors = append(closeErrors, fmt.Errorf("close isolated browser context: %w", err))
 		}
 	}
 	var browserCloseErr error
 	if driver.browser != nil {
-		browserCloseErr = driver.browser.Close()
+		browserCloseErr = driver.browser.Context(closeCtx).Close()
 		if browserCloseErr != nil {
 			closeErrors = append(closeErrors, fmt.Errorf("close browser process: %w", browserCloseErr))
 		}

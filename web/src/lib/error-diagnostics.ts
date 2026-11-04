@@ -34,7 +34,10 @@ export function diagnosticText(value: string): string {
     })
     .replace(/(authorization\s*[:=]\s*)(?:bearer|basic)\s+[^\s,;"']+/gi, '$1[redacted]')
     .replace(/(["']?(?:authorization|api[_-]?key|access[_-]?token|refresh[_-]?token|token|password|secret|cookie)["']?\s*[:=]\s*)(?:"[^"\n]*"|'[^'\n]*'|[^\s,;}]+)/gi, '$1[redacted]')
-    .replace(/(["']?(?:prompt|messages|request_body|response_body|body)["']?\s*[:=]\s*)[\s\S]*/gi, '$1[redacted]')
+    // Require a field boundary before the key so an endpoint path such as
+    // `/v1/messages":` is not mistaken for a JSON `messages` field and does not
+    // erase the provider's diagnostic body.
+    .replace(/(^|[\s{,;(&])(["']?(?:prompt|messages|request_body|response_body|body)["']?\s*[:=]\s*)[\s\S]*/gi, '$1$2[redacted]')
     .replace(/(?:[A-Za-z]:\\|\/(?:Users|home|private|var|tmp)\/)[^\s"':;]+/g, '[local-path]')
   return sanitized.length > 4096 ? `${sanitized.slice(0, 4096)}…` : sanitized
 }
