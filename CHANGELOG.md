@@ -10,7 +10,7 @@ InkDock records major user-visible features, important compatibility or data cha
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)。
 
-## [v1.0.0] - 2026-11-03
+## [v1.0.0] - 2026-11-04
 
 ### Brief / 简要说明
 
@@ -22,6 +22,7 @@ InkDock records major user-visible features, important compatibility or data cha
 - 新增图表统计，可按项目和日期查看稿量变化、章节进度、游戏活动与模型用量。
 - 新增内置互动游戏创作 Skill，并支持按「游戏」分类管理 Skills。
 - 更新前后可查看本次升级跨越的全部版本变化。
+- 内置 EliasApi 中转站连接：粘贴 API Key 后实时获取模型列表并推荐最新对话模型；注册仍在 EliasApi 站点完成。
 - 修复写作 Agent 忽略书籍简介，以及部分兼容服务下并行工具调用参数为空的问题。
 
 #### English
@@ -32,6 +33,7 @@ InkDock records major user-visible features, important compatibility or data cha
 - Adds chart-based statistics for manuscript changes, chapter progress, Game activity, and model usage by project and date.
 - Adds a built-in interactive-game design Skill and a Game category for Skills.
 - Shows changes across every version included in an upgrade, before and after installation.
+- Adds a recommended EliasApi relay connection: paste an API key to discover models live and use the newest chat model; registration stays on the EliasApi site.
 - Fixes writing Agents ignoring the book synopsis, and empty parallel tool-call arguments with some compatible services.
 
 ### Added / 新增
@@ -48,6 +50,8 @@ InkDock records major user-visible features, important compatibility or data cha
 - The interactive-game design Skill now covers classic web-novel progression, payoff structure, resources and social capital, world tiers, instance/rule-horror/urban-undercover patterns, and sensory immersion.
 - Skills 库新增「游戏」分类，可在创建、配置和筛选中使用。
 - The Skills library adds a Game category for creation, configuration, and filtering.
+- 设置 → 语言模型中新增 EliasApi 推荐连接。首次配置语言模型时点击「使用 EliasApi」会预填中转站地址和 Responses 协议；粘贴 API Key 后实时读取 `/v1/models`，按更新时间排列并标记最新对话模型。服务商返回的模型显示名会保留，模型列表无需随客户端升级更新。
+- Settings → Language Models adds a recommended EliasApi connection. When no language model is configured, “Use EliasApi” prefills the relay address and Responses protocol; after pasting an API key, InkDock reads `/v1/models` live, sorts by creation time, and marks the newest chat model. Provider display names are preserved, and the model list updates without a client release.
 
 ### Changed / 变更
 

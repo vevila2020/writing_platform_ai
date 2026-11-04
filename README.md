@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  当前版本：<strong>v1.0.0</strong>（2026-11-03 发布） · <a href="https://github.com/vevila2020/writing_platform_ai/releases">发布记录</a>
+  当前版本：<strong>v1.0.0</strong>（2026-11-04 发布） · <a href="https://github.com/vevila2020/writing_platform_ai/releases">发布记录</a>
 </p>
 
 墨栈 AI 基于 [Denova](https://github.com/alfredxw/denova) 开源项目进行二次开发，保留小说写作、互动故事、资料库、AI Agent、图像创作与项目版本管理等能力。

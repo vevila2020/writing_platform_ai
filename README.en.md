@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  Current version: <strong>v1.0.0</strong> (released on 2026-11-03) · <a href="https://github.com/vevila2020/writing_platform_ai/releases">Releases</a>
+  Current version: <strong>v1.0.0</strong> (released on 2026-11-04) · <a href="https://github.com/vevila2020/writing_platform_ai/releases">Releases</a>
 </p>
 
 InkDock is a modified, self-hosted creative workspace based on [Denova](https://github.com/alfredxw/denova). It retains novel writing, interactive stories, structured lore, AI Agents, image creation, and project version management.
