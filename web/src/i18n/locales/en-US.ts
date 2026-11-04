@@ -49,6 +49,7 @@ import agentApproval from './en-US/agentApproval'
 import files from './en-US/files'
 import statistics from './en-US/statistics'
 import trajectory from './en-US/trajectory'
+import research from './en-US/research'
 
 const enUS = {
   ...common,
@@ -102,6 +103,7 @@ const enUS = {
   ...files,
   ...trajectory,
   ...statistics,
+  ...research,
   'agents.tool.availability.runtimeCheck': 'Runtime check',
 } as const
 

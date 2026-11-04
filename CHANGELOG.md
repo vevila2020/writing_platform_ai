@@ -10,6 +10,57 @@ InkDock records major user-visible features, important compatibility or data cha
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)。
 
+## [Unreleased]
+
+### Brief / 简要说明
+
+#### 中文
+
+- 写作侧栏新增「研究」：直接提问或发起扫榜、拆文，研究简报保存在 `setting/research/`；内置 10 张题材卡与 `novel-research`、`novel-deslop` Skill。
+- 修复部分 Anthropic 兼容服务的并行工具结果配对错误，以及 OpenAI Responses 兼容服务返回内置工具（如联网搜索）时的流式中断。
+- 修复浏览器工具运行结束后误报 `context canceled`；源码运行缺少 ripgrep 时启动会提示并从 PATH 回退。
+
+#### English
+
+- The Writing sidebar adds Research: ask questions directly or start market scans and deconstruction, with reports saved under `setting/research/`; adds 10 genre cards and the `novel-research` and `novel-deslop` Skills.
+- Fixes parallel tool-result pairing with some Anthropic-compatible services and stream interruptions with OpenAI Responses services that return provider-side tools such as web search.
+- Fixes false `context canceled` errors when closing browser tools, and warns at startup with a PATH fallback when a source run lacks ripgrep.
+
+### Added / 新增
+
+- 写作侧栏新增「研究」标签页：支持直接研究提问、扫榜与拆文入口、题材卡，以及 `setting/research/` 下研究简报的浏览；研究请求在新的写作会话中发起，不覆盖当前对话。
+- The Writing sidebar adds a Research view for direct questions, market scans, deconstruction prompts, genre cards, and saved reports under `setting/research/`; research opens in a new Writing conversation without replacing the current chat.
+- 内置 10 张题材卡（玄幻/仙侠、都市异能、系统流、无限流、悬疑、科幻、历史、年代、古言、现言）。Skill front matter 新增 `keywords` 字段与 `genre-card` 能力；写作与通用 Agent 每轮最多自动加载一张匹配的题材卡，显式 `/skill` 优先，预算不足时自动题材卡会被跳过。
+- Adds 10 built-in genre cards (xianxia/fantasy, urban powers, system, infinite flow, mystery, sci-fi, historical, period, ancient romance, modern romance). Skill front matter gains a `keywords` field and a `genre-card` capability; Writing and general Agents auto-load at most one matching card per turn. Explicit `/skill` requests win, and an automatic card is dropped when the context budget is tight.
+- 内置 `novel-research`（扫榜、拆文与市场研究，要求标注来源和日期，取不到数据时说明缺口）与 `novel-deslop`（去 AI 味与表达修订）Skill；`novel-standard` 增加平台审稿规则参考，`novel-craft` 补充开篇、章首章尾与爽点编排。
+- Adds the `novel-research` Skill (market scans, deconstruction, and market research with sources and dates, reporting gaps instead of inventing data) and the `novel-deslop` Skill (de-AI editing and prose revision). `novel-standard` gains a platform review rubric, and `novel-craft` expands its opening, chapter-hook, and payoff guidance.
+- Agent 上下文会列出最近的 `setting/research/` 研究简报路径，正文按需读取，不直接注入。
+- Agent context lists recent research reports under `setting/research/` as paths; report bodies are read on demand.
+- 首页当前书籍操作区新增「编辑信息」入口。
+- The Home current-book actions add an Edit Info entry.
+
+### Changed / 变更
+
+- 写作侧栏默认宽度调整为 288px 以容纳第四个标签；未手动调整过宽度的用户会自动升级，已调整的宽度保持不变。
+- The Writing sidebar default width grows to 288px for the fourth view tab. Untouched defaults migrate automatically; user-resized widths are preserved.
+- 模型发现列表不再额外标记「最新」，所有可用模型仍按更新时间排列。
+- Model discovery no longer adds a “Latest” badge; available models still rank by creation time.
+
+### Fixed / 修复
+
+- Anthropic Messages 协议将同一助手轮次的并行工具结果合并为一条 user 消息，并按工具调用顺序排列，修复部分兼容服务返回的 `tool_use` / `tool_result` 配对与顺序 400 错误。
+- Anthropic Messages groups parallel tool results from one assistant turn into a single user message ordered by tool calls, fixing 400 responses for unpaired or misordered `tool_use` / `tool_result` blocks from some compatible services.
+- OpenAI Responses 兼容服务返回内置工具（联网搜索、文件检索、代码解释器、MCP、图像生成等）时不再中断流式响应；原始输出项仍保留在续写负载中。
+- OpenAI Responses-compatible services no longer interrupt the stream when returning provider-side tools such as web search, file search, code interpreter, MCP, or image generation; raw output items stay in the continuation payload.
+- 浏览器工具在运行结束后关闭页面或浏览器时不再误报 `context canceled`。
+- Browser tools no longer report `context canceled` when closing pages or the browser after a successful run.
+- 源码运行且未安装 ripgrep 时，启动会提示安装方式并从 PATH 回退；发布包仍要求并优先使用内置 `rg`。
+- Source runs without ripgrep now print an actionable startup notice and fall back to `PATH`; release packages still require and prefer the bundled `rg`.
+- 错误诊断不再把接口路径中的 `/v1/messages` 当作消息字段，保留服务商返回的错误详情。
+- Error diagnostics no longer mistake the `/v1/messages` endpoint path for a message field, preserving the provider's error detail.
+- 长篇对话中打开审批模式菜单不再卡顿。
+- Opening the approval-mode menu in long conversations no longer stutters.
+
 ## [v1.0.0] - 2026-11-04
 
 ### Brief / 简要说明

@@ -16,7 +16,13 @@ import (
 const (
 	workspaceContextChapterGroupLimit = 2
 	workspaceContextChapterLimit      = 12
+	workspaceContextResearchLimit     = 6
 )
+
+// researchDirectory is where market scans, deconstruction reports, and genre
+// research notes live. Reports stay plain Markdown so the author can read and
+// edit them without the Agent.
+const researchDirectory = "setting/research"
 
 // WorkspaceContext is the complete writing-workspace projection consumed by
 // Agent context assembly. File-backed writing state appears only as
@@ -68,6 +74,7 @@ func (s *State) WorkspaceContext() WorkspaceContext {
 		{Title: "Current writing state", Paths: dynamicFiles},
 		{Title: "Recent chapter-group plans", Paths: contextPaths("Chapter-group plan", s.recentChapterGroupPaths(workspaceContextChapterGroupLimit))},
 		{Title: "Recent chapter paths", Paths: contextPaths("Chapter path", s.recentChapterPaths(workspaceContextChapterLimit))},
+		{Title: "Recent research reports", Paths: contextPaths("Research report", s.recentResearchPaths(workspaceContextResearchLimit))},
 	})
 
 	_, structureErr := os.Stat(filepath.Join(s.workspace, structureFile))
@@ -164,6 +171,26 @@ func (s *State) recentChapterGroupPaths(limit int) []string {
 			continue
 		}
 		paths = append(paths, filepath.ToSlash(filepath.Join("setting", "chapter-groups", name)))
+	}
+	sort.Strings(paths)
+	return latestContextPaths(paths, limit)
+}
+
+func (s *State) recentResearchPaths(limit int) []string {
+	entries, err := os.ReadDir(filepath.Join(s.workspace, filepath.FromSlash(researchDirectory)))
+	if err != nil {
+		return nil
+	}
+	paths := make([]string, 0, len(entries))
+	for _, entry := range entries {
+		name := entry.Name()
+		if entry.IsDir() || strings.HasPrefix(name, ".") {
+			continue
+		}
+		if strings.ToLower(filepath.Ext(name)) != ".md" {
+			continue
+		}
+		paths = append(paths, researchDirectory+"/"+name)
 	}
 	sort.Strings(paths)
 	return latestContextPaths(paths, limit)

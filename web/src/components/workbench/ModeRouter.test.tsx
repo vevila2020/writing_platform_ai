@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { useEffect, useState, type ComponentProps, type ReactNode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { WRITING_AGENT_INIT_EVENT, WRITING_AGENT_NEW_CONVERSATION_EVENT } from '@/features/onboarding/events'
 import { usePersistedUserSettings } from '@/hooks/usePersistedUserSettings'
 import { ModeRouter } from './ModeRouter'
 import type { Tab } from './TabController'
@@ -206,6 +207,17 @@ vi.mock('@/features/project-explorer/WritingProjectExplorer', () => ({
     <div data-testid="writing-project-explorer" data-project-id={projectId} data-structure-refresh-signal={structureRefreshSignal}>
       <button type="button">lore</button>
       <button type="button" onClick={() => onSelectFile('setting/lore/items.json')}>items.json</button>
+    </div>
+  ),
+}))
+
+vi.mock('@/features/research/ResearchSidebarPanel', () => ({
+  ResearchSidebarPanel: ({ projectId, onStartResearch }: {
+    projectId: string
+    onStartResearch: (prompt: string, options?: { autoSend?: boolean; newConversation?: boolean }) => void
+  }) => (
+    <div data-testid="research-sidebar-panel" data-project-id={projectId}>
+      <button type="button" onClick={() => onStartResearch('/novel-research test', { autoSend: true, newConversation: true })}>ask research</button>
     </div>
   ),
 }))
@@ -499,6 +511,34 @@ describe('ModeRouter autosave navigation policy', () => {
 
     await waitFor(() => expect(onOpenLoreTab).toHaveBeenCalledTimes(1))
     expect(onSelectFile).not.toHaveBeenCalled()
+  })
+
+  it('opens the research sidebar view and starts direct research in a new conversation', async () => {
+    const user = userEvent.setup()
+    const onSetSidebarView = vi.fn()
+    const { rerender } = render(withAppProviders(<ModeRouter {...modeRouterProps({ onSetSidebarView })} />))
+
+    await user.click(screen.getByRole('button', { name: '研究' }))
+    expect(onSetSidebarView).toHaveBeenCalledWith('research')
+
+    const newConversationEvents: Array<{ prompt?: string; autoSend?: boolean }> = []
+    const initEvents: Array<{ prompt?: string; autoSend?: boolean }> = []
+    const newConversationListener = (event: Event) => newConversationEvents.push((event as CustomEvent<{ prompt?: string; autoSend?: boolean }>).detail)
+    const initListener = (event: Event) => initEvents.push((event as CustomEvent<{ prompt?: string; autoSend?: boolean }>).detail)
+    window.addEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, newConversationListener)
+    window.addEventListener(WRITING_AGENT_INIT_EVENT, initListener)
+    try {
+      rerender(withAppProviders(<ModeRouter {...modeRouterProps({ sidebarView: 'research' })} />))
+      const panel = await screen.findByTestId('research-sidebar-panel')
+      expect(panel).toHaveAttribute('data-project-id', 'project-book-a')
+
+      await user.click(screen.getByRole('button', { name: 'ask research' }))
+      await waitFor(() => expect(newConversationEvents.at(-1)).toEqual({ prompt: '/novel-research test', autoSend: true }))
+      expect(initEvents).toHaveLength(0)
+    } finally {
+      window.removeEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, newConversationListener)
+      window.removeEventListener(WRITING_AGENT_INIT_EVENT, initListener)
+    }
   })
 
   it('opens the project sidebar and switches to the outline before locating the editor chapter', async () => {

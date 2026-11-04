@@ -18,6 +18,10 @@ const (
 	CategoryConfiguration = "configuration"
 
 	CapabilityWritingWorkflow = "writing-workflow"
+	// CapabilityGenreCard opts a Skill into automatic preloading when the
+	// current user message matches one of its keywords. Only genre cards are
+	// considered, so installing an unrelated Skill never changes routing.
+	CapabilityGenreCard = "genre-card"
 )
 
 // ContextMode controls whether a Skill executes in the current Agent context
@@ -37,6 +41,7 @@ type FrontMatter struct {
 	Description  string      `yaml:"description"`
 	Category     string      `yaml:"category"`
 	Capabilities []string    `yaml:"capabilities"`
+	Keywords     []string    `yaml:"keywords,omitempty"`
 	Context      ContextMode `yaml:"context"`
 	Agent        string      `yaml:"agent"`
 	Model        string      `yaml:"model"`

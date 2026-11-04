@@ -45,7 +45,7 @@ import {
   type TrajectoryNavigationTarget,
 } from '@/features/trajectory/trajectory-navigation'
 
-const WRITING_AGENT_INIT_EVENT = 'nova:writing-agent-init'
+import { WRITING_AGENT_INIT_EVENT, WRITING_AGENT_NEW_CONVERSATION_EVENT } from '@/features/onboarding/events'
 const PluginPageWorkspace = memo(loadable(() => import('@/features/platform/PluginPageWorkspace').then(module => ({ default: module.PluginPageWorkspace })), workbenchLoadingOptions))
 const InteractiveLayout = memo(loadable(() => import('@/features/interactive/components/InteractiveLayout').then((module) => ({ default: module.InteractiveLayout })), workbenchLoadingOptions))
 const SettingPanel = memo(loadable(() => import('@/features/interactive/components/SettingPanel').then((module) => ({ default: module.SettingPanel })), workbenchLoadingOptions))
@@ -417,12 +417,13 @@ export function ModeRouter(props: ModeRouterProps) {
       }))
     }, 0)
   }, [onSetMode, onSetRightPanel, t])
-  const requestSkillsAgent = useCallback((prompt: string) => {
+  const requestSkillsAgent = useCallback((prompt: string, options?: { autoSend?: boolean; newConversation?: boolean }) => {
     onSetMode('ide')
     onSetRightPanel('ai')
+    const eventName = options?.newConversation ? WRITING_AGENT_NEW_CONVERSATION_EVENT : WRITING_AGENT_INIT_EVENT
     window.setTimeout(() => {
-      window.dispatchEvent(new CustomEvent(WRITING_AGENT_INIT_EVENT, {
-        detail: { prompt },
+      window.dispatchEvent(new CustomEvent(eventName, {
+        detail: { prompt, autoSend: options?.autoSend },
       }))
     }, 0)
   }, [onSetMode, onSetRightPanel])
@@ -686,6 +687,7 @@ export function ModeRouter(props: ModeRouterProps) {
       revealRequest={outlineRevealRequest}
       projectExplorerRefreshSignal={projectExplorerRefreshSignal}
       onSetSidebarView={onSetSidebarView}
+      onRequestSkillsAgent={requestSkillsAgent}
       onSelectOutlineFile={selectOutlineFile}
       onOpenLoreTab={onOpenLoreTab}
       onReferenceFile={onReferenceFile}

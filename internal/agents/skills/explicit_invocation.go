@@ -15,8 +15,14 @@ func (b *Backend) ResolveExplicitInvocations(ctx context.Context, message string
 	if b == nil || strings.TrimSpace(message) == "" {
 		return nil
 	}
+	return resolveExplicitFromRecords(b.activeRecords(ctx), message)
+}
+
+// resolveExplicitFromRecords keeps one catalog snapshot per turn so explicit
+// and keyword resolution observe exactly the same Skills.
+func resolveExplicitFromRecords(records []record, message string) []Skill {
 	available := make(map[string]Skill)
-	for _, rec := range b.activeRecords(ctx) {
+	for _, rec := range records {
 		available[rec.skill.Name] = rec.skill
 	}
 	if len(available) == 0 {

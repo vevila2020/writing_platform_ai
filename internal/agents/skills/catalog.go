@@ -180,6 +180,7 @@ func parseRecord(ctx context.Context, dir Directory, path, data string) (record,
 	fm.Description = strings.TrimSpace(fm.Description)
 	fm.Category = normalizeCategory(fm.Category)
 	fm.Capabilities = normalizeCapabilities(fm.Capabilities)
+	fm.Keywords = normalizeKeywords(fm.Keywords)
 	if dir.Scope == ScopeShared {
 		// In shared Skills, `agent` names another tool's execution target; it is
 		// not InkDock's per-Agent availability allowlist.

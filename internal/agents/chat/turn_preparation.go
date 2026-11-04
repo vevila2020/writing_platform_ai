@@ -32,6 +32,7 @@ type preparedTurnContext struct {
 	OriginalMessage    string
 	ResumeInterruption *session.Interruption
 	ExplicitSkills     []novaskills.Invocation
+	KeywordSkills      []novaskills.Invocation
 	ModelContext       agentcontext.ModelContextResult
 }
 
@@ -43,6 +44,7 @@ type AgentContextPreparation struct {
 	OriginalMessage    string
 	ResumeInterruption *session.Interruption
 	ExplicitSkills     []novaskills.Invocation
+	KeywordSkills      []novaskills.Invocation
 	ModelContext       agentcontext.ModelContextResult
 }
 
@@ -73,6 +75,7 @@ func PrepareAgentContext(
 	return AgentContextPreparation{
 		OriginalMessage: prepared.OriginalMessage, ResumeInterruption: prepared.ResumeInterruption,
 		ExplicitSkills: append([]novaskills.Invocation(nil), prepared.ExplicitSkills...),
+		KeywordSkills:  append([]novaskills.Invocation(nil), prepared.KeywordSkills...),
 		ModelContext:   prepared.ModelContext,
 	}, nil
 }
@@ -91,7 +94,16 @@ func prepareTurnContext(ctx context.Context, input turnContextPreparationInput) 
 		return preparedTurnContext{}, err
 	}
 	explicitSkills := []novaskills.Invocation(nil)
-	if resolver, ok := input.Conversation.(novaskills.ExplicitResolver); ok {
+	keywordSkills := []novaskills.Invocation(nil)
+	switch resolver := input.Conversation.(type) {
+	case novaskills.TurnSkillResolver:
+		resolved, err := resolver.ResolveTurnSkills(ctx, input.Request.Message)
+		if err != nil {
+			return preparedTurnContext{}, fmt.Errorf("resolve turn skills: %w", err)
+		}
+		explicitSkills = resolved.Explicit
+		keywordSkills = resolved.Keyword
+	case novaskills.ExplicitResolver:
 		resolved, err := resolver.ResolveExplicitSkills(ctx, input.Request.Message)
 		if err != nil {
 			return preparedTurnContext{}, fmt.Errorf("resolve explicit skills: %w", err)
@@ -106,14 +118,29 @@ func prepareTurnContext(ctx context.Context, input turnContextPreparationInput) 
 		Budget:              budget,
 		Environment:         input.Environment,
 		ExplicitSkills:      explicitSkills,
+		KeywordSkills:       keywordSkills,
 	})
-	assembled, err := agentcontext.AssembleModelContext(ctx, input.Conversation, projection.OriginalMessage, agentcontext.ModelContextInput{
+	modelInput := agentcontext.ModelContextInput{
 		UserMessage:    input.Request.Message,
 		Attachments:    append([]agentschema.Attachment(nil), input.Request.AttachedFiles...),
 		UserReferences: userMessageReferencesForRequest(input.Request),
 		Fragments:      projection.Fragments,
 		Budget:         budget,
-	})
+	}
+	assembled, err := agentcontext.AssembleModelContext(ctx, input.Conversation, projection.OriginalMessage, modelInput)
+	if err != nil && len(keywordSkills) > 0 {
+		// Genre cards are automatic best-effort context. If they are what pushes
+		// the turn over the total budget, retry without them instead of failing.
+		// Explicit Skills remain fail-closed because the user asked for them.
+		retryFragments := fragmentsWithoutSource(projection.Fragments, keywordSkillFragmentSource)
+		if len(retryFragments) != len(projection.Fragments) {
+			modelInput.Fragments = retryFragments
+			if retried, retryErr := agentcontext.AssembleModelContext(ctx, input.Conversation, projection.OriginalMessage, modelInput); retryErr == nil {
+				assembled, err = retried, nil
+				keywordSkills = nil
+			}
+		}
+	}
 	if err != nil {
 		return preparedTurnContext{}, err
 	}
@@ -124,6 +151,7 @@ func prepareTurnContext(ctx context.Context, input turnContextPreparationInput) 
 		OriginalMessage:    projection.OriginalMessage,
 		ResumeInterruption: projection.ResumeInterruption,
 		ExplicitSkills:     explicitSkills,
+		KeywordSkills:      keywordSkills,
 		ModelContext:       assembled,
 	}, nil
 }

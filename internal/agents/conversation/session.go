@@ -76,6 +76,18 @@ func (c *SessionConversation) ResolveExplicitSkills(ctx context.Context, message
 	return novaskills.ResolveConfiguredInvocations(ctx, cfg, agentKind, message)
 }
 
+// ResolveTurnSkills resolves explicit /skill requests and at most one
+// keyword-matched genre card from one catalog snapshot.
+func (c *SessionConversation) ResolveTurnSkills(ctx context.Context, message string) (novaskills.TurnInvocations, error) {
+	if c == nil {
+		return novaskills.TurnInvocations{}, nil
+	}
+	c.cycleMu.Lock()
+	cfg, agentKind := c.cfg, c.agentKind
+	c.cycleMu.Unlock()
+	return novaskills.ResolveTurnInvocations(ctx, cfg, agentKind, message)
+}
+
 func NewSessionConversation(sess *session.Session, options ...SessionConversationOption) *SessionConversation {
 	c := &SessionConversation{session: sess}
 	for _, option := range options {

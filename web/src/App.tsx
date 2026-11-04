@@ -69,7 +69,7 @@ const MAX_OPEN_TABS_FALLBACK = 5
 const AUTO_SAVE_ENABLED_FALLBACK = true
 const AUTO_SAVE_DELAY_FALLBACK_MS = 1500
 const EMPTY_LORE_ITEMS: LoreItem[] = []
-type SidebarView = 'outline' | 'files' | 'search'
+type SidebarView = 'outline' | 'files' | 'search' | 'research'
 type CreationRoute = 'ide' | 'interactive'
 
 function App() {

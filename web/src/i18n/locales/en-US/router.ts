@@ -10,6 +10,7 @@ const router = {
   'router.outline': 'Outline',
   'router.files': 'Files',
   'router.search': 'Search',
+  'router.research': 'Research',
   'router.loading': 'Loading...',
   'router.chooseFileMobile': 'Open Files to choose a chapter, or switch to Agent to start writing.',
   'router.chooseFile': 'Choose a file from the left tree, or open Book Management to choose a book',

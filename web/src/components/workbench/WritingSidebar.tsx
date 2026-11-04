@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LoadingState } from '@/components/common/LoadingState'
 import { SearchPanel } from '@/components/Sidebar/SearchPanel'
+import { ResearchSidebarPanel } from '@/features/research/ResearchSidebarPanel'
 import { WritingProjectExplorer } from '@/features/project-explorer/WritingProjectExplorer'
 import type { FileNode } from '@/hooks/useWorkspace'
 import type { ChapterStructure, ManuscriptNode, ChapterSummary, DocumentPreview, WorkspaceSearchResult } from '@/lib/api'
@@ -11,9 +12,12 @@ import { ChapterOutline, type OutlineRevealRequest } from './outline/ChapterOutl
 const StableSearchPanel = memo(SearchPanel)
 const StableChapterOutline = memo(ChapterOutline)
 const StableWritingProjectExplorer = memo(WritingProjectExplorer)
+const StableResearchSidebarPanel = memo(ResearchSidebarPanel)
+
+type WritingSidebarView = 'outline' | 'files' | 'search' | 'research'
 
 interface WritingSidebarProps {
-  sidebarView: 'outline' | 'files' | 'search'
+  sidebarView: WritingSidebarView
   loading: boolean
   projectId: string
   workspace: string
@@ -29,7 +33,8 @@ interface WritingSidebarProps {
   loreTabActive: boolean
   revealRequest: OutlineRevealRequest | null
   projectExplorerRefreshSignal: number
-  onSetSidebarView: (view: 'outline' | 'files' | 'search') => void
+  onSetSidebarView: (view: WritingSidebarView) => void
+  onRequestSkillsAgent: (prompt: string, options?: { autoSend?: boolean; newConversation?: boolean }) => void
   onSelectOutlineFile: (path: string) => boolean | void | Promise<boolean | void>
   onOpenLoreTab: () => Promise<boolean>
   onReferenceFile: (path: string) => void
@@ -67,6 +72,7 @@ export const WritingSidebar = memo(function WritingSidebar({
   revealRequest,
   projectExplorerRefreshSignal,
   onSetSidebarView,
+  onRequestSkillsAgent,
   onSelectOutlineFile,
   onOpenLoreTab,
   onReferenceFile,
@@ -95,8 +101,8 @@ export const WritingSidebar = memo(function WritingSidebar({
   return (
     <section className="nova-sidebar flex h-full flex-col border-r">
       <div data-slot="writing-sidebar-view-switcher" className="px-3 pt-2">
-        <div className="grid grid-cols-3 gap-1">
-          {(['outline', 'files', 'search'] as const).map((view) => (
+        <div className="grid grid-cols-4 gap-1">
+          {(['outline', 'files', 'search', 'research'] as const).map((view) => (
             <button
               key={view}
               type="button"
@@ -139,7 +145,15 @@ export const WritingSidebar = memo(function WritingSidebar({
           />
         ) : (
           <div className="h-full min-h-0">
-            {sidebarView === 'search' ? (
+            {sidebarView === 'research' ? (
+              <StableResearchSidebarPanel
+                projectId={projectId}
+                tree={tree}
+                onStartResearch={onRequestSkillsAgent}
+                onSelectFile={async (path) => { const accepted = await onSelectFile(path); if (accepted !== false) { showMobileWritingView('editor'); closeMobilePanes() } return accepted }}
+                onRefreshWorkspace={onRefreshWorkspace}
+              />
+            ) : sidebarView === 'search' ? (
               <div className="h-full overflow-y-auto p-2">
                 <StableSearchPanel
                   projectId={projectId}

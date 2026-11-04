@@ -5,11 +5,14 @@ import { useTranslation } from 'react-i18next'
 import { CollapsiblePanelSeparator, CollapsibleResizablePanel, PanelMotionGroup } from './panel-motion'
 import { readPersistedPanelLayout, usePersistedPanelLayout } from './use-persisted-panel-layout'
 
-// 240px keeps three shortcut columns stable after padding and a non-overlay scrollbar;
-// narrow screens still let the panel constraints shrink the layout adaptively.
-const DEFAULT_SIDEBAR_WIDTH = '240px'
-const DEFAULT_SIDEBAR_WIDTH_PX = 240
-const COMFORTABLE_SIDEBAR_WIDTH_PX = 224
+// 288px keeps the four Writing view tabs (作品目录 / 项目文件 / 全局搜索 / 研究) readable
+// after padding and a non-overlay scrollbar; narrow screens still let the panel
+// constraints shrink the layout adaptively.
+const DEFAULT_SIDEBAR_WIDTH = '288px'
+const DEFAULT_SIDEBAR_WIDTH_PX = 288
+// Widths persisted by the pre-research layout came from this default. Upgrading only
+// the untouched default keeps hand-resized sidebars exactly as the user left them.
+const LEGACY_DEFAULT_SIDEBAR_WIDTH_PX = 240
 const MIN_SIDEBAR_WIDTH_PX = 180
 const MAX_STORED_SIDEBAR_WIDTH_PX = 8192
 const SIDEBAR_WIDTH_STORAGE_KEY = 'nova.layout.workspaceSidebarWidth:v1'
@@ -386,7 +389,7 @@ export function readStoredLayoutForWorkspace(key: string, panelOrder?: string[])
 /** Resolves the one-time migration from a legacy narrow percentage to pixel persistence. */
 export function resolveInitialWorkspaceSidebarWidth(storedWidth: number | null, currentWidth: number): number {
   if (storedWidth !== null) return storedWidth
-  return currentWidth >= COMFORTABLE_SIDEBAR_WIDTH_PX ? currentWidth : DEFAULT_SIDEBAR_WIDTH_PX
+  return currentWidth > DEFAULT_SIDEBAR_WIDTH_PX ? currentWidth : DEFAULT_SIDEBAR_WIDTH_PX
 }
 
 function readStoredWorkspaceSidebarWidth(): number | null {
@@ -395,9 +398,8 @@ function readStoredWorkspaceSidebarWidth(): number | null {
     const raw = window.localStorage.getItem(SIDEBAR_WIDTH_STORAGE_KEY)
     if (raw === null) return null
     const width = Number(raw)
-    return Number.isFinite(width) && width >= MIN_SIDEBAR_WIDTH_PX && width <= MAX_STORED_SIDEBAR_WIDTH_PX
-      ? width
-      : null
+    if (!Number.isFinite(width) || width < MIN_SIDEBAR_WIDTH_PX || width > MAX_STORED_SIDEBAR_WIDTH_PX) return null
+    return width === LEGACY_DEFAULT_SIDEBAR_WIDTH_PX ? DEFAULT_SIDEBAR_WIDTH_PX : width
   } catch (error) {
     console.warn('[workspace-layout] Unable to restore the Writing sidebar width', { error })
     return null

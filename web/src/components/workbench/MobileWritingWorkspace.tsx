@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { WRITING_AGENT_INIT_EVENT } from '@/features/onboarding/events'
+import { WRITING_AGENT_INIT_EVENT, WRITING_AGENT_NEW_CONVERSATION_EVENT } from '@/features/onboarding/events'
 import { FolderOpen } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,11 @@ export function MobileWritingWorkspace({ editor, agent }: { editor: ReactNode; a
     const changeView = (event: Event) => setView((event as CustomEvent<MobileWritingView>).detail)
     window.addEventListener(MOBILE_WRITING_VIEW_EVENT, changeView)
     window.addEventListener(WRITING_AGENT_INIT_EVENT, openAgent)
+    window.addEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, openAgent)
     return () => {
       window.removeEventListener(MOBILE_WRITING_VIEW_EVENT, changeView)
       window.removeEventListener(WRITING_AGENT_INIT_EVENT, openAgent)
+      window.removeEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, openAgent)
     }
   }, [])
   return (

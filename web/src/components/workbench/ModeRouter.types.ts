@@ -56,7 +56,7 @@ export interface ModeRouterProps {
   fileDocuments?: ReadonlyMap<string, ProjectFileDocument>
   openTabs: Tab[]
   activeTabKey: string | null
-  sidebarView: 'outline' | 'files' | 'search'
+  sidebarView: 'outline' | 'files' | 'search' | 'research'
   editorSearchIntent: { path: string; query: string; line: number; nonce: number } | null
   saveSignal: number
   editorAutoSaveEnabled: boolean
@@ -93,7 +93,7 @@ export interface ModeRouterProps {
   /** Synchronizes a newly created Book without leaving the current route. */
   onBookCreated: (workspace: string) => void | Promise<void>
   onOpenCharacterCardImport: () => void
-  onSetSidebarView: (view: 'outline' | 'files' | 'search') => void
+  onSetSidebarView: (view: 'outline' | 'files' | 'search' | 'research') => void
   onSelectSearchResult: (result: WorkspaceSearchResult, query: string) => void | Promise<void>
   onSelectFile: (path: string) => boolean | void | Promise<boolean | void>
   onSetChapterConfirmed: (path: string, confirmed: boolean) => void | Promise<void>

@@ -165,3 +165,40 @@ func TestWorkspaceContextBoundsRecentChapterAndGroupPaths(t *testing.T) {
 		}
 	}
 }
+
+func TestWorkspaceContextIndexesRecentResearchReportsOnly(t *testing.T) {
+	dir := t.TempDir()
+	state := NewState(dir)
+	if err := state.InitWorkspace(); err != nil {
+		t.Fatalf("initialize workspace: %v", err)
+	}
+	researchDir := filepath.Join(state.SettingDir(), "research")
+	if err := os.MkdirAll(researchDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for index := 1; index <= workspaceContextResearchLimit+2; index++ {
+		name := fmt.Sprintf("2026-11-%02d-report-%02d.md", index, index)
+		if err := os.WriteFile(filepath.Join(researchDir, name), []byte("RESEARCH_BODY_SHOULD_BE_LAZY_"+name), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.WriteFile(filepath.Join(researchDir, "notes.txt"), []byte("not a report"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	context := state.WorkspaceContext()
+	if !strings.Contains(context.Dynamic, "Recent research reports") {
+		t.Fatalf("research section missing:\n%s", context.Dynamic)
+	}
+	if !strings.Contains(context.Dynamic, `"setting/research/2026-11-08-report-08.md"`) {
+		t.Fatalf("latest research report missing:\n%s", context.Dynamic)
+	}
+	for _, omitted := range []string{"report-01.md", "report-02.md", "notes.txt"} {
+		if strings.Contains(context.Dynamic, omitted) {
+			t.Fatalf("unexpected research entry %q:\n%s", omitted, context.Dynamic)
+		}
+	}
+	if strings.Contains(context.Markdown(), "RESEARCH_BODY_SHOULD_BE_LAZY") {
+		t.Fatalf("research body must be loaded on demand:\n%s", context.Markdown())
+	}
+}

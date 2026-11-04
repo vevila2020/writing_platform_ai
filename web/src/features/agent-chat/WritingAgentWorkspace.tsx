@@ -1,4 +1,4 @@
-import { WRITING_AGENT_INIT_EVENT } from '@/features/onboarding/events'
+import { WRITING_AGENT_INIT_EVENT, WRITING_AGENT_NEW_CONVERSATION_EVENT } from '@/features/onboarding/events'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Bot, LoaderCircle, Plus } from 'lucide-react'
 import { nanoid } from 'nanoid'
@@ -67,6 +67,11 @@ type WorkspaceSession = AgentChatSession & {
   pendingTitle?: string
 }
 
+interface WritingAgentInitDetail {
+  prompt?: string
+  autoSend?: boolean
+}
+
 export function WritingAgentWorkspace(props: WritingAgentWorkspaceProps) {
   const { t } = useTranslation()
   const activeSessionPreferenceScope = props.activeSessionPreferenceScope ?? ''
@@ -81,7 +86,15 @@ export function WritingAgentWorkspace(props: WritingAgentWorkspaceProps) {
   const railVisible = props.sessionRailVisible ?? internalRailVisible
   // The conversation list may still be loading when the user starts from the empty editor.
   // Retain that request locally until its active AgentPanel has mounted and can receive it.
-  const pendingWritingInit = useRef<{ projectId: string; detail: { prompt?: string; autoSend?: boolean } } | null>(null)
+  const pendingWritingInit = useRef<{ projectId: string; detail: WritingAgentInitDetail } | null>(null)
+  // A research launch asks for its own conversation. Retain it while the session list
+  // loads, then deliver the prompt only after that new tab is mounted and active.
+  const pendingNewConversation = useRef<{ projectId: string; detail: WritingAgentInitDetail } | null>(null)
+  const [freshConversation, setFreshConversation] = useState<{
+    projectId: string
+    sessionId: string
+    detail: WritingAgentInitDetail
+  } | null>(null)
   useEffect(() => {
     if (activeSessionPreferenceScope || props.active === false) return
     const retain = (event: Event) => {
@@ -167,6 +180,49 @@ export function WritingAgentWorkspace(props: WritingAgentWorkspaceProps) {
     storeActiveSession(draft.id)
     return draft
   }, [selectSession, storeActiveSession, t])
+
+  const startNewConversation = useCallback((detail: WritingAgentInitDetail) => {
+    const draft = createDraftSession()
+    setFreshConversation({ projectId: props.projectId, sessionId: draft.id, detail })
+  }, [createDraftSession, props.projectId])
+
+  useEffect(() => {
+    if (props.active === false || activeSessionPreferenceScope) return
+    const startFreshConversation = (event: Event) => {
+      const detail = (event as CustomEvent<WritingAgentInitDetail>).detail
+      if (loading) {
+        pendingNewConversation.current = { projectId: props.projectId, detail }
+        return
+      }
+      startNewConversation(detail)
+    }
+    window.addEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, startFreshConversation)
+    return () => window.removeEventListener(WRITING_AGENT_NEW_CONVERSATION_EVENT, startFreshConversation)
+  }, [activeSessionPreferenceScope, loading, props.active, props.projectId, startNewConversation])
+
+  useEffect(() => {
+    if (loading) return
+    const pending = pendingNewConversation.current
+    if (!pending) return
+    pendingNewConversation.current = null
+    if (pending.projectId !== props.projectId) return
+    startNewConversation(pending.detail)
+  }, [loading, props.projectId, startNewConversation])
+
+  useEffect(() => {
+    pendingNewConversation.current = null
+  }, [props.projectId])
+
+  useEffect(() => {
+    if (!freshConversation || loading) return
+    if (freshConversation.projectId !== props.projectId) return
+    if (activeSessionId !== freshConversation.sessionId) return
+    if (!mountedSessionIds.includes(freshConversation.sessionId)) return
+    setFreshConversation(null)
+    // The newly active conversation's AgentPanel owns the send/prefill decision, so
+    // research keeps its existing autoSend semantics without touching older tabs.
+    window.dispatchEvent(new CustomEvent(WRITING_AGENT_INIT_EVENT, { detail: freshConversation.detail }))
+  }, [activeSessionId, freshConversation, loading, mountedSessionIds, props.projectId])
 
   useEffect(() => {
     let cancelled = false

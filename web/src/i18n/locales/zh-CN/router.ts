@@ -10,6 +10,7 @@ const router = {
   'router.outline': '作品目录',
   'router.files': '项目文件',
   'router.search': '全局搜索',
+  'router.research': '研究',
   'router.loading': '加载中…',
   'router.chooseFileMobile': '点击「文件」选择章节，或切换到 Agent 开始创作。',
   'router.chooseFile': '请从左侧目录树选择文件，或打开「书籍管理」选择书籍',

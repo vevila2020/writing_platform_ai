@@ -27,6 +27,41 @@ groups are hidden while searching or filtering.
   ambient library cannot bypass these preferences. InkDock does not rewrite the
   user's CLI Skills preferences.
 
+## Genre cards and keyword routing
+
+A Skill opts into genre routing by declaring the `genre-card` capability in its
+front matter. Only enabled, Agent-available genre cards participate, so
+installing an unrelated Skill never changes routing.
+
+```yaml
+---
+name: genre-xianxia
+description: 玄幻/仙侠升级流题材卡。
+category: writing
+capabilities:
+  - genre-card
+keywords:
+  - 玄幻
+  - 仙侠
+  - 修仙
+agent: general,ide
+---
+```
+
+- `keywords` are matched against the current Writing message. Use
+  genre-specific compound terms ("都市异能", "系统流"), not high-frequency
+  words such as "都市" or "系统"; ASCII keywords match on word boundaries and
+  must be at least three characters.
+- When several cards match, the longest matched keyword wins, then the number of
+  matches, then the Skill name. At most one card is preloaded per turn.
+- Automatic loading applies only to Writing (`ide`) and general Agents, and is
+  disabled in explicit-only catalogs. An explicit `/skill-name` in the same
+  message suppresses the automatic duplicate.
+- An automatic card is injected as a `turn.skill.keyword` fragment and labeled
+  as an auto-loaded genre card in the runtime projection. If it would exceed the
+  context budget, the turn continues without it. Explicit `/skill-name`
+  invocations still fail closed when they do not fit.
+
 ## Import, export and remote updates
 
 The Skills import picker uses the shared resource preview and install plan. It

@@ -12,6 +12,7 @@ import (
 	agentattachment "github.com/vevila2020/writing_platform_ai/internal/agents/attachment"
 	agentplan "github.com/vevila2020/writing_platform_ai/internal/agents/plan"
 	agentrun "github.com/vevila2020/writing_platform_ai/internal/agents/run"
+	novaskills "github.com/vevila2020/writing_platform_ai/internal/agents/skills"
 	"github.com/vevila2020/writing_platform_ai/internal/agents/toolresult"
 
 	"github.com/vevila2020/writing_platform_ai/agent"
@@ -768,10 +769,12 @@ func (projector *PublicEventProjector) ProjectRunStarted(runID string, cycle int
 }
 
 // ProjectPreparedContext restores the established visible Skill load cards at
-// the same seam that injects explicitly requested Skills into the first model
-// request. These are product projections, not synthetic Agent tool executions.
+// the same seam that injects runtime-loaded Skills into the first model
+// request. Explicitly requested Skills and automatic genre cards are projected
+// separately so an automatic match never looks like a user command. These are
+// product projections, not synthetic Agent tool executions.
 func (projector *PublicEventProjector) ProjectPreparedContext(run agentschema.RunView, prepared AgentContextPreparation) {
-	if projector == nil || len(prepared.ExplicitSkills) == 0 {
+	if projector == nil || len(prepared.ExplicitSkills) == 0 && len(prepared.KeywordSkills) == 0 {
 		return
 	}
 	projector.mu.Lock()
@@ -804,6 +807,34 @@ func (projector *PublicEventProjector) ProjectPreparedContext(run agentschema.Ru
 			"content": invocation.Instructions,
 		})})
 	}
+	for index, invocation := range prepared.KeywordSkills {
+		name := strings.TrimSpace(invocation.Name)
+		if name == "" {
+			continue
+		}
+		arguments, err := json.Marshal(map[string]string{"name": name})
+		if err != nil {
+			slog.ErrorContext(context.Background(), "[agent-public-runtime] encode genre card projection failed", "skill", name, "error", err)
+			continue
+		}
+		callID := fmt.Sprintf("%s-cycle-%03d-genre-card-%02d", firstNonEmpty(projector.runID, "run"), run.Cycle, index+1)
+		projector.emitEvent(agentrun.Event{Type: "tool_call", Data: meta.appendTo(map[string]any{
+			"id": callID, "provider_call_id": callID, "name": "skill", "args": string(arguments),
+		})})
+		projector.emitEvent(agentrun.Event{Type: "tool_result", Data: meta.appendTo(map[string]any{
+			"id": callID, "provider_call_id": callID, "name": "skill", "status": "success",
+			"content": autoLoadedGenreCardContent(invocation),
+		})})
+	}
+}
+
+func autoLoadedGenreCardContent(invocation novaskills.Invocation) string {
+	keyword := strings.TrimSpace(invocation.Keyword)
+	label := "[Auto-loaded genre card] " + strings.TrimSpace(invocation.Name)
+	if keyword != "" {
+		label += " — matched keyword: " + keyword
+	}
+	return label + "\n\n" + invocation.Instructions
 }
 
 func (projector *PublicEventProjector) bindRunIDLocked(runID string) {

@@ -143,7 +143,7 @@ func BuildIDEWritingFlowInstruction(in SystemInstructionInput) string {
 	const projectRoot = "."
 	sb.WriteString(fmt.Sprintf(systemInstructionBody,
 		projectRoot, projectRoot, projectRoot, projectRoot, projectRoot, projectRoot,
-		projectRoot, projectRoot, projectRoot, projectRoot, projectRoot, projectRoot))
+		projectRoot, projectRoot, projectRoot, projectRoot, projectRoot, projectRoot, projectRoot))
 	return sb.String()
 }
 
@@ -231,6 +231,7 @@ Directory structure:
 - %s/setting/lore/items.json — user-visible authoritative structured lore containing long-lived facts about characters, worldbuilding, locations, factions, rules, and items. Maintain entries with Lore tools and organize their index through the /configuration Skill with config_read/config_apply (lore_index and lore_index_membership), or use the WebUI lore interface; never edit the JSON directly.
 - %s/skills/ — Skill bundles owned by the current book. Each Skill has its own directory and SKILL.md and can be viewed and managed by the user.
 - %s/setting/chapter-groups/ — chapter-group plans. Each file plans the short-term narrative objective, continuity, chapter-by-chapter arrangement, and hooks for the next contiguous chapter group.
+- %s/setting/research/ — optional market-scan, deconstruction, and genre research reports written in plain Markdown. Read a report with the read tool when the author references it or when market context is relevant; research reports are reference material, not established story canon.
 - %s/chapters/ — manuscript prose in the book-wide structure: chapters, volumes/chapters, or volumes/chapters/sections. Use numeric filename prefixes at each level; follow the current workspace source index for the selected preset.
 - InkDock State is maintained outside visible Project content; do not access or modify it directly.
 

@@ -1,7 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { WRITING_AGENT_INIT_EVENT, WRITING_AGENT_NEW_CONVERSATION_EVENT } from '@/features/onboarding/events'
 import {
   createAgentChatSession,
   getAgentChatProjects,
@@ -234,6 +235,29 @@ describe('WritingAgentWorkspace', () => {
     expect(await screen.findByTestId('conversation:draft')).toHaveAttribute('data-draft', 'true')
     expect(screen.queryByText('暂无会话')).not.toBeInTheDocument()
     expect(createAgentChatSession).not.toHaveBeenCalled()
+  })
+
+  it('starts research in a fresh conversation instead of the active tab', async () => {
+    renderWorkspace()
+    expect(await screen.findByTestId('conversation:session-a')).toHaveTextContent('active')
+
+    const initEvents: Array<{ prompt?: string; autoSend?: boolean }> = []
+    const listener = (event: Event) => initEvents.push((event as CustomEvent<{ prompt?: string; autoSend?: boolean }>).detail)
+    window.addEventListener(WRITING_AGENT_INIT_EVENT, listener)
+    try {
+      act(() => {
+        window.dispatchEvent(new CustomEvent(WRITING_AGENT_NEW_CONVERSATION_EVENT, {
+          detail: { prompt: '/novel-research test', autoSend: true },
+        }))
+      })
+
+      expect(await screen.findByTestId('conversation:draft')).toHaveTextContent('active')
+      expect(screen.getByTestId('conversation:session-a')).toHaveTextContent('hidden')
+      await waitFor(() => expect(initEvents).toHaveLength(1))
+      expect(initEvents[0]).toEqual({ prompt: '/novel-research test', autoSend: true })
+    } finally {
+      window.removeEventListener(WRITING_AGENT_INIT_EVENT, listener)
+    }
   })
 
   it('shares Project conversations while keeping a surface-local active selection', async () => {

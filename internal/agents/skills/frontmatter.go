@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/vevila2020/writing_platform_ai/internal/portablepath"
 
@@ -99,6 +100,27 @@ func normalizeCapabilities(capabilities []string) []string {
 		}
 		seen[capability] = true
 		out = append(out, capability)
+	}
+	return out
+}
+
+func normalizeKeywords(keywords []string) []string {
+	seen := make(map[string]bool, len(keywords))
+	out := make([]string, 0, len(keywords))
+	for _, keyword := range keywords {
+		keyword = strings.TrimSpace(keyword)
+		if keyword == "" || utf8.RuneCountInString(keyword) > maxKeywordRunes {
+			continue
+		}
+		key := strings.ToLower(keyword)
+		if seen[key] {
+			continue
+		}
+		seen[key] = true
+		out = append(out, keyword)
+		if len(out) == maxKeywordsPerSkill {
+			break
+		}
 	}
 	return out
 }

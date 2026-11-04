@@ -3,6 +3,7 @@ package chat
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -92,5 +93,34 @@ func TestPublicEventProjectorScopesExplicitSkillsToCycle(t *testing.T) {
 	}
 	if len(calls) != 2 || calls[0] == "" || calls[1] == "" || calls[0] == calls[1] {
 		t.Fatalf("explicit Skill identities across cycles = %#v", calls)
+	}
+}
+
+func TestPublicEventProjectorLabelsAutomaticGenreCards(t *testing.T) {
+	type projected struct {
+		callID  string
+		content string
+	}
+	var results []projected
+	projector := NewPublicEventProjector(nil, ChatRequest{}, agentrun.Options{}, func(event agentrun.Event) {
+		if event.Type == "tool_result" {
+			results = append(results, projected{callID: event.DataString("id"), content: event.DataString("content")})
+		}
+	})
+	prepared := AgentContextPreparation{
+		ExplicitSkills: []novaskills.Invocation{{Name: "review", Instructions: "Review the draft."}},
+		KeywordSkills: []novaskills.Invocation{{
+			Name: "genre-urban", Instructions: "# Skill: genre-urban", Keyword: "都市异能",
+		}},
+	}
+	projector.ProjectPreparedContext(agentschema.RunView{ID: "run-1", Cycle: 1}, prepared)
+	if len(results) != 2 {
+		t.Fatalf("projected results = %#v", results)
+	}
+	if !strings.Contains(results[0].callID, "explicit-skill") || !strings.Contains(results[1].callID, "genre-card") {
+		t.Fatalf("projected identities = %#v", results)
+	}
+	if !strings.Contains(results[1].content, "Auto-loaded genre card") || !strings.Contains(results[1].content, "都市异能") {
+		t.Fatalf("genre card projection = %q", results[1].content)
 	}
 }

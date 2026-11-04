@@ -36,6 +36,7 @@ type turnContextProjectionInput struct {
 	Budget              agentcontext.Budget
 	Environment         turnRuntimeEnvironment
 	ExplicitSkills      []novaskills.Invocation
+	KeywordSkills       []novaskills.Invocation
 }
 
 func newTurnRuntimeEnvironment(workspace string) turnRuntimeEnvironment {
@@ -95,6 +96,9 @@ func projectTurnContextFragments(input turnContextProjectionInput) []agentcontex
 		))
 	}
 	for _, fragment := range explicitSkillFragments(input.ExplicitSkills) {
+		appendFragment(fragment)
+	}
+	for _, fragment := range keywordSkillFragments(input.KeywordSkills) {
 		appendFragment(fragment)
 	}
 	fragments = append(fragments, projectReferenceFragments(input.BookService, req.References, input.Budget)...)
