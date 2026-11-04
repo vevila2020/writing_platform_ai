@@ -125,7 +125,10 @@ export function AgentApprovalModeMenu({ runActive, presentation = 'standalone', 
   }
 
   return (
-    <DropdownMenu>
+    // Modal menus aria-hide and scroll-lock every sibling on open. In long
+    // conversations that DOM walk lands on the entry animation and makes the
+    // compact safety selector visibly stutter, so this menu stays non-modal.
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           type="button"

@@ -49,7 +49,7 @@ describe('ModelDiscoveryPicker', () => {
     ])
   })
 
-  it('ranks chat models by creation time and marks the newest as recommended', async () => {
+  it('ranks chat models by creation time', async () => {
     vi.mocked(discoverModels).mockResolvedValue({
       provider: 'openai',
       protocol: 'openai-chat-completions',
@@ -79,6 +79,6 @@ describe('ModelDiscoveryPicker', () => {
       expect.stringContaining('Chat Old'),
       expect.stringContaining('Image New'),
     ])
-    expect(within(options[0]).getByText('最新')).toBeInTheDocument()
+    expect(within(list).queryByText('最新')).not.toBeInTheDocument()
   })
 })

@@ -321,7 +321,6 @@ const settings = {
   'settings.model.discoverySearchPlaceholder': 'Search available models',
   'settings.model.discoveryAddSelected': 'Add {{count}} Selected',
   'settings.model.discoveryAdded': 'Added',
-  'settings.model.discoveryRecommended': 'Latest',
   'settings.model.eliasApiRecommended': 'Recommended',
   'settings.model.eliasApiDescription': 'Works with OpenAI, Claude, Grok, and other mainstream models, with long context, agent tool calls, and image understanding.',
   'settings.model.eliasApiRegister': 'Create an EliasApi account',

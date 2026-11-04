@@ -238,6 +238,16 @@ export function HomeView({ workspace, dataDir, books, bookSortMode, onSwitch, on
                     size="xs"
                     variant="ghost"
                     className={`${ghostButtonCls} max-w-full`}
+                    onClick={() => startEdit(currentBook)}
+                  >
+                    <Pencil data-icon="inline-start" />
+                    {t('home.editInfo')}
+                  </Button>
+                  <Button
+                    type="button"
+                    size="xs"
+                    variant="ghost"
+                    className={`${ghostButtonCls} max-w-full`}
                     disabled={Boolean(exportingPath)}
                     onClick={() => void handleExportTxt(currentBook)}
                   >

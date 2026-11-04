@@ -65,10 +65,6 @@ export function ModelDiscoveryPicker({ endpoint, defaultProtocol, existingModels
   )
   const existing = useMemo(() => new Set(existingModels.map((model) => model.trim()).filter(Boolean)), [existingModels])
   const rankedModels = useMemo(() => rankModels(state.models), [state.models])
-  const recommendedID = useMemo(
-    () => rankedModels.find((model) => !existing.has(model.id) && isChatCandidate(model))?.id,
-    [existing, rankedModels],
-  )
   const visibleModels = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase()
     if (!normalized) return rankedModels
@@ -178,11 +174,6 @@ export function ModelDiscoveryPicker({ endpoint, defaultProtocol, existingModels
                   <span className="min-w-0 flex-1">
                     <span className="flex min-w-0 items-center gap-1.5" title={model.display_name || model.id}>
                       <span className="truncate">{model.display_name || model.id}</span>
-                      {model.id === recommendedID && !alreadyAdded && (
-                        <span className="shrink-0 rounded border border-[var(--nova-border)] px-1 py-px text-[10px] text-[var(--nova-text-muted)]">
-                          {t('settings.model.discoveryRecommended')}
-                        </span>
-                      )}
                     </span>
                     {model.display_name && <span className="block truncate font-mono text-[10px] text-[var(--nova-text-faint)]">{model.id}</span>}
                   </span>

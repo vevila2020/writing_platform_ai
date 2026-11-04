@@ -321,7 +321,6 @@ const settings = {
   'settings.model.discoverySearchPlaceholder': '搜索可用模型',
   'settings.model.discoveryAddSelected': '添加选中的 {{count}} 个模型',
   'settings.model.discoveryAdded': '已添加',
-  'settings.model.discoveryRecommended': '最新',
   'settings.model.eliasApiRecommended': '推荐',
   'settings.model.eliasApiDescription': '兼容 OpenAI、Claude、Grok 等主流模型，支持长上下文、Agent 工具调用与图片理解。',
   'settings.model.eliasApiRegister': '注册 EliasApi',
