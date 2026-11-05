@@ -510,6 +510,85 @@ func TestStreamMapsReasoningTextToolCallsAndUsage(t *testing.T) {
 	}
 }
 
+func TestStreamIgnoresVendorMetadataEvents(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
+		writer.Header().Set("Content-Type", "text/event-stream")
+		flusher := writer.(http.Flusher)
+		frames := []string{
+			`{"type":"response.created","sequence_number":0,"response":{"id":"resp_codex","object":"response","created_at":2,"status":"in_progress","model":"codex-model","output":[]}}`,
+			`{"type":"codex.rate_limits","sequence_number":1,"rate_limits":{"primary":{"used_percent":12}}}`,
+			`{"type":"responsesapi.websocket_timing","sequence_number":2,"timing":{"queue_ms":3,"upstream_ms":810}}`,
+			`{"type":"response.output_text.delta","sequence_number":3,"item_id":"message_item","output_index":0,"content_index":0,"delta":"Hi","logprobs":[]}`,
+			`{"type":"response.completed","sequence_number":4,"response":{"id":"resp_codex","object":"response","created_at":2,"status":"completed","model":"codex-model","output":[{"id":"message_item","type":"message","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Hi","annotations":[],"logprobs":[]}]}]}}`,
+		}
+		for _, frame := range frames {
+			_, _ = fmt.Fprintf(writer, "data: %s\n\n", frame)
+			flusher.Flush()
+		}
+	}))
+	defer server.Close()
+
+	model, err := NewAdapter().New(context.Background(), providers.ModelConfig{
+		Provider:   providers.ProviderOpenAI,
+		Protocol:   providers.ProtocolOpenAIResponses,
+		Model:      "codex-model",
+		BaseURL:    server.URL,
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	stream, err := model.Stream(context.Background(), []*agentschema.Message{agentschema.UserMessage("hello")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer stream.Close()
+	var content string
+	for {
+		chunk, receiveErr := stream.Recv()
+		if errors.Is(receiveErr, io.EOF) {
+			break
+		}
+		if receiveErr != nil {
+			t.Fatalf("receive stream: %v", receiveErr)
+		}
+		content += chunk.Content
+	}
+	if content != "Hi" {
+		t.Fatalf("content = %q, want %q", content, "Hi")
+	}
+}
+
+func TestStreamRejectsUnknownProtocolEvents(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
+		writer.Header().Set("Content-Type", "text/event-stream")
+		flusher := writer.(http.Flusher)
+		_, _ = fmt.Fprintf(writer, "data: %s\n\n", `{"type":"response.mystery_event","sequence_number":0}`)
+		flusher.Flush()
+	}))
+	defer server.Close()
+
+	model, err := NewAdapter().New(context.Background(), providers.ModelConfig{
+		Provider:   providers.ProviderOpenAI,
+		Protocol:   providers.ProtocolOpenAIResponses,
+		Model:      "m",
+		BaseURL:    server.URL,
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	stream, err := model.Stream(context.Background(), []*agentschema.Message{agentschema.UserMessage("hello")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer stream.Close()
+	_, err = stream.Recv()
+	if err == nil || !strings.Contains(err.Error(), "unsupported event type") {
+		t.Fatalf("receive error = %v, want an unsupported event type error", err)
+	}
+}
+
 func TestGenerateReturnsProviderAPIError(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
 		writer.Header().Set("Content-Type", "application/json")

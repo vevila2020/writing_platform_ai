@@ -224,6 +224,29 @@ func TestRunPreservesDistinctIncompleteModelReasons(t *testing.T) {
 	}
 }
 
+func TestRunTreatsEmptyClaudeRefusalAsFilteredOutput(t *testing.T) {
+	response := agentschema.AssistantMessage("", nil)
+	response.ResponseMeta = &agentschema.ResponseMeta{FinishReason: "refusal"}
+	model := &lifecycleModel{responses: []*agentschema.Message{response}}
+	owner, err := New(context.Background(), agentengine.Definition{Name: "test", Model: model}, WithSessionStore(agentsession.Memory()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = owner.Close(context.Background()) })
+	session, err := owner.Session(context.Background(), agentsession.Named("refusal"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	run, err := session.Run(context.Background(), agentschema.Text("continue"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	result, waitErr := run.Wait(context.Background())
+	if result.Status != agentschema.ResultIncomplete || result.Reason != agentschema.ModelOutputFilteredReason || waitErr == nil {
+		t.Fatalf("refusal result = %#v, err = %v", result, waitErr)
+	}
+}
+
 func TestActiveRunDoesNotPersistPartialTranscript(t *testing.T) {
 	store := newObservingSessionStore()
 	model := &gatedLifecycleModel{started: make(chan struct{}), release: make(chan struct{})}

@@ -25,7 +25,7 @@
 
 墨栈 AI 基于 [Denova](https://github.com/alfredxw/denova) 开源项目进行二次开发，保留小说写作、互动故事、资料库、AI Agent、图像创作与项目版本管理等能力。
 
-已内置 EliasApi 中转站连接：在 **设置 → 语言模型** 中点击「使用 EliasApi」，粘贴 API Key 后会实时读取可用模型，并推荐最新的对话模型。账号注册仍在 [EliasApi](https://subapi.elias.kdns.fr/register) 站点完成。
+已内置 EliasApi 中转站连接：在 **设置 → 语言模型** 中点击「使用 EliasApi」，粘贴 API Key 后会实时读取可用模型。注册 [EliasApi](https://subapi.elias.kdns.fr/register) 联系客服获得5$赠金，开启你的创作吧！
 
 ![墨栈 AI 写作界面预览](./img/ide.png)
 

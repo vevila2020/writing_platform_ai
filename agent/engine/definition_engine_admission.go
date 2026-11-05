@@ -167,10 +167,14 @@ func (engine *Engine) settleCommittedOutput(ctx context.Context, request Request
 		return Result{}, errors.New("committed Agent output is missing its canonical messages")
 	}
 	final := state.Messages[len(state.Messages)-1]
-	if final.Role != agentschema.Assistant || len(final.ToolCalls) != 0 {
-		return Result{}, errors.New("committed Agent output is missing a final assistant message")
+	var responseMeta *agentschema.ResponseMeta
+	if final != nil {
+		responseMeta = final.ResponseMeta
 	}
-	_, finish := agentmodel.ClassifyResponseFinishReason(final.ResponseMeta)
+	_, finish := agentmodel.ClassifyResponseFinishReason(responseMeta)
+	if err := validateFinalAssistantMessage(final, finish); err != nil {
+		return Result{}, err
+	}
 	var continuation *Continuation
 	var err error
 	if !finish.Incomplete() {

@@ -58,6 +58,7 @@ func (service *Service) Snapshot(ctx context.Context, projectID string) (Snapsho
 	if err != nil {
 		return Snapshot{}, err
 	}
+	applyStoredBookMeta(runtime.layout, &summary)
 	return Snapshot{
 		ProjectID: runtime.record.ID,
 		Workspace: runtime.layout.ContentRoot,
@@ -91,7 +92,28 @@ func (service *Service) Summary(ctx context.Context, projectID string) (string, 
 		summary, err = runtime.files.Summary()
 		return err
 	})
-	return runtime.layout.ContentRoot, summary, err
+	if err != nil {
+		return runtime.layout.ContentRoot, summary, err
+	}
+	applyStoredBookMeta(runtime.layout, &summary)
+	return runtime.layout.ContentRoot, summary, nil
+}
+
+// applyStoredBookMeta keeps the workspace summary aligned with the Project-state
+// metadata the Bookshelf reads. The content-root book.json is a legacy mirror,
+// so a renamed Book would otherwise show a stale title inside the workspace.
+func applyStoredBookMeta(layout projectdomain.Layout, summary *book.WorkspaceSummary) {
+	if summary == nil {
+		return
+	}
+	meta, err := book.ReadStoredMeta(layout.ContentRoot, layout.StoreRoot)
+	if err != nil {
+		return
+	}
+	if title := strings.TrimSpace(meta.Title); title != "" {
+		summary.Title = title
+	}
+	summary.Author = meta.Author
 }
 
 func (service *Service) SetChapterConfirmed(ctx context.Context, projectID, path string, confirmed bool) error {

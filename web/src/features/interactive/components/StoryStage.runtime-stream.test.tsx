@@ -453,7 +453,7 @@ describe('StoryStage runtime stream lifecycle', () => {
         await Promise.resolve()
       })
       await expectVisibleText('正在回忆石门后的布局。')
-      expect(screen.getByRole('button', { name: '展开思考' })).toHaveAttribute('aria-expanded', 'false')
+      expect(screen.getByRole('button', { name: '收起思考' })).toHaveAttribute('aria-expanded', 'true')
 
       await act(async () => {
         stream.enqueue({

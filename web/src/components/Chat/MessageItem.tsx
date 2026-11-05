@@ -162,7 +162,7 @@ function MessageItemContent({ projectId = '', message, assistantPresentation = '
     }
 
     case 'thinking':
-      return <ThinkingBlock projectId={projectId} message={message} content={content} streaming={message.streaming === true} showAgentSource={showAgentSource} />
+      return <ThinkingBlock message={message} content={content} streaming={message.streaming === true} showAgentSource={showAgentSource} />
 
     case 'tool_call': {
       // Live input is an opaque protocol text stream. Specialized renderers may

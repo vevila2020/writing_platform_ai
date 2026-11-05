@@ -3,6 +3,7 @@ package tools
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -67,7 +68,18 @@ func TestBuiltinSchemasExposeSameParametersAcrossProtocols(t *testing.T) {
 				case providers.ProtocolOpenAIResponses:
 					io.WriteString(w, `{"id":"test","object":"response","status":"completed","model":"test","output":[{"id":"msg","type":"message","role":"assistant","status":"completed","content":[{"type":"output_text","text":"ok","annotations":[]}]}]}`)
 				case providers.ProtocolAnthropicMessages:
-					io.WriteString(w, `{"id":"test","type":"message","role":"assistant","model":"test","content":[{"type":"text","text":"ok"}],"stop_reason":"end_turn","usage":{"input_tokens":1,"output_tokens":1}}`)
+					w.Header().Set("Content-Type", "text/event-stream")
+					frames := []struct{ event, data string }{
+						{"message_start", `{"type":"message_start","message":{"id":"test","type":"message","role":"assistant","model":"test","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":1,"output_tokens":0}}}`},
+						{"content_block_start", `{"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}`},
+						{"content_block_delta", `{"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"ok"}}`},
+						{"content_block_stop", `{"type":"content_block_stop","index":0}`},
+						{"message_delta", `{"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null},"usage":{"output_tokens":1}}`},
+						{"message_stop", `{"type":"message_stop"}`},
+					}
+					for _, frame := range frames {
+						_, _ = fmt.Fprintf(w, "event: %s\ndata: %s\n\n", frame.event, frame.data)
+					}
 				default:
 					t.Errorf("unhandled protocol: %s", adapter.ID())
 				}

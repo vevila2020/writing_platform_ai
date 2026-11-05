@@ -68,7 +68,7 @@ func (*Adapter) New(ctx context.Context, config providers.ModelConfig) (agentmod
 }
 
 func googleHTTPClient(configured *http.Client) *http.Client {
-	client := llmhttp.Client(configured)
+	client := wrapSSEStreamingClient(llmhttp.Client(configured))
 	client.Transport = errorTransport{next: client.Transport}
 	return client
 }

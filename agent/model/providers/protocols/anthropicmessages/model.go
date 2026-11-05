@@ -27,12 +27,18 @@ func (model *ChatModel) Generate(ctx context.Context, input []*agentschema.Messa
 	stream := model.client.Messages.NewStreaming(ctx, params, requestOptions...)
 	defer stream.Close()
 	accumulator := &anthropic.Message{}
+	terminal := terminalEventState{}
 	for stream.Next() {
-		if err := accumulator.Accumulate(stream.Current()); err != nil {
+		event := stream.Current()
+		if err := accumulator.Accumulate(event); err != nil {
 			return nil, fmt.Errorf("anthropic messages stream accumulation: %w", err)
 		}
+		terminal.observe(event)
 	}
 	if err := stream.Err(); err != nil {
+		return nil, modelCallError(ctx, err)
+	}
+	if err := terminal.err(); err != nil {
 		return nil, modelCallError(ctx, err)
 	}
 	return responseMessage(accumulator, rawResponse, model.config)
@@ -61,12 +67,14 @@ func (model *ChatModel) Stream(ctx context.Context, input []*agentschema.Message
 			}
 		}()
 		accumulator := &anthropic.Message{}
+		terminal := terminalEventState{}
 		for providerStream.Next() {
 			event := providerStream.Current()
 			if err := accumulator.Accumulate(event); err != nil {
 				writer.Send(nil, fmt.Errorf("anthropic messages stream accumulation: %w", err))
 				return
 			}
+			terminal.observe(event)
 			message, err := streamMessage(event, accumulator, rawResponse, model.config)
 			if err != nil {
 				writer.Send(nil, err)
@@ -77,6 +85,10 @@ func (model *ChatModel) Stream(ctx context.Context, input []*agentschema.Message
 			}
 		}
 		if err := providerStream.Err(); err != nil {
+			writer.Send(nil, modelCallError(ctx, err))
+			return
+		}
+		if err := terminal.err(); err != nil {
 			writer.Send(nil, modelCallError(ctx, err))
 		}
 	}()

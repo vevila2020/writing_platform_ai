@@ -18,11 +18,9 @@ import { findDialogueHighlightRanges } from '@/lib/dialogue-highlight'
 import { useBottomScrollLock } from '@/hooks/useBottomScrollLock'
 import { isWorkspaceImagePath } from '@/lib/workspace-file-kind'
 import { Reasoning, ReasoningContent, ReasoningTrigger } from '@/components/ai-elements/reasoning'
-import { useAgentTraceDisplay } from './agent-trace-display'
 import { agentContentPreview } from './agent-content-preview'
 import { AgentSourceBadge } from './message-source-badge'
 import { StreamingContentStage } from './StreamingContentStage'
-import { useMotionIntensity } from '@/features/motion/motion-preferences'
 
 const chatMarkdownPlugins = { cjk, math }
 const chatMarkdownControls = {
@@ -226,14 +224,15 @@ function highlightDialogueText(text: string, enabled: boolean, keyPrefix: string
   return <Fragment>{nodes}</Fragment>
 }
 
-/** Manual choices override the user's default streaming presentation. */
-export function ThinkingBlock({ projectId, message, content, streaming, showAgentSource = true }: { projectId: string; message: ThinkingChatMessage; content: string; streaming: boolean; showAgentSource?: boolean }) {
+/**
+ * Thinking follows generation until the user takes explicit control. Long
+ * reasoning stays cheap to render because it is transcript text, not Markdown.
+ */
+export function ThinkingBlock({ message, content, streaming, showAgentSource = true }: { message: ThinkingChatMessage; content: string; streaming: boolean; showAgentSource?: boolean }) {
   const { t } = useTranslation()
-  const motionIntensity = useMotionIntensity()
-  const traceDisplay = useAgentTraceDisplay()
   const preview = agentContentPreview(content)
   const [expansion, setExpanded] = useVirtualizedMessageState<'auto' | boolean>('thinking-expanded', 'auto')
-  const expanded = expansion === 'auto' ? traceDisplay === 'live' && streaming : expansion
+  const expanded = expansion === 'auto' ? streaming : expansion
   const contentScrollLock = useBottomScrollLock<HTMLDivElement>({
     enabled: streaming && expanded,
     resetKey: `${message.id || message.created_at || 'thinking'}:thinking-stream`,
@@ -278,17 +277,7 @@ export function ThinkingBlock({ projectId, message, content, streaming, showAgen
                 className="scroll-fade-y scroll-fade-8 max-h-80 overflow-x-hidden overflow-y-auto overscroll-contain px-2.5 py-2 text-xs leading-4 text-[var(--nova-text-muted)] whitespace-normal break-words [overflow-anchor:none] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[var(--nova-accent)]"
               >
                 <StreamingContentStage content={content} targetContent={streaming ? message.streaming_target_content : undefined} streaming={streaming}>
-                  {(value) => (
-                    <MarkdownContent
-                      content={value}
-                      highlightDialogue={false}
-                      projectId={projectId}
-                      streaming={streaming}
-                      // Word animation events bubble through the thinking
-                      // disclosure; enable this extra work only for full motion.
-                      animateWords={motionIntensity === 'full'}
-                    />
-                  )}
+                  {(value) => <div data-thinking-text className="whitespace-pre-wrap break-words">{value}</div>}
                 </StreamingContentStage>
               </div>
             </div>

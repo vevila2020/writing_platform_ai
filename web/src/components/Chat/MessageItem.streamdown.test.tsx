@@ -85,7 +85,7 @@ describe('MessageItem streaming Markdown', () => {
     expect(screen.queryByTitle(/下载|download/i)).not.toBeInTheDocument()
   })
 
-  it('renders streaming thinking as Markdown', () => {
+  it('renders streaming thinking as lightweight transcript text', () => {
     const content = [
       '**正在分析。**',
       '',
@@ -98,40 +98,27 @@ describe('MessageItem streaming Markdown', () => {
     const { container, rerender } = render(
       <MessageItem projectId="project-thinking" message={{ role: 'thinking', content, streaming: true }} />,
     )
-    fireEvent.click(screen.getByRole('button', { name: '展开思考' }))
 
-    expect(container.querySelector('[data-streamdown="strong"]')).toHaveTextContent('正在分析。')
-    expect(container.querySelector('.katex-display')).toBeInTheDocument()
+    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**')
+    expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
-    expect(container.querySelector('img[alt="分析图"]')).toHaveAttribute(
-      'src',
-      '/api/projects/project-thinking/files/asset?path=assets%2Fimage%2Fgenerated%2Fanalysis.png',
-    )
+    expect(container.querySelector('img[alt="分析图"]')).not.toBeInTheDocument()
 
     rerender(
       <MessageItem projectId="project-thinking" message={{ role: 'thinking', content, streaming: false }} />,
     )
-    expect(container.querySelector('[data-streamdown="strong"]')).toHaveTextContent('正在分析。')
+    expect(container.querySelector('[data-thinking-text]')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '展开思考' }))
+    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**')
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
   })
 
-  it('enables thinking word animations only for explicit full motion and reacts during streaming', () => {
+  it('keeps thinking on the lightweight text path under full motion', () => {
     const message = { role: 'thinking' as const, content: '**Streaming text** remains readable.', streaming: true }
-    const { container, rerender } = render(
-      <NovaMotionProvider intensity="system"><MessageItem message={message} /></NovaMotionProvider>,
-    )
-    fireEvent.click(screen.getByRole('button', { name: '展开思考' }))
+    const { container } = render(<NovaMotionProvider intensity="full"><MessageItem message={message} /></NovaMotionProvider>)
+    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**Streaming text** remains readable.')
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
-
-    rerender(<NovaMotionProvider intensity="full"><MessageItem message={message} /></NovaMotionProvider>)
-    expect(container.querySelector('[data-sd-animate]')).toBeInTheDocument()
-    expect(container.querySelector('[data-streamdown="strong"]')).toHaveTextContent('Streaming text')
-
-    for (const intensity of ['reduced', 'off', 'system']) {
-      rerender(<NovaMotionProvider intensity={intensity}><MessageItem message={message} /></NovaMotionProvider>)
-      expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
-      expect(container).toHaveTextContent('remains readable.')
-    }
+    expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
   })
 
   it('preserves reply word animations across thinking motion preferences', () => {

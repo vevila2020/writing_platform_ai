@@ -963,13 +963,30 @@ loopControlsStopped:
 	case ControlSuspend:
 		return engine.controlledResult(Suspended, prepared, controlledTranscript(), emit)
 	}
-	if completion.requestedCompletion() && final != nil && len(final.ToolCalls) != 0 {
-		final = completionFinalAssistant(transcript[len(baseTranscript):], final)
+	completionRequested := completion.requestedCompletion()
+	if completionRequested && final != nil && len(final.ToolCalls) != 0 {
+		final = completionFinalAssistant(transcript, final, prepared.archive.Local(activeUserIndex)+1)
 		transcript = append(transcript, final.Clone())
 	}
-	if final == nil || len(final.ToolCalls) != 0 {
-		return Result{}, errors.New("Agent modelToolLoop completed without a final assistant message")
+	var responseMeta *agentschema.ResponseMeta
+	if final != nil {
+		responseMeta = final.ResponseMeta
 	}
+	_, finishClass := agentmodel.ClassifyResponseFinishReason(responseMeta)
+	searchFrom := prepared.archive.Local(activeUserIndex) + 1
+	validateFinal := func(message *agentschema.Message, finish agentmodel.ModelFinishReasonClass) error {
+		return validateAssistantTurnOutput(message, transcript, searchFrom, finish)
+	}
+	if completionRequested {
+		// A domain completion tool may have published the visible result while
+		// the model response itself is tool-only. The product projection owns
+		// that content, so only the assistant boundary is known here.
+		validateFinal = validateDeferredCompletionMessage
+	}
+	if err := validateFinal(final, finishClass); err != nil {
+		return Result{}, err
+	}
+	incomplete := finishClass.Incomplete()
 	agenttrace.EmitTrace(ctx, engine.trace, agenttrace.TraceEvent{
 		Kind: agenttrace.TraceModelFinished, Session: engine.key, RunID: string(request.Snapshot.OperationID), Cycle: request.Snapshot.Cycle,
 	})
@@ -985,8 +1002,6 @@ loopControlsStopped:
 	if committed.canonicalMessages != nil {
 		transcript = committed.canonicalMessages
 	}
-	_, finishClass := agentmodel.ClassifyResponseFinishReason(final.ResponseMeta)
-	incomplete := finishClass.Incomplete()
 	var continuation *Continuation
 	if !incomplete {
 		continuation, err = engine.evaluateGoal(
@@ -1010,6 +1025,60 @@ loopControlsStopped:
 		return Result{Status: Incomplete, Reason: finishClass.TerminalReason()}, nil
 	}
 	return Result{Status: Completed}, nil
+}
+
+func validateAssistantTurnOutput(message *agentschema.Message, transcript []*agentschema.Message, searchFrom int, finish agentmodel.ModelFinishReasonClass) error {
+	if err := validateFinalAssistantBoundary(message); err != nil {
+		return err
+	}
+	if finish.Incomplete() {
+		return nil
+	}
+	if hasVisibleAssistantContent(message) {
+		return nil
+	}
+	if searchFrom < 0 {
+		searchFrom = 0
+	}
+	if searchFrom > len(transcript) {
+		searchFrom = len(transcript)
+	}
+	for index := len(transcript) - 1; index >= searchFrom; index-- {
+		if hasVisibleAssistantContent(transcript[index]) {
+			return nil
+		}
+	}
+	return errors.New("Agent completed without user-visible assistant content")
+}
+
+func validateFinalAssistantMessage(message *agentschema.Message, finish agentmodel.ModelFinishReasonClass) error {
+	if err := validateFinalAssistantBoundary(message); err != nil {
+		return err
+	}
+	if finish.Incomplete() {
+		return nil
+	}
+	if hasVisibleAssistantContent(message) {
+		return nil
+	}
+	return errors.New("Agent completed without user-visible assistant content")
+}
+
+func hasVisibleAssistantContent(message *agentschema.Message) bool {
+	return message != nil && message.Role == agentschema.Assistant &&
+		(strings.TrimSpace(message.Content) != "" ||
+			len(message.MultiContent) > 0 || len(message.AssistantGenMultiContent) > 0)
+}
+
+func validateDeferredCompletionMessage(message *agentschema.Message, _ agentmodel.ModelFinishReasonClass) error {
+	return validateFinalAssistantBoundary(message)
+}
+
+func validateFinalAssistantBoundary(message *agentschema.Message) error {
+	if message == nil || message.Role != agentschema.Assistant || len(message.ToolCalls) != 0 {
+		return errors.New("Agent output requires a final assistant message")
+	}
+	return nil
 }
 
 // controlledLoopResult translates an error from either the loop event lane or
@@ -1043,14 +1112,22 @@ func (engine *Engine) controlledLoopResult(
 // completion into the canonical assistant output. Some provider protocols
 // emit the player-visible prose in an earlier assistant message and then send
 // a tool-only submission message. Preserve that prose instead of publishing an
-// empty final response.
-func completionFinalAssistant(transcript []*agentschema.Message, final *agentschema.Message) *agentschema.Message {
+// empty final response. searchFrom is the first transcript entry after the
+// active user message so resumed cycles can find prose accepted earlier in the
+// same turn without borrowing output from a previous turn.
+func completionFinalAssistant(transcript []*agentschema.Message, final *agentschema.Message, searchFrom int) *agentschema.Message {
 	completed := final.Clone()
 	completed.ToolCalls = nil
 	if strings.TrimSpace(completed.Content) != "" {
 		return completed
 	}
-	for index := len(transcript) - 1; index >= 0; index-- {
+	if searchFrom < 0 {
+		searchFrom = 0
+	}
+	if searchFrom > len(transcript) {
+		searchFrom = len(transcript)
+	}
+	for index := len(transcript) - 1; index >= searchFrom; index-- {
 		candidate := transcript[index]
 		if candidate == nil || candidate.Role != agentschema.Assistant || strings.TrimSpace(candidate.Content) == "" {
 			continue

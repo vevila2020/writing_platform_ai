@@ -3,6 +3,7 @@ package anthropicmessages
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -169,5 +170,54 @@ func TestGenerateUsesMessagesStreamingEndpointWithoutSDKTimeout(t *testing.T) {
 	}
 	if request["model"] != "test-model" || request["stream"] != true {
 		t.Fatalf("request = %#v", request)
+	}
+}
+
+func TestMessagesStreamRequiresTerminalEvents(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
+		writer.Header().Set("Content-Type", "text/event-stream")
+		frames := []struct{ event, data string }{
+			{"message_start", `{"type":"message_start","message":{"id":"msg_partial","type":"message","role":"assistant","model":"test-model","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":0}}}`},
+			{"content_block_start", `{"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}`},
+			{"content_block_delta", `{"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"partial thought"}}`},
+			{"content_block_stop", `{"type":"content_block_stop","index":0}`},
+		}
+		for _, frame := range frames {
+			_, _ = fmt.Fprintf(writer, "event: %s\ndata: %s\n\n", frame.event, frame.data)
+		}
+	}))
+	defer server.Close()
+
+	model, err := NewAdapter().New(context.Background(), providers.ModelConfig{
+		Provider: "anthropic-test", Protocol: providers.ProtocolAnthropicMessages,
+		BaseURL: server.URL, Model: "test-model", APIKey: "secret", HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	input := []*agentschema.Message{agentschema.UserMessage("ping")}
+
+	if _, err := model.Generate(context.Background(), input); !errors.Is(err, io.ErrUnexpectedEOF) {
+		t.Fatalf("Generate error = %v, want unexpected EOF", err)
+	}
+
+	stream, err := model.Stream(context.Background(), input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer stream.Close()
+	reasoning := ""
+	for {
+		chunk, recvErr := stream.Recv()
+		if errors.Is(recvErr, io.ErrUnexpectedEOF) {
+			break
+		}
+		if recvErr != nil {
+			t.Fatalf("Stream error = %v, want unexpected EOF", recvErr)
+		}
+		reasoning += chunk.ReasoningContent
+	}
+	if reasoning != "partial thought" {
+		t.Fatalf("streamed reasoning = %q", reasoning)
 	}
 }

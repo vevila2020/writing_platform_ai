@@ -309,6 +309,14 @@ func (state *streamState) convert(event responses.ResponseStreamEventUnion) (*ag
 		"response.audio.transcript.delta", "response.audio.transcript.done":
 		return nil, nil
 	default:
+		// Relays decorate the standard stream with vendor metadata events such
+		// as "codex.rate_limits" or "responsesapi.websocket_timing". The
+		// Responses protocol owns the "response.*" namespace (plus "error"),
+		// so an unknown event outside it carries no content or tool calls and
+		// must not abort the run.
+		if !strings.HasPrefix(strings.ToLower(string(event.Type)), "response.") {
+			return nil, nil
+		}
 		return nil, fmt.Errorf("openai responses stream: unsupported event type %q", event.Type)
 	}
 }

@@ -3,6 +3,7 @@ package anthropicmessages
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -18,6 +19,32 @@ const (
 	extraKeyResponseID = "response_id"
 	extraKeyModel      = "model"
 )
+
+// terminalEventState distinguishes a complete Messages stream from a clean
+// EOF after an interrupted provider connection.
+type terminalEventState struct {
+	messageDelta bool
+	messageStop  bool
+}
+
+func (state *terminalEventState) observe(event anthropic.MessageStreamEventUnion) {
+	switch event.Type {
+	case "message_delta":
+		state.messageDelta = true
+	case "message_stop":
+		state.messageStop = true
+	}
+}
+
+func (state terminalEventState) err() error {
+	if state.messageDelta && state.messageStop {
+		return nil
+	}
+	return fmt.Errorf(
+		"anthropic messages stream ended before terminal events (message_delta=%t message_stop=%t): %w",
+		state.messageDelta, state.messageStop, io.ErrUnexpectedEOF,
+	)
+}
 
 func responseMessage(response *anthropic.Message, rawResponse *http.Response, config providers.ModelConfig) (*agentschema.Message, error) {
 	if response == nil {
