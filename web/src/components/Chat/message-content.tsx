@@ -12,6 +12,7 @@ import {
   type StreamdownTranslations,
 } from 'streamdown'
 import { useTranslation } from 'react-i18next'
+import { useReducedMotionConfig } from 'motion/react'
 import { ImagePreviewDialog } from '@/components/common/ImagePreviewDialog'
 import { projectFileAssetURL, type ThinkingChatMessage } from '@/lib/api'
 import { findDialogueHighlightRanges } from '@/lib/dialogue-highlight'
@@ -21,6 +22,7 @@ import { Reasoning, ReasoningContent, ReasoningTrigger } from '@/components/ai-e
 import { agentContentPreview } from './agent-content-preview'
 import { AgentSourceBadge } from './message-source-badge'
 import { StreamingContentStage } from './StreamingContentStage'
+import { useMotionIntensity } from '@/features/motion/motion-preferences'
 
 const chatMarkdownPlugins = { cjk, math }
 const chatMarkdownControls = {
@@ -230,12 +232,16 @@ function highlightDialogueText(text: string, enabled: boolean, keyPrefix: string
  */
 export function ThinkingBlock({ message, content, streaming, showAgentSource = true }: { message: ThinkingChatMessage; content: string; streaming: boolean; showAgentSource?: boolean }) {
   const { t } = useTranslation()
+  const motionIntensity = useMotionIntensity()
+  const reducedMotion = useReducedMotionConfig()
   const preview = agentContentPreview(content)
+  const resetKey = `${message.id || message.created_at || 'thinking'}:thinking-stream`
+  const reveal = streaming && motionIntensity !== 'off' && !reducedMotion ? 'typewriter' : 'instant'
   const [expansion, setExpanded] = useVirtualizedMessageState<'auto' | boolean>('thinking-expanded', 'auto')
   const expanded = expansion === 'auto' ? streaming : expansion
   const contentScrollLock = useBottomScrollLock<HTMLDivElement>({
     enabled: streaming && expanded,
-    resetKey: `${message.id || message.created_at || 'thinking'}:thinking-stream`,
+    resetKey,
     contentKey: `${expanded ? 'expanded' : 'collapsed'}:${content.length}`,
   })
 
@@ -276,8 +282,14 @@ export function ThinkingBlock({ message, content, streaming, showAgentSource = t
                 onKeyDown={contentScrollLock.onKeyDown}
                 className="scroll-fade-y scroll-fade-8 max-h-80 overflow-x-hidden overflow-y-auto overscroll-contain px-2.5 py-2 text-xs leading-4 text-[var(--nova-text-muted)] whitespace-normal break-words [overflow-anchor:none] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[var(--nova-accent)]"
               >
-                <StreamingContentStage content={content} targetContent={streaming ? message.streaming_target_content : undefined} streaming={streaming}>
-                  {(value) => <div data-thinking-text className="whitespace-pre-wrap break-words">{value}</div>}
+                <StreamingContentStage
+                  content={content}
+                  targetContent={streaming ? message.streaming_target_content : undefined}
+                  streaming={streaming}
+                  reveal={reveal}
+                  resetKey={resetKey}
+                >
+                  {(value) => <div data-thinking-text data-streaming-reveal={reveal} className="whitespace-pre-wrap break-words">{value}</div>}
                 </StreamingContentStage>
               </div>
             </div>

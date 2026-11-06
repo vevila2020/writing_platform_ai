@@ -60,10 +60,12 @@ for (const theme of ['dark', 'light']) {
     await page.route('**/chat/active?*', route => route.fulfill({ json: settled ? { active: false } : {
       active: true, status: 'running', phase: 'running', task_id: 'motion-task', active_operation_id: 'motion-run', stream_attached: true,
     } }))
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
     await page.goto('/')
     await openWritingAgent(page)
     const thinking = page.locator('[data-nova-scroll-lock="thinking"]').filter({ visible: true })
     await expect(thinking).toBeVisible()
+    await expect(thinking.locator('[data-thinking-text]')).toHaveAttribute('data-streaming-reveal', 'typewriter')
     await expect(thinking.locator('[data-thinking-text]')).toContainText('Motion evidence.')
     await expect(thinking.locator('[data-streamdown], [data-sd-animate]')).toHaveCount(0)
     await expect(page.getByRole('button', { name: '收起思考', exact: true })).toBeVisible()

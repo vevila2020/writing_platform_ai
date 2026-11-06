@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { MessageItem } from './MessageItem'
 import { NovaMotionProvider } from '@/features/motion/motion-preferences'
@@ -85,7 +85,7 @@ describe('MessageItem streaming Markdown', () => {
     expect(screen.queryByTitle(/下载|download/i)).not.toBeInTheDocument()
   })
 
-  it('renders streaming thinking as lightweight transcript text', () => {
+  it('renders streaming thinking as lightweight transcript text', async () => {
     const content = [
       '**正在分析。**',
       '',
@@ -99,7 +99,7 @@ describe('MessageItem streaming Markdown', () => {
       <MessageItem projectId="project-thinking" message={{ role: 'thinking', content, streaming: true }} />,
     )
 
-    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**')
+    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**'))
     expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
     expect(container.querySelector('img[alt="分析图"]')).not.toBeInTheDocument()
@@ -109,16 +109,28 @@ describe('MessageItem streaming Markdown', () => {
     )
     expect(container.querySelector('[data-thinking-text]')).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: '展开思考' }))
-    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**')
+    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**'))
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
   })
 
-  it('keeps thinking on the lightweight text path under full motion', () => {
+  it('keeps thinking on the lightweight text path under full motion', async () => {
     const message = { role: 'thinking' as const, content: '**Streaming text** remains readable.', streaming: true }
     const { container } = render(<NovaMotionProvider intensity="full"><MessageItem message={message} /></NovaMotionProvider>)
-    expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**Streaming text** remains readable.')
+    expect(container.querySelector('[data-thinking-text]')).toHaveAttribute('data-streaming-reveal', 'typewriter')
+    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**Streaming text** remains readable.'))
     expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
+  })
+
+  it('shows thinking text immediately when motion is reduced or disabled', () => {
+    const message = { role: 'thinking' as const, content: 'Immediate thinking text.', streaming: true }
+    for (const intensity of ['reduced', 'off']) {
+      const { container, unmount } = render(<NovaMotionProvider intensity={intensity}><MessageItem message={message} /></NovaMotionProvider>)
+      const thinking = container.querySelector('[data-thinking-text]')
+      expect(thinking).toHaveAttribute('data-streaming-reveal', 'instant')
+      expect(thinking).toHaveTextContent('Immediate thinking text.')
+      unmount()
+    }
   })
 
   it('preserves reply word animations across thinking motion preferences', () => {
