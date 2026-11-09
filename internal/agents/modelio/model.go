@@ -3,8 +3,10 @@ package modelio
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/vevila2020/writing_platform_ai/config"
+	"github.com/vevila2020/writing_platform_ai/internal/hostruntime"
 
 	agentmodel "github.com/vevila2020/writing_platform_ai/agent/model"
 	"github.com/vevila2020/writing_platform_ai/agent/model/providers"
@@ -32,6 +34,7 @@ func ConfigFromResolved(resolved config.ResolvedModelSettings) (providers.ModelC
 		SessionKeyMapping: resolved.SessionKeyMapping,
 		MaxOutputTokens:   resolved.MaxTokens,
 		ThinkingLevel:     providers.ThinkingLevel(resolved.ThinkingLevel),
+		HTTPClient:        modelHTTPClient(),
 	}
 	if len(resolved.ProtocolOptions) != 0 {
 		options, err := providers.EncodeProtocolOptions(resolved.ProtocolOptions)
@@ -45,6 +48,16 @@ func ConfigFromResolved(resolved config.ResolvedModelSettings) (providers.ModelC
 		modelConfig.Temperature = &temperature
 	}
 	return modelConfig, nil
+}
+
+// modelHTTPClient uses the host's proxy policy for every model request. The
+// selector honors explicit environment overrides and otherwise reads the OS
+// system proxy, so native and installed builds behave consistently. Returning
+// nil from the selector keeps local and directly configured endpoints working.
+func modelHTTPClient() *http.Client {
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	transport.Proxy = hostruntime.NewHTTPProxy()
+	return &http.Client{Transport: transport}
 }
 
 func NewChatModel(ctx context.Context, config providers.ModelConfig) (agentmodel.ToolCallingChatModel, error) {

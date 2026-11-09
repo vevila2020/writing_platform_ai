@@ -441,6 +441,11 @@ func (agent *modelToolLoop) run(parent context.Context, input *loopInput, option
 			return
 		}
 
+		assistant.ToolCalls, err = normalizeToolCallBatch(assistant.ToolCalls)
+		if err != nil {
+			events.Send(agent.errorEvent(err))
+			return
+		}
 		preparedCalls := agent.prepareToolCalls(ctx, registry, assistant.ToolCalls, modelResponseOrdinal)
 		for index := range preparedCalls {
 			assistant.ToolCalls[index] = preparedCalls[index].call

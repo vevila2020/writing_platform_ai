@@ -2,6 +2,35 @@ import { describe, expect, it } from 'vitest'
 import type { AgentUIMessage } from '@/lib/agent-ui'
 import { agentViewToRenderMessage, buildAgentMessageViews, shareAgentMessageViews } from './agent-message-view'
 
+describe('tool lifecycle projection', () => {
+  it('replaces a stale running view with its terminal result in the same run', () => {
+    const messages = [
+      {
+        id: 'running', role: 'assistant', metadata: { run_id: 'run-1' },
+        parts: [{ type: 'tool-read', toolCallId: 'call-1', state: 'input-available', input: { path: 'chapter.md' } }],
+      },
+      {
+        id: 'finished', role: 'assistant', metadata: { run_id: 'run-1' },
+        parts: [{ type: 'tool-read', toolCallId: 'call-1', state: 'output-available', input: { path: 'chapter.md' }, output: 'chapter' }],
+      },
+    ] as AgentUIMessage[]
+
+    const converted = buildAgentMessageViews(messages)
+      .map(view => agentViewToRenderMessage(view))
+      .filter((message): message is NonNullable<typeof message> => Boolean(message))
+    expect(converted).toHaveLength(1)
+    expect(converted[0]).toMatchObject({ id: 'call-1', name: 'read', status: 'success', result: 'chapter' })
+  })
+
+  it('keeps identical tool IDs from separate runs', () => {
+    const messages = ['run-1', 'run-2'].map(runID => ({
+      id: runID, role: 'assistant', metadata: { run_id: runID },
+      parts: [{ type: 'tool-read', toolCallId: 'call-1', state: 'input-available', input: { path: 'chapter.md' } }],
+    })) as AgentUIMessage[]
+
+    expect(buildAgentMessageViews(messages).map(view => view.metadata.run_id)).toEqual(['run-1', 'run-2'])
+  })
+})
 describe('agentViewToRenderMessage', () => {
   it.each(['pending', 'answered', 'cancelled'])('restores %s tool approvals whose journal payload omits questions', (status) => {
     const ask: AgentUIMessage = {

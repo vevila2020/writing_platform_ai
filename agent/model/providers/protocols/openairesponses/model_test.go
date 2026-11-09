@@ -191,6 +191,43 @@ func TestContinuationUsesCanonicalToolCallArguments(t *testing.T) {
 	}
 }
 
+func TestContinuationReplaysEquivalentFunctionCallOnce(t *testing.T) {
+	modelConfig := providers.ModelConfig{
+		Provider: providers.ProviderDeepSeek,
+		Protocol: providers.ProtocolOpenAIResponses,
+		Model:    "deepseek-v4-flash",
+	}
+	first := "{\"id\":\"function_a\",\"type\":\"function_call\",\"call_id\":\"call_same\",\"name\":\"read\",\"arguments\":\"{\\\"path\\\":\\\"chapter.md\\\"}\",\"status\":\"completed\"}"
+	second := "{\"id\":\"function_b\",\"type\":\"function_call\",\"call_id\":\"call_same\",\"name\":\"read\",\"arguments\":\"{\\\"path\\\":\\\"chapter.md\\\"}\",\"status\":\"completed\"}"
+	continuation, err := providers.NewContinuation(modelConfig, []json.RawMessage{
+		json.RawMessage(first), json.RawMessage(second),
+	})
+	if err != nil {
+		t.Fatalf("new continuation: %v", err)
+	}
+	assistant := agentschema.AssistantMessage("", []agentschema.ToolCall{{
+		ID: "call_same", Type: "function",
+		Function: agentschema.FunctionCall{Name: "read", Arguments: "{\"path\":\"chapter.md\"}"},
+	}})
+	assistant.Extra = map[string]any{providers.ExtraKeyContinuation: continuation}
+
+	items, err := requestInput([]*agentschema.Message{assistant}, modelConfig)
+	if err != nil {
+		t.Fatalf("build continuation input: %v", err)
+	}
+	data, err := json.Marshal(items)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var input []map[string]any
+	if err := json.Unmarshal(data, &input); err != nil {
+		t.Fatal(err)
+	}
+	if len(input) != 1 || input[0]["type"] != "function_call" || input[0]["call_id"] != "call_same" {
+		t.Fatalf("replayed function calls = %#v", input)
+	}
+}
+
 func mustProtocolOptions(t *testing.T, compatibility Compatibility) json.RawMessage {
 	t.Helper()
 	options, err := providers.EncodeProtocolOptions(compatibility)

@@ -19,14 +19,17 @@ type projectedToolInput struct {
 // the native loop, so live display deltas and eventual execution share one
 // execution identity and one append-only argument stream.
 type toolInputProjector struct {
-	variant *loopMessage
-	source  EventSource
-	calls   map[int]projectedToolInput
+	variant      *loopMessage
+	source       EventSource
+	calls        map[int]projectedToolInput
+	callOrdinals map[string]int
+	nextOrdinal  int
 }
 
 func newToolInputProjector(variant *loopMessage, source EventSource) *toolInputProjector {
 	return &toolInputProjector{
-		variant: variant, source: source, calls: make(map[int]projectedToolInput),
+		variant: variant, source: source,
+		calls: make(map[int]projectedToolInput), callOrdinals: make(map[string]int),
 	}
 }
 
@@ -34,8 +37,23 @@ func (projector *toolInputProjector) observe(message *agentschema.Message, emit 
 	if projector == nil || message == nil || (message.Role != agentschema.Assistant && projector.variant.Role != agentschema.Assistant) {
 		return nil
 	}
-	for ordinal, call := range message.ToolCalls {
+	for _, call := range message.ToolCalls {
 		name := call.Function.Name
+		providerCallID := strings.TrimSpace(call.ID)
+		ordinal := projector.nextOrdinal
+		if call.Index != nil && *call.Index >= 0 {
+			ordinal = *call.Index
+		}
+		if providerCallID != "" {
+			if existing, ok := projector.callOrdinals[providerCallID]; ok {
+				ordinal = existing
+			} else {
+				projector.callOrdinals[providerCallID] = ordinal
+			}
+		}
+		if ordinal >= projector.nextOrdinal {
+			projector.nextOrdinal = ordinal + 1
+		}
 		if strings.TrimSpace(name) == "" {
 			continue
 		}
@@ -44,7 +62,10 @@ func (projector *toolInputProjector) observe(message *agentschema.Message, emit 
 			return fmt.Errorf("streamed tool input at ordinal %d changed name from %q to %q", ordinal, state.name, name)
 		}
 		if !strings.HasPrefix(call.Function.Arguments, state.arguments) {
-			return fmt.Errorf("streamed tool input for %q at ordinal %d is not append-only", name, ordinal)
+			// Duplicate output items can arrive with reformatted or independently
+			// completed arguments. The final execution batch performs the strict
+			// conflict check; live projection only keeps the append-only stream.
+			continue
 		}
 		callID := projector.variant.ToolExecutionID(ordinal)
 		if strings.TrimSpace(callID) == "" {

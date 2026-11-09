@@ -196,6 +196,7 @@ func replayResponseOutput(message *agentschema.Message, config providers.ModelCo
 		}
 	}
 	items := make([]responses.ResponseInputItemUnionParam, 0, len(rawItems))
+	replayedFunctionCalls := make(map[string]struct{})
 	for index, raw := range rawItems {
 		var identity struct {
 			Type   string `json:"type"`
@@ -206,10 +207,15 @@ func replayResponseOutput(message *agentschema.Message, config providers.ModelCo
 		}
 		projected := append(json.RawMessage(nil), raw...)
 		if identity.Type == "function_call" {
-			call, retained := retainedToolCalls[strings.TrimSpace(identity.CallID)]
+			callID := strings.TrimSpace(identity.CallID)
+			call, retained := retainedToolCalls[callID]
 			if !retained {
 				continue
 			}
+			if _, replayed := replayedFunctionCalls[callID]; replayed {
+				continue
+			}
+			replayedFunctionCalls[callID] = struct{}{}
 			var item map[string]any
 			if err := json.Unmarshal(raw, &item); err != nil {
 				return nil, true, fmt.Errorf("decode stored Responses function call %d: %w", index, err)

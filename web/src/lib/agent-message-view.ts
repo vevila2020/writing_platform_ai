@@ -102,7 +102,7 @@ export function buildAgentMessageViews(messages: AgentUIMessage[]): AgentMessage
     messageViewsCache.set(message, messageViews)
     views.push(...messageViews)
   })
-  return projectToolApprovals(projectCurrentTodoPlans(projectInteractiveMediaResults(views)))
+  return projectToolApprovals(projectCurrentTodoPlans(projectToolLifecycleResults(projectInteractiveMediaResults(views))))
 }
 
 // Interactive image results have both the standard AI SDK tool result and a
@@ -127,6 +127,32 @@ function interactiveMediaResultKey(view: AgentMessageView) {
   return `${runID ? `run:${runID}` : `message:${view.messageId}`}:part:${view.partId}`
 }
 
+// A tool's running and terminal frames can arrive in separate UI messages.
+// Keep one view per run-local call so a late terminal frame replaces the stale
+// loading row. Different runs intentionally remain separate.
+function projectToolLifecycleResults(views: AgentMessageView[]): AgentMessageView[] {
+  const selected = new Map<string, number>()
+  views.forEach((view, index) => {
+    if (view.kind !== 'tool' || !view.partId) return
+    const key = agentToolLifecycleKey(view)
+    const current = selected.get(key)
+    if (current === undefined || toolLifecycleRank(view) >= toolLifecycleRank(views[current])) {
+      selected.set(key, index)
+    }
+  })
+  const selectedIndexes = new Set(selected.values())
+  return views.filter((view, index) => view.kind !== 'tool' || !view.partId || selectedIndexes.has(index))
+}
+
+function agentToolLifecycleKey(view: AgentMessageView) {
+  return `${view.metadata.run_id || 'unscoped'}\u001f${agentSubAgentSessionKey(view)}\u001f${view.partId}`
+}
+
+function toolLifecycleRank(view: AgentMessageView) {
+  if (view.status === 'success' || view.status === 'error' || view.status === 'cancelled') return 2
+  if (view.status === 'running') return 1
+  return 0
+}
 // Tool approvals are lifecycle state for an existing tool call, not a new
 // timeline item. Correlate by the durable tool_call_id and keep unmatched
 // records as trace diagnostics instead of letting them split the run fold.
