@@ -84,6 +84,10 @@ Writing and Game are peer top-level destinations in the workbench. Writing focus
 
 Lore, Creative Setups, Skills, and version management are shared between the two workflows. Chapter progress and game state remain separate so temporary state from one destination does not affect the other.
 
+For long serial projects, choose **Advance** (`novel-serial`) from the Writing Agent's **Input actions → Writing Skill** menu. It guides staged book planning, reads craft and research material on demand, and checks and reviews each chapter before committing continuity and progress together. It supports existing manuscripts, later-chapter conflicts after revisions, and recovery after interruption. See the [Advance workflow guide (Chinese)](./docs/advance.md).
+
+The Writing Agent enables **Check Writing** by default to check word count, truncation, repetition, outline copying, and ledger structure. These deterministic checks identify verifiable issues; story quality and causality still need review.
+
 ## Quick Start
 
 ### Install a Release

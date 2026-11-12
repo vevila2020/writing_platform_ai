@@ -1,7 +1,8 @@
 {
   "settings_file": "../../.inkdock/config.toml",
   "variants": [
-    { "label": "current", "profile_id": "YOUR_MODEL_PROFILE_ID", "writing_skill": "novel-lite" }
+    { "label": "current", "profile_id": "YOUR_MODEL_PROFILE_ID", "writing_skill": "novel-lite" },
+    { "label": "serial", "profile_id": "YOUR_MODEL_PROFILE_ID", "writing_skill": "novel-serial" }
   ],
   "grader": {
     "profile_id": "YOUR_MODEL_PROFILE_ID"

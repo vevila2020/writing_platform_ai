@@ -46,14 +46,46 @@ const fixture = createServer(async (request, response) => {
       } }]
     } else if (body.tools?.some(item => item.function.name === 'write')) {
       const hasResult = body.messages.some(item => item.role === 'tool')
-      if (!hasResult) {
-        const scoped = messages.includes('Mira paused at the threshold.')
-        tools = [{ name: 'write', arguments: { path: 'chapters/scene.md', content: scoped
-          ? '# Arrival\n\nMira paused at the threshold.\n\nThe brass clock was silent.\n'
-          : '# The empty cup\n\nMira cannot create water. Her cup remains empty.\n' } }]
-        if (body.model === 'fixture-bad' && scoped) tools.push({ name: 'write', arguments: { path: 'chapters/untouched.md', content: 'This unauthorized edit must fail evaluation.\n' } })
+      if (messages.includes('setting/chapter-plans/ch00002-the-signal.md')) {
+        if (!hasResult) {
+          tools = [
+            { name: 'write', arguments: { path: 'setting/chapter-plans/ch00002-the-signal.md', content: [
+              '## 细纲（第 2 章）',
+              '',
+              '### 第 2 章：the signal',
+              '',
+              '- 核心事件：Mira decides to trace the letter seal without opening it.',
+              '- 字数目标：800 字',
+              '- 目标情绪：从警惕走到克制的决心。',
+              '- 主角目标 / 关键选择：查明寄信人，但不能惊动站长。',
+              '- 章首钩子：印章上的纹路在灯下动了一下。',
+              '- 章尾钩子：站长说他也收到过同样的信。',
+              '',
+              '#### 这章怎么走',
+              '',
+              '- 起因：Mira 在灯下检查信封。',
+              '- 发展：她认出印章纹路和站长的账本有关。',
+              '- 转折：她决定不拆信，先去找站长。',
+              '- 高潮：站长承认自己也收到过同样的信。',
+              '- 结尾：站长准备讲寄信人的事。',
+            ].join('\n') } },
+            { name: 'write', arguments: { path: 'chapters/ch00002-the-signal.md', content: 'Mira turned the sealed letter over in the lamplight.\n\nThe wax bore a spiral she had seen once before, on the station keeper\'s ledger.\n\nShe did not break the seal. She copied the spiral onto the back of her hand and went to find him.\n\nThe keeper looked at the mark and said, "I received one too."\n' } },
+            { name: 'write', arguments: { path: 'setting/progress.md', content: '# Progress\n\n- Current chapter: 2\n- Chapter 1: Mira arrived at the dry station and found a sealed letter on the cot. She has not opened it.\n- Chapter 2: Mira traced the letter seal to the station keeper, who admitted receiving the same letter.\n- Next: hear the keeper\'s story about the sender.\n' } },
+            { name: 'write', arguments: { path: 'setting/character-states.md', content: '## Mira\n\n- Latest appearance: Chapter 2\n- Location: the dry station\n- Physical state: tired, alert\n- Goal: learn who sent the letter without alerting the keeper\n- Possessions: one sealed letter, one copper token\n- Knowledge: the keeper received the same letter; the letter is still unopened\n' } },
+            { name: 'write', arguments: { path: 'setting/tracking.md', content: '# 连续性台账\n\n## 当前位置\n\n- 当前章：第 2 章\n- 故事时间：到站第二天夜里\n- 场景：干站站长室\n\n## 长期约束\n\n- 不能提前揭开信的内容和寄信人。\n\n## 活跃伏笔\n\n- F001｜那封信的寄信人｜埋设第 1 章｜预计回收第 3 章｜重要度高｜状态推进中\n\n## 作者真相 / 读者已知\n\n### 作者真相（尚未揭示）\n\n- 信是站长的旧友寄来的。\n\n### 读者已知\n\n- Mira 和站长都收到过同样的信。\n\n## 下一章承诺\n\n- 站长要讲旧友的事。\n\n## 连贯性风险\n\n- 不能提前说出寄信人的身份。\n\n## 近三章速记\n\n- 第 1 章：Mira 到站，发现密封信。\n- 第 2 章：Mira 追查印章，站长承认也收到同样的信。\n' } },
+          ]
+        }
+        narrative = 'Saved the requested plan, chapter, and state files.'
+      } else {
+        if (!hasResult) {
+          const scoped = messages.includes('Mira paused at the threshold.')
+          tools = [{ name: 'write', arguments: { path: 'chapters/scene.md', content: scoped
+            ? '# Arrival\n\nMira paused at the threshold.\n\nThe brass clock was silent.\n'
+            : '# The empty cup\n\nMira cannot create water. Her cup remains empty.\n' } }]
+          if (body.model === 'fixture-bad' && scoped) tools.push({ name: 'write', arguments: { path: 'chapters/untouched.md', content: 'This unauthorized edit must fail evaluation.\n' } })
+        }
+        narrative = 'Saved the requested chapter.'
       }
-      narrative = 'Saved the requested chapter.'
     } else {
       if (body.model === 'fixture-grader') {
         assert.ok(messages.includes('Original user request:'), 'Semantic grader did not receive the original request')
@@ -101,7 +133,7 @@ try {
   const build = spawn('go', ['build', '-o', executable, './cmd/inkdock'], { cwd: path.resolve(toolDirectory, '../..'), stdio: 'inherit', signal: controller.signal })
   assert.equal((await once(build, 'exit'))[0], 0)
   const positive = await evaluateCreative({ configPath, binary: executable, signal: controller.signal })
-  assert.equal(positive.summary.stats.successes, 4, JSON.stringify(positive.summary.results.map(item => ({ description: item.testCase?.description, error: item.error, reason: item.gradingResult?.reason }))))
+  assert.equal(positive.summary.stats.successes, 5, JSON.stringify(positive.summary.results.map(item => ({ description: item.testCase?.description, error: item.error, reason: item.gradingResult?.reason }))))
   assert.equal(positive.summary.stats.errors, 0)
   assert.equal(positive.summary.stats.failures, 0)
   const report = await readFile(path.join(positive.outputDirectory, 'report.json'), 'utf8')
@@ -109,6 +141,11 @@ try {
   assert.ok((await readFile(path.join(positive.outputDirectory, 'report.html'), 'utf8')).includes('writing-scoped-edit'))
   for (const entry of await readdir(positive.outputDirectory, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue
+    const evidence = JSON.parse(await readFile(path.join(positive.outputDirectory, entry.name, 'evidence.json'), 'utf8'))
+    if (evidence.case_id === 'writing-serial-plan-first') {
+      assert.match(evidence.files['setting/chapter-plans/ch00002-the-signal.md'], /Mira decides to trace the letter seal/)
+      assert.match(evidence.files['setting/tracking.md'], /F001/)
+    }
     await assert.rejects(readFile(path.join(positive.outputDirectory, entry.name, '.inkdock/config.toml')), { code: 'ENOENT' })
     const remaining = await readdir(path.join(positive.outputDirectory, entry.name, '.inkdock'))
     assert.ok(!remaining.some(file => file.startsWith('config.toml')), 'Temporary credential backup was retained')
@@ -132,7 +169,7 @@ try {
   const cancelledEvidence = JSON.parse(await readFile(cancelled.metadata.evidence_path, 'utf8'))
   assert.notEqual(cancelledEvidence.complete, true)
   assert.ok(!(await readdir(path.join(cancelledDirectory, '.inkdock'))).some(file => file.startsWith('config.toml')))
-  console.log('[creative-eval] Verified four product scenarios, two-variant regression detection, report export, credential cleanup, and in-flight cancellation')
+  console.log('[creative-eval] Verified five product scenarios, two-variant regression detection, report export, credential cleanup, and in-flight cancellation')
 } finally {
   fixture.closeAllConnections()
   await new Promise(resolve => fixture.close(resolve))

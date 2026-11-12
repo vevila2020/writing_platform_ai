@@ -39,6 +39,7 @@ docs/tests/*
 !docs/speech.md
 !docs/analytics.md
 !docs/creative-evaluation.md
+!docs/advance.md
 .worktrees/
 .pnpm-store/
 .DS_Store

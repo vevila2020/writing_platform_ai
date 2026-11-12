@@ -461,6 +461,7 @@ export type AgentToolCapability =
   | 'lore_read'
   | 'lore_write'
   | 'image_generation'
+  | 'writing_check'
 
 export type AgentToolOverride = Partial<Record<AgentToolCapability, boolean>>
 

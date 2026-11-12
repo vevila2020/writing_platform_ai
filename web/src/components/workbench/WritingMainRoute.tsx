@@ -60,6 +60,7 @@ interface WritingMainRouteProps {
   editorAutoSaveDelayMs: number
   editorSearchIntent: EditorProps['searchIntent']
   illustrationInsertSignal: EditorProps['illustrationInsertSignal']
+  onIllustrationInsertConsumed: EditorProps['onIllustrationInsertConsumed']
   documentReview: NonNullable<EditorProps['documentReview']>
   documentReviewNavigationTarget: ReviewFeedbackNavigationTarget | null
   toolNavigationIntent: ToolNavigationIntent | null
@@ -114,6 +115,7 @@ export function WritingMainRoute({
   editorAutoSaveDelayMs,
   editorSearchIntent,
   illustrationInsertSignal,
+  onIllustrationInsertConsumed,
   documentReview,
   documentReviewNavigationTarget,
   toolNavigationIntent,
@@ -238,7 +240,8 @@ export function WritingMainRoute({
                     searchIntent={active ? editorSearchIntent : null}
                     onGenerateIllustration={onGenerateIllustration}
                     generateIllustrationDisabled={isStreaming || !chapter}
-                    illustrationInsertSignal={active ? illustrationInsertSignal : null}
+                    illustrationInsertSignal={active && illustrationInsertSignal?.projectId === projectId && illustrationInsertSignal.path === tab.path ? illustrationInsertSignal : null}
+                    onIllustrationInsertConsumed={onIllustrationInsertConsumed}
                     onFlushHandlerChange={onEditorFlushHandlerChange}
                     documentReview={documentReview}
                     documentReviewNavigationIntent={active && documentReviewNavigationTarget?.target.kind === 'workspace_file' && documentReviewNavigationTarget.target.id === tab.path ? documentReviewNavigationTarget : null}

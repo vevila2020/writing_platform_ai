@@ -68,6 +68,7 @@ for (const product of ['writing', 'game'] as const) {
         await expect(headers).toHaveCount(4)
         for (const header of await headers.all()) await header.click()
         await expect(page.getByText(english ? 'Paused' : '已暂停', { exact: true })).toBeVisible()
+        await expect(page.locator('[data-nova-tool-summary]').filter({ hasText: english ? '1/1 tasks returned' : '1/1 个任务已返回' })).toBeVisible()
         await expect(page.getByText(english ? 'Available Agent types' : '可用 Agent 类型', { exact: true })).toBeVisible()
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)

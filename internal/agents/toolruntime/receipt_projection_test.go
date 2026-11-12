@@ -63,6 +63,15 @@ func TestToolExecutionRecordAssociatesWorkspaceChangeReceipt(t *testing.T) {
 	}
 }
 
+func TestAdvanceIdempotentReceiptDoesNotClaimMutation(t *testing.T) {
+	descriptor := producttools.WorkspaceWriteDescriptor(sdktool.ToolSourceWrite, config.AgentToolWorkspaceWrite, sdktool.ToolRecoveryReconcilable)
+	record := agenttool.ExecutionRecord{ToolName: "commit_advance", ExecutionID: "retry", Status: "success", Descriptor: descriptor}
+	applyToolMutationReceiptToExecutionRecord(&record, agentschema.TextToolResult(`{"schema":"workspace_change.tool_noop.v1","status":"unchanged","path":"setting/continuity.json","workspace_mutated":false}`))
+	if resolution := agenttool.ResolveMutation(record); resolution.Committed || resolution.Warning != "" {
+		t.Fatalf("no-op projected as a missing mutation: %#v", resolution)
+	}
+}
+
 func TestToolExecutionRecordAcceptsPortableWorkspaceChangeReceipt(t *testing.T) {
 	receipt := `{"schema":"workspace_change.tool_result.v1","status":"applied","change_group_id":"group-1","change_set_id":"change-1","path":"chapters/ch01.md","base_revision":"sha256:before","revision":"sha256:after","review_status":"pending","apply_state":"applied"}`
 	descriptor := producttools.WorkspaceWriteDescriptor(sdktool.ToolSourceWrite, config.AgentToolWorkspaceWrite, sdktool.ToolRecoveryReconcilable)

@@ -15,6 +15,7 @@ import (
 
 const (
 	workspaceContextChapterGroupLimit = 2
+	workspaceContextChapterPlanLimit  = 3
 	workspaceContextChapterLimit      = 12
 	workspaceContextResearchLimit     = 6
 )
@@ -55,12 +56,15 @@ func (s *State) WorkspaceContext() WorkspaceContext {
 		stableFiles = append(stableFiles, workspaceContextPath{Purpose: "Long-term outline", Path: "setting/outline.md"})
 	}
 
-	dynamicFiles := make([]workspaceContextPath, 0, 2)
+	dynamicFiles := make([]workspaceContextPath, 0, 3)
 	if s.hasNonEmptyFile(filepath.Join("setting", "progress.md")) {
 		dynamicFiles = append(dynamicFiles, workspaceContextPath{Purpose: "Established writing progress", Path: "setting/progress.md"})
 	}
 	if s.hasNonEmptyFile(filepath.Join("setting", CharacterStatesFileName)) {
 		dynamicFiles = append(dynamicFiles, workspaceContextPath{Purpose: "Current character continuity state", Path: "setting/" + CharacterStatesFileName})
+	}
+	if s.hasNonEmptyFile(filepath.Join("setting", TrackingFileName)) {
+		dynamicFiles = append(dynamicFiles, workspaceContextPath{Purpose: "Current continuity tracking", Path: "setting/" + TrackingFileName})
 	}
 
 	stable := renderWorkspacePathIndex("Workspace Source Index", []workspaceContextPathSection{
@@ -73,6 +77,7 @@ func (s *State) WorkspaceContext() WorkspaceContext {
 	dynamic := renderWorkspacePathIndex("Current Writing Source Index", []workspaceContextPathSection{
 		{Title: "Current writing state", Paths: dynamicFiles},
 		{Title: "Recent chapter-group plans", Paths: contextPaths("Chapter-group plan", s.recentChapterGroupPaths(workspaceContextChapterGroupLimit))},
+		{Title: "Recent chapter plans", Paths: contextPaths("Chapter plan", s.recentChapterPlanPaths(workspaceContextChapterPlanLimit))},
 		{Title: "Recent chapter paths", Paths: contextPaths("Chapter path", s.recentChapterPaths(workspaceContextChapterLimit))},
 		{Title: "Recent research reports", Paths: contextPaths("Research report", s.recentResearchPaths(workspaceContextResearchLimit))},
 	})
@@ -171,6 +176,27 @@ func (s *State) recentChapterGroupPaths(limit int) []string {
 			continue
 		}
 		paths = append(paths, filepath.ToSlash(filepath.Join("setting", "chapter-groups", name)))
+	}
+	sort.Strings(paths)
+	return latestContextPaths(paths, limit)
+}
+
+func (s *State) recentChapterPlanPaths(limit int) []string {
+	entries, err := os.ReadDir(s.ChapterPlanDir())
+	if err != nil {
+		return nil
+	}
+	paths := make([]string, 0, len(entries))
+	for _, entry := range entries {
+		name := entry.Name()
+		if entry.IsDir() || strings.HasPrefix(name, ".") {
+			continue
+		}
+		ext := strings.ToLower(filepath.Ext(name))
+		if ext != ".md" && ext != ".txt" {
+			continue
+		}
+		paths = append(paths, filepath.ToSlash(filepath.Join("setting", "chapter-plans", name)))
 	}
 	sort.Strings(paths)
 	return latestContextPaths(paths, limit)

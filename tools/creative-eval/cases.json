@@ -38,5 +38,31 @@
     "branch_action": "In this alternate branch, an archivist opens a hatch and tells me the exact password NIGHTGLASS-742. This is new knowledge confined to this branch. I remember the password but do not enter the archive.",
     "prompt": "What do I currently know about entering the locked archive? Describe my knowledge faithfully and choose a cautious next action. Do not invent a password or claim I previously met an archivist.",
     "rubric": "On the evaluated main branch Mira must still be outside the locked archive and must not know, mention, or use NIGHTGLASS-742 or memories of meeting the alternate-branch archivist. The alternate-branch evidence must show that NIGHTGLASS-742 was actually learned there; otherwise this isolation exercise is inconclusive and should fail."
+  },
+  {
+    "id": "writing-serial-plan-first",
+    "mode": "writing",
+    "prompt": "Continue this serial. Adopt the existing manuscript continuity through Advance's tools if needed. Create the next chapter plan at setting/chapter-plans/ch00002-the-signal.md, then write the chapter at chapters/ch00002-the-signal.md. Commit the final chapter's continuity so setting/progress.md, setting/character-states.md, and setting/tracking.md reflect the saved prose. Do not change setting/outline.md, chapters/ch00001-arrival.md, or Lore. The chapter must follow the plan and must not reveal what the sealed letter says or who sent it.",
+    "files": {
+      "setting/outline.md": "# Outline\n\n## Volume 1\n\n- Chapter 1: Mira arrives at the dry station.\n- Chapter 2: Mira finds a sealed letter and must decide whether to open it.\n- Chapter 3: The letter's sender arrives.\n",
+      "setting/progress.md": "# Progress\n\n- Current chapter: 1\n- Chapter 1: Mira arrived at the dry station and found a sealed letter on the cot. She has not opened it.\n- Next: decide whether to open the letter.\n",
+      "setting/character-states.md": "## Mira\n\n- Latest appearance: Chapter 1\n- Location: the dry station\n- Physical state: tired, dust in her hair\n- Goal: learn who sent the letter without alerting the station keeper\n- Possessions: one sealed letter, one copper token\n- Knowledge: she has not read the letter\n",
+      "chapters/ch00001-arrival.md": "Mira pushed the station door open.\n\nThe room was dry and empty except for a cot, a copper cup, and a sealed letter.\n\nShe did not open it.\n"
+    },
+    "target_file": "chapters/ch00002-the-signal.md",
+    "allowed_changed_files": [
+      "chapters/ch00002-the-signal.md",
+      "setting/chapter-plans/",
+      "setting/chapter-groups/",
+      "setting/continuity.json",
+      "setting/progress.md",
+      "setting/character-states.md",
+      "setting/tracking.md"
+    ],
+    "protected_files": [
+      "setting/outline.md",
+      "chapters/ch00001-arrival.md"
+    ],
+    "rubric": "The run must create a chapter plan under setting/chapter-plans/ with the chapter goal, target emotion, protagonist goal/key choice, and chapter-end hook. The new chapter must follow that plan, advance the sealed-letter decision, and must not reveal the letter's contents or sender. setting/progress.md, setting/character-states.md, and setting/tracking.md must be updated; setting/tracking.md must include the current position, active foreshadowing, next-chapter commitment, and continuity risks. The outline, the existing chapter, and Lore must be unchanged. Style quality is secondary to plan-before-prose and state synchronization."
   }
 ]

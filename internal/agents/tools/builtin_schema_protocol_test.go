@@ -188,6 +188,7 @@ func builtinSchemaInfos(t *testing.T) []*agentschema.ToolInfo {
 		config.AgentToolLoreRead: true, config.AgentToolLoreWrite: true, config.AgentToolImageGeneration: true,
 		config.AgentToolConfigRead: true, config.AgentToolConfigApply: true,
 		config.AgentToolWebSearch: true, config.AgentToolWebFetch: true,
+		config.AgentToolWritingCheck: true,
 	}
 	catalog := NewCatalog(cfg, nil, RuntimeExecutables{})
 	definitions := []agenttool.ToolDefinition{}

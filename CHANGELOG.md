@@ -17,6 +17,8 @@ InkDock records major user-visible features, important compatibility or data cha
 #### 中文
 
 - 写作侧栏新增「研究」：直接提问或发起扫榜、拆文，研究简报保存在 `setting/research/`；内置 10 张题材卡与 `novel-research`、`novel-deslop` Skill。
+- 新增 Advance 长篇写作流程（`novel-serial`）：分阶段规划、按需召回技法与研究、审稿后提交连续性，支持旧书接入、改稿冲突核对和中断恢复。
+- 新增只读 `check_writing` 工具，检查字数、截断、复读、工程词泄漏、细纲照搬、AI 句式，以及细纲与台账结构。
 - 修复部分 Anthropic 兼容服务的并行工具结果配对错误，以及 OpenAI Responses 兼容服务返回内置工具（如联网搜索）时的流式中断。
 - 修复浏览器工具运行结束后误报 `context canceled`；源码运行缺少 ripgrep 时启动会提示并从 PATH 回退。
 - 思考内容在生成时自动展开、完成后收起；长思考展开不再卡顿或先出现空白。
@@ -24,6 +26,8 @@ InkDock records major user-visible features, important compatibility or data cha
 #### English
 
 - The Writing sidebar adds Research: ask questions directly or start market scans and deconstruction, with reports saved under `setting/research/`; adds 10 genre cards and the `novel-research` and `novel-deslop` Skills.
+- Adds Advance (`novel-serial`) for staged planning, targeted craft and research recall, reviewed chapter continuity commits, existing-book adoption, revision conflicts, and interruption recovery.
+- Adds the read-only `check_writing` tool for word count, truncation, repetition, engineering-word leakage, outline copying, AI-style prose patterns, and plan/ledger structure.
 - Fixes parallel tool-result pairing with some Anthropic-compatible services and stream interruptions with OpenAI Responses services that return provider-side tools such as web search.
 - Fixes false `context canceled` errors when closing browser tools, and warns at startup with a PATH fallback when a source run lacks ripgrep.
 - Thinking expands while it streams and collapses when finished; long reasoning opens without stalling or blank frames.
@@ -36,6 +40,10 @@ InkDock records major user-visible features, important compatibility or data cha
 - Adds 10 built-in genre cards (xianxia/fantasy, urban powers, system, infinite flow, mystery, sci-fi, historical, period, ancient romance, modern romance). Skill front matter gains a `keywords` field and a `genre-card` capability; Writing and general Agents auto-load at most one matching card per turn. Explicit `/skill` requests win, and an automatic card is dropped when the context budget is tight.
 - 内置 `novel-research`（扫榜、拆文与市场研究，要求标注来源和日期，取不到数据时说明缺口）与 `novel-deslop`（去 AI 味与表达修订）Skill；`novel-standard` 增加平台审稿规则参考，`novel-craft` 补充开篇、章首章尾与爽点编排。
 - Adds the `novel-research` Skill (market scans, deconstruction, and market research with sources and dates, reporting gaps instead of inventing data) and the `novel-deslop` Skill (de-AI editing and prose revision). `novel-standard` gains a platform review rubric, and `novel-craft` expands its opening, chapter-hook, and payoff guidance.
+- 新增 Advance 长篇写作 Skill：分阶段开书，逐章细纲进入规划侧栏，写前校验与按需召回，先审稿再提交；`prepare_advance` / `commit_advance` 将连续性底账与进度、人物状态、台账视图作为可恢复、可撤销的整组变更保存，拒绝过期正文版本，支持旧书初始化和改稿后的后文冲突处理。
+- Adds the Advance writing Skill with staged book planning, chapter outlines in the planning sidebar, prerequisite checks, targeted recall, and review before commit. `prepare_advance` / `commit_advance` save canonical continuity and generated progress, character-state, and tracking views as one recoverable, undoable change group, rejecting stale prose and supporting existing-book initialization and later-chapter revision conflicts.
+- 新增只读 `check_writing` 工具：检查章节字数、截断、占位/拒绝语、复读、工程词泄漏、细纲照搬和 AI 句式，也可校验细纲必填字段与连续性台账结构；在设置中归入独立的「检查写作」能力，默认对写作 Agent 开启。
+- Adds the read-only `check_writing` tool for visible word count, truncation, placeholders/refusal text, repetition, engineering-word leakage, large verbatim outline copying, and AI-style prose patterns, plus chapter-plan and continuity-ledger validation. It is a separate “Check Writing” capability in Settings and is enabled for the Writing Agent by default.
 - Agent 上下文会列出最近的 `setting/research/` 研究简报路径，正文按需读取，不直接注入。
 - Agent context lists recent research reports under `setting/research/` as paths; report bodies are read on demand.
 - 首页当前书籍操作区新增「编辑信息」入口。
@@ -62,6 +70,10 @@ InkDock records major user-visible features, important compatibility or data cha
 - Browser tools no longer report `context canceled` when closing pages or the browser after a successful run.
 - 源码运行且未安装 ripgrep 时，启动会提示安装方式并从 PATH 回退；发布包仍要求并优先使用内置 `rg`。
 - Source runs without ripgrep now print an actionable startup notice and fall back to `PATH`; release packages still require and prefer the bundled `rg`.
+- 使用 Gemini 原生协议时，工具 schema 不再发送其不支持的 `$comment` 注解，修复写作等 Agent 因批处理工具标记返回 400 错误。
+- With the native Gemini protocol, tool schemas no longer send the unsupported `$comment` annotation, fixing 400 errors from batch-tool markers in Writing and other Agents.
+- 写作插画只插入当前打开章节的光标位置，修复多章节 Tab 下重复插入或误写入其他章节的问题；源码编辑支持原位插入与撤销。
+- Writing illustrations insert at the caret in the current chapter, fixing duplicate inserts and unintended edits to other chapter tabs; source editing supports insertion at the caret and undo.
 - 错误诊断不再把接口路径中的 `/v1/messages` 当作消息字段，保留服务商返回的错误详情。
 - Error diagnostics no longer mistake the `/v1/messages` endpoint path for a message field, preserving the provider's error detail.
 - 长篇对话中打开审批模式菜单不再卡顿。

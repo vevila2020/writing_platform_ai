@@ -76,7 +76,10 @@ export interface WritingDocumentEditorProps {
   onGenerateIllustration?: (chapterPath: string) => void
   onRevealChapter?: (chapterPath: string) => void
   generateIllustrationDisabled?: boolean
-  illustrationInsertSignal?: { illustration: ChapterIllustration; nonce: number } | null
+  /** One insertion targets the Project and file open when the user clicks Insert. */
+  illustrationInsertSignal?: { projectId: string; path: string; illustration: ChapterIllustration; nonce: number } | null
+  /** Clears the pending command after an insertion attempt so remounts cannot replay it. */
+  onIllustrationInsertConsumed?: (nonce: number) => void
   onExternalConflict?: (conflict: { fileName: string; localContent: string; externalContent: string }) => void
   /** Registers the navigation guard used by tabs, previews, and workspace switches. */
   onFlushHandlerChange?: (handler: EditorFlushHandler | null) => void
@@ -111,6 +114,7 @@ export function WritingDocumentEditor({
   onRevealChapter,
   generateIllustrationDisabled = false,
   illustrationInsertSignal,
+  onIllustrationInsertConsumed,
   onExternalConflict,
   onFlushHandlerChange,
   documentReview,
@@ -465,13 +469,11 @@ export function WritingDocumentEditor({
   }, [editorMode, fileName, searchIntent])
 
   useEffect(() => {
-    if (!editor || !illustrationInsertSignal) return
+    if (!active || !editor || !illustrationInsertSignal) return
+    if (illustrationInsertSignal.projectId !== projectId || illustrationInsertSignal.path !== fileName) return
     if (lastIllustrationInsertNonceRef.current === illustrationInsertSignal.nonce) return
-    if (editorMode === 'source') {
-      handleEditorModeChange('document')
-      return
-    }
     lastIllustrationInsertNonceRef.current = illustrationInsertSignal.nonce
+    onIllustrationInsertConsumed?.(illustrationInsertSignal.nonce)
     if (!fileName || isTxtFile(fileName) || !isMarkdownFile(fileName)) {
       toast.error(t('editor.illustrationMarkdownOnly'))
       return
@@ -482,24 +484,24 @@ export function WritingDocumentEditor({
       toast.error(t('editor.illustrationInsertFailed'))
       return
     }
-    const insertAt = Math.max(1, editor.state.selection.from || 1)
-    const ok = editor
-      .chain()
-      .focus()
-      .insertContentAt(insertAt, {
-        type: 'image',
-        attrs: {
-          src: imagePath,
-          alt: illustration.alt_text || t('chat.illustration.previewAlt'),
-          title: illustration.alt_text || undefined,
-        },
-      })
-      .run()
+    const image = {
+      type: 'image',
+      attrs: {
+        src: imagePath,
+        alt: illustration.alt_text || t('chat.illustration.previewAlt'),
+        title: illustration.alt_text || undefined,
+      },
+    }
+    const ok = editorMode === 'source'
+      ? sourceEditorRef.current?.insertTextAtCursor(editor.markdown!.serialize({ type: 'doc', content: [image] }))
+      : editor.chain().focus().insertContentAt(Math.max(1, editor.state.selection.from), image).run()
     if (!ok) {
+      console.error('[components/Editor/WritingDocumentEditor.tsx] illustration insertion failed', { projectId, fileName, imagePath, editorMode })
       toast.error(t('editor.illustrationInsertFailed'))
       return
     }
-  }, [editor, editorMode, fileName, handleEditorModeChange, illustrationInsertSignal, t])
+    console.info('[components/Editor/WritingDocumentEditor.tsx] illustration inserted', { projectId, fileName, imagePath, editorMode })
+  }, [active, editor, editorMode, fileName, illustrationInsertSignal, onIllustrationInsertConsumed, projectId, t])
 
   // Ctrl+F / Cmd+F 打开文章内搜索，保存快捷键由工作台统一分发。
   useEffect(() => {

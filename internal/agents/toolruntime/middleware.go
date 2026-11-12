@@ -38,6 +38,7 @@ type OrchestratorMiddleware struct {
 // call. Construction owns the shared workspace execution gate so callers
 // cannot accidentally create competing mutation coordinators.
 type OrchestratorConfig struct {
+	WritingSkill        string
 	AgentKind           string
 	PolicyKind          string
 	ToolSettings        config.ResolvedAgentToolSettings

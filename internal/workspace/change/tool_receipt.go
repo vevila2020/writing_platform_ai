@@ -31,6 +31,7 @@ type ToolReceipt struct {
 	Edits          []ToolReceiptEdit `json:"edits,omitempty"`
 	FileStats      *FileStats        `json:"file_stats,omitempty"`
 	Warnings       []string          `json:"warnings,omitempty"`
+	AffectedPaths  []string          `json:"affected_paths,omitempty"`
 }
 
 // ToolReceiptEdit is the bounded per-edit projection needed by review and
@@ -52,6 +53,7 @@ type modelToolReceipt struct {
 	Edits          []ToolReceiptEdit `json:"edits,omitempty"`
 	FileStats      *FileStats        `json:"file_stats,omitempty"`
 	Warnings       []string          `json:"warnings,omitempty"`
+	AffectedPaths  []string          `json:"affected_paths,omitempty"`
 }
 
 // NewToolReceipt projects a committed change set into the stable tool
@@ -116,6 +118,7 @@ func ToolReceiptForModel(toolName, content string) string {
 		ChangeSetID: receipt.ChangeSetID, Path: receipt.Path,
 		ReviewStatus: receipt.ReviewStatus, ApplyState: receipt.ApplyState, Edits: receipt.Edits,
 		FileStats: receipt.FileStats, Warnings: receipt.Warnings,
+		AffectedPaths: receipt.AffectedPaths,
 	})
 	if err != nil {
 		return content
@@ -145,7 +148,7 @@ func toolResultBody(content string) string {
 
 func isReceiptTool(toolName string) bool {
 	switch strings.ToLower(strings.TrimSpace(toolName)) {
-	case "edit", "write":
+	case "edit", "write", "commit_advance":
 		return true
 	default:
 		return false

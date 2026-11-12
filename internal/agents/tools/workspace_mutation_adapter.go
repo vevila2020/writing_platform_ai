@@ -99,6 +99,9 @@ func (adapter *workspaceMutationAdapter) Edit(ctx context.Context, request agent
 	if adapter == nil || adapter.changes == nil {
 		return agentschema.ToolResult{}, fmt.Errorf("workspace mutation adapter is not configured")
 	}
+	if err := guardAdvanceMutation(ctx, adapter.changes, adapter.workspace, request.Path); err != nil {
+		return agentschema.ToolResult{}, err
+	}
 	switch request.Operation {
 	case "", agenttools.EditOperationReplace:
 		if len(request.Edits) == 0 {
@@ -148,6 +151,9 @@ func (adapter *workspaceMutationAdapter) Edit(ctx context.Context, request agent
 func (adapter *workspaceMutationAdapter) Write(ctx context.Context, request agenttools.WriteRequest) (agentschema.ToolResult, error) {
 	if adapter == nil || adapter.changes == nil {
 		return agentschema.ToolResult{}, fmt.Errorf("workspace mutation adapter is not configured")
+	}
+	if err := guardAdvanceMutation(ctx, adapter.changes, adapter.workspace, request.Path); err != nil {
+		return agentschema.ToolResult{}, err
 	}
 	baseRevision, err := currentWorkspaceBaseRevisionOrMissing(adapter.changes, request.Path)
 	if err != nil {

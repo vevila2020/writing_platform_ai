@@ -8,9 +8,10 @@ import (
 )
 
 const (
-	operationKindReview = "review"
-	operationKindUndo   = "undo"
-	operationKindRedo   = "redo"
+	operationKindReview  = "review"
+	operationKindUndo    = "undo"
+	operationKindRedo    = "redo"
+	operationKindReplace = "replace"
 
 	operationStageAfterPrepare     = "after_prepare"
 	operationStageAfterPathVisible = "after_path_visible"
@@ -59,6 +60,7 @@ type durableOperation struct {
 	GroupID    string              `json:"group_id"`
 	Changes    []operationChange   `json:"changes,omitempty"`
 	Projection operationProjection `json:"projection"`
+	Guards     []FileRevision      `json:"guards,omitempty"`
 }
 
 type preparedOperation struct {
@@ -75,6 +77,7 @@ func (s *Service) commitGroupOperationLocked(
 	kind, groupID string,
 	plans []groupChangePlan,
 	projection operationProjection,
+	readGuards ...[]FileRevision,
 ) error {
 	if err := s.contextError(ctx); err != nil {
 		return err
@@ -85,6 +88,9 @@ func (s *Service) commitGroupOperationLocked(
 		GroupID:    groupID,
 		Changes:    make([]operationChange, 0, len(plans)),
 		Projection: cloneOperationProjection(projection),
+	}
+	if len(readGuards) > 0 {
+		operation.Guards = append([]FileRevision(nil), readGuards[0]...)
 	}
 	seenPaths := make(map[string]bool, len(plans))
 	for index := range plans {
@@ -138,6 +144,9 @@ func (s *Service) commitGroupOperationLocked(
 	// Revalidate the complete set only after the write-ahead record is durable.
 	// An external writer racing this phase produces an explicit conflict rather
 	// than allowing the operation to partially overwrite workspace state.
+	if err := s.verifyFileGuards(operation.Guards); err != nil {
+		return s.conflictOperationLocked(operation.ID, nil, err)
+	}
 	for _, planned := range operation.Changes {
 		if err := s.verifyChangeBase(planned.ChangeSet); err != nil {
 			return s.conflictOperationLocked(operation.ID, []string{planned.ChangeSet.Path}, err)
@@ -150,6 +159,9 @@ func (s *Service) commitGroupOperationLocked(
 	}
 	if err := s.runGroupOperationHook(operationStageBeforeCommit, ""); err != nil {
 		return err
+	}
+	if err := s.verifyFileGuards(operation.Guards); err != nil {
+		return s.conflictOperationLocked(operation.ID, nil, err)
 	}
 	for _, planned := range operation.Changes {
 		current, currentExists, err := s.readVisibleState(planned.ChangeSet.Path)
@@ -290,14 +302,14 @@ func (s *Service) validateOperationProjection(operation durableOperation) error 
 	if operation.ID == "" || operation.GroupID == "" {
 		return fmt.Errorf("workspace group operation is missing identity")
 	}
-	if operation.Kind != operationKindReview && operation.Kind != operationKindUndo && operation.Kind != operationKindRedo {
+	if operation.Kind != operationKindReview && operation.Kind != operationKindUndo && operation.Kind != operationKindRedo && operation.Kind != operationKindReplace {
 		return fmt.Errorf("workspace group operation has invalid kind %q", operation.Kind)
 	}
 	if state := operation.Projection.HistoryState; state != "" && state != historyStateUndone && state != historyStateRedone {
 		return fmt.Errorf("workspace group operation has invalid history state %q", state)
 	}
 	switch operation.Kind {
-	case operationKindReview:
+	case operationKindReview, operationKindReplace:
 		if operation.Projection.HistoryState != "" {
 			return fmt.Errorf("review operation cannot change history state")
 		}
@@ -329,6 +341,20 @@ func (s *Service) validateOperationProjection(operation durableOperation) error 
 		paths[change.Path] = true
 		copy := change
 		known[change.ID] = &copy
+	}
+	if len(operation.Guards) > 20000 {
+		return fmt.Errorf("workspace group operation exceeds the read guard limit")
+	}
+	guardPaths := make(map[string]bool, len(operation.Guards))
+	for _, guard := range operation.Guards {
+		rel := guard.Path
+		if err := validateGuardPath(rel); err != nil || paths[rel] || guardPaths[rel] {
+			return fmt.Errorf("workspace group operation contains an invalid or overlapping read guard: %s", guard.Path)
+		}
+		if _, err := requireBaseRevision(rel, guard.Revision); err != nil {
+			return err
+		}
+		guardPaths[rel] = true
 	}
 	for _, update := range operation.Projection.ReviewUpdates {
 		target := known[update.ChangeSetID]
@@ -389,6 +415,7 @@ func cloneDurableOperation(input durableOperation) durableOperation {
 		GroupID:    input.GroupID,
 		Changes:    append([]operationChange(nil), input.Changes...),
 		Projection: cloneOperationProjection(input.Projection),
+		Guards:     append([]FileRevision(nil), input.Guards...),
 	}
 	for index := range output.Changes {
 		output.Changes[index].ChangeSet = cloneChangeSet(input.Changes[index].ChangeSet)

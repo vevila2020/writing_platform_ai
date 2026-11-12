@@ -64,6 +64,23 @@ func (s *State) ChapterGroupDir() string {
 	return filepath.Join(s.SettingDir(), "chapter-groups")
 }
 
+// ChapterPlanDir returns the per-chapter plan directory used by the advanced
+// serial writing workflow. It is optional and created only when that workflow
+// writes its first chapter plan.
+func (s *State) ChapterPlanDir() string {
+	return filepath.Join(s.SettingDir(), "chapter-plans")
+}
+
+// TrackingFileName is the continuity ledger used by the advanced serial
+// writing workflow. It is optional and distinct from progress.md and
+// character-states.md.
+const TrackingFileName = "tracking.md"
+
+// TrackingPath returns the absolute continuity ledger path.
+func (s *State) TrackingPath() string {
+	return filepath.Join(s.SettingDir(), TrackingFileName)
+}
+
 // IdeasFileName 创作灵感文件名，存于 workspace 根目录，承载新书构思阶段的阶段性结论。
 const IdeasFileName = "ideas.md"
 

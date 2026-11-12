@@ -1655,6 +1655,8 @@ describe('MarkdownEditor', () => {
         content="第一章"
         onSave={vi.fn()}
         illustrationInsertSignal={{
+          projectId: 'project-editor-test',
+          path: 'chapters/ch01.md',
           nonce: 1,
           illustration: {
             schema: 'chapter_illustration.v1',
@@ -1681,6 +1683,55 @@ describe('MarkdownEditor', () => {
     })
     expect(tiptapMock.chainApi.run).toHaveBeenCalled()
     expect(toastMock.success).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    { projectId: 'another-project', path: 'chapters/ch01.md' },
+    { projectId: 'project-editor-test', path: 'chapters/ch02.md' },
+  ])('ignores illustration insertion for another document: $projectId/$path', (target) => {
+    const onConsumed = vi.fn()
+    render(<MarkdownEditor
+      fileName="chapters/ch01.md"
+      content="Chapter one"
+      onSave={vi.fn()}
+      illustrationInsertSignal={{
+        ...target, nonce: 1,
+        illustration: {
+          schema: 'chapter_illustration.v1', chapter_path: 'chapters/ch01.md',
+          image_path: 'assets/scene.png', meta_path: 'assets/meta.json', markdown: '![Scene](assets/scene.png)',
+          alt_text: 'Scene', profile_id: 'default', provider: 'openai', model: 'test-image',
+        },
+      }}
+      onIllustrationInsertConsumed={onConsumed}
+    />)
+    expect(tiptapMock.chainApi.insertContentAt).not.toHaveBeenCalled()
+    expect(onConsumed).not.toHaveBeenCalled()
+  })
+
+  it('consumes an illustration only once when its target editor is active', () => {
+    const onConsumed = vi.fn()
+    const props = {
+      fileName: 'chapters/ch01.md', content: 'Chapter one', onSave: vi.fn(),
+      illustrationInsertSignal: {
+        projectId: 'project-editor-test', path: 'chapters/ch01.md', nonce: 1,
+        illustration: {
+          schema: 'chapter_illustration.v1', chapter_path: 'chapters/ch02.md',
+          image_path: 'assets/scene.png', meta_path: 'assets/meta.json', markdown: '![Scene](assets/scene.png)',
+          alt_text: 'Scene', profile_id: 'default', provider: 'openai', model: 'test-image',
+        },
+      },
+      onIllustrationInsertConsumed: onConsumed,
+    }
+    const { rerender } = render(<MarkdownEditor {...props} active={false} />)
+    expect(tiptapMock.chainApi.insertContentAt).not.toHaveBeenCalled()
+    expect(onConsumed).not.toHaveBeenCalled()
+    rerender(<MarkdownEditor {...props} active />)
+    expect(tiptapMock.chainApi.insertContentAt).toHaveBeenCalledTimes(1)
+    expect(onConsumed).toHaveBeenCalledExactlyOnceWith(1)
+    rerender(<MarkdownEditor {...props} active={false} />)
+    rerender(<MarkdownEditor {...props} active />)
+    expect(tiptapMock.chainApi.insertContentAt).toHaveBeenCalledTimes(1)
+    expect(onConsumed).toHaveBeenCalledTimes(1)
   })
 
   it('正文评论常驻编辑器且不再要求切换只读审阅模式', () => {

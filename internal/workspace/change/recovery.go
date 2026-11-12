@@ -24,6 +24,16 @@ func (s *Service) recoverOperations() error {
 			continue
 		}
 		operation := prepared.Operation
+		if err := s.verifyFileGuards(operation.Guards); err != nil {
+			paths := []string{}
+			for _, guard := range operation.Guards {
+				paths = append(paths, guard.Path)
+			}
+			if err := s.appendAndApply(ledgerEvent{Type: eventOperationConflicted, OperationID: operation.ID, ConflictPaths: paths}); err != nil {
+				return err
+			}
+			continue
+		}
 		conflictPath := ""
 		for _, planned := range operation.Changes {
 			change := planned.ChangeSet

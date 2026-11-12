@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { toast } from '@/lib/toast'
 import { WRITING_COMPOSER_SETTING_DEFAULTS } from '@/components/Chat/AgentPanel'
 import type { EditorFlushHandler } from '@/components/Editor/useEditorDraftPersistence'
+import type { WritingDocumentEditorProps } from '@/components/Editor/WritingDocumentEditor'
 import type { OutlineRevealRequest } from '@/components/workbench/outline/ChapterOutline'
 import { getImagePresets, getInteractiveTellers } from '@/features/interactive/api'
 import { useInteractiveStore } from '@/features/interactive/stores/interactive-store'
@@ -19,6 +20,7 @@ import { useLayeredSettingsDraft } from '@/features/settings/use-layered-setting
 import { GLOBAL_SETTINGS_TARGET } from '@/features/settings/api'
 import { applyReadingTypographySettings } from '@/features/settings/font-variables'
 import { isLoreItemsPath } from '@/lib/workspace-path'
+import { workspaceFileKind } from '@/lib/workspace-file-kind'
 import { useWritingChangeReview } from '@/features/changes/use-writing-change-review'
 import type { ReviewFeedbackBatch, ReviewFeedbackSelection } from '@/features/changes/agent/ReviewFeedbackTray'
 import type { WorkspaceChangeMetadata } from '@/features/changes/types'
@@ -229,7 +231,13 @@ export function ModeRouter(props: ModeRouterProps) {
   const setInteractiveSubmode = useInteractiveStore((state) => state.setSubmode)
   const [tellers, setTellers] = useState<Teller[]>([])
   const [imagePresets, setImagePresets] = useState<ImagePreset[]>([])
-  const [illustrationInsertSignal, setIllustrationInsertSignal] = useState<{ illustration: ChapterIllustration; nonce: number } | null>(null)
+  const [illustrationInsertSignal, setIllustrationInsertSignal] = useState<WritingDocumentEditorProps['illustrationInsertSignal']>(null)
+  const illustrationInsertNonceRef = useRef(0)
+  useEffect(() => {
+    setIllustrationInsertSignal((current) => current
+      && (current.projectId !== projectId || activeTabKey !== `file:${current.path}` || mode !== 'ide')
+      ? null : current)
+  }, [activeTabKey, mode, projectId])
   const [outlineRevealRequest, setOutlineRevealRequest] = useState<OutlineRevealRequest | null>(null)
   const [toolNavigationIntent, setToolNavigationIntent] = useState<ToolNavigationIntent | null>(null)
   const [trajectoryNavigationIntent, setTrajectoryNavigationIntent] = useState<TrajectoryNavigationIntent | null>(null)
@@ -458,17 +466,16 @@ export function ModeRouter(props: ModeRouterProps) {
     }, 0)
   }, [currentChapter?.path, onSetMode, onSetRightPanel, selectedFile])
   const insertIllustrationIntoEditor = useCallback((illustration: ChapterIllustration) => {
-    const apply = () => {
-      setIllustrationInsertSignal((current) => ({ illustration, nonce: (current?.nonce || 0) + 1 }))
-    }
-    if (illustration.chapter_path && selectedFile !== illustration.chapter_path) {
-      void Promise.resolve(selectWorkspacePath(illustration.chapter_path)).then((navigated) => {
-        if (navigated !== false) window.setTimeout(apply, 0)
-      })
+    if (!projectId || activeTab?.kind !== 'file' || workspaceFileKind(activeTab.path) !== 'markdown') {
+      toast.error(t('editor.illustrationMarkdownOnly'))
       return
     }
-    apply()
-  }, [selectWorkspacePath, selectedFile])
+    // Generation metadata describes the source chapter; the user's open editor owns insertion.
+    setIllustrationInsertSignal({ projectId, path: activeTab.path, illustration, nonce: ++illustrationInsertNonceRef.current })
+  }, [activeTab, projectId, t])
+  const consumeIllustrationInsert = useCallback((nonce: number) => {
+    setIllustrationInsertSignal((current) => current?.nonce === nonce ? null : current)
+  }, [])
   const aiVisible = rightPanel === 'ai'
   const showAgent = useCallback(() => onSetRightPanel('ai'), [onSetRightPanel])
   const {
@@ -737,6 +744,7 @@ export function ModeRouter(props: ModeRouterProps) {
           ? editorSearchIntent
           : null}
         illustrationInsertSignal={illustrationInsertSignal}
+        onIllustrationInsertConsumed={consumeIllustrationInsert}
         documentReview={documentReviewController}
         documentReviewNavigationTarget={documentReviewNavigationTarget}
         toolNavigationIntent={toolNavigationIntent}

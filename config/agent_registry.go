@@ -68,6 +68,7 @@ var agentKindRegistry = []AgentKindDefinition{
 			AgentToolWebSearch, AgentToolWebFetch, AgentToolBrowser,
 			AgentToolAsk, AgentToolTodo, AgentToolSkills, AgentToolDelegation,
 			AgentToolScript,
+			AgentToolWritingCheck,
 			AgentToolConfigRead, AgentToolConfigApply,
 			AgentToolLoreRead, AgentToolLoreWrite, AgentToolImageGeneration,
 		},
@@ -190,7 +191,7 @@ var agentToolCapabilities = []AgentToolCapability{
 			"glob": descriptorWithSource(readOnlyDescriptor(agenttool.ToolPresentationGeneric, agentschema.ToolResultRecoveryRerun), agenttool.ToolSourceRead),
 			"grep": descriptorWithSource(readOnlyDescriptor(agenttool.ToolPresentationSearch, agentschema.ToolResultRecoveryRerun), agenttool.ToolSourceRead),
 		})),
-	withRuntimeResultLimit(capabilityDefinition(AgentToolWorkspaceWrite, "agents.tool.workspaceWrite.title", "agents.tool.workspaceWrite.subtitle", []string{"write", "edit"}, descriptorWithSource(workspaceWriteDescriptor(agenttool.ToolRecoveryReconcilable, agenttool.ToolPresentationFile), agenttool.ToolSourceWrite))),
+	withRuntimeResultLimit(capabilityDefinition(AgentToolWorkspaceWrite, "agents.tool.workspaceWrite.title", "agents.tool.workspaceWrite.subtitle", []string{"write", "edit", "commit_advance"}, descriptorWithSource(workspaceWriteDescriptor(agenttool.ToolRecoveryReconcilable, agenttool.ToolPresentationFile), agenttool.ToolSourceWrite))),
 	withRuntimeResultLimit(runtimePlatformCapabilityDefinition(AgentToolShell, "agents.tool.shell.title", "agents.tool.shell.subtitle", []string{"bash"}, []string{"pwsh"}, descriptorWithSource(descriptorSummary(
 		agenttool.ToolExecutionWorkspaceExclusive, agenttool.ToolMutationExternal, agenttool.ToolPostCheckExternalReceipt,
 		agenttool.ToolRecoveryNonIdempotent, agenttool.SteeringFinishCurrent, agenttool.ToolPresentationTerminal,
@@ -212,6 +213,7 @@ var agentToolCapabilities = []AgentToolCapability{
 	withRuntimeResultLimit(runtimeCapabilityDefinitionWithToolDescriptors(AgentToolSkills, "agents.tool.skills.title", "agents.tool.skills.subtitle", []string{"skill", "read"}, readOnlyDescriptor(agenttool.ToolPresentationGeneric, agentschema.ToolResultRecoveryRerun), map[string]agenttool.ToolDescriptor{
 		"read": descriptorWithSource(readOnlyDescriptor(agenttool.ToolPresentationGeneric, agentschema.ToolResultRecoveryRead), agenttool.ToolSourceRead),
 	}), "read"),
+	withRuntimeResultLimit(capabilityDefinition(AgentToolWritingCheck, "agents.tool.writingCheck.title", "agents.tool.writingCheck.subtitle", []string{"check_writing", "prepare_advance"}, descriptorWithSource(readOnlyDescriptor(agenttool.ToolPresentationGeneric, agentschema.ToolResultRecoveryRerun), agenttool.ToolSourceOther))),
 	withRuntimeResultLimit(runtimeSubAgentUnavailableCapabilityDefinitionWithToolDescriptors(
 		AgentToolDelegation, "agents.tool.delegation.title", "agents.tool.delegation.subtitle", []string{"send", "await", "list_agents"},
 		descriptorWithRetention(descriptorSummary(

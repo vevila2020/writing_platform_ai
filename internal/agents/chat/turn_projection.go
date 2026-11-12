@@ -292,6 +292,7 @@ func writingSkillLoadHintContent(skillName string) string {
 	}
 	return "The Writing Skill selected for the current creative Agent is `" + skillName + "`.\n\n" +
 		"- If this request involves continuing novel prose, creating chapter prose, rewriting prose, or polishing prose, and the current Agent has the `skill` tool enabled while context does not mark the Skill as runtime-loaded, call `skill` to load `" + skillName + "` and read its complete SKILL.md before proceeding.\n" +
-		"- For Q&A, analysis, organization, outline or setting discussion, configuration, or planning, do not load the Writing Skill; handle the request directly.\n" +
+		"- Also load the selected Writing Skill when the request is a multi-step novel planning task (opening a book, planning a volume, planning a chapter group, or creating a per-chapter plan) and the Skill's catalog description covers that planning workflow. Load it before creating or changing planning files.\n" +
+		"- For general Q&A, analysis, organization, configuration, or unrelated planning, do not load the Writing Skill; handle the request directly.\n" +
 		"- Before calling `skill`, do not claim to have read its complete instructions. The writing scope is determined only by the user's natural-language request for this turn; there is no separate `writing_scope` field."
 }

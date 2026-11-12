@@ -48,13 +48,17 @@ func ProjectToolResult(
 		data["target"] = target
 	}
 	if receipt, ok := workspacechange.ParseToolReceipt(toolName, payload); ok {
+		affected := receipt.AffectedPaths
+		if len(affected) == 0 {
+			affected = []string{receipt.Path}
+		}
 		data["workspace_change"] = receipt
 		if emit != nil {
 			emit(agentrun.Event{Type: "workspace_change", Data: map[string]any{
 				"id": receipt.ChangeSetID, "project_id": projectID,
 				"change_group_id": receipt.ChangeGroupID, "review_thread_id": receipt.ReviewThreadID,
 				"change_set_id": receipt.ChangeSetID, "path": receipt.Path,
-				"affected_paths": []string{receipt.Path}, "base_revision": receipt.BaseRevision,
+				"affected_paths": affected, "base_revision": receipt.BaseRevision,
 				"revision": receipt.Revision, "review_status": receipt.ReviewStatus,
 				"apply_state": receipt.ApplyState, "workspace_change": receipt,
 			}})

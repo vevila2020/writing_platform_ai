@@ -164,7 +164,7 @@ func (operation *Operation) invoke(ctx context.Context, call ToolCall, tool prep
 	ctx = agenttool.ContextWithToolArtifactBackend(ctx, operation.request.Session.ToolArtifactStore())
 	// Review groups must refer to the same run as the visible and persisted
 	// output. The controller's logical operation can span several such runs.
-	identity := toolruntime.HostToolIdentity{OperationID: operation.id, ExecutionID: executionID, ProviderCallID: call.ID, SessionID: operation.request.Session.ID, ReviewThreadID: operation.request.ReviewThreadID}
+	identity := toolruntime.HostToolIdentity{OperationID: operation.id, ExecutionID: executionID, ProviderCallID: call.ID, SessionID: operation.request.Session.ID, ReviewThreadID: operation.request.ReviewThreadID, WritingSkill: operation.request.ToolPolicy.WritingSkill}
 	var result agentschema.ToolResult
 	var callErr error
 	var invocation toolruntime.HostToolInvocation

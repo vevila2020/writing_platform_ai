@@ -160,6 +160,38 @@ describe('ToolExecutionBlock', () => {
     expect(container.querySelector('[data-nova-tool-input-stream]')).not.toBeInTheDocument()
   })
 
+  it('shows task wait progress as returned results instead of child readiness', () => {
+    const { container, rerender } = render(<ToolExecutionBlock
+      message={{
+        role: 'tool_call',
+        name: 'await',
+        args: JSON.stringify({ targets: [{ ref: { agent: 'reviewer', session: 'review', run: 'run-1' } }] }),
+        status: 'running',
+      }}
+    />)
+    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('0/0 个任务已返回')
+
+    rerender(<ToolExecutionBlock message={{
+      role: 'tool_call',
+      name: 'await',
+      args: JSON.stringify({ targets: [{ ref: { agent: 'reviewer', session: 'review', run: 'run-1' } }] }),
+      result: JSON.stringify({ reason: 'timeout', results: [{ index: 0, outcome: 'observed', ready: false, run: { ref: { agent: 'reviewer', session: 'review', run: 'run-1' }, status: 'running' } }] }),
+      status: 'success',
+    }} />)
+    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('1/1 个任务已返回')
+    expect(container.querySelector('[data-nova-tool-summary]')).not.toHaveTextContent('0/1')
+  })
+
+  it('keeps failed task wait results visible in the returned count', () => {
+    const { container } = render(<ToolExecutionBlock message={{
+      role: 'tool_call',
+      name: 'task_wait',
+      args: JSON.stringify({ targets: [{ ref: { agent: 'reviewer', session: 'review', run: 'run-1' } }] }),
+      result: JSON.stringify({ reason: 'error', results: [{ index: 0, outcome: 'error', error: { code: 'not_found', message: 'missing' } }] }),
+      status: 'success',
+    }} />)
+    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('1/1 个任务已返回 · 1 个失败')
+  })
   it('presents a bounded directory read as an expected partial result', () => {
     const metadata = JSON.stringify({
       schema: 'resource.read.v1',

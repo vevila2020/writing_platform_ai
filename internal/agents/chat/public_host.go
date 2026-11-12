@@ -61,6 +61,7 @@ func (middleware *PublicHostMiddleware) BeforeAgent(
 		RunID: runID, SessionID: middleware.options.SessionID,
 		ReviewThreadID: middleware.options.ReviewThreadID,
 	})
+	ctx = producttools.ContextWithWritingSkill(ctx, middleware.request.WritingSkill)
 	if middleware.request.PlanMode {
 		ctx = agenttoolruntime.ContextWithToolAccessMode(ctx, agenttoolruntime.ToolAccessModePlanReadOnly)
 	}

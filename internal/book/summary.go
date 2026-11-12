@@ -232,38 +232,44 @@ func (s *Service) documentPreview(relPath, fallbackTitle string) *DocumentPrevie
 }
 
 func (s *Service) chapterPlanPreviews() []DocumentPreview {
-	root := filepath.Join(s.workspace, "setting", "chapter-groups")
-	if _, err := os.Stat(root); err != nil {
-		return []DocumentPreview{}
-	}
-
 	previews := []DocumentPreview{}
-	_ = filepath.WalkDir(root, func(path string, entry os.DirEntry, err error) error {
-		if err != nil {
-			return nil
-		}
-		name := entry.Name()
-		if name != "." && strings.HasPrefix(name, ".") {
-			if entry.IsDir() {
-				return filepath.SkipDir
+	for _, directory := range []string{"chapter-groups", "chapter-plans"} {
+		root := filepath.Join(s.workspace, "setting", directory)
+		_ = filepath.WalkDir(root, func(path string, entry os.DirEntry, err error) error {
+			if err != nil {
+				return nil
+			}
+			name := entry.Name()
+			if name != "." && strings.HasPrefix(name, ".") {
+				if entry.IsDir() {
+					return filepath.SkipDir
+				}
+				return nil
+			}
+			if entry.IsDir() || !isChapterTextFile(name) {
+				return nil
+			}
+			rel, relErr := filepath.Rel(s.workspace, path)
+			if relErr != nil {
+				return nil
+			}
+			relPath := filepath.ToSlash(rel)
+			title := groupDisplayTitle(name)
+			if directory == "chapter-plans" {
+				title = chapterDisplayTitle(name)
+			}
+			if preview := s.documentPreview(relPath, title); preview != nil {
+				previews = append(previews, *preview)
 			}
 			return nil
-		}
-		if entry.IsDir() || !isChapterTextFile(name) {
-			return nil
-		}
-		rel, relErr := filepath.Rel(s.workspace, path)
-		if relErr != nil {
-			return nil
-		}
-		relPath := filepath.ToSlash(rel)
-		if preview := s.documentPreview(relPath, groupDisplayTitle(name)); preview != nil {
-			previews = append(previews, *preview)
-		}
-		return nil
-	})
+		})
+	}
 
 	sort.Slice(previews, func(i, j int) bool {
+		leftDir, rightDir := strings.Split(previews[i].Path, "/")[1], strings.Split(previews[j].Path, "/")[1]
+		if leftDir != rightDir {
+			return leftDir < rightDir
+		}
 		left, right := chapterPlanIndex(previews[i].Path), chapterPlanIndex(previews[j].Path)
 		if left > 0 && right > 0 && left != right {
 			return left < right
@@ -528,7 +534,7 @@ func chapterPlanIndex(path string) int {
 	name := filepath.Base(path)
 	matches := groupNamePattern.FindStringSubmatch(strings.TrimSuffix(name, filepath.Ext(name)))
 	if len(matches) == 0 {
-		return 0
+		return chapterIndex(name)
 	}
 	n := 0
 	for _, ch := range matches[1] {
@@ -597,6 +603,13 @@ func truncateRunes(text string, limit int) string {
 		return text
 	}
 	return string(runes[:limit]) + "…"
+}
+
+// CountWritingWords returns the visible rune count used by chapter summaries.
+// It counts every non-whitespace rune, so it remains stable for CJK prose and
+// matches the count shown in the workspace summary.
+func CountWritingWords(content string) int {
+	return countWritingWords(content)
 }
 
 func countWritingWords(content string) int {

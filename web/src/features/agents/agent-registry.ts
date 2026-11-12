@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Bot,
   BookOpen,
+  ClipboardCheck,
   Database,
   FileText,
   FolderOpen,
@@ -125,6 +126,7 @@ const TOOL_ICONS: Partial<Record<AgentToolCapability, LucideIcon>> = {
   lore_read: Database,
   lore_write: Wrench,
   image_generation: ImagePlus,
+  writing_check: ClipboardCheck,
 }
 
 // The backend manifest owns capability identity, order, effective policy and

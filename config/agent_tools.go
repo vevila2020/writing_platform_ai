@@ -14,6 +14,7 @@ const (
 	AgentToolAsk             = "ask"
 	AgentToolTodo            = "todo"
 	AgentToolSkills          = "skills"
+	AgentToolWritingCheck    = "writing_check"
 	AgentToolDelegation      = "delegation"
 	AgentToolScript          = "script"
 	AgentToolTrajectory      = "trajectory"
@@ -98,6 +99,7 @@ func DefaultAgentToolSettings() AgentToolSettings {
 			AgentToolConfigRead,
 			AgentToolConfigApply,
 			AgentToolImageGeneration,
+			AgentToolWritingCheck,
 		),
 		InteractiveStory: off(
 			AgentToolWorkspaceWrite,

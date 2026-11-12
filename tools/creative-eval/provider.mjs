@@ -73,7 +73,11 @@ export default class InkDockProvider {
         evidence.session_id = session.id
         await run('/api/chat', { session_id: session.id, message: prompt, writing_skill: this.variant.writing_skill || 'novel-lite' })
         evidence.files = {}
-        for (const file of Object.keys(scenario.files)) {
+        const readFiles = new Set([
+          ...Object.keys(scenario.files),
+          ...(scenario.target_file ? [scenario.target_file] : []),
+        ])
+        for (const file of readFiles) {
           const saved = await api(`${projectRoute}/files/file?${new URLSearchParams({ path: file })}`)
           evidence.files[file] = saved.content
         }
@@ -83,8 +87,16 @@ export default class InkDockProvider {
         const afterFiles = await contentSnapshot(created.workspace)
         evidence.changed_files = [...new Set([...Object.keys(beforeFiles), ...Object.keys(afterFiles)])]
           .filter(file => beforeFiles[file] !== afterFiles[file])
-        evidence.checks.push({ name: 'Modify only the requested chapter',
-          pass: evidence.changed_files.every(file => file === scenario.target_file) })
+        const allowedChanged = scenario.allowed_changed_files ?? [scenario.target_file]
+        const changedFileAllowed = file => allowedChanged.some(allowed =>
+          file === allowed || (allowed.endsWith('/') && file.startsWith(allowed)))
+        for (const file of evidence.changed_files) {
+          if (changedFileAllowed(file) && afterFiles[file] !== undefined && !Object.hasOwn(evidence.files, file)) {
+            evidence.files[file] = Buffer.from(afterFiles[file], 'base64').toString('utf8')
+          }
+        }
+        evidence.checks.push({ name: scenario.allowed_changed_files ? 'Modify only the allowed files' : 'Modify only the requested chapter',
+          pass: evidence.changed_files.every(changedFileAllowed) })
         const content = evidence.files[scenario.target_file]
         evidence.checks.push({ name: 'Write the requested chapter', pass: Boolean(content?.trim()) && content !== scenario.files[scenario.target_file] })
         if (scenario.expected_content) evidence.checks.push({ name: 'Apply only the exact requested replacement', pass: content === scenario.expected_content })

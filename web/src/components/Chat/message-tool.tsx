@@ -98,7 +98,7 @@ export function ToolExecutionBlock({ message, showAgentSource = true, onResolve,
   let summary = fileTargetSummary || commandDescription || t('chat.tool.preparing')
   if (!inputStreaming) {
     if (isTaskWait) {
-      summary = t('chat.subagent.waiting')
+      summary = taskWaitResultSummary('', t)
     } else if (taskSubAgent) {
       summary = t('chat.subagent.delegating', { name: taskSubAgent })
     } else {
@@ -314,15 +314,15 @@ function parseTaskSubagentType(args: string) {
 }
 
 function taskWaitResultSummary(result: string, t: (key: string, options?: Record<string, unknown>) => string) {
+  if (!result) return t('chat.subagent.waitResult', { completed: 0, total: 0 })
   try {
-    const parsed = JSON.parse(result) as { results?: Array<{ ready?: boolean; error?: string }> }
+    const parsed = JSON.parse(result) as { results?: Array<{ error?: string }> }
     const outcomes = Array.isArray(parsed.results) ? parsed.results : []
     if (!outcomes.length) return t('chat.subagent.waitComplete')
-    const ready = outcomes.filter((outcome) => outcome.ready === true).length
     const failed = outcomes.filter((outcome) => Boolean(outcome.error)).length
     return failed > 0
-      ? t('chat.subagent.waitResultWithFailures', { ready, total: outcomes.length, failed })
-      : t('chat.subagent.waitResult', { ready, total: outcomes.length })
+      ? t('chat.subagent.waitResultWithFailures', { completed: outcomes.length, total: outcomes.length, failed })
+      : t('chat.subagent.waitResult', { completed: outcomes.length, total: outcomes.length })
   } catch {
     return buildPreview(result, 80) || t('chat.subagent.waitComplete')
   }

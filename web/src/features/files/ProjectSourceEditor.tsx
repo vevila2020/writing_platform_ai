@@ -22,6 +22,8 @@ export interface ProjectSourceEditorProps {
 export interface ProjectTextEditorHandle {
   getValue: () => string
   replaceValue: (value: string) => void
+  /** Inserts at the current model's selection start, preserves text, and creates an undo step. */
+  insertTextAtCursor: (text: string) => boolean
   revealLine: (line: number) => void
   focus: () => void
 }
@@ -103,8 +105,19 @@ export const ProjectTextEditor = forwardRef<ProjectTextEditorHandle, ProjectText
       }
     },
     revealLine,
+    insertTextAtCursor: (text) => {
+      const editorInstance = editorRef.current
+      const model = editorInstance?.getModel()
+      const selection = editorInstance?.getSelection()
+      if (!document.editable || !editorInstance || !selection || model?.uri.toString() !== modelPathRef.current) return false
+      editorInstance.pushUndoStop()
+      const inserted = editorInstance.executeEdits('insert-text', [{ range: selection.collapseToStart(), text, forceMoveMarkers: true }])
+      editorInstance.pushUndoStop()
+      editorInstance.focus()
+      return inserted
+    },
     focus: () => editorRef.current?.focus(),
-  }), [revealLine])
+  }), [document.editable, revealLine])
 
   const options = useMemo<editor.IStandaloneEditorConstructionOptions>(() => ({
     ariaLabel: t('files.editor.source', { path: document.path }),

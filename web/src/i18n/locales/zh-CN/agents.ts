@@ -69,6 +69,8 @@ const agents = {
   'agents.tool.ask.subtitle': 'ask',
   'agents.tool.skills.title': 'Skills',
   'agents.tool.skills.subtitle': 'skill list / read',
+  'agents.tool.writingCheck.title': '检查写作',
+  'agents.tool.writingCheck.subtitle': 'check_writing',
   'agents.tool.loreRead.title': '读取资料库',
   'agents.tool.loreRead.subtitle': 'query_lore_items / list_lore_materials',
   'agents.tool.loreRead.interactiveSubtitle': 'query_lore_items / list_lore_materials / search_story_history',

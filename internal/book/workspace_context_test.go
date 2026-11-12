@@ -19,11 +19,16 @@ func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {
 
 	files := map[string]string{
 		state.IdeasPath(): "IDEAS_BODY_SHOULD_BE_LAZY",
-		filepath.Join(state.SettingDir(), "outline.md"):                "OUTLINE_BODY_SHOULD_BE_LAZY",
-		filepath.Join(state.SettingDir(), "progress.md"):               "PROGRESS_BODY_SHOULD_BE_LAZY",
-		filepath.Join(state.SettingDir(), CharacterStatesFileName):     "CHARACTER_BODY_SHOULD_BE_LAZY",
+		filepath.Join(state.SettingDir(), "outline.md"):            "OUTLINE_BODY_SHOULD_BE_LAZY",
+		filepath.Join(state.SettingDir(), "progress.md"):           "PROGRESS_BODY_SHOULD_BE_LAZY",
+		filepath.Join(state.SettingDir(), CharacterStatesFileName): "CHARACTER_BODY_SHOULD_BE_LAZY",
+		state.TrackingPath(): "TRACKING_BODY_SHOULD_BE_LAZY",
 		filepath.Join(state.ChapterGroupDir(), "group01-wasteland.md"): "GROUP_BODY_SHOULD_BE_LAZY",
+		filepath.Join(state.ChapterPlanDir(), "ch00001-opening.md"):    "CHAPTER_PLAN_BODY_SHOULD_BE_LAZY",
 		filepath.Join(dir, "chapters", "ch00001-opening.md"):           "CHAPTER_BODY_SHOULD_BE_LAZY",
+	}
+	if err := os.MkdirAll(state.ChapterPlanDir(), 0o755); err != nil {
+		t.Fatalf("create chapter plan directory: %v", err)
 	}
 	for path, content := range files {
 		if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
@@ -62,7 +67,9 @@ func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {
 		"## Current Writing Source Index",
 		`"setting/progress.md"`,
 		`"setting/character-states.md"`,
+		`"setting/tracking.md"`,
 		`"setting/chapter-groups/group01-wasteland.md"`,
+		`"setting/chapter-plans/ch00001-opening.md"`,
 		`"chapters/ch00001-opening.md"`,
 	} {
 		if !strings.Contains(context.Dynamic, required) {
@@ -74,7 +81,9 @@ func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {
 		"OUTLINE_BODY_SHOULD_BE_LAZY",
 		"PROGRESS_BODY_SHOULD_BE_LAZY",
 		"CHARACTER_BODY_SHOULD_BE_LAZY",
+		"TRACKING_BODY_SHOULD_BE_LAZY",
 		"GROUP_BODY_SHOULD_BE_LAZY",
+		"CHAPTER_PLAN_BODY_SHOULD_BE_LAZY",
 		"CHAPTER_BODY_SHOULD_BE_LAZY",
 		"ON_DEMAND_LORE_BODY_STAYS_LAZY",
 	} {
@@ -162,6 +171,33 @@ func TestWorkspaceContextBoundsRecentChapterAndGroupPaths(t *testing.T) {
 	for _, included := range []string{"group02.md", "group03.md", "ch00002.md", "ch00013.md"} {
 		if !strings.Contains(dynamic, included) {
 			t.Fatalf("recent path %q missing from bounded index:\n%s", included, dynamic)
+		}
+	}
+}
+
+func TestWorkspaceContextBoundsRecentChapterPlanPaths(t *testing.T) {
+	dir := t.TempDir()
+	state := NewState(dir)
+	if err := state.InitWorkspace(); err != nil {
+		t.Fatalf("initialize workspace: %v", err)
+	}
+	if err := os.MkdirAll(state.ChapterPlanDir(), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for index := 1; index <= workspaceContextChapterPlanLimit+1; index++ {
+		name := fmt.Sprintf("ch%05d-plan.md", index)
+		if err := os.WriteFile(filepath.Join(state.ChapterPlanDir(), name), []byte("plan"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	dynamic := state.WorkspaceContext().Dynamic
+	if strings.Contains(dynamic, "ch00001-plan.md") {
+		t.Fatalf("old chapter plan should fall outside the bounded index:\n%s", dynamic)
+	}
+	for _, included := range []string{"ch00002-plan.md", "ch00003-plan.md", "ch00004-plan.md"} {
+		if !strings.Contains(dynamic, included) {
+			t.Fatalf("recent chapter plan %q missing from bounded index:\n%s", included, dynamic)
 		}
 	}
 }

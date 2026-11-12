@@ -154,6 +154,7 @@ type ExecutionRecord struct {
 
 const (
 	MutationReceiptWorkspaceChange = "workspace_change.tool_result.v1"
+	MutationReceiptWorkspaceNoop   = "workspace_change.tool_noop.v1"
 	MutationReceiptLoreWrite       = "lore.write.v1"
 	MutationReceiptGeneratedImage  = "generated_image.workspace.v1"
 )
@@ -178,6 +179,9 @@ func ResolveMutation(record ExecutionRecord) MutationResolution {
 		return MutationResolution{}
 	}
 	if status != "success" && status != "error" {
+		return MutationResolution{}
+	}
+	if status == "success" && record.MutationReceiptSchema == MutationReceiptWorkspaceNoop {
 		return MutationResolution{}
 	}
 

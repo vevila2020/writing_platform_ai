@@ -5,7 +5,7 @@ import { skillAvailableForAgent } from '@/features/agents/agent-registry'
 import { useAgentSkillCatalog } from './useAgentSkillCatalog'
 
 export const DEFAULT_WRITING_SKILL = 'novel-lite'
-export const BUILTIN_WRITING_SKILLS = ['novel-lite', 'novel-standard'] as const
+export const BUILTIN_WRITING_SKILLS = ['novel-lite', 'novel-standard', 'novel-serial'] as const
 export const WRITING_WORKFLOW_CAPABILITY = 'writing-workflow'
 
 export type WritingSkillOption = Pick<SkillSummary, 'name' | 'description' | 'scope' | 'path' | 'active' | 'agent' | 'capabilities'>

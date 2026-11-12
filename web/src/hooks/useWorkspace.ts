@@ -736,7 +736,11 @@ export function workspaceChangeAffectsSummary(change: WorkspaceFileChange): bool
     path === 'setting' ||
     path === 'setting/outline.md' ||
     path === 'setting/chapter-groups' ||
-    path.startsWith('setting/chapter-groups/')
+    path.startsWith('setting/chapter-groups/') ||
+    path === 'setting/chapter-plans' ||
+    path.startsWith('setting/chapter-plans/') ||
+    path === 'setting/tracking.md' ||
+    path === 'setting/continuity.json'
 }
 
 function pathContainsFile(path: string, file: string): boolean {

@@ -230,11 +230,39 @@ func requestTools(tools []*agentschema.ToolInfo) ([]*genai.Tool, error) {
 				}
 			}
 		}
+		sanitizeSchema(schema)
 		declarations = append(declarations, &genai.FunctionDeclaration{
 			Name: tool.Name, Description: tool.Desc, ParametersJsonSchema: schema,
 		})
 	}
 	return []*genai.Tool{{FunctionDeclarations: declarations}}, nil
+}
+
+// sanitizeSchema removes JSON Schema annotations that Gemini's Schema proto
+// does not define. InkDock stores its internal batch-item marker in "$comment"
+// for local tolerant decoding, but Gemini rejects the unknown keyword.
+func sanitizeSchema(value any) {
+	node, ok := value.(map[string]any)
+	if !ok {
+		return
+	}
+	delete(node, "$comment")
+	for key, child := range node {
+		switch key {
+		case "properties", "patternProperties", "$defs", "definitions", "dependentSchemas":
+			children, _ := child.(map[string]any)
+			for _, schema := range children {
+				sanitizeSchema(schema)
+			}
+		case "anyOf", "oneOf", "allOf", "prefixItems":
+			schemas, _ := child.([]any)
+			for _, schema := range schemas {
+				sanitizeSchema(schema)
+			}
+		case "items", "additionalProperties", "not", "if", "then", "else", "contains", "propertyNames":
+			sanitizeSchema(child)
+		}
+	}
 }
 
 func requestToolConfig(choice *agentmodel.ToolChoice, allowedNames []string, toolCount int) (*genai.ToolConfig, error) {
@@ -314,6 +342,7 @@ func applyOutputFormat(config *genai.GenerateContentConfig, format *providers.Ou
 		if err := json.Unmarshal(data, &schema); err != nil {
 			return fmt.Errorf("google generative AI output format: %w", err)
 		}
+		sanitizeSchema(schema)
 		config.ResponseJsonSchema = schema
 	}
 	return nil

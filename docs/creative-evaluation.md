@@ -24,7 +24,7 @@ Edit `run.local.json`:
 - `variants`: uniquely named configurations. `profile_id` optionally selects a model profile from that settings file; otherwise its model defaults apply. `writing_skill` defaults to `novel-lite`. To compare Skill versions, `skills_directory` can select another checkout's `skills` directory. A variant can specify its own `settings_file` for model/context/prompt comparisons.
 - `grader.profile_id`: an existing enabled model profile in the first variant's settings file. Its endpoint and key are reused for grading, so no extra API key needs exporting. The example uses the same profile for generation and grading; selecting a different grading profile is supported. Profile grading supports OpenAI Chat Completions and Responses endpoints without custom headers or protocol options. For other routes, replace `grader` with an explicit [promptfoo grading provider](https://www.promptfoo.dev/docs/configuration/expected-outputs/) and reference its key through `apiKeyEnvar`.
 
-The example starts with one variant. Add a second variant to compare configurations in the same report. A Writing Skill change affects Writing cases only; use a different model profile or settings file when comparing Game behavior. Changing runtime source code can be evaluated in separate runs; the report history retains each run and its checkout commit. The tool does not automatically choose or replace an approved baseline.
+The example compares the current default workflow (`novel-lite`) with `novel-serial`. Add or remove variants to compare other configurations in the same report. A Writing Skill change affects Writing cases only; use a different model profile or settings file when comparing Game behavior. Changing runtime source code can be evaluated in separate runs; the report history retains each run and its checkout commit. The tool does not automatically choose or replace an approved baseline.
 
 ```bash
 ./scripts/eval-creative.sh --case writing --repeat 3
@@ -39,12 +39,13 @@ Generation **and semantic grading** make paid requests when using paid model ser
 
 ## Scenarios and interpretation
 
-The version-controlled `cases.json` contains four small scenes:
+The version-controlled `cases.json` contains five small scenes:
 
 | Case | Product evidence | Semantic question |
 | --- | --- | --- |
 | `writing-scoped-edit` | Exact replacement, protected files, complete content-file change list | Was only the requested sentence changed? |
 | `writing-lore-constraint` | Persisted chapter, Lore, file changes | Does the scene respect the prohibition on creating water? |
+| `writing-serial-plan-first` | Chapter plan, chapter, progress, character state, tracking, protected files | Did the run plan before drafting, follow the plan, and synchronize state without changing the outline or the existing chapter? |
 | `game-rule-state` | Opening, final narrative and state snapshots | Does the failed action agree with the world's rules and persisted state? |
 | `game-branch-isolation` | Alternate branch knowledge, unchanged main branch, main continuation | Does the main character avoid learning another branch's secret? |
 

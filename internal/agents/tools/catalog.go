@@ -60,7 +60,7 @@ func (catalog *Catalog) Lore(forceReadOnly bool) Factory {
 	return loreToolsFactory(catalog.cfg, forceReadOnly)
 }
 
-func (catalog *Catalog) IDE() Factory { return ideToolsFactory(catalog.cfg) }
+func (catalog *Catalog) IDE() Factory { return ideToolsFactory(catalog.cfg, catalog.workspaceMetadata) }
 
 func (catalog *Catalog) Image() Factory { return imageToolsFactory(catalog.cfg) }
 
@@ -188,7 +188,7 @@ func loreToolsFactory(cfg *config.Config, forceReadOnly bool) Factory {
 	}
 }
 
-func ideToolsFactory(cfg *config.Config) Factory {
+func ideToolsFactory(cfg *config.Config, metadata ...WorkspaceMetadataProvider) Factory {
 	return func(settings config.ResolvedAgentToolSettings) ([]agenttool.ToolDefinition, error) {
 		if cfg == nil {
 			return nil, nil
@@ -207,6 +207,18 @@ func ideToolsFactory(cfg *config.Config) Factory {
 				return nil, err
 			}
 			definitions = append(definitions, enabledDefinitions(settings, images)...)
+		}
+		if settings.Allows(config.AgentToolWritingCheck) {
+			check, err := newWritingCheckTool(cfg.Workspace)
+			if err != nil {
+				return nil, err
+			}
+			definitions = append(definitions, check)
+			advance, err := newAdvanceTools(cfg, firstWorkspaceMetadataProvider(metadata), settings.Allows(config.AgentToolWorkspaceWrite))
+			if err != nil {
+				return nil, err
+			}
+			definitions = append(definitions, advance...)
 		}
 		configured, err := configurationToolsFactory(cfg)(settings)
 		if err != nil {

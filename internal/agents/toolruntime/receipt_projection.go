@@ -81,6 +81,17 @@ func applyToolMutationReceiptToExecutionRecord(record *agenttool.ExecutionRecord
 	}
 	applyWorkspaceChangeReceiptToExecutionRecord(record, result)
 	payload := string(toolResultDomainPayload(result))
+	if record.ToolName == "write" || record.ToolName == "commit_advance" {
+		var noop struct {
+			Schema           string `json:"schema"`
+			Status           string `json:"status"`
+			WorkspaceMutated *bool  `json:"workspace_mutated"`
+		}
+		if json.Unmarshal([]byte(payload), &noop) == nil && noop.Schema == agenttool.MutationReceiptWorkspaceNoop && noop.Status == "unchanged" && noop.WorkspaceMutated != nil && !*noop.WorkspaceMutated {
+			record.MutationReceiptSchema = noop.Schema
+			return
+		}
+	}
 	if itemIDs, deletedIDs, ok := parseLoreMutationReceipt(record.ToolName, payload); ok {
 		record.LoreItemIDs = agenttool.NormalizeIDs(itemIDs)
 		record.DeletedLoreItemIDs = agenttool.NormalizeIDs(deletedIDs)
