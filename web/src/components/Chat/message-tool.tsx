@@ -73,6 +73,7 @@ export function ToolExecutionBlock({ message, showAgentSource = true, onResolve,
   const presentationKind = toolPresentationKind(message, 'call')
   const isDelegationTool = presentationKind === 'delegation'
   const isTaskWait = (name === 'await' || name === 'task_wait')
+  const taskWaitTargets = isTaskWait ? taskWaitTargetCount(rawArgs) : 0
   const isScriptTool = presentationKind === 'script'
   const taskSubAgent = canInterpretInput && isDelegationTool ? (message.subagent_type || parseTaskSubagentType(rawArgs)) : ''
   // The raw input remains opaque while streaming. File cards may read only the
@@ -98,7 +99,7 @@ export function ToolExecutionBlock({ message, showAgentSource = true, onResolve,
   let summary = fileTargetSummary || commandDescription || t('chat.tool.preparing')
   if (!inputStreaming) {
     if (isTaskWait) {
-      summary = taskWaitResultSummary('', t)
+      summary = taskWaitResultSummary('', taskWaitTargets, t)
     } else if (taskSubAgent) {
       summary = t('chat.subagent.delegating', { name: taskSubAgent })
     } else {
@@ -114,7 +115,7 @@ export function ToolExecutionBlock({ message, showAgentSource = true, onResolve,
   const showStackedOutcome = resultSeverity === 'warning'
   let resultPreview = buildPreview(resultBody, 80)
   if (resultEnvelope) resultPreview = buildToolResultEnvelopeSummary(t, resultEnvelope)
-  if (isTaskWait && resultBody) resultPreview = taskWaitResultSummary(resultBody, t)
+  if (isTaskWait && resultBody) resultPreview = taskWaitResultSummary(resultBody, taskWaitTargets, t)
   const fileResultSummary = fileTargetSummary
     ? (resultPreview && (showReadableOutcome || resultEnvelope?.status === 'partial')
         ? `${fileTargetSummary} · ${resultPreview}`
@@ -313,8 +314,17 @@ function parseTaskSubagentType(args: string) {
   }
 }
 
-function taskWaitResultSummary(result: string, t: (key: string, options?: Record<string, unknown>) => string) {
-  if (!result) return t('chat.subagent.waitResult', { completed: 0, total: 0 })
+function taskWaitTargetCount(rawArgs: string) {
+  try {
+    const parsed = JSON.parse(rawArgs) as { targets?: unknown }
+    return Array.isArray(parsed.targets) ? parsed.targets.length : 0
+  } catch {
+    return 0
+  }
+}
+
+function taskWaitResultSummary(result: string, targetCount: number, t: (key: string, options?: Record<string, unknown>) => string) {
+  if (!result) return t('chat.subagent.waitResult', { completed: 0, total: targetCount })
   try {
     const parsed = JSON.parse(result) as { results?: Array<{ error?: string }> }
     const outcomes = Array.isArray(parsed.results) ? parsed.results : []

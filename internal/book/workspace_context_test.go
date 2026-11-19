@@ -55,9 +55,6 @@ func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {
 		"## Workspace Source Index",
 		`"ideas.md"`,
 		`"setting/outline.md"`,
-		"## Resident",
-		"RESIDENT_LORE_BODY_STAYS_INLINE",
-		"Hidden Archive",
 	} {
 		if !strings.Contains(context.Stable, required) {
 			t.Fatalf("stable workspace context missing %q:\n%s", required, context.Stable)
@@ -65,6 +62,10 @@ func TestWorkspaceContextIndexesFilesWithoutInjectingTheirBodies(t *testing.T) {
 	}
 	for _, required := range []string{
 		"## Current Writing Source Index",
+		"# Lore Index",
+		"## Resident",
+		"RESIDENT_LORE_BODY_STAYS_INLINE",
+		"Hidden Archive",
 		`"setting/progress.md"`,
 		`"setting/character-states.md"`,
 		`"setting/tracking.md"`,
@@ -140,6 +141,35 @@ func TestWorkspaceContextPathIndexesStayStableAcrossBodyChanges(t *testing.T) {
 	after := state.WorkspaceContext()
 	if before != after {
 		t.Fatalf("body-only edits should not rotate path indexes:\nbefore=%#v\nafter=%#v", before, after)
+	}
+}
+
+func TestWorkspaceContextLoreChangesOnlyTurnScopedContext(t *testing.T) {
+	dir := t.TempDir()
+	state := NewState(dir)
+	if err := state.InitWorkspace(); err != nil {
+		t.Fatal(err)
+	}
+	store := lore.NewStore(dir)
+	if _, err := store.Create(lore.ItemInput{
+		ID: "resident", Type: "character", Name: "Resident Hero",
+		LoadMode: lore.LoadModeResident, Content: "first canon",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	before := state.WorkspaceContext()
+	_, err := store.Update("resident", lore.ItemInput{
+		Type: "character", Name: "Resident Hero", LoadMode: lore.LoadModeResident, Content: "revised canon",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	after := state.WorkspaceContext()
+	if before.Stable != after.Stable {
+		t.Fatalf("Lore changes must not rotate the stable prefix:\nbefore=%q\nafter=%q", before.Stable, after.Stable)
+	}
+	if before.Dynamic == after.Dynamic || !strings.Contains(after.Dynamic, "revised canon") {
+		t.Fatalf("Lore changes must refresh turn-scoped context: before=%q after=%q", before.Dynamic, after.Dynamic)
 	}
 }
 

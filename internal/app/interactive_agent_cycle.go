@@ -144,7 +144,7 @@ func (s *InteractiveAppService) prepareInteractiveAgentCycle(ctx context.Context
 	teller := interactiveapp.LoadStoryTeller(cycle.novaDir, storyContext.Meta)
 	cycle.runtimeCfg.InteractiveReplyTargetChars = storyContext.Meta.ReplyTargetChars
 	styleRules := appagentruntime.StyleRules(cycle.novaDir, teller.StyleRefs, teller.StyleRules, request.StyleScenes)
-	cycle.tellerInput = interactiveapp.StoryTellerSystemInput(teller, styleRules)
+	cycle.tellerInput = interactiveapp.StoryTellerSystemInput(teller)
 	cycle.tellerInput.ChoiceCount = storyContext.Meta.ChoiceCount
 	storyRuntime := interactiveapp.LoadStoryRuntimeForMeta(cycle.novaDir, storyContext.Meta)
 	if storyContext.Meta.PlanningMode == interactive.StoryPlanningModeEnabled {

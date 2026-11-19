@@ -60,8 +60,8 @@ InkDock records major user-visible features, important compatibility or data cha
 
 - Claude 等模型返回 `refusal` 时不再误报“Agent completed without user-visible assistant content”，而会按内容过滤中断展示本地化原因。
 - When Claude or another model returns `refusal`, InkDock now reports a localized content-filter interruption instead of “Agent completed without user-visible assistant content”.
-- 思考内容在生成时自动展开、结束后收起；思考改用轻量文本渲染，长内容展开不再卡顿或先出现空白。
-- Thinking expands while streaming and collapses when finished; thinking uses lightweight text rendering so long content opens without stalls or blank frames.
+- 思考过程改为独立面板：生成时自动展开并跟随输出，结束后收起；内容按轻量 Markdown 排版（图片与链接不加载），长内容滚动不再卡顿或先出现空白。
+- Thinking uses a separate panel that expands while streaming and collapses when finished; content renders as lightweight Markdown without loading images or links, so long reasoning scrolls without stalls or blank frames.
 - Anthropic Messages 协议将同一助手轮次的并行工具结果合并为一条 user 消息，并按工具调用顺序排列，修复部分兼容服务返回的 `tool_use` / `tool_result` 配对与顺序 400 错误。
 - Anthropic Messages groups parallel tool results from one assistant turn into a single user message ordered by tool calls, fixing 400 responses for unpaired or misordered `tool_use` / `tool_result` blocks from some compatible services.
 - OpenAI Responses 兼容服务返回内置工具（联网搜索、文件检索、代码解释器、MCP、图像生成等）时不再中断流式响应；原始输出项仍保留在续写负载中。
@@ -72,12 +72,16 @@ InkDock records major user-visible features, important compatibility or data cha
 - Source runs without ripgrep now print an actionable startup notice and fall back to `PATH`; release packages still require and prefer the bundled `rg`.
 - 使用 Gemini 原生协议时，工具 schema 不再发送其不支持的 `$comment` 注解，修复写作等 Agent 因批处理工具标记返回 400 错误。
 - With the native Gemini protocol, tool schemas no longer send the unsupported `$comment` annotation, fixing 400 errors from batch-tool markers in Writing and other Agents.
+- 使用 Gemini 原生协议继续对话时，若流式响应单独返回思考签名或产生空消息，不再构造无效请求；思考签名会并入上一条内容。
+- When continuing a conversation with the native Gemini protocol, separately streamed thought signatures and empty messages no longer produce invalid requests; each signature is reattached to the preceding part.
 - 写作插画只插入当前打开章节的光标位置，修复多章节 Tab 下重复插入或误写入其他章节的问题；源码编辑支持原位插入与撤销。
 - Writing illustrations insert at the caret in the current chapter, fixing duplicate inserts and unintended edits to other chapter tabs; source editing supports insertion at the caret and undo.
 - 错误诊断不再把接口路径中的 `/v1/messages` 当作消息字段，保留服务商返回的错误详情。
 - Error diagnostics no longer mistake the `/v1/messages` endpoint path for a message field, preserving the provider's error detail.
 - 长篇对话中打开审批模式菜单不再卡顿。
 - Opening the approval-mode menu in long conversations no longer stutters.
+- 等待子任务时，未完成的情况下也会显示目标总数，不再显示 0。
+- Waiting on subagent tasks now shows the number of targets before completion instead of 0.
 
 ## [v1.0.0] - 2026-11-04
 

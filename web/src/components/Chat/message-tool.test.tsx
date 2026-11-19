@@ -160,26 +160,34 @@ describe('ToolExecutionBlock', () => {
     expect(container.querySelector('[data-nova-tool-input-stream]')).not.toBeInTheDocument()
   })
 
-  it('shows task wait progress as returned results instead of child readiness', () => {
+  it('shows task wait progress against requested targets before results return', () => {
+    const targets = ['run-1', 'run-2', 'run-3'].map((run) => ({
+      ref: { agent: 'reviewer', session: 'review', run },
+    }))
     const { container, rerender } = render(<ToolExecutionBlock
       message={{
         role: 'tool_call',
         name: 'await',
-        args: JSON.stringify({ targets: [{ ref: { agent: 'reviewer', session: 'review', run: 'run-1' } }] }),
+        args: JSON.stringify({ targets }),
         status: 'running',
       }}
     />)
-    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('0/0 个任务已返回')
+    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('0/3 个任务已返回')
 
     rerender(<ToolExecutionBlock message={{
       role: 'tool_call',
       name: 'await',
-      args: JSON.stringify({ targets: [{ ref: { agent: 'reviewer', session: 'review', run: 'run-1' } }] }),
-      result: JSON.stringify({ reason: 'timeout', results: [{ index: 0, outcome: 'observed', ready: false, run: { ref: { agent: 'reviewer', session: 'review', run: 'run-1' }, status: 'running' } }] }),
+      args: JSON.stringify({ targets }),
+      result: JSON.stringify({ reason: 'timeout', results: targets.map((target, index) => ({
+        index,
+        outcome: 'observed',
+        ready: false,
+        run: { ref: target.ref, status: 'running' },
+      })) }),
       status: 'success',
     }} />)
-    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('1/1 个任务已返回')
-    expect(container.querySelector('[data-nova-tool-summary]')).not.toHaveTextContent('0/1')
+    expect(container.querySelector('[data-nova-tool-summary]')).toHaveTextContent('3/3 个任务已返回')
+    expect(container.querySelector('[data-nova-tool-summary]')).not.toHaveTextContent('0/3')
   })
 
   it('keeps failed task wait results visible in the returned count', () => {

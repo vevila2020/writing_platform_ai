@@ -25,7 +25,7 @@
 
 InkDock is a modified, self-hosted creative workspace based on [Denova](https://github.com/alfredxw/denova). It retains novel writing, interactive stories, structured lore, AI Agents, image creation, and project version management.
 
-InkDock includes a recommended EliasApi relay connection: under **Settings → Language Models**, choose “Use EliasApi”, paste an API key, and InkDock reads the available models and recommends the newest chat model. Account registration remains on the [EliasApi](https://subapi.elias.kdns.fr/register) site.
+Under **Settings → Language Models**, “Use EliasApi” appears when there are no connections. If you already have a connection, including an inherited one, choose “Add Connection” and use the settings below. Register on the [EliasApi site](https://subapi.elias.kdns.fr/register).
 
 ![InkDock writing interface preview](./img/ide.png)
 
@@ -104,7 +104,7 @@ For stable use, choose a Release. The `master` branch may contain unreleased cha
 
 ### First Run
 
-1. In **Settings → Language Models**, choose “Use EliasApi”, paste an API key, and select the recommended model. You can also add another provider or a custom connection.
+1. Open **Settings → Language Models**. For your first connection, you can choose “Use EliasApi”. If you already have a connection, choose “Add Connection”. Enter the connection details, then click “Choose Models”.
 2. Create or import a book, or open an existing project directory.
 3. Start creating from Writing, or create an interactive storyline from Game. Configure an image model only when you need image generation.
 
@@ -128,7 +128,7 @@ Default addresses:
 
 The recommended setup is through Settings: add a provider connection, select or enter a model, and test the connection. One connection can be reused by multiple models. Language models support built-in providers and custom API-compatible endpoints. Image models support OpenAI, xAI/Grok, Volcengine Seedream, Google Gemini Image, ComfyUI Workflow, and custom endpoints.
 
-When no language model is configured, Settings shows the recommended EliasApi connection. “Use EliasApi” prefills the relay address and Responses protocol; after you paste an API key, InkDock reads the relay's `/v1/models` live, lists the newest chat model first, and marks it “Latest”. New models appear after reopening the model list, without upgrading InkDock. EliasApi is only a recommended connection and does not prevent you from using other providers or custom endpoints.
+If you see “Use EliasApi”, click it to prefill the connection details. If you already have a connection, click “Add Connection” below the list, select “Custom Endpoint” as the provider, choose “Responses API” as the protocol, and enter `https://subapi.elias.kdns.fr/v1` as the Base URL. Paste your EliasApi key into the new connection and click “Choose Models”. InkDock reads the relay’s `/v1/models` and marks the newest chat model as “Latest”.
 
 For Google Gemini text models, select “Gemini native API” in the connection's protocol options to use native tool calls, image inputs and reasoning continuation. Existing OpenAI-compatible connections keep their protocol.
 

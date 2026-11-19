@@ -85,52 +85,34 @@ describe('MessageItem streaming Markdown', () => {
     expect(screen.queryByTitle(/下载|download/i)).not.toBeInTheDocument()
   })
 
-  it('renders streaming thinking as lightweight transcript text', async () => {
-    const content = [
-      '**正在分析。**',
-      '',
-      '$$',
-      'x^2 + y^2 = z^2',
-      '$$',
-      '',
-      '![分析图](assets/image/generated/analysis.png)',
-    ].join('\n')
+  it('formats live and settled thinking without loading linked media', async () => {
+    const content = '**核对第五章。**\n\n113. **动作顺序** — 先核对人物的位置。\n114. ![动作示意](assets/diagram.png)'
     const { container, rerender } = render(
-      <MessageItem projectId="project-thinking" message={{ role: 'thinking', content, streaming: true }} />,
+      <MessageItem message={{ role: 'thinking', content: '', streaming_target_content: content, streaming: true }} />,
     )
 
-    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**'))
-    expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
-    expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
-    expect(container.querySelector('img[alt="分析图"]')).not.toBeInTheDocument()
+    const region = screen.getByRole('region', { name: '思考内容' })
+    await waitFor(() => expect(region.querySelector('strong')).toHaveTextContent('核对第五章。'))
+    expect(region.querySelector('ol')).toHaveAttribute('start', '113')
+    expect(region.querySelectorAll('li')).toHaveLength(2)
+    expect(region).toHaveTextContent('动作示意')
+    expect(region.querySelector('img, [data-sd-animate]')).toBeNull()
 
-    rerender(
-      <MessageItem projectId="project-thinking" message={{ role: 'thinking', content, streaming: false }} />,
-    )
-    expect(container.querySelector('[data-thinking-text]')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: '展开思考' }))
-    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**正在分析。**'))
-    expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
+    rerender(<MessageItem message={{ role: 'thinking', content, streaming: false }} />)
+    expect(screen.queryByRole('region')).toBeNull()
+    const header = screen.getByRole('button', { name: '展开思考' })
+    expect(header).toHaveTextContent('核对第五章。')
+    expect(header).not.toHaveTextContent('**')
+    fireEvent.click(header)
+    await waitFor(() => expect(container.querySelector('li strong')).toHaveTextContent('动作顺序'))
   })
 
-  it('keeps thinking on the lightweight text path under full motion', async () => {
-    const message = { role: 'thinking' as const, content: '**Streaming text** remains readable.', streaming: true }
-    const { container } = render(<NovaMotionProvider intensity="full"><MessageItem message={message} /></NovaMotionProvider>)
-    expect(container.querySelector('[data-thinking-text]')).toHaveAttribute('data-streaming-reveal', 'typewriter')
-    await waitFor(() => expect(container.querySelector('[data-thinking-text]')).toHaveTextContent('**Streaming text** remains readable.'))
-    expect(container.querySelector('[data-sd-animate]')).not.toBeInTheDocument()
-    expect(container.querySelector('[data-streamdown]')).not.toBeInTheDocument()
-  })
-
-  it('shows thinking text immediately when motion is reduced or disabled', () => {
-    const message = { role: 'thinking' as const, content: 'Immediate thinking text.', streaming: true }
-    for (const intensity of ['reduced', 'off']) {
-      const { container, unmount } = render(<NovaMotionProvider intensity={intensity}><MessageItem message={message} /></NovaMotionProvider>)
-      const thinking = container.querySelector('[data-thinking-text]')
-      expect(thinking).toHaveAttribute('data-streaming-reveal', 'instant')
-      expect(thinking).toHaveTextContent('Immediate thinking text.')
-      unmount()
-    }
+  it('shows only the activity indicator until the first thinking text arrives', () => {
+    const { rerender } = render(<MessageItem message={{ role: 'thinking', content: '  ', streaming: true }} />)
+    expect(screen.getByRole('status')).toHaveTextContent('正在思考')
+    expect(screen.queryByRole('button')).toBeNull()
+    rerender(<MessageItem message={{ role: 'thinking', content: '', streaming: false }} />)
+    expect(screen.queryByRole('status')).toBeNull()
   })
 
   it('preserves reply word animations across thinking motion preferences', () => {

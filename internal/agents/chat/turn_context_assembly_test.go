@@ -307,7 +307,7 @@ func TestSessionConversationAssemblesTurnAndRuntimeFragmentsUnderOneBudget(t *te
 	}
 }
 
-func TestSessionConversationRejectsTruncatedStableLore(t *testing.T) {
+func TestSessionConversationRejectsTruncatedTurnScopedLoreIndex(t *testing.T) {
 	store, err := session.NewStore(t.TempDir())
 	if err != nil {
 		t.Fatal(err)
@@ -318,7 +318,7 @@ func TestSessionConversationRejectsTruncatedStableLore(t *testing.T) {
 	}
 	conversation := agentconversation.NewSessionConversationForAgentWithRuntimeContexts(
 		sess, &config.Config{Language: "en-US"}, config.AgentKindIDE,
-		"Lore Index", "# Lore Index\n"+strings.Repeat("canon ", 100), "", "",
+		"", "", "Lore Index", "# Lore Index\n"+strings.Repeat("canon ", 100),
 	)
 	_, err = conversation.AssembleModelContext(context.Background(), "continue", agentcontext.ModelContextInput{
 		UserMessage: "continue", Budget: agentcontext.Budget{MaxFragmentBytes: 256},

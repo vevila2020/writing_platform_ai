@@ -27,8 +27,8 @@ const researchDirectory = "setting/research"
 
 // WorkspaceContext is the complete writing-workspace projection consumed by
 // Agent context assembly. File-backed writing state appears only as
-// workspace-relative locators. Stable may additionally contain enabled
-// resident Lore bodies, while all other Lore bodies stay behind Lore tools.
+// workspace-relative locators. The Lore index is turn-scoped; full on-demand
+// Lore bodies stay behind Lore tools.
 type WorkspaceContext struct {
 	Stable  string
 	Dynamic string
@@ -70,9 +70,6 @@ func (s *State) WorkspaceContext() WorkspaceContext {
 	stable := renderWorkspacePathIndex("Workspace Source Index", []workspaceContextPathSection{
 		{Title: "Canonical writing files", Paths: stableFiles},
 	})
-	if loreContext := s.progressiveLoreContext(); loreContext != "" {
-		stable = strings.TrimSpace(strings.Join(nonEmptyContextValues(stable, loreContext), "\n\n"))
-	}
 
 	dynamic := renderWorkspacePathIndex("Current Writing Source Index", []workspaceContextPathSection{
 		{Title: "Current writing state", Paths: dynamicFiles},
@@ -81,6 +78,9 @@ func (s *State) WorkspaceContext() WorkspaceContext {
 		{Title: "Recent chapter paths", Paths: contextPaths("Chapter path", s.recentChapterPaths(workspaceContextChapterLimit))},
 		{Title: "Recent research reports", Paths: contextPaths("Research report", s.recentResearchPaths(workspaceContextResearchLimit))},
 	})
+	if loreContext := s.progressiveLoreContext(); loreContext != "" {
+		dynamic = strings.TrimSpace(strings.Join(nonEmptyContextValues(dynamic, loreContext), "\n\n"))
+	}
 
 	_, structureErr := os.Stat(filepath.Join(s.workspace, structureFile))
 	if structure, err := ReadChapterStructure(s.workspace); err == nil && (dynamic != "" || structureErr == nil) {

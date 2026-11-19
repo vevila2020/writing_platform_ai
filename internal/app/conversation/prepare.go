@@ -98,7 +98,7 @@ func prepareWriting(ctx context.Context, runtime Runtime, request agentchat.Chat
 			request.StyleRules = converted
 			slog.InfoContext(ctx, fmt.Sprintf("[agent-task] inject teller style rules teller_id=%s scenes=%q count=%d rules=%q", teller.ID, request.StyleScenes, len(converted), appagentruntime.StyleRuleNames(converted)))
 		}
-		runtime.IDETeller = appagentruntime.WritingTeller(teller, request.StyleRules)
+		runtime.IDETeller = appagentruntime.WritingTeller(teller)
 	} else {
 		slog.ErrorContext(ctx, fmt.Sprintf("[agent-task] load layered settings failed workspace=%s err=%v", runtime.Workspace, err))
 		appsettings.ApplyLocale(&runtime.Config, request.Locale)

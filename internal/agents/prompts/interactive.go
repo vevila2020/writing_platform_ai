@@ -13,10 +13,7 @@ type InteractiveStorySystemInstructionInput struct {
 	StoryTellerName         string
 	StoryTellerDescription  string
 	StoryTellerSystemPrompt string
-	// StyleRules are prose references for the current narrative style. The
-	// caller filters scene rules by this turn's # selection and size limit.
-	StyleRules    []StyleRule
-	PlanningGuide string
+	PlanningGuide           string
 }
 
 type InteractiveStoryPromptInput struct {
@@ -53,10 +50,6 @@ func BuildInteractiveStorySystemInstruction(in InteractiveStorySystemInstruction
 		sb.WriteString(tellerSystem)
 		sb.WriteString("\n\n---\n\n")
 	}
-	if styleRules := strings.TrimSpace(StyleRulesInstruction(in.StyleRules)); styleRules != "" {
-		sb.WriteString(styleRules)
-		sb.WriteString("\n\n---\n\n")
-	}
 	sb.WriteString(BuildInteractiveStoryFlowInstruction(in))
 	sb.WriteString("\n\n")
 	sb.WriteString("## Output Protocol\n")
@@ -74,10 +67,10 @@ func BuildInteractiveStoryFlowInstruction(in InteractiveStorySystemInstructionIn
 	sb.WriteString("## Mode Boundary\n")
 	sb.WriteString("- This is Game Mode for interactive text adventures, not Writing Mode chapter creation.\n")
 	sb.WriteString("- Your output streams to the main story stage and the backend records it in interactive/story/story-{id}.jsonl.\n")
-	sb.WriteString("- You may use read for shared prose-style paths explicitly listed by the system prompt. Do not use write, edit, or any tool that changes workspace files.\n")
+	sb.WriteString("- You may use read for shared prose-style paths explicitly listed in the current turn context. Do not use write, edit, or any tool that changes workspace files.\n")
 	sb.WriteString("- Do not call todo or planning tools and do not emit <invoke> tool-call fragments. Game Mode has no task list.\n")
 	sb.WriteString("- Do not create or modify chapters, outline, progress, characters, or similar files. Declare state changes and action suggestions through submit_interactive_turn; the backend validates and atomically persists them with the prose.\n")
-	sb.WriteString("- Continue from injected story context, shared canon, the current snapshot, and the prose-style index in the system prompt. # selects a scene-specific reference within the current narrative style; it is not a file reference.\n\n")
+	sb.WriteString("- Continue from injected story context, shared canon, the current snapshot, and this turn's prose-style index. # selects a scene-specific reference within the current narrative style; it is not a file reference.\n\n")
 	sb.WriteString("## Tool-assisted Recall Workflow\n")
 	sb.WriteString("- Full lore bodies and older history are not injected by default. Load lore for long-lived canon or character details, and search committed turns on the current branch for earlier clues or established events.\n")
 	sb.WriteString("- Context includes a Markdown Lore Index with authored and automatic groups that directly include names, briefs, or full bodies. For a known unique name, call query_lore_items with names and detail=full. Explore relevant groups with query_lore_items(group_names=[exact name]); keywords search the entire enabled library including bodies; detail=full can return matching bodies in the same call. Never invent unread lore.\n")

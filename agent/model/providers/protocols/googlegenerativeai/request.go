@@ -79,7 +79,9 @@ func requestContents(input []*agentschema.Message, config providers.ModelConfig)
 		}
 		switch message.Role {
 		case agentschema.System:
-			systemParts = append(systemParts, genai.NewPartFromText(message.Content))
+			if message.Content != "" {
+				systemParts = append(systemParts, genai.NewPartFromText(message.Content))
+			}
 		case agentschema.User:
 			parts := []*genai.Part{genai.NewPartFromText(agentschema.ModelUserContent(message))}
 			for _, attachment := range message.Attachments {
@@ -101,7 +103,9 @@ func requestContents(input []*agentschema.Message, config providers.ModelConfig)
 			for _, call := range message.ToolCalls {
 				toolNames[call.ID] = call.Function.Name
 			}
-			contents = append(contents, genai.NewContentFromParts(parts, genai.RoleModel))
+			if len(parts) != 0 {
+				contents = append(contents, genai.NewContentFromParts(parts, genai.RoleModel))
+			}
 		case agentschema.ToolRole:
 			name := strings.TrimSpace(message.ToolName)
 			if name == "" {
@@ -178,6 +182,16 @@ func assistantParts(message *agentschema.Message, config providers.ModelConfig) 
 						return nil, fmt.Errorf("google generative AI retained tool arguments: %w", err)
 					}
 					part.FunctionCall.Name = call.Function.Name
+				} else if !hasPartData(part) {
+					// Gemini can stream a thought signature separately from its
+					// content part. Keep it with that part; a metadata-only Part is
+					// not a valid request input.
+					if len(part.ThoughtSignature) > 0 && len(replay) > 0 {
+						previous := *replay[len(replay)-1]
+						previous.ThoughtSignature = append([]byte(nil), part.ThoughtSignature...)
+						replay[len(replay)-1] = &previous
+					}
+					continue
 				}
 				replay = append(replay, part)
 			}
@@ -185,7 +199,7 @@ func assistantParts(message *agentschema.Message, config providers.ModelConfig) 
 		}
 	}
 	parts := make([]*genai.Part, 0, 1+len(message.ToolCalls))
-	if message.Content != "" || len(message.ToolCalls) == 0 {
+	if message.Content != "" {
 		parts = append(parts, genai.NewPartFromText(message.Content))
 	}
 	for index, call := range message.ToolCalls {
@@ -203,6 +217,12 @@ func assistantParts(message *agentschema.Message, config providers.ModelConfig) 
 		}})
 	}
 	return parts, nil
+}
+
+func hasPartData(part *genai.Part) bool {
+	return part != nil && (part.Text != "" || part.InlineData != nil || part.FileData != nil ||
+		part.FunctionCall != nil || part.FunctionResponse != nil || part.ExecutableCode != nil ||
+		part.CodeExecutionResult != nil || part.ToolCall != nil || part.ToolResponse != nil)
 }
 
 func requestTools(tools []*agentschema.ToolInfo) ([]*genai.Tool, error) {

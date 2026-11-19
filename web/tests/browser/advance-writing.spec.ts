@@ -45,6 +45,8 @@ for (const theme of ['dark', 'light'] as const) {
       await page.getByRole('button', { name: english ? 'Input actions' : '输入动作', exact: true }).click()
       const skillMenu = page.getByRole('menuitem', { name: english ? 'Writing Skill' : '写作 Skill', exact: true })
       await skillMenu.click()
+      await expect(page.getByRole('menu', { name: english ? 'Writing Skill' : '写作 Skill', exact: true }).getByRole('menuitem'))
+        .toHaveText([/Lite/, /Standard/, /Advance/])
       const advance = page.getByRole('menuitem', { name: /^Advance\b/ })
       await expect(advance).toBeVisible()
       if (width === 1440) {

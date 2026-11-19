@@ -58,7 +58,7 @@ func projectTurnInput(input turnContextProjectionInput) turnInputProjection {
 
 func projectTurnContextFragments(input turnContextProjectionInput) []agentcontext.Fragment {
 	req := input.Request
-	fragments := make([]agentcontext.Fragment, 0, 5+len(req.References)+len(req.LoreReferences)+len(req.Selections))
+	fragments := make([]agentcontext.Fragment, 0, 6+len(req.References)+len(req.LoreReferences)+len(req.Selections))
 	appendFragment := func(fragment agentcontext.Fragment) {
 		if strings.TrimSpace(fragment.Content) != "" {
 			fragments = append(fragments, fragment)
@@ -110,6 +110,19 @@ func projectTurnContextFragments(input turnContextProjectionInput) []agentcontex
 			"apply trusted server-resolved review feedback to this turn",
 			block, agentreview.MaxContextBytes,
 		))
+	}
+	if styleRules := strings.TrimSpace(prompts.StyleRulesInstruction(req.StyleRules)); styleRules != "" {
+		limit := input.Budget.MaxFragmentBytes
+		if limit <= 0 {
+			limit = agentcontext.DefaultMaxFragmentBytes
+		}
+		fragment := turnFragment(
+			"narrative_style_rules", "narrative.style.rules", "Prose Style References for This Turn",
+			"apply the selected narrative style references to prose generated in this turn",
+			styleRules, limit,
+		)
+		fragment.Note = "source=current narrative style; scene rules filtered for this turn"
+		appendFragment(fragment)
 	}
 	appendFragment(turnFragment(
 		"turn_rule_context_boundary", "turn.rule.context_boundary", "Context Boundary",

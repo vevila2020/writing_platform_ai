@@ -24,6 +24,8 @@ type projectInstructionDefinition struct {
 	purpose  string
 }
 
+const writingContextCacheAnchor = "Writing context follows."
+
 var projectInstructionDefinitions = [...]projectInstructionDefinition{
 	{
 		resource: book.AgentInstructionsFileName,
@@ -39,8 +41,8 @@ var projectInstructionDefinitions = [...]projectInstructionDefinition{
 	},
 }
 
-// NewProjectInstructionsContextSource exposes root AGENTS.md and CREATOR.md as
-// independently attributable stable instructions before conversation history.
+// NewProjectInstructionsContextSource puts a constant writing anchor before
+// root AGENTS.md and CREATOR.md so turn changes retain a stable first message.
 func NewProjectInstructionsContextSource(cfg *config.Config, agentKind string, state *book.State) (agentcontext.ContextSource, error) {
 	if state == nil {
 		return nil, nil
@@ -67,17 +69,18 @@ func NewProjectInstructionsContextSource(cfg *config.Config, agentKind string, s
 	digest := sha256.Sum256(encoded)
 	return projectInstructionsContextSource{
 		files: book.NewService(workspace),
-		limit: limit,
+		limit: limit, agentKind: agentKind,
 		identity: agentschema.CapabilityIdentity{
-			Kind: "denova.project_instructions.context", Version: 3, ConfigHash: hex.EncodeToString(digest[:]),
+			Kind: "denova.project_instructions.context", Version: 4, ConfigHash: hex.EncodeToString(digest[:]),
 		},
 	}, nil
 }
 
 type projectInstructionsContextSource struct {
-	files    *book.Service
-	limit    int
-	identity agentschema.CapabilityIdentity
+	files     *book.Service
+	limit     int
+	agentKind string
+	identity  agentschema.CapabilityIdentity
 }
 
 func (source projectInstructionsContextSource) Identity() agentschema.CapabilityIdentity {
@@ -85,7 +88,15 @@ func (source projectInstructionsContextSource) Identity() agentschema.Capability
 }
 
 func (source projectInstructionsContextSource) Materialize(context.Context, agentcontext.ContextRequest) ([]agentschema.ContextFragment, error) {
-	fragments := make([]agentschema.ContextFragment, 0, len(projectInstructionDefinitions))
+	fragments := make([]agentschema.ContextFragment, 0, len(projectInstructionDefinitions)+1)
+	if source.agentKind == config.AgentKindIDE {
+		fragments = append(fragments, agentschema.ContextFragment{
+			Source: "writing.context.cache_anchor", Purpose: "keep the first model content stable across writing turns",
+			Resource: "writing-context-cache-anchor", Revision: "1",
+			Stability: agentschema.ContextStablePrefix, Placement: agentschema.ContextLeadingMessage, Rendering: agentschema.ContextRenderVerbatim, Role: agentschema.User,
+			Content: writingContextCacheAnchor, HardLimit: source.limit,
+		})
+	}
 	for _, definition := range projectInstructionDefinitions {
 		raw, err := source.files.ReadFile(definition.resource)
 		if errors.Is(err, os.ErrNotExist) {

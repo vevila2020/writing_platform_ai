@@ -169,50 +169,38 @@ func TestTurnContextBoundaryEmphasizesCurrentRequest(t *testing.T) {
 	}
 }
 
-func TestStyleRulesSystemInstructionEmitsSceneAndStyles(t *testing.T) {
-	got := styleRulesSystemInstruction([]prompts.StyleRule{
+func TestStyleRulesAreInjectedIntoCurrentTurnTail(t *testing.T) {
+	rules := []prompts.StyleRule{
 		{Global: true, StyleReferences: []prompts.StyleReference{{Name: "默认克制", Path: "/tmp/.inkdock/styles/global.md", DisplayPath: ".inkdock/styles/global.md"}}},
 		{Scene: "激烈打斗", StyleReferences: []prompts.StyleReference{{Name: "克制细腻", Description: "短句留白", Path: "/tmp/.inkdock/styles/restraint.md", DisplayPath: ".inkdock/styles/restraint.md"}}, StyleContents: []string{"短句留白", "强冲突快节奏"}},
 		{Scene: "日常对话", StyleContents: []string{"温吞对白"}},
 		{Scene: "", StyleContents: []string{"无效内容"}},     // 应被跳过
 		{Scene: "空风格", StyleContents: []string{"", " "}}, // 空内容应被跳过
-	})
-
-	assertContains(t, got, "## Prose Style References")
-	assertContains(t, got, "Global prose-style references: apply to all prose generation by default")
-	assertContains(t, got, "name: 默认克制")
-	assertContains(t, got, "Scene: 激烈打斗")
-	assertContains(t, got, "短句留白")
-	assertContains(t, got, "强冲突快节奏")
-	assertContains(t, got, "name: 克制细腻")
-	assertContains(t, got, "path: /tmp/.inkdock/styles/restraint.md")
-	assertContains(t, got, "Scene: 日常对话")
-	assertContains(t, got, "温吞对白")
-	assertContains(t, got, "Global references apply to all prose generation by default")
-	assertContains(t, got, "Before writing an interactive-story turn")
-	assertContains(t, got, "use read to load every global reference path")
-	assertContains(t, got, "Choose scene-specific references only when they closely match")
-	assertContains(t, got, "do not force a match")
-	assertContains(t, got, "Ignore these references for brainstorming")
-	assertContains(t, got, "read")
-	if strings.Contains(got, "无效内容") {
-		t.Fatalf("空 scene 的规则应被跳过，但仍包含无效内容：\n%s", got)
 	}
-}
-
-func TestBoundedStyleRulesBoundsReferenceIndex(t *testing.T) {
-	got := boundedStyleRules([]prompts.StyleRule{{
-		Scene: "日常对话",
-		StyleReferences: []prompts.StyleReference{
-			{Name: "短", Path: "/tmp/.inkdock/styles/short.md", DisplayPath: ".inkdock/styles/short.md"},
-			{Name: strings.Repeat("长", 100), Description: strings.Repeat("风", 100), Path: "/tmp/.inkdock/styles/long.md", DisplayPath: ".inkdock/styles/long.md"},
-		},
-	}}, 120)
-	if len(got) != 1 || len(got[0].StyleReferences) != 1 {
-		t.Fatalf("bounded refs = %#v, want only first ref", got)
+	_, assembled := assembleTurnForTest(t, ChatRequest{Message: "写一段激烈打斗", StyleRules: rules}, nil, nil, agentcontext.DefaultBudget())
+	var styleFragment *agentcontext.Fragment
+	for index := range assembled.Context.Fragments {
+		if assembled.Context.Fragments[index].Source == "narrative.style.rules" {
+			styleFragment = &assembled.Context.Fragments[index]
+			break
+		}
 	}
-	if got[0].StyleReferences[0].Name != "短" {
-		t.Fatalf("first ref mismatch: %#v", got[0].StyleReferences[0])
+	if styleFragment == nil || styleFragment.Placement != agentcontext.PlacementFinalUserPrefix || !styleFragment.Included {
+		t.Fatalf("style rules fragment = %#v, want included turn-tail context", styleFragment)
+	}
+	for _, want := range []string{
+		"## Prose Style References", "Global prose-style references", "Scene: 激烈打斗",
+		"name: 克制细腻", "path: /tmp/.inkdock/styles/restraint.md", "温吞对白",
+		"Before writing an interactive-story turn", "Ignore these references for brainstorming",
+	} {
+		assertContains(t, styleFragment.Content, want)
+	}
+	if strings.Contains(styleFragment.Content, "无效内容") {
+		t.Fatalf("invalid scene rule was not filtered: %s", styleFragment.Content)
+	}
+	final := finalAssembledUserMessage(t, assembled)
+	if strings.Index(final, "## Prose Style References") < 0 || !strings.HasSuffix(strings.TrimSpace(final), "写一段激烈打斗") {
+		t.Fatalf("style rules must be in the current user message while the request remains last:\n%s", final)
 	}
 }
 

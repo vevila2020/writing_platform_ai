@@ -56,6 +56,51 @@ func TestStreamRetainsSignedPartsAndUsageOnlyTail(t *testing.T) {
 	}
 }
 
+func TestRequestMergesStandaloneThoughtSignaturePart(t *testing.T) {
+	config := providers.ModelConfig{
+		Provider: providers.ProviderGoogle, Protocol: providers.ProtocolGoogleGenerativeAI, Model: "gemini-test",
+	}
+	message, err := responseMessage(&genai.GenerateContentResponse{
+		Candidates: []*genai.Candidate{{
+			Content: &genai.Content{Parts: []*genai.Part{
+				{Text: "thinking", Thought: true},
+				{ThoughtSignature: []byte("thought-signature")},
+				{FunctionCall: &genai.FunctionCall{ID: "call-1", Name: "lookup", Args: map[string]any{"q": "x"}}},
+			}},
+		}},
+	}, config)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, contents, err := requestContents([]*agentschema.Message{message}, config)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(contents) != 1 || len(contents[0].Parts) != 2 {
+		t.Fatalf("request contents = %#v, want thought and function call parts only", contents)
+	}
+	if contents[0].Parts[0].Text != "thinking" || string(contents[0].Parts[0].ThoughtSignature) != "thought-signature" {
+		t.Fatalf("thought part = %#v", contents[0].Parts[0])
+	}
+	if contents[0].Parts[1].FunctionCall == nil || contents[0].Parts[1].FunctionCall.ID != "call-1" {
+		t.Fatalf("function call part = %#v", contents[0].Parts[1])
+	}
+}
+
+func TestRequestSkipsAssistantMessageWithoutParts(t *testing.T) {
+	config := providers.ModelConfig{
+		Provider: providers.ProviderGoogle, Protocol: providers.ProtocolGoogleGenerativeAI, Model: "gemini-test",
+	}
+	_, contents, err := requestContents([]*agentschema.Message{{Role: agentschema.Assistant}}, config)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(contents) != 0 {
+		t.Fatalf("contents = %#v, want empty assistant history to be omitted", contents)
+	}
+}
+
 func TestStreamWithoutTerminalDoesNotCommitContinuation(t *testing.T) {
 	state := &streamState{parts: []*genai.Part{{Text: "partial"}}}
 	if _, err := state.convert(&genai.GenerateContentResponse{Candidates: []*genai.Candidate{{FinishReason: genai.FinishReasonUnspecified}}}, providers.ModelConfig{}); err != nil {

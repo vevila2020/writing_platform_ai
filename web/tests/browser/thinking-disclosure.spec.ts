@@ -37,7 +37,12 @@ for (const theme of ['dark', 'light']) {
         }), { headers: { 'content-type': 'text/event-stream' } })
       }
     })
-    const reasoning = 'Motion evidence.\n\n' + 'Long thinking remains readable while tools are toggled. '.repeat(180)
+    const notes = [
+      '**动作顺序** — 核对林夕从扶起同伴到离开走廊的先后顺序，让每一次移动都有落点。',
+      '**人物视角** — 确认哪些细节是林夕此刻能看见的，保留走廊尽头的悬念。',
+      '**前后呼应** — 回看第四章留下的线索，再决定这一段需要交代多少。',
+    ]
+    const reasoning = '**核对第五章的连续性**\n\n' + Array.from({ length: 15 }, (_, i) => `${100 + i}. ${notes[i % notes.length]}`).join('\n')
     const chunks: UIMessageChunk[] = [
       { type: 'start', messageId: 'motion-run', messageMetadata: { run_id: 'motion-run' } },
       { type: 'tool-input-start', toolCallId: 'motion-tool', toolName: 'bash' },
@@ -65,20 +70,24 @@ for (const theme of ['dark', 'light']) {
     await openWritingAgent(page)
     const thinking = page.locator('[data-nova-scroll-lock="thinking"]').filter({ visible: true })
     await expect(thinking).toBeVisible()
-    await expect(thinking.locator('[data-thinking-text]')).toHaveAttribute('data-streaming-reveal', 'typewriter')
-    await expect(thinking.locator('[data-thinking-text]')).toContainText('Motion evidence.')
-    await expect(thinking.locator('[data-streamdown], [data-sd-animate]')).toHaveCount(0)
+    await expect(thinking.locator('strong').first()).toHaveText('核对第五章的连续性')
+    await expect(thinking.getByRole('listitem')).toHaveCount(15)
+    await expect(thinking.locator('[data-sd-animate]')).toHaveCount(0)
+    await expect.poll(() => thinking.evaluate(el => el.scrollHeight - el.clientHeight - el.scrollTop)).toBeLessThan(2)
     await expect(page.getByRole('button', { name: '收起思考', exact: true })).toBeVisible()
     const tool = page.locator('[data-nova-tool-header]').filter({ visible: true })
     await tool.click()
     await expect(tool).toHaveAttribute('aria-expanded', 'true')
     await tool.click()
     await expect(tool).toHaveAttribute('aria-expanded', 'false')
-    await thinking.press('PageUp')
+    await thinking.press('Home')
+    await expect.poll(() => thinking.evaluate(el => el.scrollTop)).toBe(0)
+    await thinking.locator('xpath=ancestor::*[@data-slot="collapsible"][1]').screenshot({ path: test.info().outputPath(`thinking-panel-${theme}.png`) })
     await page.evaluate(() => window.dispatchEvent(new CustomEvent('test-thinking-disclosure', {
       detail: 'data: {"type":"reasoning-delta","id":"motion-thinking","delta":" Still streaming."}\n\n',
     })))
     await expect(thinking).toContainText('Still streaming.')
+    expect(await thinking.evaluate(el => el.scrollTop)).toBe(0)
     settled = true
     history = [{ id: 'motion-run', role: 'assistant', metadata: { run_id: 'motion-run' }, parts: [
       { type: 'dynamic-tool', toolCallId: 'motion-tool', toolName: 'bash', state: 'output-available', input: { command: 'echo motion-probe' }, output: 'motion-probe' },
@@ -101,7 +110,7 @@ for (const theme of ['dark', 'light']) {
     await expect(page.getByText('The result stays below the process.', { exact: true })).toBeVisible()
     await page.getByRole('button', { name: '展开思考', exact: true }).click()
     await expect(thinking).toBeVisible()
-    await expect(thinking.locator('[data-thinking-text]')).toContainText('Still streaming.')
+    await expect(thinking).toContainText('Still streaming.')
     await page.getByRole('button', { name: '收起思考', exact: true }).click()
     await expect(thinking).toHaveCount(0)
     await expect(process).toHaveAttribute('aria-expanded', 'true')

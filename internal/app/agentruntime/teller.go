@@ -16,15 +16,15 @@ func WritingTellerForConfig(cfg *config.Config) prompts.IDEStoryTeller {
 	if tellerID == "" {
 		tellerID = style.DefaultID
 	}
-	return WritingTeller(interactiveapp.LoadWritingTeller(cfg.DataDir(), tellerID), nil)
+	return WritingTeller(interactiveapp.LoadWritingTeller(cfg.DataDir(), tellerID))
 }
 
-func WritingTeller(definition teller.Definition, styleRules []prompts.StyleRule) prompts.IDEStoryTeller {
+func WritingTeller(definition teller.Definition) prompts.IDEStoryTeller {
 	if definition.ID == "" {
 		return prompts.IDEStoryTeller{}
 	}
 	return prompts.IDEStoryTeller{
 		ID: definition.ID, Name: definition.Name, Description: definition.Description,
-		Prompt: definition.PromptForTargets("system", "turn_context"), StyleRules: styleRules,
+		Prompt: definition.PromptForTargets("system", "turn_context"),
 	}
 }

@@ -4,7 +4,6 @@ import type { CSSProperties } from 'react'
 import type { ChapterIllustration, ChatMessage } from '@/lib/api'
 import { subAgentSessionKey } from './subagent-session'
 import { Message as AIMessage, MessageContent as AIMessageContent } from '@/components/ai-elements/message'
-import { StreamingContentStage } from './StreamingContentStage'
 import { AskInteractionCard, type AskInteractionResolver } from './AskInteractionCard'
 import { ToolApprovalCard } from './ToolApprovalCard'
 import {
@@ -110,7 +109,7 @@ function MessageItemContent({ projectId = '', message, assistantPresentation = '
       const streamingTargetContent = message.streaming === true && message.streaming_target_content && message.streaming_target_content !== content
         ? message.streaming_target_content
         : undefined
-      const visibleContent = sanitizeThinkTags(streamingTargetContent || content).trim()
+      const visibleContent = sanitizeThinkTags(streamingTargetContent || content)
       const reserveMetaSpace = message.streaming === true || Boolean(onReadAloud || canEditAssistantReply || canCreateBranch || onGenerateInteractiveImage || onRegenerate || onSwitchVersion)
       return (
         <AIMessage from="assistant" className="max-w-none">
@@ -118,19 +117,15 @@ function MessageItemContent({ projectId = '', message, assistantPresentation = '
             <div className="nova-message-body-with-meta nova-message-body-with-meta-assistant">
               <AIMessageContent className="chat-agent-message block w-full gap-0 px-1 text-sm text-[var(--nova-text)]" style={messageStyle}>
                 {/* Live and settled replies share one streaming-aware Markdown tree. */}
-                {message.streaming && !visibleContent ? (
+                {message.streaming && !visibleContent.trim() ? (
                   <StreamingPlaceholder />
                 ) : (
-                  <StreamingContentStage content={content} targetContent={streamingTargetContent} streaming={message.streaming === true}>
-                    {(value) => (
-                      <MarkdownContent
-                        content={sanitizeThinkTags(value)}
-                        highlightDialogue={highlightDialogue}
-                        projectId={projectId}
-                        streaming={message.streaming === true}
-                      />
-                    )}
-                  </StreamingContentStage>
+                  <MarkdownContent
+                    content={visibleContent}
+                    highlightDialogue={highlightDialogue}
+                    projectId={projectId}
+                    streaming={message.streaming === true}
+                  />
                 )}
               </AIMessageContent>
               <InteractiveImageStrip message={message} projectId={projectId} />

@@ -115,16 +115,11 @@ func loadGamePlanningTemplate(novaDir, templateID string) interactive.GamePlanni
 	return fallback
 }
 
-func StoryTellerSystemInput(teller teller.Definition, styleRules ...[]prompts.StyleRule) prompts.InteractiveStorySystemInstructionInput {
-	var rules []prompts.StyleRule
-	if len(styleRules) > 0 {
-		rules = styleRules[0]
-	}
+func StoryTellerSystemInput(teller teller.Definition) prompts.InteractiveStorySystemInstructionInput {
 	return prompts.InteractiveStorySystemInstructionInput{
 		StoryTellerID:           teller.ID,
 		StoryTellerName:         teller.Name,
 		StoryTellerDescription:  teller.Description,
 		StoryTellerSystemPrompt: teller.PromptForTargets("system"),
-		StyleRules:              rules,
 	}
 }

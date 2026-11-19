@@ -90,7 +90,7 @@ type StyleRule struct {
 	StyleContents   []string
 }
 
-// StyleRulesInstruction renders the director's style index as a stable system prompt fragment.
+// StyleRulesInstruction renders the scene-filtered style index for the current turn.
 func StyleRulesInstruction(rules []StyleRule) string {
 	var sb strings.Builder
 	sb.WriteString("## Prose Style References\n\n")

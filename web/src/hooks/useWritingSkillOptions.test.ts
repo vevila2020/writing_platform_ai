@@ -35,7 +35,7 @@ describe('writingSkillOptionsFromSnapshot', () => {
     expect(options.map((option) => option.name)).toEqual(['novel-serial'])
   })
 
-  it('lists the default first, then builtin workflows, then other scopes', () => {
+  it('lists builtin presets in workflow order before other scopes', () => {
     const options = writingSkillOptionsFromSnapshot([
       skill({ name: 'novel-serial' }),
       skill({ name: 'novel-standard' }),
@@ -46,8 +46,8 @@ describe('writingSkillOptionsFromSnapshot', () => {
 
     expect(options.map((option) => option.name)).toEqual([
       DEFAULT_WRITING_SKILL,
-      'novel-serial',
       'novel-standard',
+      'novel-serial',
       'user-flow',
       'workspace-flow',
     ])

@@ -202,9 +202,6 @@ func contextAnalysisWorkspace(cfg *config.Config, bookService *book.Service) str
 }
 
 func BuildInteractiveStoryContextAnalysis(cfg *config.Config, state *book.State, teller prompts.InteractiveStorySystemInstructionInput, bookService *book.Service, req ChatRequest, compaction *interactive.ContextCompactionProjection, conversation Conversation) (ContextAnalysis, error) {
-	if len(teller.StyleRules) == 0 && len(req.StyleRules) > 0 {
-		teller.StyleRules = req.StyleRules
-	}
 	systemPrompt, systemParts, err := buildInteractiveStorySystemPromptAnalysis(cfg, state, teller)
 	if err != nil {
 		return ContextAnalysis{}, err
@@ -397,36 +394,4 @@ func systemPromptAnalysisParts(composition prompts.SystemPromptComposition) []Co
 		}))
 	}
 	return parts
-}
-
-func styleRuleContextAnalysisParts(rules []prompts.StyleRule) []ContextAnalysisPart {
-	parts := make([]ContextAnalysisPart, 0, len(rules))
-	for i, rule := range rules {
-		scene := strings.TrimSpace(rule.Scene)
-		if !rule.Global && scene == "" {
-			continue
-		}
-		if len(rule.StyleReferences) == 0 && len(rule.StyleContents) == 0 {
-			continue
-		}
-		content := prompts.StyleRulesInstruction([]prompts.StyleRule{rule})
-		if strings.TrimSpace(content) == "" {
-			continue
-		}
-		parts = append(parts, NewContextAnalysisPart(ContextAnalysisPartInput{
-			ID:      fmt.Sprintf("style_rule_%d", i+1),
-			Source:  "当前叙事风格",
-			Title:   "文风参考：" + styleRuleAnalysisTitle(rule),
-			Content: content,
-			Note:    "system prompt",
-		}))
-	}
-	return parts
-}
-
-func styleRuleAnalysisTitle(rule prompts.StyleRule) string {
-	if rule.Global {
-		return "全局"
-	}
-	return strings.TrimSpace(rule.Scene)
 }

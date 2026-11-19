@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/* Includes shared utilities such as the scroll-aware fade used by Agent reasoning. */
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "streamdown/styles.css";
@@ -1668,6 +1667,36 @@ html[data-nova-motion="off"] .shimmer {
   html:not([data-nova-motion="full"]) .nova-tool-content {
     animation-duration: 1ms !important;
   }
+}
+
+/* Keep the trace subordinate to the reply, with a hanging indent for long notes. */
+.nova-thinking-prose {
+  margin-inline-start: 0.7rem;
+  border-inline-start: 1px solid var(--nova-border);
+  padding: 0.15rem 0.65rem 0.3rem 1.05rem;
+  color: var(--nova-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.nova-thinking-prose > * + * { margin-block-start: 0.65em; }
+.nova-thinking-prose :is(h1, h2, h3, h4, h5, h6, strong) {
+  margin: 0;
+  color: var(--nova-text);
+  font-size: inherit;
+  font-weight: 600;
+}
+.nova-thinking-prose :is(ul, ol) { padding-inline-start: 2.3em; list-style-position: outside; }
+.nova-thinking-prose li { padding-block: 0.12em; }
+.nova-thinking-prose li::marker { color: var(--nova-text-faint); font-variant-numeric: tabular-nums; }
+.nova-thinking-prose :is(p, pre) { white-space: pre-wrap; }
+.nova-thinking-prose code { border-radius: 3px; background: var(--nova-code-bg); padding: 0.1em 0.3em; }
+
+html[data-nova-motion="full"] .nova-thinking-pulse { animation: pulse 2s ease-in-out infinite; }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-nova-motion="system"] .nova-thinking-pulse { animation: pulse 2s ease-in-out infinite; }
 }
 
 .nova-message-body-with-meta {

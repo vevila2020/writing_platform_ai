@@ -315,7 +315,7 @@ func styleRulePromptSources(rules []StyleRule) []promptSource {
 			title = "Prose Style Reference: " + scene
 		}
 		sources = append(sources, promptSource{
-			source:  "System prompt",
+			source:  "Current turn context",
 			title:   title,
 			content: content,
 			note:    "Current narrative style",

@@ -5,10 +5,8 @@ import (
 	"strings"
 )
 
-// StyleRulesProtocolHeader and StyleRulesProtocolFooter are the stable framing
-// around independently budgeted style entries. Keeping framing separate lets
-// the Agent context assembler audit and truncate each user-owned rule without
-// duplicating the protocol for every rule.
+// StyleRulesProtocolHeader and StyleRulesProtocolFooter frame the selected
+// style references rendered into the current turn context.
 func StyleRulesProtocolHeader() string {
 	return "## Prose Style References\n\nThe current narrative style provides the following prose-style reference index. References are shared Markdown files stored under `.inkdock/styles/`; the index provides only name, description, and path, not full content.\n"
 }
@@ -86,8 +84,6 @@ type SystemInstructionInput struct {
 	StoryTellerDescription string
 	// StoryTellerPrompt contains reusable director system and turn-context rules.
 	StoryTellerPrompt string
-	// StyleRules contains director style references already filtered for this turn and size limit.
-	StyleRules []StyleRule
 	// ChapterFilenameFormat is the chapter filename template, such as ch{order:05}-{chapter}-{title}.md.
 	ChapterFilenameFormat string
 	// VolumeDirFormat is the volume directory template, such as v{order:05}-{volume}.
@@ -112,11 +108,6 @@ func BuildSystemInstruction(in SystemInstructionInput) string {
 		sb.WriteString("\n\n")
 		sb.WriteString("These Director rules apply only to chapter prose, continuation, rewriting, polishing, and scene generation. For lore organization, outline planning, file Q&A, or tool operations, prioritize the current user request and Creator Instructions; do not distort the task to apply Director style.\n")
 		sb.WriteString("\n---\n\n")
-	}
-
-	if styleRules := strings.TrimSpace(StyleRulesInstruction(in.StyleRules)); styleRules != "" {
-		sb.WriteString(styleRules)
-		sb.WriteString("\n\n---\n\n")
 	}
 
 	sb.WriteString(BuildIDEWritingFlowInstruction(in))
@@ -194,7 +185,7 @@ const systemInstructionBody = `You are InkDock, an AI creative assistant. Help t
 3. After writing a complete chapter or materially changing its plot, finish prose review and the final revision for the turn, then update setting/progress.md and setting/character-states.md in the same turn. Pure typo, punctuation, or wording edits that do not change narrative facts need no state update. Update lore only for confirmed long-lived setting changes. Do not update outline.md unless the author explicitly requests structural changes.
 4. Before continuing prose, consult resident Lore already present in context, load any relevant on-demand Lore through Lore tools, and read the outline, progress, character state, chapter-group plan, and relevant chapters from the workspace source indexes to preserve continuity.
 5. Prose-style references come from the current narrative style. This turn's # selection chooses a scene-specific reference within that style; it is not a file reference.
-6. Read and apply indexed shared prose-style files only when the system prompt provides them and the task is chapter creation, continuation, rewriting, or interactive-story prose generation.
+6. Read and apply indexed shared prose-style files only when the current turn context provides them and the task is chapter creation, continuation, rewriting, or interactive-story prose generation.
 7. Use prose-style references only for voice, pacing, narration, sentence structure, and atmosphere. Do not copy their content, characters, plot, or setting.
 8. New chapter files must follow the chapter filename template in Writing Workflow Configuration. Determine the next number, title, and volume from outline.md, the current chapter-group plan, setting/progress.md, and existing chapter paths, then write under chapters/<volume-name>/. Existing paths and non-empty prose represent actual writing progress; chapter status does not. If progress conflicts with files, trust the files and correct progress in the same turn. Write directly under chapters/ only when neither the outline nor existing chapters use volumes. Do not fall back to two-digit numbering or flatten chapters that belong in a volume.
 9. Prefer edit for localized changes to an existing file; do not rewrite the whole file with write unnecessarily.

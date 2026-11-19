@@ -33,6 +33,12 @@ export function writingSkillOptionsFromSnapshot(skills: SkillSummary[], agentSki
   return active.sort((a, b) => {
     if (a.name === DEFAULT_WRITING_SKILL || b.name === DEFAULT_WRITING_SKILL) return a.name === DEFAULT_WRITING_SKILL ? -1 : 1
     if (a.scope !== b.scope && (a.scope === 'builtin' || b.scope === 'builtin')) return a.scope === 'builtin' ? -1 : 1
+    const aPresetRank = BUILTIN_WRITING_SKILLS.findIndex((name) => name === a.name)
+    const bPresetRank = BUILTIN_WRITING_SKILLS.findIndex((name) => name === b.name)
+    if (aPresetRank !== bPresetRank) {
+      return (aPresetRank < 0 ? BUILTIN_WRITING_SKILLS.length : aPresetRank)
+        - (bPresetRank < 0 ? BUILTIN_WRITING_SKILLS.length : bPresetRank)
+    }
     if (a.name !== b.name) return a.name.localeCompare(b.name)
     return sourceRank(b.scope) - sourceRank(a.scope)
   })

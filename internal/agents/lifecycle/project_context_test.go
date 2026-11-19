@@ -25,8 +25,14 @@ func TestProjectInstructionsContextSourceIsOrderedVerbatimAndLive(t *testing.T) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(fragments) != 0 {
-		t.Fatalf("missing project instruction files produced fragments: %#v", fragments)
+	if len(fragments) != 1 {
+		t.Fatalf("empty project should produce only the cache anchor: %#v", fragments)
+	}
+	anchor := fragments[0]
+	if anchor.Source != "writing.context.cache_anchor" || anchor.Resource != "writing-context-cache-anchor" ||
+		anchor.Content != writingContextCacheAnchor || anchor.Stability != agentschema.ContextStablePrefix ||
+		anchor.Placement != agentschema.ContextLeadingMessage || anchor.Rendering != agentschema.ContextRenderVerbatim || anchor.Role != agentschema.User {
+		t.Fatalf("unexpected writing cache anchor: %#v", anchor)
 	}
 
 	if err := os.WriteFile(filepath.Join(workspace, book.AgentInstructionsFileName), []byte("Run focused verification after changes."), 0o644); err != nil {
@@ -39,8 +45,8 @@ func TestProjectInstructionsContextSourceIsOrderedVerbatimAndLive(t *testing.T) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(fragments) != 2 {
-		t.Fatalf("fragment count = %d", len(fragments))
+	if len(fragments) != 3 || fragments[0] != anchor {
+		t.Fatalf("fragments = %#v, want the same anchor before both project instructions", fragments)
 	}
 	wants := []struct {
 		resource string
@@ -52,7 +58,7 @@ func TestProjectInstructionsContextSourceIsOrderedVerbatimAndLive(t *testing.T) 
 		{book.CreatorFileName, "workspace CREATOR.md", "# Creative instructions", "Use close third-person narration."},
 	}
 	for index, want := range wants {
-		fragment := fragments[index]
+		fragment := fragments[index+1]
 		if fragment.Source != want.source || fragment.Resource != want.resource || fragment.Revision == "" ||
 			fragment.Placement != agentschema.ContextLeadingMessage || fragment.Rendering != agentschema.ContextRenderVerbatim || fragment.Role != agentschema.User {
 			t.Fatalf("unexpected project instruction fragment %d: %#v", index, fragment)
@@ -70,11 +76,11 @@ func TestProjectInstructionsContextSourceIsOrderedVerbatimAndLive(t *testing.T) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	if next[0] != fragments[0] {
-		t.Fatalf("unchanged AGENTS.md fragment should preserve exact cache bytes: before=%#v after=%#v", fragments[0], next[0])
+	if next[0] != anchor || next[1] != fragments[1] {
+		t.Fatalf("unchanged anchor and AGENTS.md fragment should preserve exact cache bytes: before=%#v after=%#v", fragments[:2], next[:2])
 	}
-	if next[1].Revision == fragments[1].Revision || !strings.Contains(next[1].Content, "first-person") {
-		t.Fatalf("live CREATOR.md instructions were not refreshed: %#v", next[1])
+	if next[2].Revision == fragments[2].Revision || !strings.Contains(next[2].Content, "first-person") {
+		t.Fatalf("live CREATOR.md instructions were not refreshed: %#v", next[2])
 	}
 	lowerLimit := 64 * 1024
 	limited, err := NewProjectInstructionsContextSource(&config.Config{AgentContexts: config.AgentContextSettings{
@@ -85,6 +91,45 @@ func TestProjectInstructionsContextSourceIsOrderedVerbatimAndLive(t *testing.T) 
 	}
 	if limited.Identity() == source.Identity() {
 		t.Fatal("project instruction identity must change with its configured hard limit")
+	}
+}
+
+func TestWritingCacheAnchorPrecedesEmptyCreatorAndBookProfile(t *testing.T) {
+	workspace, storeRoot := t.TempDir(), t.TempDir()
+	if err := os.WriteFile(filepath.Join(workspace, book.CreatorFileName), []byte("  \n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	cfg := &config.Config{ProjectID: "empty-book", Workspace: workspace, ProjectStoreDir: storeRoot}
+	project, err := NewProjectInstructionsContextSource(cfg, config.AgentKindIDE, book.NewState(workspace))
+	if err != nil {
+		t.Fatal(err)
+	}
+	profile, err := NewBookProfileContextSource(cfg, config.AgentKindIDE, book.NewState(workspace))
+	if err != nil {
+		t.Fatal(err)
+	}
+	combined, err := agentcontext.CombineContextSources(project, profile)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fragments, err := combined.Materialize(context.Background(), agentcontext.ContextRequest{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(fragments) != 1 || fragments[0].Source != "writing.context.cache_anchor" || fragments[0].Content != writingContextCacheAnchor {
+		t.Fatalf("empty Book leading context = %#v, want the constant anchor as the first and only message", fragments)
+	}
+	first := fragments[0]
+	writeStoredBookMeta(t, storeRoot, book.BookMeta{Title: "New book", Description: "A new premise."})
+	if err := os.WriteFile(filepath.Join(workspace, book.CreatorFileName), []byte("Use close third person."), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	fragments, err = combined.Materialize(context.Background(), agentcontext.ContextRequest{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(fragments) < 2 || fragments[0] != first {
+		t.Fatalf("turn-scoped/project changes rotated the first context message: %#v", fragments)
 	}
 }
 

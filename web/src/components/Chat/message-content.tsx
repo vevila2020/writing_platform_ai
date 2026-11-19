@@ -3,7 +3,7 @@ import { Children, Fragment, cloneElement, isValidElement, memo, useMemo } from 
 import type { ReactNode } from 'react'
 import { cjk } from '@streamdown/cjk'
 import { math } from '@streamdown/math'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, Feather } from 'lucide-react'
 import {
   Streamdown,
   defaultRehypePlugins,
@@ -12,17 +12,15 @@ import {
   type StreamdownTranslations,
 } from 'streamdown'
 import { useTranslation } from 'react-i18next'
-import { useReducedMotionConfig } from 'motion/react'
 import { ImagePreviewDialog } from '@/components/common/ImagePreviewDialog'
 import { projectFileAssetURL, type ThinkingChatMessage } from '@/lib/api'
 import { findDialogueHighlightRanges } from '@/lib/dialogue-highlight'
 import { useBottomScrollLock } from '@/hooks/useBottomScrollLock'
 import { isWorkspaceImagePath } from '@/lib/workspace-file-kind'
 import { Reasoning, ReasoningContent, ReasoningTrigger } from '@/components/ai-elements/reasoning'
+import { cn } from '@/lib/utils'
 import { agentContentPreview } from './agent-content-preview'
 import { AgentSourceBadge } from './message-source-badge'
-import { StreamingContentStage } from './StreamingContentStage'
-import { useMotionIntensity } from '@/features/motion/motion-preferences'
 
 const chatMarkdownPlugins = { cjk, math }
 const chatMarkdownControls = {
@@ -57,8 +55,8 @@ interface ChatMarkdownImageProps {
 export function StreamingPlaceholder() {
   const { t } = useTranslation()
   return (
-    <div className="py-1" role="status" aria-live="polite">
-      <span className="shimmer text-sm font-medium [--shimmer-color:var(--nova-text-faint)]">{t('chat.activity.thinking')}</span>
+    <div className="flex items-center gap-2 py-1 text-xs font-medium text-[var(--nova-text-muted)]" role="status">
+      <ThinkingIcon streaming />{t('chat.trace.thinkingActive')}
     </div>
   )
 }
@@ -226,76 +224,84 @@ function highlightDialogueText(text: string, enabled: boolean, keyPrefix: string
   return <Fragment>{nodes}</Fragment>
 }
 
-/**
- * Thinking follows generation until the user takes explicit control. Long
- * reasoning stays cheap to render because it is transcript text, not Markdown.
- */
+const thinkingPlugins = { cjk }
+// Keep transcript references as text. Only a reply should load images or offer actions.
+const thinkingComponents: StreamdownComponents = {
+  strong: ({ children }) => <strong>{children}</strong>,
+  img: ({ alt }) => <>{alt}</>,
+  a: ({ children }) => <>{children}</>,
+  pre: ({ children }) => <pre>{children}</pre>,
+  code: ({ children }) => <code>{children}</code>,
+}
+const thinkingRehypePlugins: NonNullable<React.ComponentProps<typeof Streamdown>['rehypePlugins']> = []
+
+function ThinkingIcon({ streaming }: { streaming: boolean }) {
+  return (
+    <span aria-hidden="true" className={cn(
+      'grid size-6 shrink-0 place-items-center rounded-md',
+      streaming ? 'bg-[var(--nova-warning-bg)] text-[var(--nova-warning)]' : 'bg-[var(--nova-surface-2)] text-[var(--nova-text-muted)]',
+    )}>
+      <Feather className={cn('size-3.5', streaming && 'nova-thinking-pulse')} />
+    </span>
+  )
+}
+
+/** Follow the stream until the reader explicitly folds or opens this entry. */
 export function ThinkingBlock({ message, content, streaming, showAgentSource = true }: { message: ThinkingChatMessage; content: string; streaming: boolean; showAgentSource?: boolean }) {
   const { t } = useTranslation()
-  const motionIntensity = useMotionIntensity()
-  const reducedMotion = useReducedMotionConfig()
-  const preview = agentContentPreview(content)
-  const resetKey = `${message.id || message.created_at || 'thinking'}:thinking-stream`
-  const reveal = streaming && motionIntensity !== 'off' && !reducedMotion ? 'typewriter' : 'instant'
+  const text = (streaming ? message.streaming_target_content : undefined) ?? content
+  const hasText = /\S/.test(text)
   const [expansion, setExpanded] = useVirtualizedMessageState<'auto' | boolean>('thinking-expanded', 'auto')
   const expanded = expansion === 'auto' ? streaming : expansion
-  const contentScrollLock = useBottomScrollLock<HTMLDivElement>({
-    enabled: streaming && expanded,
-    resetKey,
-    contentKey: `${expanded ? 'expanded' : 'collapsed'}:${content.length}`,
+  const scroll = useBottomScrollLock<HTMLDivElement>({
+    enabled: streaming && hasText && expanded,
+    resetKey: message.id || message.created_at,
+    contentKey: text.length,
   })
+  const source = showAgentSource && message.subagent && <AgentSourceBadge message={message} compact />
+
+  if (!hasText) return streaming ? (
+    <div className="flex items-center gap-2"><StreamingPlaceholder />{source}</div>
+  ) : null
 
   return (
-    <div className="flex justify-start">
-      <div className="w-full">
-        <Reasoning isStreaming={streaming} open={expanded} onOpenChange={setExpanded} className="mb-0">
-          <ReasoningTrigger
-            aria-label={t(expanded ? 'chat.trace.collapseThinking' : 'chat.trace.expandThinking')}
-            className="flex min-w-0 items-center gap-1 py-1 text-xs text-[var(--nova-text-muted)] hover:text-[var(--nova-text)]"
+    <Reasoning isStreaming={streaming} open={expanded} onOpenChange={setExpanded}
+      className="mb-0 min-w-0 rounded-lg border border-transparent data-[state=open]:border-[var(--nova-border-soft)] data-[state=open]:bg-[var(--nova-surface)]">
+      <ReasoningTrigger
+        aria-label={t(expanded ? 'chat.trace.collapseThinking' : 'chat.trace.expandThinking')}
+        className="gap-2 rounded-md px-2 py-1.5 text-xs hover:bg-[var(--nova-hover)] focus-visible:outline-2 focus-visible:outline-[var(--nova-accent)]"
+      >
+        <ThinkingIcon streaming={streaming} />
+        <span className="shrink-0 font-medium text-[var(--nova-text)]">{t(streaming ? 'chat.trace.thinkingActive' : 'chat.trace.thinking')}</span>
+        <span className="min-w-0 flex-1 truncate text-left text-[var(--nova-text-faint)]">{!expanded && agentContentPreview(text)}</span>
+        {source}
+        <ChevronDown aria-hidden="true" className={cn('size-3.5 shrink-0 text-[var(--nova-text-faint)]', !expanded && '-rotate-90')} />
+      </ReasoningTrigger>
+      <ReasoningContent className="mt-0">
+        <div
+          ref={scroll.ref}
+          role="region"
+          tabIndex={0}
+          aria-label={t('chat.trace.thinkingContent')}
+          data-nova-scroll-lock="thinking"
+          onScroll={scroll.onScroll}
+          onWheel={scroll.onWheel}
+          onKeyDown={scroll.onKeyDown}
+          className="mx-2 mb-2 max-h-[min(18rem,40dvh)] overflow-y-auto overscroll-contain rounded-sm [scrollbar-width:thin] [overflow-anchor:none] focus-visible:outline-1 focus-visible:outline-[var(--nova-accent)]"
+        >
+          <Streamdown
+            className="nova-thinking-prose"
+            components={thinkingComponents}
+            plugins={thinkingPlugins}
+            rehypePlugins={thinkingRehypePlugins}
+            skipHtml
+            controls={false}
+            tableMaxHeight={0}
           >
-            {streaming && !preview ? (
-              <span className="shimmer shrink-0 text-xs font-medium">{t('chat.activity.thinking')}</span>
-            ) : streaming ? (
-              <span className="shimmer shrink-0 text-xs font-medium">{t('chat.trace.thinking')}</span>
-            ) : (
-              <span className="shrink-0">{t('chat.trace.thinking')}</span>
-            )}
-            {preview ? (
-              <>
-                <span aria-hidden="true" className="shrink-0">·</span>
-                <span data-thinking-preview className="min-w-0 flex-1 truncate text-left">{preview}</span>
-              </>
-            ) : <span className="flex-1" />}
-            {showAgentSource && message.subagent && <AgentSourceBadge message={message} compact />}
-            {expanded ? <ChevronDown aria-hidden="true" className="size-3 shrink-0" /> : <ChevronRight aria-hidden="true" className="size-3 shrink-0" />}
-          </ReasoningTrigger>
-          <ReasoningContent className="mt-0 text-xs">
-            <div data-thinking-scroll-frame className="overflow-hidden rounded-md border border-border/60">
-              <div
-                ref={contentScrollLock.ref}
-                role="region"
-                tabIndex={0}
-                aria-label={t('chat.trace.thinkingContent')}
-                data-nova-scroll-lock="thinking"
-                onScroll={contentScrollLock.onScroll}
-                onWheel={contentScrollLock.onWheel}
-                onKeyDown={contentScrollLock.onKeyDown}
-                className="scroll-fade-y scroll-fade-8 max-h-80 overflow-x-hidden overflow-y-auto overscroll-contain px-2.5 py-2 text-xs leading-4 text-[var(--nova-text-muted)] whitespace-normal break-words [overflow-anchor:none] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[var(--nova-accent)]"
-              >
-                <StreamingContentStage
-                  content={content}
-                  targetContent={streaming ? message.streaming_target_content : undefined}
-                  streaming={streaming}
-                  reveal={reveal}
-                  resetKey={resetKey}
-                >
-                  {(value) => <div data-thinking-text data-streaming-reveal={reveal} className="whitespace-pre-wrap break-words">{value}</div>}
-                </StreamingContentStage>
-              </div>
-            </div>
-          </ReasoningContent>
-        </Reasoning>
-      </div>
-    </div>
+            {text}
+          </Streamdown>
+        </div>
+      </ReasoningContent>
+    </Reasoning>
   )
 }

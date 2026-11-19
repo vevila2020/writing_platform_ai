@@ -76,12 +76,13 @@ func (c *SessionConversation) AssembleModelContext(ctx context.Context, _ string
 		return agentcontext.ModelContextResult{}, err
 	}
 	for _, fragment := range assembled.Fragments {
-		if fragment.Source == "workspace.runtime.stable" && fragment.Truncated {
+		if fragment.Source == "workspace.runtime.dynamic" && fragment.Truncated && strings.Contains(c.dynamicContext, "# Lore Index") {
 			locale := ""
 			if c.cfg != nil {
 				locale = c.cfg.Language
 			}
-			slog.ErrorContext(ctx, "[lore] stable workspace context exceeds injection budget", "bytes", len(c.stableContext), "limit", fragment.Limit)
+			// A clipped Lore index can omit canon entries, so reject the turn context.
+			slog.ErrorContext(ctx, "[lore] turn-scoped workspace context exceeds injection budget", "bytes", len(c.dynamicContext), "limit", fragment.Limit)
 			return agentcontext.ModelContextResult{}, fmt.Errorf("%s", i18n.New(locale).T("lore.index.contextTooLarge", "limit", fragment.Limit))
 		}
 	}

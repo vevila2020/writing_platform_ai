@@ -17,7 +17,6 @@ type IDEStoryTeller struct {
 	Name                    string
 	Description             string
 	Prompt                  string
-	StyleRules              []StyleRule
 	ImagePresetID           string
 	ImagePresetName         string
 	ImagePresetSystemPrompt string
@@ -47,9 +46,8 @@ func ComposeGeneralInstruction(cfg *config.Config) (SystemPromptComposition, err
 // ComposeInstruction assembles and admits the exact Writing Agent system instruction.
 func ComposeInstruction(cfg *config.Config, state *book.State, teller IDEStoryTeller) (SystemPromptComposition, error) {
 	workspace := workspaceForPrompt(cfg, state)
-	builtIn := make([]SystemPromptFragment, 0, 3+len(teller.StyleRules))
+	builtIn := make([]SystemPromptFragment, 0, 3)
 	builtIn = append(builtIn, tellerSystemPromptFragment("ide_teller", "Default Writing Director Rules", teller.ID, teller.Name, teller.Description, teller.Prompt))
-	builtIn = append(builtIn, styleRuleSystemPromptFragments(teller.StyleRules)...)
 	builtIn = append(builtIn, SystemPromptFragment{
 		ID: "builtin_base", Source: "InkDock built-in", Title: "Writing workflow",
 		Purpose: "define the built-in writing workflow and workspace rules",
@@ -97,12 +95,11 @@ func ComposeInteractiveStoryInstruction(cfg *config.Config, state *book.State, t
 			workspace = state.Workspace()
 		}
 	}
-	builtIn := make([]SystemPromptFragment, 0, 3+len(teller.StyleRules))
+	builtIn := make([]SystemPromptFragment, 0, 3)
 	builtIn = append(builtIn, tellerSystemPromptFragment(
 		"interactive_teller", "Storyteller System Rules", teller.StoryTellerID, teller.StoryTellerName,
 		teller.StoryTellerDescription, teller.StoryTellerSystemPrompt,
 	))
-	builtIn = append(builtIn, styleRuleSystemPromptFragments(teller.StyleRules)...)
 	if planningGuide := strings.TrimSpace(teller.PlanningGuide); planningGuide != "" {
 		builtIn = append(builtIn, SystemPromptFragment{
 			ID: "game_planning_guide", Source: "Game planning template", Title: "Game planning guide",
@@ -112,7 +109,6 @@ func ComposeInteractiveStoryInstruction(cfg *config.Config, state *book.State, t
 	}
 	baseInput := teller
 	baseInput.StoryTellerSystemPrompt = ""
-	baseInput.StyleRules = nil
 	baseInput.PlanningGuide = ""
 	baseInput.Workspace = workspace
 	if baseInput.ReplyTargetChars <= 0 && cfg != nil {
@@ -197,54 +193,6 @@ func tellerSystemPromptFragment(id, title, tellerID, name, description, content 
 		Suffix:   "\n\n---\n\n",
 		Overflow: SystemPromptOverflowTruncate,
 	}
-}
-
-func styleRuleSystemPromptFragments(rules []StyleRule) []SystemPromptFragment {
-	entries := make([]SystemPromptFragment, 0, len(rules))
-	ordinal := 0
-	occurrences := make(map[string]int, len(rules))
-	for _, rule := range rules {
-		scene := strings.TrimSpace(rule.Scene)
-		if !rule.Global && scene == "" {
-			continue
-		}
-		if len(rule.StyleReferences) == 0 && len(rule.StyleContents) == 0 {
-			continue
-		}
-		ordinal++
-		content := strings.TrimSpace(StyleRuleEntryInstruction(rule, ordinal))
-		if content == "" {
-			continue
-		}
-		title := "Prose style reference: global"
-		identity := "global"
-		if !rule.Global {
-			title = "Prose style reference: " + scene
-			identity = "scene:" + scene
-		}
-		occurrences[identity]++
-		entries = append(entries, SystemPromptFragment{
-			ID: fmt.Sprintf("style_rule:%s:%03d", shortSystemPromptSHA(systemPromptSHA(identity)), occurrences[identity]), Source: "current narrative style", Title: title,
-			Purpose: "provide optional prose style references for the selected scene",
-			Content: content, Suffix: "\n", Overflow: SystemPromptOverflowTruncate,
-		})
-	}
-	if len(entries) == 0 {
-		return nil
-	}
-	fragments := make([]SystemPromptFragment, 0, len(entries)+2)
-	fragments = append(fragments, SystemPromptFragment{
-		ID: "style_protocol_header", Source: "InkDock built-in", Title: "Prose style reference protocol",
-		Purpose: "describe the provenance and shape of the following style entries",
-		Content: StyleRulesProtocolHeader(), Required: true, Overflow: SystemPromptOverflowReject,
-	})
-	fragments = append(fragments, entries...)
-	fragments = append(fragments, SystemPromptFragment{
-		ID: "style_protocol_footer", Source: "InkDock built-in", Title: "Prose style reference trigger rules",
-		Purpose: "define when and how style references may influence generated prose",
-		Content: StyleRulesProtocolFooter(), Suffix: "\n\n---\n\n", Required: true, Overflow: SystemPromptOverflowReject,
-	})
-	return fragments
 }
 
 func workspaceForPrompt(cfg *config.Config, state *book.State) string {
